@@ -256,8 +256,10 @@ body.searching #metrics, body.searching #caption { display: none; }
 .band-head.muted { color: var(--ink-3); font-size: 0.95rem; }
 .tonight-note { font-size: 13.5px; color: var(--ink-2); background: var(--chip); border-radius: 12px; padding: 10px 12px; margin: 0 0 12px; grid-column: 1 / -1; }
 .chip.ok { background: color-mix(in srgb, #2d6a4f 14%, transparent); color: #1b4332; border-color: transparent; }
+.chip.special { background: color-mix(in srgb, var(--accent) 28%, var(--surface-solid)); color: #6a4510; border-color: color-mix(in srgb, var(--accent) 70%, transparent); font-weight: 700; }
 @media (prefers-color-scheme: dark) {
   .chip.ok { background: color-mix(in srgb, #95d5b2 18%, transparent); color: #d8f3dc; }
+  .chip.special { background: color-mix(in srgb, var(--accent) 22%, transparent); color: #f0c36a; border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
 }
 
 /* ---- Plan a night ---- */

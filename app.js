@@ -68,19 +68,49 @@
     try { return new Intl.DateTimeFormat("en-AU", { timeZone: "Australia/Sydney", weekday: "long" }).format(new Date()); }
     catch (e) { return WEEKDAYS[new Date().getDay()]; }
   }
+  function normByoDays(p) {
+    var d = p.byoDays;
+    if (d == null || d === "" || (Array.isArray(d) && !d.length)) return [];
+    return (Array.isArray(d) ? d : [d]).map(function (x) { return String(x).trim().toLowerCase(); }).filter(Boolean);
+  }
+  // Every-day wording. A full Sun–Sat list is handled separately so it is not "tonight only".
+  var ALWAYS_BYO = { daily: 1, everyday: 1, "every day": 1, "every night": 1, "all week": 1, "all days": 1, "any day": 1, "7 days": 1, "seven days": 1 };
+  function hasAlwaysToken(normed) {
+    return normed.some(function (x) { return ALWAYS_BYO[x]; });
+  }
+  function coversEveryWeekday(normed) {
+    var have = {};
+    normed.forEach(function (x) {
+      if (WEEKDAYS.some(function (w) { return w.toLowerCase() === x; })) have[x] = 1;
+    });
+    return WEEKDAYS.every(function (w) { return have[w.toLowerCase()]; });
+  }
+  function isAlwaysByoSchedule(normed) {
+    return !normed.length || hasAlwaysToken(normed) || coversEveryWeekday(normed);
+  }
   function byoTonightStatus(p) {
     if (p.byoTonight === true) return "yes";
     if (p.byoTonight === false) return "no";
-    var d = p.byoDays;
-    if (d == null || d === "" || (Array.isArray(d) && !d.length)) return "unknown";
+    var normed = normByoDays(p);
+    if (!normed.length) return "unknown";
     var today = sydneyWeekday().toLowerCase();
-    var items = Array.isArray(d) ? d : [d];
-    var normed = items.map(function (x) { return String(x).trim().toLowerCase(); });
-    if (normed.indexOf("daily") >= 0) return "yes";
+    if (hasAlwaysToken(normed)) return "yes";
     if (normed.indexOf("weeknights") >= 0 || normed.indexOf("weeknight") >= 0) {
       return ["monday", "tuesday", "wednesday", "thursday"].indexOf(today) >= 0 ? "yes" : "no";
     }
     return normed.indexOf(today) >= 0 ? "yes" : "no";
+  }
+  // Limited days that include today — not "no byoDays" and not an every-day schedule.
+  function isByoTonightOnly(p) {
+    if (p.byoTonight === false) return false;
+    var normed = normByoDays(p);
+    if (isAlwaysByoSchedule(normed)) return false;
+    if (byoTonightStatus(p) !== "yes") return false;
+    var today = sydneyWeekday().toLowerCase();
+    if (normed.indexOf("weeknights") >= 0 || normed.indexOf("weeknight") >= 0) {
+      return ["monday", "tuesday", "wednesday", "thursday"].indexOf(today) >= 0;
+    }
+    return normed.indexOf(today) >= 0;
   }
   function parseCorkageDollars(p) {
     // Best-effort parse of "$10 a bottle" / "$5 pp" — returns {amount, per:"bottle"|"person"|null, unknown:bool}
@@ -230,7 +260,8 @@
     var ton = tone || (state.tonight ? byoTonightStatus(p) : "");
     var tonightChip = "";
     if (state.tonight) {
-      if (ton === "yes") tonightChip = chip("BYO tonight", "tint ok");
+      if (isByoTonightOnly(p)) tonightChip = chip("BYO tonight only", "special");
+      else if (ton === "yes") tonightChip = chip("BYO tonight", "tint ok");
       else if (ton === "no") tonightChip = chip("Other night", "muted");
       else tonightChip = chip("BYO days unknown — call ahead", "warn");
     }
@@ -287,6 +318,10 @@
         var st = byoTonightStatus(p);
         if (st === "yes") yes.push(p); else if (st === "no") no.push(p); else unk.push(p);
       });
+      // Limited "tonight only" matches first, then every-day BYO. Nothing is removed.
+      yes.sort(function (a, b) {
+        return (isByoTonightOnly(a) ? 0 : 1) - (isByoTonightOnly(b) ? 0 : 1);
+      });
       list = yes.concat(unk, no);
     }
 
@@ -313,7 +348,7 @@
       if (allUnknown) {
         parts.push('<p class="tonight-note" role="status">We don’t know BYO days for these places yet — call ahead. Order is otherwise unchanged.</p>');
       } else {
-        parts.push('<p class="tonight-note" role="status">Showing places that look BYO-friendly <strong>tonight (' + esc(sydneyWeekday()) + ', Sydney)</strong> first. Others stay visible underneath — never removed.</p>');
+        parts.push('<p class="tonight-note" role="status">Showing places that look BYO-friendly <strong>tonight (' + esc(sydneyWeekday()) + ', Sydney)</strong> first. <strong>BYO tonight only</strong> means that place isn’t BYO every night. Always-BYO places stay in the list.</p>');
       }
       parts.push('<div class="grid">');
       shown.forEach(function (p) {
