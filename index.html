@@ -156,7 +156,6 @@
 
   <!-- Sticky corkage vs wine-list calculator -->
   <aside id="calcSticky" class="calc-sticky" aria-label="Corkage calculator">
-    <button type="button" id="calcToggle" class="calc-toggle" aria-expanded="false">Corkage vs wine list</button>
     <div id="calcPanel" class="calc-panel" hidden>
       <p class="calc-lead">Is BYO actually cheaper tonight? Prefills corkage when we know it — otherwise type it in.</p>
       <label class="calc-field">Place <select id="calcPlace"><option value="">— optional —</option></select></label>
@@ -169,6 +168,7 @@
       <p id="calcCorkHint" class="calc-hint" hidden></p>
       <div id="calcResult" class="calc-result" aria-live="polite">Enter corkage and a bottle price to compare.</div>
     </div>
+    <button type="button" id="calcToggle" class="calc-toggle" aria-expanded="false" aria-controls="calcPanel">Corkage vs wine list</button>
   </aside>
 
   <script src="data.js"></script>
