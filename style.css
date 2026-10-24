@@ -168,9 +168,12 @@ button { font: inherit; }
 
 /* Cards */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-.group-head { display: flex; align-items: baseline; gap: 10px; margin: 18px 0 10px; font-family: var(--display); font-size: 21px; font-weight: 650; }
+.group-head { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; margin: 18px 0 10px; font-family: var(--display); font-size: 21px; font-weight: 650; }
 .group-head:first-child { margin-top: 0; }
-.group-head span { font-family: var(--font); font-size: 13px; font-weight: 500; color: var(--ink-3); }
+.group-title { min-width: 0; }
+.group-count { font-family: var(--font); font-size: 13px; font-weight: 500; color: var(--ink-3); }
+.group-see { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--primary); background: var(--surface-solid); color: var(--primary); font-family: var(--font); font-size: 15px; font-weight: 650; line-height: 1; white-space: nowrap; cursor: pointer; }
+.group-see:active { background: var(--primary); color: var(--primary-ink); }
 .card { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 8px; padding: 16px 16px 14px 21px; border-radius: var(--r-lg); background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); box-shadow: var(--shadow); }
 .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(var(--c), color-mix(in srgb, var(--c) 55%, transparent)); }
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
@@ -308,7 +311,7 @@ body.plan-mode .plan-btn { /* keep visible */ }
 
 /* ---- Corkage calculator sticky ---- */
 .calc-sticky {
-  position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40;
+  position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 40;
   pointer-events: none;
 }
 .calc-sticky .calc-toggle, .calc-sticky .calc-panel { pointer-events: auto; }
@@ -339,4 +342,4 @@ body.plan-mode .plan-btn { /* keep visible */ }
 }
 body { padding-bottom: 8px; }
 
-.page { padding-bottom: 72px; }
+.page { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
