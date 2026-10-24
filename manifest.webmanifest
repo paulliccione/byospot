@@ -1,7 +1,7 @@
 {
   "name": "BYO Spot",
   "short_name": "BYO Spot",
-  "description": "Every BYO restaurant in Sydney rated 4.0★ or higher on Google, ranked region by region. Bring the wine.",
+  "description": "Every BYO restaurant we could find rated 4.0★ or higher on Google — Sydney, the Blue Mountains, Melbourne and the Victorian coast. Bring the wine.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -6,7 +6,23 @@
   var norm = function (s) { return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); };
   var slug = function (s) { return norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
 
-  var REGIONS = D.regions;
+  var REGIONS = D.regions || [];
+  // Cities drive the City / area chips. Older data.js files are Sydney-only.
+  var CITIES = (D.cities && D.cities.length) ? D.cities : [{ id: "Sydney", label: "Sydney", regions: REGIONS.slice() }];
+  function cityById(id) {
+    for (var i = 0; i < CITIES.length; i++) if (CITIES[i].id === id) return CITIES[i];
+    return CITIES[0];
+  }
+  function activeCity() { return cityById(state.city); }
+  function activeRegions() {
+    var regions = activeCity().regions;
+    return (regions && regions.length) ? regions : REGIONS;
+  }
+  function inSelectedCity(p) {
+    var city = activeCity();
+    if (p.city) return p.city === city.id;
+    return activeRegions().indexOf(p.region) >= 0;
+  }
   var places = D.places.slice();
   // Per-region rank = position inside its region in data.js (pinned places first).
   var byRegion = {};
@@ -15,6 +31,17 @@
     p.id = p.id || (norm(p.name) + "-" + norm(p.suburb)).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || ("p" + i);
     (byRegion[p.region] = byRegion[p.region] || []).push(p);
   });
+  // A few border suburbs are listed in two regions. Keep both rows, but give the
+  // second a distinct id so Plan a night doesn't treat them as one place.
+  var seenId = {};
+  places.forEach(function (p) {
+    if (!seenId[p.id]) { seenId[p.id] = 1; return; }
+    var regionSlug = norm(p.region).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    var id = p.id + "-" + regionSlug, n = 2;
+    while (seenId[id]) { id = p.id + "-" + regionSlug + "-" + n; n++; }
+    p.id = id;
+    seenId[id] = 1;
+  });
   var byId = {}; places.forEach(function (p) { byId[p.id] = p; });
   Object.keys(byRegion).forEach(function (r) {
     byRegion[r].sort(function (a, b) { return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || a._i - b._i; });
@@ -22,9 +49,12 @@
   });
   var regionIndex = function (r) { var i = REGIONS.indexOf(r); return i < 0 ? 99 : i; };
   places.sort(function (a, b) { return regionIndex(a.region) - regionIndex(b.region) || a._rank - b._rank; });
-  places.forEach(function (p) { p._search = norm([p.name, p.suburb, p.cuisine, /^unknown\b/i.test(p.dish || "") ? "" : p.dish, p.region].join(" ")); });
+  places.forEach(function (p) { p._search = norm([p.name, p.suburb, p.cuisine, /^unknown\b/i.test(p.dish || "") ? "" : p.dish, p.region, p.city].join(" ")); });
   var hero = places.filter(function (p) { return p.pinned; })[0] || places[0];
-  var count = function (r) { return (byRegion[r] || []).length; };
+  function count(r) {
+    var cityId = activeCity().id;
+    return (byRegion[r] || []).filter(function (p) { return !p.city || p.city === cityId; }).length;
+  }
   var famSet = D.families.filter(function (f) { return places.some(function (p) { return p.family === f; }); });
 
   function stars(n) { var f = Math.round(n); return "★".repeat(f) + "☆".repeat(5 - f); }
@@ -62,7 +92,7 @@
   $("summary").textContent = D.summary;
 
   // State
-  var state = { q: "", region: "All", suburb: "All", fam: "All", price: "Any", deals: false, takeaway: false, tonight: false, sort: "region", loc: null, subMore: false, limit: 24, planMode: false, picks: [] };
+  var state = { q: "", city: CITIES[0].id, region: "All", suburb: "All", fam: "All", price: "Any", deals: false, takeaway: false, tonight: false, sort: "region", loc: null, subMore: false, limit: 24, planMode: false, picks: [] };
   var WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   function sydneyWeekday() {
     try { return new Intl.DateTimeFormat("en-AU", { timeZone: "Australia/Sydney", weekday: "long" }).format(new Date()); }
@@ -142,14 +172,20 @@
   }
   renderHero();
 
-  // Metrics. Region count is unused. Takeaway stays hidden until phone
-  // verification confirms it — the old "N of N Takeaway" figure was wrong.
-  $("metrics").innerHTML = [
-    [places.length, "BYO spots"],
-    [places.filter(function (p) { return p.deal; }).length, "With EatClub deals"]
-  ].map(function (m) { return '<div class="metric"><div class="v">' + esc(m[0]) + '</div><div class="l">' + esc(m[1]) + "</div></div>"; }).join("");
-
-  $("caption").textContent = "Every BYO restaurant we could find rated 4.0★ or higher on Google, across Sydney's " + REGIONS.length + " regions and ranked by Google rating. Here you see the top 3 of each; tap See all, or pick a region and suburb. Ratings, prices and EatClub deals as of " + D.asOf + ".";
+  // Metrics stay the two honest figures (region count and takeaway stay hidden).
+  // Numbers follow the selected city, not the whole file.
+  function renderMetrics() {
+    var list = places.filter(inSelectedCity);
+    $("metrics").innerHTML = [
+      [list.length, "BYO spots"],
+      [list.filter(function (p) { return p.deal; }).length, "With EatClub deals"]
+    ].map(function (m) { return '<div class="metric"><div class="v">' + esc(m[0]) + '</div><div class="l">' + esc(m[1]) + "</div></div>"; }).join("");
+  }
+  function renderCaption() {
+    var city = activeCity();
+    var n = activeRegions().length;
+    $("caption").textContent = "Every BYO restaurant we could find rated 4.0★ or higher on Google in " + city.label + " (" + n + " " + (n === 1 ? "region" : "regions") + "), ranked by Google rating. Top 3 per region shown first; tap See all, or pick a region and suburb. As of " + D.asOf + ".";
+  }
 
   // Generic pressed-button group
   function group(el, opts, key, after) {
@@ -164,15 +200,43 @@
       render();
     };
   }
-  group($("regionChips"), [{ v: "All", html: "All Sydney" }].concat(REGIONS.map(function (r) {
-    var n = count(r);
-    return { v: r, cls: n ? "" : "soon", html: esc(r) + (n ? '<span class="count">' + n + "</span>" : "<small>soon</small>") };
-  })), "region", function () {
-    state.suburb = "All"; state.subMore = false;
-    if (state.region !== "All" && state.sort === "region") state.sort = "rank";
-    if (state.region === "All" && state.sort === "rank") state.sort = "region";
-    renderSuburbs(); renderSort();
-  });
+  function renderRegions() {
+    var city = activeCity();
+    group($("regionChips"), [{ v: "All", html: "All " + esc(city.label) }].concat(activeRegions().map(function (r) {
+      var n = count(r);
+      return { v: r, cls: n ? "" : "soon", html: esc(r) + (n ? '<span class="count">' + n + "</span>" : "<small>soon</small>") };
+    })), "region", function () {
+      state.suburb = "All"; state.subMore = false;
+      if (state.region !== "All" && state.sort === "region") state.sort = "rank";
+      if (state.region === "All" && state.sort === "rank") state.sort = "region";
+      invalidateCalcPlaces();
+      renderSuburbs(); renderSort();
+    });
+    var scroller = $("regionChips").parentElement;
+    if (scroller) scroller.scrollLeft = 0;
+  }
+  function cityPlaceCount(c) {
+    var regs = c.regions || [];
+    return places.filter(function (p) { return p.city ? p.city === c.id : regs.indexOf(p.region) >= 0; }).length;
+  }
+  function renderCityChips() {
+    var el = $("cityChips");
+    if (!el) return;
+    group(el, CITIES.map(function (c) {
+      return { v: c.id, html: esc(c.label) + '<span class="count">' + cityPlaceCount(c) + "</span>" };
+    }), "city", function () {
+      state.region = "All";
+      state.suburb = "All";
+      state.subMore = false;
+      if (state.sort === "rank") state.sort = "region";
+      invalidateCalcPlaces();
+      renderRegions();
+      renderSuburbs();
+      renderSort();
+    });
+  }
+  renderCityChips();
+  renderRegions();
   group($("famSeg"), ["All"].concat(famSet).map(function (f) { return { v: f, html: esc(f) }; }), "fam");
   group($("priceSeg"), ["Any", "$", "$$", "$$$", "$$$$"].map(function (f) { return { v: f, html: esc(f) }; }), "price");
   $("priceLegend").innerHTML = (D.priceLegend || []).map(function (l) { return "<span><b>" + esc(l.level) + "</b> " + esc(l.label) + "</span>"; }).join("") + '<span class="ln">' + esc(D.priceLegendNote || "") + "</span>";
@@ -290,10 +354,13 @@
   }
 
   function render() {
+    renderMetrics();
+    renderCaption();
     var q = norm(state.q).trim();
     var terms = q ? q.split(/\s+/) : [];
     var list = places.filter(function (p) {
-      return (state.region === "All" || p.region === state.region) &&
+      return inSelectedCity(p) &&
+        (state.region === "All" || p.region === state.region) &&
         (state.suburb === "All" || p.suburb === state.suburb) &&
         (state.fam === "All" || p.family === state.fam) &&
         (state.price === "Any" || p.price === state.price) &&
@@ -303,7 +370,7 @@
     var filtered = !!(q || state.suburb !== "All" || state.fam !== "All" || state.price !== "Any" || state.deals || state.takeaway);
     var tonightOn = !!state.tonight;
     var grouped = state.sort === "region" && state.region === "All" && !tonightOn;
-    var showHero = !filtered && !tonightOn && !state.planMode && (grouped || state.sort === "rank") && (state.region === "All" || state.region === hero.region);
+    var showHero = !filtered && !tonightOn && !state.planMode && (grouped || state.sort === "rank") && (state.region === "All" || state.region === hero.region) && inSelectedCity(hero);
     $("hero").hidden = !showHero;
     document.body.classList.toggle("searching", !!q);
     document.body.classList.toggle("plan-mode", !!state.planMode);
@@ -328,7 +395,7 @@
     var html = "", total = list.length + (showHero ? 1 : 0);
     if (grouped) {
       var cap = filtered ? 6 : PER_GROUP;
-      REGIONS.forEach(function (r) {
+      activeRegions().forEach(function (r) {
         var g = list.filter(function (p) { return p.region === r; });
         var n = g.length + (showHero && hero.region === r ? 1 : 0);
         if (!g.length) return;
@@ -348,7 +415,7 @@
       if (allUnknown) {
         parts.push('<p class="tonight-note" role="status">We don’t know BYO days for these places yet — call ahead. Order is otherwise unchanged.</p>');
       } else {
-        parts.push('<p class="tonight-note" role="status">Showing places that look BYO-friendly <strong>tonight (' + esc(sydneyWeekday()) + ', Sydney)</strong> first. <strong>BYO tonight only</strong> means that place isn’t BYO every night. Always-BYO places stay in the list.</p>');
+        parts.push('<p class="tonight-note" role="status">Showing places that look BYO-friendly <strong>tonight (' + esc(sydneyWeekday()) + ', ' + esc(activeCity().label) + ')</strong> first. <strong>BYO tonight only</strong> means that place isn’t BYO every night. Always-BYO places stay in the list.</p>');
       }
       parts.push('<div class="grid">');
       shown.forEach(function (p) {
@@ -371,8 +438,9 @@
     }
     $("grid").innerHTML = list.length ? html : "";
     var tonightBit = tonightOn ? (", " + yes.length + " look good tonight") : "";
-    $("resultCount").textContent = total + (total === 1 ? " place" : " places") + (state.region === "All" ? " across Sydney" : " in " + state.region) + (state.suburb !== "All" ? " · " + state.suburb : "") + (state.sort === "near" ? ", nearest first" : grouped && !filtered ? ", top 3 per region" : "") + tonightBit;
-    $("listHeading").textContent = state.region === "All" ? "All of Sydney" : state.region;
+    var cityLabel = activeCity().label;
+    $("resultCount").textContent = total + (total === 1 ? " place" : " places") + (state.region === "All" ? " across " + cityLabel : " in " + state.region) + (state.suburb !== "All" ? " · " + state.suburb : "") + (state.sort === "near" ? ", nearest first" : grouped && !filtered ? ", top 3 per region" : "") + tonightBit;
+    $("listHeading").textContent = state.region === "All" ? "All of " + cityLabel : state.region;
     var on = (state.fam !== "All") + (state.price !== "Any") + state.deals + state.takeaway;
     $("moreFiltersLabel").textContent = on ? "More filters · " + on + " on" : "More filters";
 
@@ -621,12 +689,20 @@
     $("calcPlace").value = id;
     applyCalcPlace(p);
   }
+  function invalidateCalcPlaces() {
+    var sel = $("calcPlace");
+    if (!sel) return;
+    sel.removeAttribute("data-ready");
+    if ($("calcPanel") && !$("calcPanel").hidden) ensureCalcPlaces();
+  }
   function ensureCalcPlaces() {
     var sel = $("calcPlace");
     if (sel.getAttribute("data-ready") === "1") return;
     var opts = ['<option value="">— type corkage yourself —</option>'];
     var pool = state.picks.length ? state.picks.map(function (id) { return byId[id]; }).filter(Boolean)
-      : (state.region !== "All" ? places.filter(function (p) { return p.region === state.region; }) : places.slice(0, 80));
+      : places.filter(function (p) {
+          return inSelectedCity(p) && (state.region === "All" || p.region === state.region);
+        }).slice(0, 80);
     pool.slice(0, 100).forEach(function (p) {
       opts.push('<option value="' + esc(p.id) + '">' + esc(p.name) + " (" + esc(p.suburb) + ")</option>");
     });

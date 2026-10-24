@@ -1,6 +1,6 @@
 # BYO Spot
 
-Sydney BYO restaurant finder (static, view-only PWA): `index.html`, `style.css` ("Shiraz" theme), `app.js`, `data.js`, `sw.js`, `manifest.webmanifest`, `icons/`, `fonts/` (Inter and Fraunces, OFL).
+BYO restaurant finder (static, view-only PWA) for Sydney, the Blue Mountains, Melbourne and the Victorian coast: `index.html`, `style.css` ("Shiraz" theme), `app.js`, `data.js`, `sw.js`, `manifest.webmanifest`, `icons/`, `fonts/` (Inter and Fraunces, OFL). City / area chips read `cities` in `data.js` (fallback: a single Sydney city built from `regions`).
 
 ## Updating the data (monthly)
 
@@ -18,7 +18,7 @@ Ranks are per region, taken from array order. Regions with no places show as "so
 
 ## How the list behaves (several hundred places)
 
-- **All Sydney** shows each region grouped, with the top 3 as compact cards (tap "Corkage, price & more" for details) and a "See all N in Region" button that opens that region.
+- **City / area** filters the list to that city's regions and places. **All of a city** shows each of its regions grouped, with the top 3 as compact cards (tap "Corkage, price & more" for details) and a "See all" button in the region header that opens that region.
 - **Search, Stars and Nearest** show a flat list that renders 24 cards at a time ("Show more", which also loads on scroll).
 - **Suburb chips:** if a region has more than 12 suburbs, the top 10 appear plus a "More +N" chip.
 - **Research placeholders:** a dish of "Unknown…" is hidden, and "Unknown" corkage shows as "Corkage: ask".
