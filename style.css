@@ -172,7 +172,7 @@ button { font: inherit; }
 .group-head:first-child { margin-top: 0; }
 .group-title { min-width: 0; }
 .group-count { font-family: var(--font); font-size: 13px; font-weight: 500; color: var(--ink-3); }
-.group-see { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 44px; margin: -8px 0; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--primary); background: var(--surface-solid); color: var(--primary); font-family: var(--font); font-size: 15px; font-weight: 650; line-height: 1; white-space: nowrap; cursor: pointer; }
+.group-see { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--primary); background: var(--surface-solid); color: var(--primary); font-family: var(--font); font-size: 15px; font-weight: 650; line-height: 1; white-space: nowrap; cursor: pointer; }
 .group-see:active { background: var(--primary); color: var(--primary-ink); }
 .card { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 8px; padding: 16px 16px 14px 21px; border-radius: var(--r-lg); background: var(--surface); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); box-shadow: var(--shadow); }
 .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(var(--c), color-mix(in srgb, var(--c) 55%, transparent)); }
