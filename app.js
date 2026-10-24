@@ -179,8 +179,9 @@
   function renderSort() {
     var opts = [state.region === "All" ? { v: "region", html: "By region" } : { v: "rank", html: "Ranked" }];
     opts.push({ v: "stars", html: "Stars" });
-    opts.push({ v: "near", html: "Nearest", disabled: !state.loc });
-    group($("sortSeg"), opts, "sort");
+    // Nearest only appears once location is known. Near me is the only way to ask for it.
+    if (state.loc) opts.push({ v: "near", html: "Nearest" });
+    group($("sortSeg"), opts, "sort", syncNearBtn);
   }
   renderSort();
 
@@ -189,18 +190,26 @@
   search.addEventListener("input", function () { state.q = search.value; $("clearSearch").hidden = !search.value; render(); });
   $("clearSearch").addEventListener("click", function () { search.value = ""; state.q = ""; $("clearSearch").hidden = true; search.focus(); render(); });
 
-  // Near me
+  // Near me — the only entry point for location. Once it succeeds, the Nearest chip appears.
   var msg = $("locMsg"), nearBtn = $("nearMe");
+  function syncNearBtn() {
+    var on = !!(state.loc && state.sort === "near");
+    var label = nearBtn.querySelector("span");
+    if (label) label.textContent = on ? "Nearest first" : "Near me";
+    nearBtn.setAttribute("aria-pressed", String(on));
+    if (on) nearBtn.setAttribute("aria-label", "Nearest first");
+    else nearBtn.removeAttribute("aria-label");
+  }
   function showMsg(html) { msg.innerHTML = html; msg.hidden = !html; }
   nearBtn.addEventListener("click", function () {
-    if (state.loc && state.sort === "near") { state.sort = "rank"; nearBtn.setAttribute("aria-pressed", "false"); renderSort(); render(); return; }
+    if (state.loc && state.sort === "near") { state.sort = "rank"; syncNearBtn(); renderSort(); render(); return; }
     if (!("geolocation" in navigator)) { showMsg("<strong>Location isn't available</strong> on this browser, so we can't sort by distance. Try picking a region instead."); return; }
     nearBtn.setAttribute("aria-busy", "true");
     navigator.geolocation.getCurrentPosition(function (pos) {
       nearBtn.removeAttribute("aria-busy");
       state.loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       places.forEach(function (p) { p._dist = haversine(state.loc.lat, state.loc.lng, p.lat, p.lng); });
-      state.sort = "near"; nearBtn.setAttribute("aria-pressed", "true");
+      state.sort = "near"; syncNearBtn();
       showMsg(""); renderSort(); render();
     }, function (err) {
       nearBtn.removeAttribute("aria-busy");
