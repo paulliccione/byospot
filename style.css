@@ -292,6 +292,14 @@ button { font: inherit; }
    stays in view once the cards scroll up. */
 body.searching #metrics, body.searching #caption { display: none; }
 body.searching .searchbar { background: var(--bg); }
+/* Filters stay above the heading so the sticky title never covers the All Sydney row. */
+body.searching #listSection { display: flex; flex-direction: column; }
+body.searching #listSection .filters { order: 1; }
+body.searching #listSection .section-head { order: 2; }
+body.searching #listSection #resultCount { order: 3; }
+body.searching #listSection #grid { order: 4; }
+body.searching #listSection #empty { order: 5; }
+body.searching #listSection #footSentinel { order: 6; }
 body.searching .section-head {
   position: sticky;
   top: var(--searchbar-h, 68px);

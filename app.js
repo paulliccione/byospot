@@ -365,10 +365,21 @@
     cancelScrollToMatches();
     scrollMatchesIntoView();
   });
+  function revealListHeading() {
+    syncSearchbarHeight();
+    var head = $("listHeading");
+    if (!head) return;
+    var bar = document.querySelector(".searchbar");
+    var stickyH = bar ? bar.offsetHeight : 0;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var y = window.pageYOffset + head.getBoundingClientRect().top - stickyH - 8;
+    window.scrollTo({ top: Math.max(0, y), behavior: reduce ? "auto" : "smooth" });
+  }
   $("clearSearch").addEventListener("click", function () {
     search.value = ""; state.q = ""; $("clearSearch").hidden = true; search.focus();
     cancelScrollToMatches();
     render();
+    revealListHeading();
   });
   window.addEventListener("resize", syncSearchbarHeight);
   syncSearchbarHeight();
