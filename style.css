@@ -287,8 +287,30 @@ button { font: inherit; }
 .more-filters[open] summary::after { transform: rotate(180deg); }
 .more-filters summary small { font-weight: 500; color: var(--ink-3); font-size: 13px; }
 .more-body { display: flex; flex-direction: column; gap: 14px; padding: 6px 0 4px; }
-/* While searching, get the summary out of the way so results sit near the top */
+/* While searching, get the summary out of the way so results sit near the top.
+   The list heading sticks under the search bar so "Matching Parramatta · Western Sydney"
+   stays in view once the cards scroll up. */
 body.searching #metrics, body.searching #caption { display: none; }
+body.searching .searchbar { background: var(--bg); }
+body.searching .section-head {
+  position: sticky;
+  top: var(--searchbar-h, 68px);
+  z-index: 8;
+  margin: 0 calc(-16px - env(safe-area-inset-right, 0px)) 8px calc(-16px - env(safe-area-inset-left, 0px));
+  padding: 4px calc(16px + env(safe-area-inset-right, 0px)) 8px calc(16px + env(safe-area-inset-left, 0px));
+  background: var(--bg);
+  box-shadow: 0 10px 16px -14px rgba(46, 18, 54, .45);
+}
+body.searching #listHeading { margin: 0; color: var(--primary); }
+body.searching #listHeading .head-ctx {
+  color: var(--ink-2);
+  font-family: var(--font);
+  font-size: 0.58em;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+body.searching .result-count { color: var(--ink-2); font-weight: 650; }
+#listSection { scroll-margin-top: var(--searchbar-h, 68px); }
 
 
 /* ---- BYO tonight soft preference ---- */

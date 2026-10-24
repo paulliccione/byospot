@@ -93,6 +93,7 @@
 
   // State
   var state = { q: "", city: CITIES[0].id, region: "All", suburb: "All", fam: "All", price: "Any", deals: false, takeaway: false, tonight: false, sort: "region", loc: null, subMore: false, limit: 24, planMode: false, picks: [] };
+  var BASE_TITLE = document.title;
   var WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   function sydneyWeekday() {
     try { return new Intl.DateTimeFormat("en-AU", { timeZone: "Australia/Sydney", weekday: "long" }).format(new Date()); }
@@ -294,10 +295,83 @@
   }
   renderSort();
 
-  // Search
+  // Search. The region chip stays put; the list heading is what says the query worked.
   var search = $("search");
-  search.addEventListener("input", function () { state.q = search.value; $("clearSearch").hidden = !search.value; render(); });
-  $("clearSearch").addEventListener("click", function () { search.value = ""; state.q = ""; $("clearSearch").hidden = true; search.focus(); render(); });
+  var scrollTimer = null;
+  function syncSearchbarHeight() {
+    var bar = document.querySelector(".searchbar");
+    if (bar) document.documentElement.style.setProperty("--searchbar-h", bar.offsetHeight + "px");
+  }
+  function searchContext(matches) {
+    var regions = [], suburbs = [];
+    matches.forEach(function (p) {
+      if (regions.indexOf(p.region) < 0) regions.push(p.region);
+      if (suburbs.indexOf(p.suburb) < 0) suburbs.push(p.suburb);
+    });
+    var raw = String(state.q || "").trim();
+    if (regions.length === 1) {
+      if (suburbs.length === 1 && norm(suburbs[0]) !== norm(raw)) return suburbs[0] + ", " + regions[0];
+      return regions[0];
+    }
+    if (!matches.length && state.region !== "All") return state.suburb !== "All" ? state.suburb + ", " + state.region : state.region;
+    return "";
+  }
+  function setListHeading(matches) {
+    var raw = String(state.q || "").trim();
+    var el = $("listHeading");
+    if (!raw) {
+      el.textContent = state.region === "All" ? "All of " + activeCity().label : state.region;
+      document.title = BASE_TITLE;
+      return;
+    }
+    var ctx = searchContext(matches);
+    var title = !matches.length
+      ? "No results for \"" + raw + "\"" + (ctx ? " · " + ctx : "")
+      : (ctx ? "Matching " + raw + " · " + ctx : "Results for \"" + raw + "\"");
+    if (matches.length && ctx) el.innerHTML = esc("Matching " + raw) + ' <span class="head-ctx">· ' + esc(ctx) + "</span>";
+    else el.textContent = title;
+    document.title = title + " · BYO Spot";
+  }
+  function scrollMatchesIntoView() {
+    syncSearchbarHeight();
+    var grid = $("grid");
+    var anchor = $("resultCount");
+    if (!grid || !anchor || !grid.children.length) return;
+    var bar = document.querySelector(".searchbar");
+    var head = document.querySelector("#listSection .section-head");
+    var chrome = (bar ? bar.offsetHeight : 0) + (head ? head.offsetHeight : 0);
+    var viewH = window.innerHeight || document.documentElement.clientHeight || 800;
+    var anchorTop = anchor.getBoundingClientRect().top;
+    var gridTop = grid.getBoundingClientRect().top;
+    if (anchorTop >= chrome - 8 && anchorTop < chrome + 64 && gridTop < viewH - 80) return;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var y = window.pageYOffset + anchorTop - chrome - 6;
+    window.scrollTo({ top: Math.max(0, y), behavior: reduce ? "auto" : "smooth" });
+  }
+  function cancelScrollToMatches() { if (scrollTimer) { clearTimeout(scrollTimer); scrollTimer = null; } }
+  function scheduleScrollToMatches() {
+    cancelScrollToMatches();
+    scrollTimer = setTimeout(function () { scrollTimer = null; scrollMatchesIntoView(); }, 220);
+  }
+  search.addEventListener("input", function () {
+    state.q = search.value;
+    $("clearSearch").hidden = !search.value;
+    render();
+    if (norm(state.q).trim() && $("grid").children.length) scheduleScrollToMatches();
+    else cancelScrollToMatches();
+  });
+  search.addEventListener("search", function () {
+    if (!norm(state.q).trim() || !$("grid").children.length) return;
+    cancelScrollToMatches();
+    scrollMatchesIntoView();
+  });
+  $("clearSearch").addEventListener("click", function () {
+    search.value = ""; state.q = ""; $("clearSearch").hidden = true; search.focus();
+    cancelScrollToMatches();
+    render();
+  });
+  window.addEventListener("resize", syncSearchbarHeight);
+  syncSearchbarHeight();
 
   // Near me — the only entry point for location. Once it succeeds, the Nearest chip appears.
   var msg = $("locMsg"), nearBtn = $("nearMe");
@@ -456,8 +530,16 @@
     $("grid").innerHTML = list.length ? html : "";
     var tonightBit = tonightOn ? (", " + yes.length + " look good tonight") : "";
     var cityLabel = activeCity().label;
-    $("resultCount").textContent = total + (total === 1 ? " place" : " places") + (state.region === "All" ? " across " + cityLabel : " in " + state.region) + (state.suburb !== "All" ? " · " + state.suburb : "") + (state.sort === "near" ? ", nearest first" : grouped && !filtered ? ", top 3 per region" : "") + tonightBit;
-    $("listHeading").textContent = state.region === "All" ? "All of " + cityLabel : state.region;
+    var nearBit = state.sort === "near" ? ", nearest first" : "";
+    var rawQ = String(state.q || "").trim();
+    if (rawQ) {
+      var ctx = searchContext(list);
+      var where = ctx ? " in " + ctx : (state.region === "All" ? " across " + cityLabel : " in " + state.region + (state.suburb !== "All" ? " · " + state.suburb : ""));
+      $("resultCount").textContent = total + (total === 1 ? " place matching " : " places matching ") + rawQ + where + nearBit + tonightBit;
+    } else {
+      $("resultCount").textContent = total + (total === 1 ? " place" : " places") + (state.region === "All" ? " across " + cityLabel : " in " + state.region) + (state.suburb !== "All" ? " · " + state.suburb : "") + nearBit + (grouped && !filtered ? ", top 3 per region" : "") + tonightBit;
+    }
+    setListHeading(list);
     var on = (state.fam !== "All") + (state.price !== "Any") + state.deals + state.takeaway;
     $("moreFiltersLabel").textContent = on ? "More filters · " + on + " on" : "More filters";
 
