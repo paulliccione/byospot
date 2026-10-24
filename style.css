@@ -156,6 +156,10 @@ button { font: inherit; }
 .chipset.sub { padding: 10px; border-radius: var(--r-md); background: var(--surface-2); }
 .chipset.sub button { min-height: 38px; font-size: 14px; }
 .chipset .count { opacity: .7; font-weight: 500; margin-left: 4px; }
+/* City / area wraps on a phone; region chips keep their sideways scroller. */
+.chipset.cities { gap: 8px; }
+.chipset.cities button { font-weight: 650; white-space: nowrap; }
+.chipset.cities .count { font-weight: 650; }
 .seg-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
 .seg-wrap::-webkit-scrollbar { display: none; }
 .seg { display: inline-flex; gap: 2px; padding: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; }
