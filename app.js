@@ -112,13 +112,11 @@
   }
   renderHero();
 
-  // Metrics
-  var live = REGIONS.filter(function (r) { return count(r) > 0; }).length;
+  // Metrics. Region count is unused. Takeaway stays hidden until phone
+  // verification confirms it — the old "N of N Takeaway" figure was wrong.
   $("metrics").innerHTML = [
     [places.length, "BYO spots"],
-    [live + " of " + REGIONS.length, "Regions live"],
-    [places.filter(function (p) { return p.deal; }).length, "With EatClub deals"],
-    [places.filter(function (p) { return p.takeaway === "yes"; }).length + " of " + places.length, "Takeaway"]
+    [places.filter(function (p) { return p.deal; }).length, "With EatClub deals"]
   ].map(function (m) { return '<div class="metric"><div class="v">' + esc(m[0]) + '</div><div class="l">' + esc(m[1]) + "</div></div>"; }).join("");
 
   $("caption").textContent = "Every BYO restaurant we could find rated 4.0★ or higher on Google, across Sydney's " + REGIONS.length + " regions and ranked by Google rating. Here you see the top 3 of each; tap See all, or pick a region and suburb. Ratings, prices and EatClub deals as of " + D.asOf + ".";

@@ -132,7 +132,6 @@ button { font: inherit; }
 
 /* Metrics */
 .metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-@media (min-width: 760px) { .metrics { grid-template-columns: repeat(4, 1fr); } }
 .metric { background: var(--surface); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 14px 16px; box-shadow: var(--shadow); }
 .metric .v { font-family: var(--display); font-size: 28px; font-weight: 650; line-height: 1.15; color: var(--ink); }
 .metric .l { font-size: 13px; color: var(--ink-2); }
