@@ -27,6 +27,7 @@
       <p id="summary" class="summary"></p>
     </header>
 
+    <div class="finder-stick">
     <div class="searchbar" role="search">
       <label class="search">
         <span class="search-icon" aria-hidden="true">
@@ -39,7 +40,16 @@
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z" fill="currentColor"/><circle cx="12" cy="9" r="2.6" fill="var(--nearme-dot)"/></svg>
         <span>Near me</span>
       </button>
-      <button type="button" id="planNight" class="plan-btn" aria-pressed="false" title="Pick a few places and share a shortlist">Plan a night</button>
+      <button type="button" id="planNight" class="plan-btn" aria-pressed="false" title="Add places, then share">Plan a night</button>
+    </div>
+    <div id="planBar" class="plan-bar" hidden>
+      <p class="plan-steps">1. Add ~3 places · 2. Share</p>
+      <button type="button" id="planShortlist" class="plan-shortlist">
+        <span>Shortlist</span>
+        <span class="plan-meter" id="planMeter" aria-live="polite"></span>
+      </button>
+      <p id="planBarMsg" class="plan-bar-msg" role="status" hidden></p>
+    </div>
     </div>
     <div id="locMsg" class="locmsg" role="status" hidden></div>
 
@@ -108,15 +118,18 @@
   <div id="plannerSheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="plannerTitle">
     <div class="sheet-card">
       <header class="sheet-head">
-        <h2 id="plannerTitle">Plan a night</h2>
+        <div class="planner-title">
+          <h2 id="plannerTitle">Shortlist</h2>
+          <p class="sheet-lead" id="plannerLead">1. Add ~3 places · 2. Share</p>
+        </div>
+        <div class="plan-meter" id="plannerCount" aria-hidden="true"></div>
         <button type="button" class="sheet-close" id="plannerClose" aria-label="Close">×</button>
       </header>
-      <p class="sheet-lead" id="plannerLead">Pick about 3 places from the list, then share the link so friends can vote. Votes stay on each phone (v1).</p>
       <div id="plannerPicks" class="planner-picks"></div>
-      <p id="plannerEmpty" class="sheet-empty" hidden>No picks yet. Tap <strong>Add</strong> on a card, or browse the list with Plan a night on.</p>
+      <p id="plannerEmpty" class="planner-empty" hidden>Tap Add on a place.</p>
       <div class="sheet-actions">
-        <button type="button" class="btn primary" id="plannerShare" disabled>Copy share link</button>
-        <button type="button" class="btn ghost" id="plannerClear">Clear picks</button>
+        <button type="button" class="btn primary" id="plannerShare" disabled>Share</button>
+        <button type="button" class="btn ghost" id="plannerClear" hidden>Clear</button>
       </div>
       <p id="plannerMsg" class="sheet-msg" role="status" hidden></p>
     </div>

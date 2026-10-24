@@ -238,7 +238,7 @@
     }
     var picked = state.picks.indexOf(p.id) >= 0;
     var planBtn = state.planMode
-      ? '<button type="button" class="plan-add' + (picked ? " on" : "") + '" data-add="' + esc(p.id) + '" aria-pressed="' + picked + '">' + (picked ? "Added ✓" : "Add") + "</button>"
+      ? '<button type="button" class="plan-add' + (picked ? " on" : "") + '" data-add="' + esc(p.id) + '" aria-pressed="' + picked + '">' + (picked ? "Added" : "Add") + "</button>"
       : "";
     var details =
       '<div class="meta">' + esc(p.priceBasis) + (p.priceEstimate ? " (estimate)" : "") + (p.takeaway === "yes" && p.takeawayDetail && !/^takeaway$/i.test(p.takeawayDetail) ? " · Takeaway: " + esc(p.takeawayDetail) : "") + "</div>" +
@@ -248,11 +248,11 @@
     var cls = "card" + (compact ? " compact" : "") + (ton === "no" || ton === "unknown" ? " dim" : "") + (picked ? " picked" : "");
     return '<article class="' + cls + '" data-id="' + esc(p.id) + '" style="--c:' + famColor(p.family) + '">' +
       '<div class="card-top"><div class="card-name">' + esc(p.name) + '</div><div class="rank"><b>#' + p._rank + "</b><small>" + esc(p.region) + "</small></div></div>" +
+      planBtn +
       (state.loc ? '<span class="dist">📍 ' + (p._dist / 1000).toFixed(1) + " km away</span>" : "") +
       '<div class="stars">' + stars(p.stars) + " <span>" + esc(p.stars) + " (" + esc(p.reviews) + ')</span><span class="price">· ' + esc(priceText(p)) + "</span></div>" +
       '<div class="chips">' + chip(p.cuisine, "tint", famColor(p.family)) + chip(p.suburb) + ta + (p.byoConfirmed ? "" : chip("Confirm BYO", "warn")) + tonightChip + "</div>" +
       (dish ? '<div class="dish">' + esc(dish) + "</div>" : "") +
-      planBtn +
       (compact ? dealHtml : dealHtml) +
       (compact
         ? '<button type="button" class="details-btn" aria-expanded="false">Corkage, price &amp; more <span aria-hidden="true">▾</span></button><div class="details" hidden>' + bottleLine(p) + details + "</div>"
@@ -392,23 +392,42 @@
     var i = state.picks.indexOf(id);
     if (i >= 0) state.picks.splice(i, 1);
     else {
-      if (state.picks.length >= 6) { showPlannerMsg("Keep it to about 3–6 places so friends can decide."); return; }
+      if (state.picks.length >= 6) { showPlannerMsg("Up to 6 places."); return; }
       state.picks.push(id);
     }
+    showPlannerMsg("");
     writePlanHash();
+  }
+  function isPlanHash(hash) {
+    var h = hash || "";
+    return h === "#plan" || h.indexOf("#plan=") === 0;
+  }
+  function validIdsFromHash(hash) {
+    var h = hash == null ? (location.hash || "") : hash;
+    if (!isPlanHash(h)) return [];
+    var body = h === "#plan" ? "" : h.slice("#plan=".length);
+    return body.split(",").filter(function (id) {
+      return !!id && Object.prototype.hasOwnProperty.call(byId, id);
+    });
+  }
+  function stripDeadPlanHash() {
+    var h = location.hash || "";
+    if (!isPlanHash(h) || validIdsFromHash(h).length) return false;
+    history.replaceState(null, "", location.pathname + location.search);
+    if ($("voteSheet")) $("voteSheet").hidden = true;
+    return true;
   }
   function writePlanHash() {
     if (!state.picks.length) {
-      if (/^#plan=/.test(location.hash)) history.replaceState(null, "", location.pathname + location.search);
+      if (isPlanHash(location.hash || "")) history.replaceState(null, "", location.pathname + location.search);
       return;
     }
     var h = "#plan=" + state.picks.join(",");
     if (location.hash !== h) history.replaceState(null, "", h);
   }
   function readPlanHash() {
-    var m = /^#plan=([\w,-]+)$/.exec(location.hash || "");
-    if (!m) return null;
-    return m[1].split(",").filter(function (id) { return !!byId[id]; });
+    var ids = validIdsFromHash(location.hash);
+    return ids.length ? ids : null;
   }
   function voteKey(ids) { return "byospot-votes-" + ids.slice().sort().join(","); }
   function loadVotes(ids) {
@@ -428,45 +447,84 @@
       return v;
     } catch (e) { return "anon"; }
   }
+  var PLAN_GOAL = 3;
+  function planCountLabel(n) { return n > PLAN_GOAL ? String(n) : (n + "/" + PLAN_GOAL); }
+  function planMeterHTML(n, withPips) {
+    var label = "<b>" + planCountLabel(n) + "</b>";
+    if (!withPips) return label;
+    var dots = "";
+    for (var i = 0; i < PLAN_GOAL; i++) dots += "<i" + (i < n ? ' class="on"' : "") + "></i>";
+    return '<span class="plan-pips" aria-hidden="true">' + dots + "</span>" + label;
+  }
+  function paintMeter(el, n, withPips) {
+    if (!el) return;
+    el.innerHTML = planMeterHTML(n, withPips);
+    el.setAttribute("aria-label", n + " of about 3 places");
+  }
   function showPlannerMsg(t) {
-    var el = $("plannerMsg"); if (!el) return;
-    el.hidden = !t; el.textContent = t || "";
+    [$("plannerMsg"), $("planBarMsg")].forEach(function (el) {
+      if (!el) return;
+      el.hidden = !t; el.textContent = t || "";
+    });
   }
   function syncPlanner() {
     var box = $("plannerPicks"), empty = $("plannerEmpty"), share = $("plannerShare");
-    if (!box) return;
-    box.innerHTML = state.picks.map(function (id) {
-      var p = byId[id]; if (!p) return "";
-      return '<div class="planner-row"><div><strong>' + esc(p.name) + '</strong><span>' + esc(p.suburb) + " · " + esc(p.cuisine) + '</span></div>' +
-        '<button type="button" class="btn ghost sm" data-add="' + esc(id) + '">Remove</button></div>';
-    }).join("");
-    empty.hidden = state.picks.length > 0;
-    share.disabled = state.picks.length < 2;
-    $("planNight").setAttribute("aria-pressed", String(state.planMode));
-    $("planNight").textContent = state.planMode ? ("Planning… " + state.picks.length) : "Plan a night";
+    var n = state.picks.length;
+    if (box) {
+      box.innerHTML = state.picks.map(function (id, i) {
+        var p = byId[id]; if (!p) return "";
+        return '<div class="planner-row"><span class="planner-idx">' + (i + 1) + '</span><div><strong>' + esc(p.name) + "</strong><span>" + esc(p.suburb) + "</span></div>" +
+          '<button type="button" class="planner-x" data-add="' + esc(id) + '" aria-label="Remove ' + esc(p.name) + '">×</button></div>';
+      }).join("");
+    }
+    if (empty) empty.hidden = n > 0;
+    if (share) share.disabled = n < 2;
+    var clear = $("plannerClear");
+    if (clear) clear.hidden = n === 0;
+    paintMeter($("planMeter"), n, false);
+    paintMeter($("plannerCount"), n, true);
+    var bar = $("planBar");
+    if (bar) bar.hidden = !state.planMode;
+    var shortBtn = $("planShortlist");
+    if (shortBtn) shortBtn.classList.toggle("ready", n >= 2);
+    var planBtn = $("planNight");
+    planBtn.setAttribute("aria-pressed", String(state.planMode));
+    planBtn.textContent = "Plan a night";
+    if (state.planMode) planBtn.setAttribute("aria-label", "Leave plan a night");
+    else planBtn.removeAttribute("aria-label");
   }
   function openPlanner() {
     state.planMode = true;
     $("plannerSheet").hidden = false;
     syncPlanner();
+    var share = $("plannerShare");
+    if (share && !share.disabled) share.focus();
+    else $("plannerClose").focus();
   }
   function closePlanner() { $("plannerSheet").hidden = true; }
   $("planNight").addEventListener("click", function () {
-    if (state.planMode && !$("plannerSheet").hidden) {
-      state.planMode = false; $("plannerSheet").hidden = true; $("planNight").setAttribute("aria-pressed", "false");
-      $("planNight").textContent = "Plan a night"; render(true); return;
-    }
-    openPlanner(); render(true);
+    state.planMode = !state.planMode;
+    closePlanner();
+    if (!state.planMode) showPlannerMsg("");
+    syncPlanner();
+    render(true);
+  });
+  $("planShortlist").addEventListener("click", openPlanner);
+  $("plannerSheet").addEventListener("click", function (e) {
+    if (e.target === $("plannerSheet")) closePlanner();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && $("plannerSheet") && !$("plannerSheet").hidden) closePlanner();
   });
   $("plannerClose").addEventListener("click", closePlanner);
   $("plannerClear").addEventListener("click", function () {
-    state.picks = []; writePlanHash(); syncPlanner(); showPlannerMsg("Picks cleared."); render(true);
+    state.picks = []; writePlanHash(); showPlannerMsg(""); syncPlanner(); render(true);
   });
   $("plannerShare").addEventListener("click", function () {
     if (state.picks.length < 2) return;
     writePlanHash();
     var url = location.href.split("#")[0] + "#plan=" + state.picks.join(",");
-    function ok() { showPlannerMsg("Link copied — send it to your friends."); }
+    function ok() { showPlannerMsg("Link copied."); }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok).catch(function () { prompt("Copy this link:", url); ok(); });
     else { prompt("Copy this link:", url); ok(); }
   });
@@ -476,6 +534,7 @@
   });
 
   function renderVoteSheet(ids) {
+    if (!ids || !ids.length) { $("voteSheet").hidden = true; return; }
     var votes = loadVotes(ids);
     var me = voterId();
     var my = votes[me] || null;
@@ -510,7 +569,13 @@
   });
   function bootHash() {
     var ids = readPlanHash();
-    if (ids && ids.length) { state.picks = ids.slice(); renderVoteSheet(ids); syncPlanner(); }
+    if (ids) { state.picks = ids.slice(); renderVoteSheet(ids); syncPlanner(); return; }
+    if (stripDeadPlanHash()) {
+      state.picks = [];
+      closePlanner();
+      syncPlanner();
+      render(true);
+    }
   }
   window.addEventListener("hashchange", bootHash);
 
