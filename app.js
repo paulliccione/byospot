@@ -164,7 +164,7 @@
         '<div class="hero-name">' + esc(p.name) + "</div>" +
         '<div class="stars">' + stars(p.stars) + " <span>" + esc(p.stars) + " from " + esc(p.reviews) + " Google reviews</span><span class=\"price\" style=\"color:inherit\"> · " + esc(priceText(p)) + "</span></div>" +
         (dishOf(p) ? "<div>" + esc(dishOf(p)) + "</div>" : "") +
-        '<div class="chips">' + chip(p.cuisine) + chip(p.address.replace(/ NSW \d{4}$/, "")) + chip(/^unknown$/i.test(p.corkage) ? "Corkage: ask" : p.corkage + " corkage") + chip(p.priceBasis) + (p.takeaway === "yes" ? chip("🥡 Takeaway") : "") + "</div>" +
+        '<div class="chips">' + chip(p.cuisine, "nearest") + chip(p.address.replace(/ NSW \d{4}$/, "")) + chip(/^unknown$/i.test(p.corkage) ? "Corkage: ask" : p.corkage + " corkage", "corkage") + chip(p.priceBasis) + (p.takeaway === "yes" ? chip("🥡 Takeaway") : "") + "</div>" +
         (p.takeawayDetail ? '<div class="hero-small">Takeaway: ' + esc(p.takeawayDetail) + "</div>" : "") +
         bottleLine(p) +
         '<div class="hero-small">' + esc(p.note) + ". " + esc(H.extraNote || "") + (p.website ? ' <a href="' + esc(p.website) + '" target="_blank" rel="noopener">' + esc(host(p.website)) + "</a>" : "") + "</div>" +
@@ -219,12 +219,28 @@
     var regs = c.regions || [];
     return places.filter(function (p) { return p.city ? p.city === c.id : regs.indexOf(p.region) >= 0; }).length;
   }
+  function paintCityFills() {
+    var el = $("cityChips");
+    if (!el) return;
+    var alt = 0;
+    Array.prototype.forEach.call(el.children, function (btn) {
+      if (!btn || btn.tagName !== "BUTTON") return;
+      btn.classList.add("city-fill");
+      btn.classList.remove("city-teal", "city-coral", "is-selected");
+      if (btn.getAttribute("aria-pressed") === "true") btn.classList.add("is-selected");
+      else {
+        btn.classList.add(alt % 2 ? "city-coral" : "city-teal");
+        alt++;
+      }
+    });
+  }
   function renderCityChips() {
     var el = $("cityChips");
     if (!el) return;
     group(el, CITIES.map(function (c) {
-      return { v: c.id, html: esc(c.label) + '<span class="count">' + cityPlaceCount(c) + "</span>" };
+      return { v: c.id, cls: "city-fill", html: esc(c.label) + '<span class="count">' + cityPlaceCount(c) + "</span>" };
     }), "city", function () {
+      paintCityFills();
       state.region = "All";
       state.suburb = "All";
       state.subMore = false;
@@ -234,6 +250,7 @@
       renderSuburbs();
       renderSort();
     });
+    paintCityFills();
   }
   renderCityChips();
   renderRegions();
@@ -335,16 +352,16 @@
       : "";
     var details =
       '<div class="meta">' + esc(p.priceBasis) + (p.priceEstimate ? " (estimate)" : "") + (p.takeaway === "yes" && p.takeawayDetail && !/^takeaway$/i.test(p.takeawayDetail) ? " · Takeaway: " + esc(p.takeawayDetail) : "") + "</div>" +
-      '<div class="card-foot"><span>🍷 ' + esc(corkageOf(p)) + "</span>" + (p.website ? '<a href="' + esc(p.website) + '" target="_blank" rel="noopener">Website ↗</a>' : "<span class=\"muted-t\">No website</span>") + "</div>" +
+      '<div class="card-foot">' + (p.website ? '<a href="' + esc(p.website) + '" target="_blank" rel="noopener">Website ↗</a>' : "<span class=\"muted-t\">No website</span>") + "</div>" +
       (p.note || hint ? '<div class="note">' + esc([p.note, hint].filter(Boolean).join(". ")) + "</div>" : "") +
       '<button type="button" class="calc-open" data-calc="' + esc(p.id) + '">Corkage vs wine list</button>';
     var cls = "card" + (compact ? " compact" : "") + (ton === "no" || ton === "unknown" ? " dim" : "") + (picked ? " picked" : "");
     return '<article class="' + cls + '" data-id="' + esc(p.id) + '" style="--c:' + famColor(p.family) + '">' +
       '<div class="card-top"><div class="card-name">' + esc(p.name) + '</div><div class="rank"><b>#' + p._rank + "</b><small>" + esc(p.region) + "</small></div></div>" +
       planBtn +
-      (state.loc ? '<span class="dist">📍 ' + (p._dist / 1000).toFixed(1) + " km away</span>" : "") +
+      (state.loc ? '<span class="dist chip nearest">📍 ' + (p._dist / 1000).toFixed(1) + " km away</span>" : "") +
       '<div class="stars">' + stars(p.stars) + " <span>" + esc(p.stars) + " (" + esc(p.reviews) + ')</span><span class="price">· ' + esc(priceText(p)) + "</span></div>" +
-      '<div class="chips">' + chip(p.cuisine, "tint", famColor(p.family)) + chip(p.suburb) + ta + (p.byoConfirmed ? "" : chip("Confirm BYO", "warn")) + tonightChip + "</div>" +
+      '<div class="chips">' + chip(corkageOf(p), "corkage") + chip(p.cuisine, "tint", famColor(p.family)) + chip(p.suburb, "nearest") + ta + (p.byoConfirmed ? "" : chip("Confirm BYO", "warn")) + tonightChip + "</div>" +
       (dish ? '<div class="dish">' + esc(dish) + "</div>" : "") +
       (compact ? dealHtml : dealHtml) +
       (compact
