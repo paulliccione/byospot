@@ -83,7 +83,12 @@ button { font: inherit; }
 
 /* Header */
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: var(--primary); }
-.brand img { border-radius: 10px; box-shadow: var(--shadow); }
+.brand img { width: 34px; height: 34px; border-radius: 10px; box-shadow: var(--shadow); flex: none; display: block; }
+/* Phone: a 34px mark is too small to read beside the wordmark. */
+@media (max-width: 640px) {
+  .brand { gap: 12px; font-size: 17px; }
+  .brand img { width: 48px; height: 48px; border-radius: 14px; }
+}
 .page-head h1 { font-family: var(--display); font-weight: 650; font-size: clamp(32px, 8vw, 46px); line-height: 1.05; letter-spacing: -0.015em; margin: 12px 0 8px; font-variation-settings: "opsz" 96; }
 .summary { margin: 0; color: var(--ink-2); font-size: 16px; max-width: 60ch; }
 
