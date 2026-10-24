@@ -1,6 +1,6 @@
 # BYO Spot
 
-BYO restaurant finder (static, view-only PWA) for Sydney, the Blue Mountains, Melbourne and the Victorian coast: `index.html`, `style.css` ("Shiraz" theme), `app.js`, `data.js`, `sw.js`, `manifest.webmanifest`, `icons/`, `fonts/` (Inter and Fraunces, OFL). City / area chips read `cities` in `data.js` (fallback: a single Sydney city built from `regions`).
+BYO restaurant finder (static, view-only PWA) for Sydney, the Blue Mountains, Melbourne and the Victorian coast: `index.html`, `style.css` ("louder pop" theme), `app.js`, `data.js`, `sw.js`, `manifest.webmanifest`, `icons/`, `fonts/` (Inter and Fraunces, OFL). City / area chips read `cities` in `data.js` (fallback: a single Sydney city built from `regions`).
 
 ## Updating the data (monthly)
 
