@@ -299,10 +299,13 @@
         var g = list.filter(function (p) { return p.region === r; });
         var n = g.length + (showHero && hero.region === r ? 1 : 0);
         if (!g.length) return;
-        html += '<section class="region-group"><h3 class="group-head">' + esc(r) + "<span>" + n + (n === 1 ? " spot" : " spots") + "</span></h3>" +
-          '<div class="grid">' + g.slice(0, cap).map(function (p) { return card(p, true); }).join("") + "</div>" +
-          (n > cap + (showHero && hero.region === r ? 1 : 0) || filtered ? '<button type="button" class="see-all" data-region="' + esc(r) + '">See all ' + (filtered ? "of " + esc(r) : n + " in " + esc(r)) + ' →</button>' : "") +
-          "</section>";
+        // See all lives in the header so it shows with the region name, not after the top cards.
+        var more = n > cap + (showHero && hero.region === r ? 1 : 0) || filtered;
+        var see = more
+          ? '<button type="button" class="group-see" data-region="' + esc(r) + '" aria-label="' + esc(filtered ? "See all of " + r : "See all " + n + " in " + r) + '">See all <span aria-hidden="true">→</span></button>'
+          : "";
+        html += '<section class="region-group"><h3 class="group-head"><span class="group-title">' + esc(r) + '<span class="group-count"> · ' + n + "</span></span>" + see + "</h3>" +
+          '<div class="grid">' + g.slice(0, cap).map(function (p) { return card(p, true); }).join("") + "</div></section>";
       });
     } else if (tonightOn) {
       var shown = list.slice(0, state.limit);
