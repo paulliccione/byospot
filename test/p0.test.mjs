@@ -62,20 +62,26 @@ test("location search disambiguates, fuzzy-matches, and separates unknown places
   assert.equal(nsw[0].name, "New South Wales");
 });
 
-test("browse can stop at state, region, or suburb", function () {
+test("browse can stop at region or suburb, not a whole state", function () {
   const states = logic.browse(model.index, { level: "states" });
   assert.deepEqual(states.rows.map(function (r) { return r.label; }), ["New South Wales", "Victoria"]);
+  assert.equal(states.showAll, null);
+  assert.equal(typeof states.rows[0].count, "number");
+  assert.ok(states.rows[0].count > 0);
   const nsw = logic.browse(model.index, { level: "state", state: "NSW" });
-  assert.match(nsw.showAll.label, /New South Wales/);
-  assert.ok(nsw.rows.some(function (r) { return r.label === "Sydney"; }));
+  assert.equal(nsw.showAll, null);
+  assert.ok(nsw.rows.some(function (r) { return r.label === "Sydney" && typeof r.count === "number"; }));
   const sydney = logic.browse(model.index, { level: "city", state: "NSW", city: "Sydney" });
   assert.match(sydney.showAll.label, /Sydney/);
-  assert.ok(sydney.rows.some(function (r) { return r.label === "Inner West"; }));
+  assert.equal(logic.isStateDump(sydney.showAll.area), false);
+  assert.ok(sydney.rows.some(function (r) { return r.label === "Inner West" && typeof r.count === "number"; }));
   const inner = logic.browse(model.index, { level: "region", state: "NSW", city: "Sydney", region: "Inner West" });
   assert.match(inner.showAll.label, /Inner West/);
-  assert.ok(inner.rows.some(function (r) { return r.label === "Newtown" && r.area; }));
-  const allNsw = nsw.showAll.area;
-  assert.ok(logic.countArea(model.places, allNsw) > 700);
+  assert.ok(inner.rows.some(function (r) { return r.label === "Newtown" && r.area && typeof r.count === "number"; }));
+  const wholeState = { state: "NSW", stateName: "New South Wales", label: "New South Wales" };
+  assert.equal(logic.isStateDump(wholeState), true);
+  assert.ok(logic.countArea(model.places, wholeState) > 700);
+  assert.equal(logic.broadenArea(model.places, sydney.showAll.area), null);
   assert.equal(logic.countArea(model.places, brisbaneArea()), 0);
 });
 
@@ -135,7 +141,46 @@ test("removed product copy is gone from the client", function () {
   assert.match(app, /Find BYO Near Me/);
   assert.match(app, /Choose a Location/);
   assert.match(app, /Where Should We Eat\?/);
-  assert.match(app, /Put It to a Vote/);
+  assert.match(app, /Planning with friends\? Pick together/);
+  assert.match(app, /Change area/);
+  assert.match(app, /hello@byospot.com/);
+  assert.match(app, /Privacy — BYOspot/);
   assert.match(app, /Tick the restaurants you’d like your friends to choose between\./);
   assert.match(app, /Where should we eat\?/);
+  ["Put It to a Vote", "Two choices. Your next BYO spot is only a tap away.", "Prefer BYO tonight", "EatClub", "Call before you go", 'data-view="map"'].forEach(function (phrase) {
+    assert.equal(app.indexOf(phrase), -1, phrase);
+  });
+  assert.equal(css.indexOf("repeating-linear-gradient"), -1);
+  assert.equal(fs.readFileSync(new URL("../data.js", import.meta.url), "utf8").toLowerCase().indexOf("eatclub"), -1);
+});
+
+test("day status follows byoDays and stays honest when days are unknown", function () {
+  const two = model.places.find(function (p) { return p.name === "Two Chaps"; });
+  assert.equal(logic.byoDayStatus(two, "Friday").label, "BYO tonight");
+  assert.equal(logic.byoDayStatus(two, "Sunday").label, "BYO Fri–Sat");
+  const sand = model.places.find(function (p) { return p.name === "The Sanderson"; });
+  assert.equal(logic.byoDayStatus(sand, "Thursday").label, "BYO tonight");
+  assert.equal(logic.byoDayStatus(sand, "Friday").label, "BYO Thu");
+  const fav = model.places.find(function (p) { return p.name === "La Favola"; });
+  assert.equal(logic.byoDayStatus(fav, "Saturday").label, "BYO Sun–Thu");
+  const jen = model.places.find(function (p) { return p.name === "Jensens"; });
+  assert.equal(logic.byoDayStatus(jen, "Monday").label, "BYO Wed–Thu, Sun");
+  const listed = model.places.find(function (p) { return p.byoConfirmed === false && !(p.byoDays && p.byoDays.length); });
+  assert.equal(logic.byoDayStatus(listed, "Sunday").label, "Call to confirm");
+  const confirmed = model.places.find(function (p) { return p.byoConfirmed === true && !(p.byoDays && p.byoDays.length); });
+  assert.equal(logic.byoDayStatus(confirmed, "Sunday").label, "BYO confirmed");
+});
+
+test("cuisine filters accept several families and tonight is not a filter", function () {
+  const area = { state: "NSW", stateName: "New South Wales", city: "Sydney", cityLabel: "Sydney", region: "Inner West", label: "Inner West" };
+  const asian = logic.filterPlaces(model.places, area, Object.assign(logic.blankFilters(), { cuisine: ["Asian"] }), null);
+  const euro = logic.filterPlaces(model.places, area, Object.assign(logic.blankFilters(), { cuisine: ["European"] }), null);
+  const both = logic.filterPlaces(model.places, area, Object.assign(logic.blankFilters(), { cuisine: ["Asian", "European"] }), null);
+  assert.ok(asian.length > 0 && euro.length > 0);
+  assert.equal(both.length, asian.length + euro.length);
+  assert.ok(both.every(function (p) { return p.family === "Asian" || p.family === "European"; }));
+  const params = new URLSearchParams("cuisine=" + encodeURIComponent("Asian,European"));
+  assert.deepEqual(logic.filtersFromParams(params).cuisine, ["Asian", "European"]);
+  assert.equal(logic.blankFilters().tonight, undefined);
+  assert.equal(logic.writeParams(area, Object.assign(logic.blankFilters(), { cuisine: ["Asian", "Middle Eastern"] }), "map").indexOf("view=map"), -1);
 });

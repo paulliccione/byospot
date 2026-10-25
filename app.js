@@ -27,10 +27,8 @@
     geoBusy: false,
     geoError: "",
     detailId: "",
-    menuOpen: false,
     filtersOpen: false,
     draft: null,
-    mapId: "",
     poll: null,
     token: "",
     pollError: "",
@@ -84,7 +82,6 @@
   }
 
   function icon(name) {
-    if (name === "menu") return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     if (name === "back") return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     if (name === "pin") return '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>';
     if (name === "close") return '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -94,9 +91,17 @@
 
   function header(home) {
     var back = home ? "" : '<button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>";
+    var right = home
+      ? '<a class="about-link" href="/privacy" data-action="privacy">About</a>'
+      : '<span class="icon-spacer" aria-hidden="true"></span>';
     return '<header class="top' + (home ? " top-home" : "") + '">' + back +
       '<a class="brand" href="/" data-action="home"><img src="icons/icon-192.png" alt="" width="40" height="40"><span>BYO Spot</span></a>' +
-      '<button type="button" class="icon-btn" data-action="menu" aria-label="Menu" aria-expanded="' + (state.menuOpen ? "true" : "false") + '">' + icon("menu") + "</button></header>";
+      right + "</header>";
+  }
+
+  function footerHtml() {
+    if (state.screen === "privacy") return "";
+    return '<footer class="site-footer"><a href="/privacy" data-action="privacy">Privacy</a></footer>';
   }
 
   // Glass and spaghetti shapes are adapted from Twemoji (CC BY 4.0): https://github.com/jdecked/twemoji
@@ -134,7 +139,7 @@
       '<button type="button" class="btn btn-primary" data-action="near" ' + (state.geoBusy ? "disabled aria-busy=\"true\"" : "") + ">" +
       icon("pin") + "<span>" + (state.geoBusy ? "Finding restaurants near you…" : "Find BYO Near Me") + "</span></button>" +
       '<button type="button" class="btn btn-secondary" data-action="choose-location">' + icon("pin") + "<span>Choose a Location</span></button>" +
-      '<p class="home-note">Two choices. Your next BYO spot is only a tap away.</p></div></main>';
+      "</div>" + footerHtml() + "</main>";
   }
 
   function locationListInner() {
@@ -142,11 +147,16 @@
     if (q) {
       var matches = L.searchLocations(q, model.index);
       state.rows = matches.map(function (m) {
-        return {
+        var row = {
           label: m.name,
           meta: m.context + (m.count ? "" : " · No BYO listings yet"),
           area: m.area
         };
+        if (m.kind === "state" && m.count > 0 && m.area && !m.area.knownEmpty) {
+          row.drill = { level: "state", state: m.area.state };
+          row.area = null;
+        }
+        return row;
       });
       state.showAll = null;
       if (!matches.length) {
@@ -165,9 +175,16 @@
   }
   function rowsHtml(rows) {
     return rows.map(function (row, i) {
-      var chev = row.drill ? '<span class="chev" aria-hidden="true">›</span>' : "";
-      return '<button type="button" class="loc-row" data-action="loc-row" data-i="' + i + '"><span><span class="label">' +
-        esc(row.label) + '</span></span><span class="meta">' + esc(row.meta || "") + "</span>" + chev + "</button>";
+      var counted = row.count != null && row.meta == null;
+      var side = counted
+        ? '<span class="count">' + esc(row.count) + "</span>"
+        : '<span class="meta">' + esc(row.meta || "") + "</span>";
+      var aria = counted
+        ? ' aria-label="' + esc(row.label) + ", " + esc(row.count) + (Number(row.count) === 1 ? " restaurant" : " restaurants") + '"'
+        : "";
+      return '<button type="button" class="loc-row' + (counted ? " loc-count" : "") + '" data-action="loc-row" data-i="' + i + '"' + aria + '>' +
+        '<span class="label">' + esc(row.label) + "</span>" + side +
+        '<span class="chev" aria-hidden="true">›</span></button>';
     }).join("");
   }
   function locationHtml() {
@@ -175,7 +192,7 @@
       '<form id="locForm" role="search"><label class="search"><span class="sr" style="position:absolute;left:-999px">Search suburb, city or region</span>' +
       '<input id="locQ" type="search" enterkeyhint="search" placeholder="Search suburb, city or region" autocomplete="off" value="' + esc(state.locQuery) + '">' +
       (state.locQuery ? '<button type="button" class="clear" data-action="clear-loc" aria-label="Clear search">×</button>' : "") +
-      "</label></form><div id=\"locList\">" + locationListInner() + "</div></main>";
+      "</label></form><div id=\"locList\">" + locationListInner() + "</div>" + footerHtml() + "</main>";
   }
 
   function currentList() {
@@ -196,7 +213,7 @@
   }
 
   function badgeHtml(p) {
-    var byo = L.byoPresentation(p);
+    var byo = L.byoDayStatus(p);
     var cork = L.corkageText(p);
     return '<div class="byo-row"><span class="badge ' + byo.tone + '">' + esc(byo.label) + "</span>" +
       (cork ? '<span class="cork">' + esc(cork) + "</span>" : "") + "</div>";
@@ -251,26 +268,16 @@
       '<p class="section-label">Try a broader location</p></div>';
   }
 
-  function mapHtml(list) {
-    var plot = L.projectPins(list);
-    var selected = state.mapId && model.byId[state.mapId] ? model.byId[state.mapId] : null;
-    if (!selected && list[0]) selected = list[0];
-    var pins = plot.pins.map(function (pin) {
-      var on = selected && pin.id === selected.id;
-      var id = esc(pin.id);
-      return '<g data-action="map-pin" data-id="' + id + '" style="cursor:pointer">' +
-        '<circle cx="' + pin.x + '" cy="' + pin.y + '" r="7" fill="transparent"></circle>' +
-        '<circle cx="' + pin.x + '" cy="' + pin.y + '" r="' + (on ? 3.4 : 2.6) + '" fill="' + (on ? "#5c0018" : "#800020") + '" stroke="#fff" stroke-width="0.8"></circle></g>';
-    }).join("");
-    var preview = "";
-    if (selected) {
-      var byo = L.byoPresentation(selected);
-      preview = '<button type="button" class="map-preview" data-action="details" data-id="' + esc(selected.id) + '"><strong>' +
-        esc(selected.name) + "</strong><span>" + esc([selected.cuisine, selected.suburb, byo.label].filter(Boolean).join(" · ")) + "</span></button>";
-    }
-    return '<div class="map-wrap"><svg class="map-svg" viewBox="0 0 ' + plot.width + " " + plot.height + '" role="img" aria-label="Map of restaurants at stored coordinates">' +
-      pins + "</svg></div>" + preview +
-      '<p class="map-caption">Pins use each restaurant’s stored coordinates.</p>';
+  function areaControl() {
+    var locLabel = state.area && state.area.near ? "Near you" : ((state.area && state.area.label) || "Choose a location");
+    return '<button type="button" class="area-back" data-action="choose-location">' +
+      '<span class="area-arrow" aria-hidden="true">←</span>' +
+      '<span class="area-name">' + esc(locLabel) + "</span>" +
+      '<span class="area-change">Change area</span></button>';
+  }
+
+  function planLink() {
+    return '<p class="plan-link"><button type="button" data-action="vote-start">Planning with friends? Pick together</button></p>';
   }
 
   function resultsHtml() {
@@ -280,42 +287,35 @@
         '<div class="stack"><button type="button" class="btn btn-primary" data-action="near">' + (state.geoBusy ? "Finding restaurants near you…" : "Find BYO Near Me") + "</button>" +
         '<button type="button" class="btn btn-secondary" data-action="choose-location">Choose a Location</button></div>' +
         (state.geoError ? '<p class="loc-status" role="status">' + state.geoError + "</p>" : "") +
-        "</div></main>";
+        "</div>" + footerHtml() + "</main>";
     }
     var list = currentList();
-    var shown = state.view === "map" ? list : list.slice(0, state.limit);
+    var shown = list.slice(0, state.limit);
     var nFilters = activeFilterCount(state.filters);
     var body;
     if (!list.length) body = emptyHtml(list);
-    else if (state.view === "map") body = mapHtml(list);
     else {
       body = '<div class="cards">' + shown.map(cardHtml).join("") + "</div>";
       if (list.length > shown.length) body += '<div class="stack" style="margin-top:12px"><button type="button" class="btn btn-ghost" id="showMore" data-action="more">Show more</button></div><div id="moreSentinel"></div>';
+      body += planLink();
     }
-    var banner = list.length ? '<section class="vote-banner"><h2>Where Should We Eat?</h2>' +
-      "<p>Going out with friends? Shortlist a few BYO restaurants and let everyone vote.</p>" +
-      '<button type="button" class="btn btn-primary" data-action="vote-start">Put It to a Vote</button></section>' : "";
-    var locLabel = state.area && state.area.near ? "Near you" : ((state.area && state.area.label) || "Choose a location");
     return header(false) + '<main id="main" class="screen"><h1>' + esc(resultsHeading()) + "</h1>" +
-      '<button type="button" class="loc-line" data-action="choose-location">' + icon("pin") + "<span>" + esc(locLabel) + "</span><span>Change</span></button>" +
-      banner +
+      areaControl() +
       '<div class="toolbar"><h2>Restaurants</h2><div class="toolbar-actions">' +
       '<button type="button" class="btn btn-small btn-ghost" data-action="filters">Filters' + (nFilters ? " · " + nFilters : "") + "</button>" +
-      '<div class="seg" role="group" aria-label="List or map"><button type="button" data-action="view" data-view="list" aria-pressed="' + (state.view !== "map") + '">List</button>' +
-      '<button type="button" data-action="view" data-view="map" aria-pressed="' + (state.view === "map") + '">Map</button></div></div></div>' +
+      "</div></div>" +
       (list.length ? '<p class="sort-note">' + esc(L.sortLabel(state.filters.sort, state.area)) + "</p><p class=\"count-line\">" + list.length + (list.length === 1 ? " restaurant" : " restaurants") + "</p>" : "") +
-      body + "</main>";
+      body + footerHtml() + "</main>";
   }
 
   function activeFilterCount(f) {
     var n = 0;
     if (String(f.q || "").trim()) n++;
-    if (f.cuisine && f.cuisine !== "All") n++;
+    if (L.cuisineSelection(f).length) n++;
     if (f.byo && f.byo !== "All") n++;
     if (f.corkage && f.corkage !== "All") n++;
     if (Number(f.rating) > 0) n++;
     if (Number(f.radius) > 0) n++;
-    if (f.tonight) n++;
     if (f.sort && f.sort !== L.defaultSort(state.area)) n++;
     return n;
   }
@@ -342,20 +342,19 @@
       return '<button type="button" class="check" data-action="toggle" data-id="' + esc(p.id) + '" aria-pressed="' + on + '">' +
         '<span class="box" aria-hidden="true">' + (on ? "✓" : "") + "</span><span><strong>" + esc(p.name) + "</strong>" +
         '<span class="fine">' + esc([p.cuisine, p.suburb].filter(Boolean).join(" · ")) + "</span><br>" +
-        '<span class="fine">' + esc(L.byoPresentation(p).label + (cork ? " · " + cork : "")) + "</span>" +
+        '<span class="fine">' + esc(L.byoDayStatus(p).label + (cork ? " · " + cork : "")) + "</span>" +
         (p.address ? '<br><span class="fine">' + esc(p.address) + "</span>" : "") +
         "</span></button>";
     }).join("");
     var note = state.removedNote ? '<p class="note" role="status">' + esc(state.removedNote) + "</p>" : "";
     var err = state.pollError ? '<p class="loc-status" role="alert">' + esc(state.pollError) + "</p>" : "";
-    var locLabel = state.area && state.area.near ? "Near you" : ((state.area && state.area.label) || "Choose a location");
     return header(false) + '<main id="main" class="screen screen-select">' + steps(1) +
       "<h1>Where Should We Eat?</h1><p class=\"sub\">Tick the restaurants you’d like your friends to choose between.</p>" +
-      '<button type="button" class="loc-line" data-action="choose-location">' + icon("pin") + "<span>" + esc(locLabel) + "</span><span>Change</span></button>" +
+      areaControl() +
       note + err +
       '<div class="toolbar"><h2>Restaurants</h2><button type="button" class="btn btn-small btn-ghost" data-action="filters">Filters' + (activeFilterCount(state.filters) ? " · " + activeFilterCount(state.filters) : "") + "</button></div>" +
       (list.length ? cards + (list.length > shown.length ? '<div class="stack"><button type="button" class="btn btn-ghost" data-action="more">Show more</button></div>' : "") : emptyHtml(list)) +
-      '<p class="fine-print">Choose at least two. There’s no three-restaurant limit.</p></main>' +
+      '<p class="fine-print">Choose at least two. There’s no three-restaurant limit.</p>' + footerHtml() + "</main>" +
       '<div class="dock"><div class="dock-inner"><div class="dock-meta"><strong>' + visiblePicks.length + " restaurant" + (visiblePicks.length === 1 ? "" : "s") + " selected</strong><span>Minimum 2</span></div>" +
       '<button type="button" class="btn btn-primary" data-action="continue-share" ' + (visiblePicks.length < 2 || state.shareBusy ? "disabled" : "") + ">" +
       (state.shareBusy ? "Saving shortlist…" : "Continue to share") + "</button></div></div>";
@@ -392,7 +391,7 @@
       '<div class="stack"><button type="button" class="btn btn-secondary" data-action="edit-shortlist">Edit shortlist</button>' +
       '<a class="btn btn-ghost" href="/vote/' + esc(poll.shareToken) + '">Preview the voting screen</a></div>' +
       (state.toast ? '<p id="toast" class="toast" role="status">' + esc(state.toast) + "</p>" : '<p id="toast" class="toast" role="status" hidden></p>') +
-      "</main>";
+      footerHtml() + "</main>";
   }
 
   function voteHtml() {
@@ -444,7 +443,7 @@
       (done ? "" : '<button type="button" class="btn btn-primary" data-action="submit-vote" ' + (!state.voteChoice || state.voteBusy ? "disabled" : "") + ">" +
         (state.voteBusy ? "Submitting…" : "Submit my vote") + "</button>") +
       summary +
-      '<p class="fine-print">Voting is saved for this browser. A repeat tap won’t be counted twice.</p></main>';
+      '<p class="fine-print">Voting is saved for this browser. A repeat tap won’t be counted twice.</p>' + footerHtml() + "</main>";
   }
 
   function legacyHtml() {
@@ -461,7 +460,7 @@
     return header(false) + '<main id="main" class="screen"><h1>This is an older shortlist link</h1>' +
       "<p class=\"sub\">Votes on the old link stayed on each phone. Create a new link so friends vote on the same shortlist.</p>" +
       rows + (state.pollError ? '<p class="loc-status" role="alert">' + esc(state.pollError) + "</p>" : "") +
-      '<button type="button" class="btn btn-primary" data-action="continue-share">' + (state.shareBusy ? "Saving shortlist…" : "Create a shareable poll") + "</button></main>";
+      '<button type="button" class="btn btn-primary" data-action="continue-share">' + (state.shareBusy ? "Saving shortlist…" : "Create a shareable poll") + "</button>" + footerHtml() + "</main>";
   }
 
   function detailSheet() {
@@ -480,7 +479,6 @@
       var days = Array.isArray(p.byoDays) ? p.byoDays.join(", ") : String(p.byoDays);
       if (days) bits.push("<p><strong>BYO days</strong> " + esc(days) + "</p>");
     }
-    if (p.deal && p.deal.url) bits.push('<p><a href="' + esc(p.deal.url) + '" target="_blank" rel="noopener">EatClub ' + esc(p.deal.pct || "") + "</a>" + (p.deal.when ? " · " + esc(p.deal.when) : "") + "</p>");
     if (view.address && !view.directions) bits.push("<p>Directions stay hidden until this record has a full street address.</p>");
     var shops = shopBlock(p);
     var actions = "";
@@ -507,20 +505,6 @@
     return html ? '<p><strong>Bottle shops within 2 km</strong></p><ul class="shops">' + html + "</ul>" : "";
   }
 
-  function menuSheet() {
-    if (!state.menuOpen) return "";
-    var calls = (D.callFirst || []).map(function (c) {
-      var tel = "+61" + String(c.phone || "").replace(/\D/g, "").replace(/^0/, "");
-      var detail = /rank/i.test(c.detail || "") ? "Call to confirm" : (c.detail || "");
-      return '<li><a href="tel:' + esc(tel) + '"><span><strong>' + esc(String(c.title || "").split(",")[0]) + "</strong><br><span class=\"fine\">" + esc(detail) + "</span></span><span>" + esc(c.phone || "") + "</span></a></li>";
-    }).join("");
-    return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="menuTitle"><div class="sheet-card">' +
-      '<div class="sheet-head"><h2 id="menuTitle">Menu</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
-      '<p>BYOSpot lists BYO restaurants rated 4.0★ or higher on Google across Sydney, the Blue Mountains, Melbourne and the Victorian coast. Listings as of ' + esc(D.asOf || "") + ". Corkage and BYO policy can change — call the restaurant to confirm.</p>" +
-      "<h3>Call before you go</h3><ul class=\"call-list\">" + calls + "</ul>" +
-      "<h3>EatClub</h3><p class=\"fine-print\">" + esc(D.finePrint || "") + "</p></div></div>";
-  }
-
   function filtersSheet() {
     if (!state.filtersOpen) return "";
     var d = state.draft || L.blankFilters();
@@ -530,6 +514,7 @@
         return '<button type="button" class="chip" data-action="draft" data-key="' + group + '" data-v="' + esc(o.v) + '" aria-pressed="' + on + '">' + esc(o.label) + "</button>";
       }).join("") + "</div>";
     }
+    var selectedCuisines = L.cuisineSelection(d);
     var cuisines = [{ v: "All", label: "Any" }].concat((model.families || []).map(function (f) { return { v: f, label: f }; }));
     var sorts = [{ v: "", label: "Default" }, { v: "name", label: "A–Z" }, { v: "rating", label: "Rating" }];
     if (state.area && state.area.near && state.coords) sorts.splice(1, 0, { v: "distance", label: "Distance" });
@@ -543,7 +528,11 @@
     return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="filterTitle"><div class="sheet-card">' +
       '<div class="sheet-head"><h2 id="filterTitle">Filters</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
       '<label class="field"><span>Restaurant name</span><input id="filterQ" type="search" value="' + esc(d.q || "") + '" placeholder="Name or dish"></label>' +
-      "<h3>Cuisine</h3>" + chips("cuisine", cuisines) +
+      "<h3>Cuisine</h3><p class=\"fine-print\">Pick one or more.</p>" +
+      '<div class="chips" role="group" aria-label="Cuisine">' + cuisines.map(function (o) {
+        var on = o.v === "All" ? selectedCuisines.length === 0 : selectedCuisines.indexOf(o.v) >= 0;
+        return '<button type="button" class="chip" data-action="draft" data-key="cuisine" data-v="' + esc(o.v) + '" aria-pressed="' + on + '">' + esc(o.label) + "</button>";
+      }).join("") + "</div>" +
       "<h3>BYO status</h3>" + chips("byo", [
         { v: "All", label: "Any" }, { v: "confirmed", label: "BYO confirmed" }, { v: "listed", label: "BYO listed — call to confirm" }
       ]) +
@@ -551,10 +540,44 @@
       "<h3>Google rating</h3>" + chips("rating", [{ v: "0", label: "Any" }, { v: "4.5", label: "4.5+" }]) +
       radius +
       "<h3>Sort</h3>" + chips("sort", sorts) +
-      '<div class="chips" style="margin-top:12px"><button type="button" class="chip" data-action="draft" data-key="tonight" data-v="' + (d.tonight ? "0" : "1") + '" aria-pressed="' + !!d.tonight + '">Prefer BYO tonight</button></div>' +
       '<p class="count-line" id="filterCount">' + preview.length + (preview.length === 1 ? " restaurant" : " restaurants") + "</p>" +
       '<div class="stack"><button type="button" class="btn btn-primary" data-action="apply-filters">Show restaurants</button>' +
       '<button type="button" class="btn btn-ghost" data-action="reset-filters">Clear filters</button></div></div></div>';
+  }
+
+  function privacyHtml() {
+    return header(false) + '<main id="main" class="screen privacy-page">' +
+      "<h1>Privacy — BYOspot</h1>" +
+      '<p class="sub">Last updated: 25 October 2026</p>' +
+      "<p>BYOspot helps you find BYO restaurants. We keep this simple and don’t sell your personal information.</p>" +
+      "<h2>What we collect</h2><ul>" +
+      "<li><strong>Location (optional).</strong> If you tap “Find BYO Near Me,” your device may share your approximate location so we can show nearby venues. You can refuse and use “Choose a Location” instead. We don’t keep a live track of where you go.</li>" +
+      "<li><strong>Usage basics.</strong> Like most sites, our host and tools may see technical details such as IP address, browser type, pages viewed, and approximate time of visit (for example via Netlify and any analytics we switch on).</li>" +
+      "<li><strong>What you send us.</strong> If you report an error, claim a venue, or email us, we keep what you include so we can respond.</li>" +
+      "</ul>" +
+      "<p>We don’t require an account to browse. If we add login later, we’ll update this page.</p>" +
+      "<h2>How we use it</h2>" +
+      "<p>To run and improve BYOspot — show relevant venues, fix bugs, understand what works, and answer you when you contact us.</p>" +
+      "<h2>Sharing</h2>" +
+      "<p>We use service providers to host and run the app (for example Netlify and our database). They only get what’s needed to do that job. We don’t sell your personal information. We may share information if the law requires it.</p>" +
+      "<h2>Venue data</h2>" +
+      "<p>Restaurant names, addresses, ratings, corkage and BYO notes come from public sources and user reports. Policies change — always confirm with the restaurant.</p>" +
+      "<h2>Cookies / local storage</h2>" +
+      "<p>We may use cookies or local storage for basic site function (for example remembering a preference). You can clear these in your browser.</p>" +
+      "<h2>Overseas storage</h2>" +
+      "<p>Some providers may process data outside Australia. We still expect them to protect it appropriately.</p>" +
+      "<h2>Your choices</h2><ul>" +
+      "<li>Don’t share location — use Choose a Location.</li>" +
+      "<li>Clear cookies / site data in your browser.</li>" +
+      "<li>Contact us to ask what’s held about you, or to ask us to delete something you sent (we’ll do what we reasonably can).</li>" +
+      "</ul>" +
+      "<h2>Kids</h2>" +
+      "<p>BYOspot isn’t aimed at children under 16.</p>" +
+      "<h2>Contact</h2>" +
+      '<p>Questions about privacy: <a href="mailto:hello@byospot.com">hello@byospot.com</a></p>' +
+      "<h2>Changes</h2>" +
+      "<p>We’ll update this page when our practices change. The “Last updated” date will move when we do.</p>" +
+      "</main>";
   }
 
   function screenHtml() {
@@ -565,6 +588,7 @@
     if (state.screen === "share") return shareHtml();
     if (state.screen === "vote") return voteHtml();
     if (state.screen === "legacy") return legacyHtml();
+    if (state.screen === "privacy") return privacyHtml();
     return homeHtml();
   }
 
@@ -572,14 +596,15 @@
     var y = window.scrollY || 0;
     var keep = state.keepScroll;
     state.keepScroll = false;
-    document.body.classList.toggle("modal-open", !!(state.detailId || state.menuOpen || state.filtersOpen));
-    $("app").innerHTML = screenHtml() + detailSheet() + menuSheet() + filtersSheet();
+    document.body.classList.toggle("modal-open", !!(state.detailId || state.filtersOpen));
+    $("app").innerHTML = screenHtml() + detailSheet() + filtersSheet();
     var title = "BYOSpot";
     if (state.screen === "home") title = "BYOSpot · Find a BYO restaurant";
     else if (state.screen === "results") title = resultsHeading() + " · BYOSpot";
     else if (state.screen === "location") title = "Choose a location · BYOSpot";
     else if (state.screen === "select" || state.screen === "share") title = "Where Should We Eat? · BYOSpot";
     else if (state.screen === "vote") title = "Where should we eat? · BYOSpot";
+    else if (state.screen === "privacy") title = "Privacy · BYOSpot";
     document.title = title;
     if (keep) window.scrollTo(0, y);
   }
@@ -604,13 +629,23 @@
     var route = parseRoute();
     state.screen = route.screen;
     state.detailId = "";
-    state.menuOpen = false;
     state.filtersOpen = false;
+    if (route.screen === "location") {
+      var browseState = route.params.get("state");
+      state.locQuery = "";
+      state.browseStack = browseState && L.STATES[browseState] ? [{ level: "state", state: browseState }] : [];
+    }
     if (route.screen === "results" || route.screen === "select") {
       state.area = L.areaFromParams(route.params) || state.area;
       state.filters = L.filtersFromParams(route.params);
-      state.view = route.params.get("view") === "map" ? "map" : "list";
+      state.view = "list";
       if (!state.area) { state.screen = "home"; }
+      else if (L.isStateDump(state.area)) {
+        state.screen = "location";
+        state.locQuery = "";
+        state.browseStack = [{ level: "state", state: state.area.state }];
+        history.replaceState({ app: 1, depth: depth }, "", "/location?state=" + encodeURIComponent(state.area.state));
+      }
       if (state.screen === "select" && state.limit < 30) state.limit = 30;
     }
     if (route.screen === "vote" || route.screen === "share") {
@@ -644,6 +679,7 @@
     var share = path.match(/^\/share\/([A-Za-z0-9_-]+)$/);
     if (share) return { screen: "share", token: share[1], params: params };
     if (path === "/location") return { screen: "location", params: params };
+    if (path === "/privacy") return { screen: "privacy", params: params };
     if (path === "/select") return { screen: "select", params: params };
     if (path === "/results") return { screen: "results", params: params };
     return { screen: "home", params: params };
@@ -673,6 +709,12 @@
   }
 
   function chooseArea(area) {
+    if (L.isStateDump(area)) {
+      state.locQuery = "";
+      state.browseStack = [{ level: "state", state: area.state }];
+      go("/location?state=" + encodeURIComponent(area.state));
+      return;
+    }
     var ret = state.locReturn || "results";
     try { ret = sessionStorage.getItem("byospot-loc-return") || ret; } catch (e) {}
     if (!area.near && state.filters.sort === "distance") state.filters.sort = "";
@@ -733,7 +775,7 @@
   function uiBack() {
     if (history.state && history.state.app && depth > 0) { history.back(); return; }
     if (state.screen === "share") { go("/select?" + resultsQuery(), { replace: true }); return; }
-    if (state.screen === "select" || state.screen === "location" || state.screen === "results") {
+    if (state.screen === "select" || state.screen === "location" || state.screen === "results" || state.screen === "privacy") {
       if (state.screen === "select" && state.area) { go("/results?" + resultsQuery(), { replace: true }); return; }
       go("/", { replace: true });
       return;
@@ -821,12 +863,20 @@
     if (action === "home") { e.preventDefault(); go("/"); return; }
     if (action === "back") {
       if (state.screen === "location" && state.locQuery) { state.locQuery = ""; render(); return; }
-      if (state.screen === "location" && state.browseStack.length) { state.browseStack.pop(); render(); return; }
+      if (state.screen === "location" && state.browseStack.length) {
+        state.browseStack.pop();
+        var top = state.browseStack[state.browseStack.length - 1];
+        var locPath = "/location";
+        if (top && top.state && !top.city) locPath += "?state=" + encodeURIComponent(top.state);
+        history.replaceState({ app: 1, depth: depth }, "", locPath);
+        render();
+        return;
+      }
       uiBack();
       return;
     }
-    if (action === "menu") { state.menuOpen = true; state.detailId = ""; state.filtersOpen = false; render(); return; }
-    if (action === "close") { state.menuOpen = false; state.detailId = ""; state.filtersOpen = false; state.keepScroll = true; render(); return; }
+    if (action === "privacy") { e.preventDefault(); go("/privacy"); return; }
+    if (action === "close") { state.detailId = ""; state.filtersOpen = false; state.keepScroll = true; render(); return; }
     if (action === "near") { requestNear(); return; }
     if (action === "choose-location") {
       openLocation(state.screen === "select" ? "select" : "results");
@@ -836,7 +886,15 @@
     if (action === "loc-row") {
       var row = state.rows[Number(el.getAttribute("data-i"))];
       if (!row) return;
-      if (row.drill) { state.browseStack.push(row.drill); state.locQuery = ""; render(); return; }
+      if (row.drill) {
+        state.browseStack.push(row.drill);
+        state.locQuery = "";
+        if (row.drill.level === "state" && row.drill.state) {
+          history.replaceState({ app: 1, depth: depth }, "", "/location?state=" + encodeURIComponent(row.drill.state));
+        }
+        render();
+        return;
+      }
       if (row.area) chooseArea(row.area);
       return;
     }
@@ -847,15 +905,10 @@
       else openLocation("results");
       return;
     }
-    if (action === "view") {
-      state.view = el.getAttribute("data-view") === "map" ? "map" : "list";
-      syncUrl();
-      return;
-    }
     if (action === "filters") {
       state.draft = Object.assign(L.blankFilters(), state.filters);
+      state.draft.cuisine = L.cuisineSelection(state.filters).slice();
       state.filtersOpen = true;
-      state.menuOpen = false;
       render();
       return;
     }
@@ -863,8 +916,16 @@
       var key = el.getAttribute("data-key");
       var val = el.getAttribute("data-v");
       if (!state.draft) state.draft = Object.assign(L.blankFilters(), state.filters);
-      if (key === "tonight") state.draft.tonight = val === "1";
-      else if (key === "rating" || key === "radius") state.draft[key] = Number(val) || 0;
+      if (key === "cuisine") {
+        if (val === "All") state.draft.cuisine = [];
+        else {
+          var picked = L.cuisineSelection(state.draft);
+          var atCuisine = picked.indexOf(val);
+          if (atCuisine >= 0) picked.splice(atCuisine, 1);
+          else picked.push(val);
+          state.draft.cuisine = picked;
+        }
+      } else if (key === "rating" || key === "radius") state.draft[key] = Number(val) || 0;
       else state.draft[key] = val;
       render();
       return;
@@ -873,6 +934,7 @@
       var qEl = $("filterQ");
       if (qEl && state.draft) state.draft.q = qEl.value;
       state.filters = Object.assign(L.blankFilters(), state.draft || {});
+      state.filters.cuisine = L.cuisineSelection(state.draft).slice();
       state.filtersOpen = false;
       state.limit = 24;
       syncUrl();
@@ -883,6 +945,7 @@
       state.filters = L.blankFilters();
       state.filters.sort = sort;
       state.draft = Object.assign(L.blankFilters(), state.filters);
+      state.draft.cuisine = [];
       state.filtersOpen = false;
       state.limit = 24;
       if (state.screen === "results" || state.screen === "select") syncUrl();
@@ -892,10 +955,9 @@
     if (action === "more") { state.limit += 24; state.keepScroll = true; render(); return; }
     if (action === "details") {
       var id = el.getAttribute("data-id");
-      if (id && model.byId[id]) { state.detailId = id; state.menuOpen = false; render(); }
+      if (id && model.byId[id]) { state.detailId = id; render(); }
       return;
     }
-    if (action === "map-pin") { state.mapId = el.getAttribute("data-id") || ""; state.keepScroll = true; render(); return; }
     if (action === "vote-start") {
       state.limit = 30;
       state.pollError = "";
@@ -958,12 +1020,22 @@
     e.preventDefault();
     var q = state.locQuery.trim();
     if (!q) return;
-    if (state.rows && state.rows[0] && state.rows[0].area) { chooseArea(state.rows[0].area); return; }
+    var first = state.rows && state.rows[0];
+    if (first && first.drill) {
+      state.browseStack.push(first.drill);
+      state.locQuery = "";
+      if (first.drill.level === "state" && first.drill.state) {
+        history.replaceState({ app: 1, depth: depth }, "", "/location?state=" + encodeURIComponent(first.drill.state));
+      }
+      render();
+      return;
+    }
+    if (first && first.area) { chooseArea(first.area); return; }
     chooseArea({ unrecognised: true, query: q, label: q });
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && (state.detailId || state.menuOpen || state.filtersOpen)) {
-      state.detailId = ""; state.menuOpen = false; state.filtersOpen = false; state.keepScroll = true; render();
+    if (e.key === "Escape" && (state.detailId || state.filtersOpen)) {
+      state.detailId = ""; state.filtersOpen = false; state.keepScroll = true; render();
     }
   });
   window.addEventListener("popstate", function () {
