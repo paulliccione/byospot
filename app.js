@@ -95,7 +95,7 @@
   function header(home) {
     var back = home ? "" : '<button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>";
     return '<header class="top' + (home ? " top-home" : "") + '">' + back +
-      '<a href="/" data-action="home"><img class="logo" src="icons/logo-horizontal.png" alt="BYOSpot"></a>' +
+      '<a class="brand" href="/" data-action="home"><img src="icons/icon-192.png" alt="" width="40" height="40"><span>BYO Spot</span></a>' +
       '<button type="button" class="icon-btn" data-action="menu" aria-label="Menu" aria-expanded="' + (state.menuOpen ? "true" : "false") + '">' + icon("menu") + "</button></header>";
   }
 
