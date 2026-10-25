@@ -49,7 +49,6 @@ window.BYO = {
   ],
   "hero": {
     "eyebrow": "Top of the list",
-    "extraNote": "Not on EatClub, so cash is the only discount."
   },
   "priceLegend": [
     {
@@ -70,7 +69,6 @@ window.BYO = {
     }
   ],
   "priceLegendNote": "Food only, per person, before wine. ~ means estimate.",
-  "finePrint": "Book the deal in the EatClub app for a time in the deal window, then pay with the EatClub card. Booking directly with the restaurant won't get the discount. EatClub adds a 1–6% fee, and BYO places will probably still charge corkage. The app shows live deals.",
   "callFirst": [
     {
       "title": "Ran Proad",
@@ -1721,11 +1719,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "BYO midweek only",
       "website": "https://www.bistrorex.com.au",
-      "deal": {
-        "pct": "Up to 20% off",
-        "when": "Days with deals this week: Tue, Thu, Fri, Sat; today (Sat) 20% off dine-in 12:00pm-2:00pm, 20% off dine-in 5:30pm-6:00pm. Live times in the EatClub app",
-        "url": "https://eatclub.com.au/venue/bistro-rex"
-      },
       "byoDays": [
         "Monday",
         "Tuesday",
@@ -2573,11 +2566,6 @@ window.BYO = {
       "note": "Lively and noisy",
       "website": "https://www.erciyesrestaurant.com.au",
       "takeawayDetail": "Online order",
-      "deal": {
-        "pct": "Up to 25% off",
-        "when": "Days with deals this week: Mon, Tue, Wed, Thu. Live times in the EatClub app",
-        "url": "https://eatclub.com.au/venue/erciyes-restaurant"
-      },
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2829,11 +2817,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "Closed Mon for lunch; dinner daily",
       "website": "https://macleaystbistro.com.au",
-      "deal": {
-        "pct": "Up to 35% off",
-        "when": "Days with deals this week: Tue, Wed, Thu, Fri, Sat, Sun; today (Sat) 15 time slots between 12:30pm and 9:30pm, 20–35% off, dine-in. Live times in the EatClub app",
-        "url": "https://eatclub.com.au/venue/macleay-st-bistro"
-      },
       "takeawayDetail": "",
       "city": "Sydney",
       "bottleShops": {
@@ -5736,19 +5719,14 @@ window.BYO = {
       "stars": 4.5,
       "reviews": "~290",
       "price": "$",
-      "priceBasis": "Mains around $16–20 (EatClub menu)",
+      "priceBasis": "Mains around $16–20",
       "corkage": "Unknown",
       "byoConfirmed": true,
       "dish": "Lakhavi seekh kebab, tandoori prawns",
       "takeaway": "unknown",
       "priceEstimate": false,
-      "note": "Closed Tue (per EatClub)",
+      "note": "Closed Tue",
       "website": "https://tasteofhimalaya.com.au",
-      "deal": {
-        "pct": "Up to 30% off",
-        "when": "Days with deals this week: Mon, Wed, Thu, Fri, Sat, Sun; today (Sat) 30% off dine-in 12:00pm-3:00pm, 25% off dine-in 5:00pm-7:00pm. Live times in the EatClub app",
-        "url": "https://eatclub.com.au/venue/taste-of-himalaya"
-      },
       "takeawayDetail": "",
       "city": "Sydney",
       "bottleShops": {
@@ -5791,11 +5769,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "Bottle shop across the road",
       "takeawayDetail": "Uber Eats",
-      "deal": {
-        "pct": "Up to 30% off",
-        "when": "Days with deals this week: Wed, Thu, Fri, Sat, Sun; today (Sat) 30% off dine-in 5:00pm-7:00pm. Live times in the EatClub app",
-        "url": "https://eatclub.com.au/venue/derrels"
-      },
       "website": "",
       "city": "Sydney",
       "bottleShops": {
@@ -6338,11 +6311,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "Formerly Rosso Pomodoro",
       "website": "https://www.rossobalmain.com.au",
-      "deal": {
-        "pct": "Up to 30% off",
-        "when": "Days with deals this week: Tue, Wed, Thu, Fri, Sat, Sun; today (Sat) 20% off dine-in 5:00pm-5:45pm, 20% off dine-in 8:00pm-9:30pm. Live times in the EatClub app",
-        "url": "https://eatclub.com.au/venue/rosso-balmain"
-      },
       "takeawayDetail": "",
       "city": "Sydney",
       "bottleShops": {
@@ -6552,11 +6520,6 @@ window.BYO = {
       "takeaway": "unknown",
       "priceEstimate": true,
       "website": "https://ramengoku.com.au",
-      "deal": {
-        "pct": "Up to 25% off",
-        "when": "Days with deals this week: Mon, Tue, Wed, Thu, Fri, Sat; today (Sat) 25% off dine-in 11:30am-2:00pm, 25% off dine-in 5:30pm-8:00pm. Live times in the EatClub app",
-        "url": "https://eatclub.com.au/venue/ramen-goku"
-      },
       "note": "",
       "takeawayDetail": "",
       "city": "Sydney",
@@ -9811,11 +9774,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "BYO Wed and Thu only",
       "website": "https://www.sefakitchen.com.au",
-      "deal": {
-        "pct": "Up to 30% off",
-        "when": "Days with deals this week: Tue, Wed, Thu, Fri, Sat, Sun; today (Sat) 30% off dine-in 12:00pm-2:00pm, 30% off dine-in 5:30pm-8:30pm, 30% off takeaway 5:30pm-8:30pm. Live times in the EatClub app",
-        "url": "https://eatclub.com.au/venue/sefa-kitchen"
-      },
       "byoDays": [
         "Wednesday",
         "Thursday"
@@ -12213,12 +12171,7 @@ window.BYO = {
       "priceEstimate": true,
       "note": "Halal meat, vegan menu",
       "website": "https://ilovepho.com.au/",
-      "takeawayDetail": "EatClub takeaway offers",
-      "deal": {
-        "pct": "Up to 30% off",
-        "when": "Dine-in & takeaway: 30% Mon–Fri, 25% Sat–Sun, set arrival windows (EatClub forecast 24 Oct 2026)",
-        "url": "https://eatclub.com.au/venue/i-love-pho"
-      },
+      "takeawayDetail": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12336,11 +12289,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "BYO Wed dinner, Fri & Sat lunch only; wine bar",
       "website": "https://www.annatasydney.com/",
-      "deal": {
-        "pct": "25% off",
-        "when": "Dine-in Tue–Sat, e.g. arrive 5:30–6:30pm (EatClub forecast 24 Oct 2026)",
-        "url": "https://eatclub.com.au/venue/annata"
-      },
       "byoDays": [
         "Wednesday"
       ],
@@ -12917,11 +12865,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "BYO Wednesdays only, all day; corkage per IWFS",
       "website": "https://www.publicdiningroom.com.au/",
-      "deal": {
-        "pct": "25% off",
-        "when": "Mon–Fri (EatClub forecast 24 Oct 2026)",
-        "url": "https://eatclub.com.au/venue/public-dining-room-balmoral"
-      },
       "byoDays": [
         "Wednesday"
       ],
@@ -13348,11 +13291,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "BYO for parties up to 8; pet-friendly",
       "website": "https://www.pastureofkirribilli.com.au/",
-      "deal": {
-        "pct": "30% off",
-        "when": "Mon–Wed (EatClub forecast 24 Oct 2026)",
-        "url": "https://eatclub.com.au/venue/pasture-of-kirribilli"
-      },
       "takeawayDetail": "",
       "city": "Sydney",
       "bottleShops": {
@@ -16567,11 +16505,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "BYO Wednesday nights only; belly dancers",
       "website": "https://www.tetas.net.au/",
-      "deal": {
-        "pct": "Up to 25% off",
-        "when": "Dine-in Wed–Sun (20% on Fri) (EatClub forecast 24 Oct 2026)",
-        "url": "https://eatclub.com.au/venue/tetas-authentic-lebanese"
-      },
       "byoDays": [
         "Wednesday"
       ],
@@ -16617,11 +16550,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "Dinner Tue–Sun 5–9:30pm; weekend lunch",
       "website": "https://mehmaan.com.au/",
-      "deal": {
-        "pct": "20% off",
-        "when": "Dine-in Tue, Wed, Fri–Sun, arrive 5–7pm (EatClub forecast 24 Oct 2026)",
-        "url": "https://eatclub.com.au/venue/mehmaan-indian-cuisine"
-      },
       "takeawayDetail": "",
       "city": "Sydney",
       "bottleShops": {
@@ -22787,7 +22715,7 @@ window.BYO = {
       "dish": "Seafood platter",
       "takeaway": "unknown",
       "priceEstimate": false,
-      "note": "BYO wine 7 days. On EatClub but no current offer",
+      "note": "BYO wine 7 days",
       "website": "https://sealevel.com.au",
       "takeawayDetail": "",
       "city": "Sydney",
@@ -23039,11 +22967,6 @@ window.BYO = {
       "priceEstimate": false,
       "note": "Licensed; BYO per a 2025 review",
       "website": "https://www.sanethai.com.au",
-      "deal": {
-        "pct": "25% off",
-        "when": "Sun, Tue & Wed (EatClub forecast, 24 Oct 2026)",
-        "url": "https://eatclub.com.au/venue/sa-ne-thai-cuisine-sutherland"
-      },
       "takeawayDetail": "",
       "city": "Sydney",
       "bottleShops": {
@@ -27941,11 +27864,6 @@ window.BYO = {
       "takeaway": "unknown",
       "priceEstimate": false,
       "website": "https://itihaasindianrestaurant.com.au",
-      "deal": {
-        "pct": "25% off",
-        "when": "Dine-in daily, arrive 5:00–7:30pm",
-        "url": "https://eatclub.com.au/venue/itihaas-parramatta"
-      },
       "note": "",
       "takeawayDetail": "",
       "city": "Sydney",
@@ -30287,11 +30205,6 @@ window.BYO = {
       "priceEstimate": true,
       "note": "Lakeside views; BYO wine only",
       "website": "http://www.illago.com.au/",
-      "deal": {
-        "pct": "25% off",
-        "when": "Mon–Fri (EatClub forecast 24 Oct 2026)",
-        "url": "https://eatclub.com.au/venue/il-lago-italian-restaurant"
-      },
       "takeawayDetail": "",
       "city": "Sydney",
       "bottleShops": {

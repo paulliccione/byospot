@@ -317,7 +317,7 @@
       var rows = items.filter(function (item) { return item.kind === "state" && item.count > 0; }).map(function (item) {
         return {
           label: item.name,
-          meta: item.count + (item.count === 1 ? " restaurant" : " restaurants"),
+          count: item.count,
           drill: { level: "state", state: item.area.state }
         };
       });
@@ -325,7 +325,6 @@
     }
     if (frame.level === "state") {
       var st = frame.state;
-      var showAll = { label: "Show all of " + STATES[st], area: { state: st, stateName: STATES[st], label: STATES[st] } };
       var rowsS = [];
       cities.forEach(function (c) {
         if (stateOfCity(c.id) !== st) return;
@@ -334,13 +333,13 @@
         var one = c.regions && c.regions.length === 1 && fold(c.regions[0]) === fold(c.label || c.id);
         rowsS.push({
           label: c.label || c.id,
-          meta: count + (count === 1 ? " restaurant" : " restaurants"),
+          count: count,
           drill: one
             ? { level: "region", state: st, city: c.id, region: c.regions[0] }
             : { level: "city", state: st, city: c.id }
         });
       });
-      return { eyebrow: STATES[st], showAll: showAll, rows: rowsS };
+      return { eyebrow: STATES[st], showAll: null, rows: rowsS };
     }
     if (frame.level === "city") {
       var city = null;
@@ -355,7 +354,7 @@
         if (item.kind === "region" && item.area.city === frame.city) {
           rowsC.push({
             label: item.name,
-            meta: item.count + (item.count === 1 ? " restaurant" : " restaurants"),
+            count: item.count,
             drill: { level: "region", state: frame.state, city: frame.city, region: item.name }
           });
         }
@@ -375,11 +374,17 @@
     var rowsR = [];
     items.forEach(function (item) {
       if (item.kind === "suburb" && item.area.city === frame.city && item.area.region === frame.region) {
-        rowsR.push({ label: item.name, meta: String(item.count), area: item.area });
+        rowsR.push({ label: item.name, count: item.count, area: item.area });
       }
     });
-    rowsR.sort(function (a, b) { return b.meta - a.meta || a.label.localeCompare(b.label); });
+    rowsR.sort(function (a, b) { return (b.count || 0) - (a.count || 0) || a.label.localeCompare(b.label); });
     return { eyebrow: regionLabel, showAll: showRegion, rows: rowsR };
+  }
+
+  function isStateDump(area) {
+    if (!area || area.near || area.shortlist || area.unrecognised || area.knownEmpty) return false;
+    if (area.city || area.region || area.suburb) return false;
+    return !!(area.state && STATES[area.state]);
   }
 
   function inArea(p, area) {
@@ -427,7 +432,8 @@
 
   function broadenArea(places, area) {
     var parent = parentArea(area);
-    if (parent && countArea(places, parent) > 0) return parent;
+    if (!parent || isStateDump(parent)) return null;
+    if (countArea(places, parent) > 0) return parent;
     return null;
   }
 
@@ -497,23 +503,99 @@
     if (d == null || d === "" || (Array.isArray(d) && !d.length)) return [];
     return (Array.isArray(d) ? d : [d]).map(function (x) { return String(x).trim().toLowerCase(); }).filter(Boolean);
   }
+  var DAY_ORDER = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+  var DAY_SHORT = { monday: "Mon", tuesday: "Tue", wednesday: "Wed", thursday: "Thu", friday: "Fri", saturday: "Sat", sunday: "Sun" };
+
+  function expandByoDays(p) {
+    var raw = normByoDays(p);
+    var set = {};
+    raw.forEach(function (d) {
+      if (ALWAYS_BYO[d]) {
+        DAY_ORDER.forEach(function (name) { set[name] = 1; });
+        return;
+      }
+      if (d === "weeknights" || d === "weeknight") {
+        ["monday", "tuesday", "wednesday", "thursday"].forEach(function (name) { set[name] = 1; });
+        return;
+      }
+      if (DAY_SHORT[d]) set[d] = 1;
+    });
+    return DAY_ORDER.filter(function (name) { return set[name]; });
+  }
+
+  function formatDaySpan(names) {
+    if (!names.length || names.length === 7) return "";
+    var index = {};
+    DAY_ORDER.forEach(function (name, i) { index[name] = i; });
+    var has = {};
+    names.forEach(function (name) { has[index[name]] = 1; });
+    var startAt = 0;
+    for (var i = 0; i < 7; i++) {
+      if (has[i] && !has[(i + 6) % 7]) { startAt = i; break; }
+    }
+    var groups = [];
+    var cursor = startAt;
+    var seen = 0;
+    while (seen < 7) {
+      if (!has[cursor]) { cursor = (cursor + 1) % 7; seen++; continue; }
+      var start = cursor;
+      var end = cursor;
+      while (has[(end + 1) % 7] && ((end + 1) % 7) !== start) end = (end + 1) % 7;
+      var a = DAY_SHORT[DAY_ORDER[start]];
+      var b = DAY_SHORT[DAY_ORDER[end]];
+      groups.push(start === end ? a : a + "–" + b);
+      var steps = ((end - start + 7) % 7) + 1;
+      cursor = (end + 1) % 7;
+      seen += steps;
+      if (cursor === startAt) break;
+    }
+    return groups.join(", ");
+  }
+
   function byoTonightStatus(p, today) {
     today = (today || sydneyWeekday()).toLowerCase();
-    var days = normByoDays(p);
-    if (!days.length) return "unknown";
-    if (days.some(function (x) { return ALWAYS_BYO[x]; })) return "yes";
-    if (days.indexOf("weeknights") >= 0 || days.indexOf("weeknight") >= 0) {
-      return ["monday", "tuesday", "wednesday", "thursday"].indexOf(today) >= 0 ? "yes" : "no";
+    var names = expandByoDays(p);
+    if (!names.length) return "unknown";
+    return names.indexOf(today) >= 0 ? "yes" : "no";
+  }
+
+  // Day line for a venue card. Only byoDays (plus always/weeknight tokens) decide tonight.
+  // Confirmed BYO with no day list stays "BYO confirmed" — we do not invent "BYO tonight".
+  // Listed BYO with no day list is "Call to confirm".
+  function byoDayStatus(p, today) {
+    today = (today || sydneyWeekday()).toLowerCase();
+    var names = expandByoDays(p);
+    if (!names.length) {
+      if (p && p.byoConfirmed === true) return { tone: "confirmed", label: "BYO confirmed" };
+      return { tone: "listed", label: "Call to confirm" };
     }
-    return days.indexOf(today) >= 0 ? "yes" : "no";
+    if (names.indexOf(today) >= 0) return { tone: "confirmed", label: "BYO tonight" };
+    var span = formatDaySpan(names);
+    return { tone: "listed", label: span ? "BYO " + span : "Call to confirm" };
+  }
+
+  function cuisineSelection(filters) {
+    var c = filters && filters.cuisine;
+    var list = [];
+    if (Array.isArray(c)) list = c;
+    else if (c && c !== "All") list = String(c).split(",");
+    var out = [];
+    var seen = {};
+    list.forEach(function (item) {
+      var name = String(item || "").trim();
+      if (!name || name === "All" || seen[name]) return;
+      seen[name] = 1;
+      out.push(name);
+    });
+    return out;
   }
 
   function blankFilters() {
-    return { q: "", cuisine: "All", byo: "All", corkage: "All", rating: 0, radius: 0, tonight: false, sort: "" };
+    return { q: "", cuisine: [], byo: "All", corkage: "All", rating: 0, radius: 0, sort: "" };
   }
   function filtersActive(f) {
     if (!f) return false;
-    return !!(String(f.q || "").trim() || (f.cuisine && f.cuisine !== "All") || (f.byo && f.byo !== "All") || (f.corkage && f.corkage !== "All") || Number(f.rating) > 0 || Number(f.radius) > 0);
+    return !!(String(f.q || "").trim() || cuisineSelection(f).length || (f.byo && f.byo !== "All") || (f.corkage && f.corkage !== "All") || Number(f.rating) > 0 || Number(f.radius) > 0);
   }
   function defaultSort(area) { return area && area.near ? "distance" : "name"; }
 
@@ -522,11 +604,12 @@
     var q = fold(filters.q || "");
     var terms = q ? q.split(" ") : [];
     var radiusM = Number(filters.radius) > 0 ? Number(filters.radius) * 1000 : 0;
+    var cuisines = cuisineSelection(filters);
     var list = [];
     for (var i = 0; i < places.length; i++) {
       var p = places[i];
       if (!inArea(p, area)) continue;
-      if (filters.cuisine && filters.cuisine !== "All" && p.family !== filters.cuisine) continue;
+      if (cuisines.length && cuisines.indexOf(p.family) < 0) continue;
       if (filters.byo === "confirmed" && p.byoConfirmed !== true) continue;
       if (filters.byo === "listed" && p.byoConfirmed !== false) continue;
       if (filters.corkage === "known" && !corkageText(p)) continue;
@@ -545,15 +628,6 @@
       if (sort === "rating") return (b.stars || 0) - (a.stars || 0) || reviewCount(b) - reviewCount(a) || a.name.localeCompare(b.name);
       return a.name.localeCompare(b.name);
     });
-    if (filters.tonight) {
-      var today = sydneyWeekday();
-      var yes = [], unk = [], no = [];
-      list.forEach(function (p) {
-        var st = byoTonightStatus(p, today);
-        if (st === "yes") yes.push(p); else if (st === "no") no.push(p); else unk.push(p);
-      });
-      list = yes.concat(unk, no);
-    }
     return list;
   }
 
@@ -663,15 +737,14 @@
     }
     filters = filters || {};
     add("q", String(filters.q || "").trim());
-    add("cuisine", filters.cuisine || "");
+    var cuisines = cuisineSelection(filters);
+    if (cuisines.length) add("cuisine", cuisines.join(","));
     add("byo", filters.byo || "");
     add("corkage", filters.corkage || "");
     add("rating", Number(filters.rating) || "");
     add("radius", Number(filters.radius) || "");
-    if (filters.tonight) add("tonight", "1");
     var sort = filters.sort || "";
     if (sort && sort !== defaultSort(area)) add("sort", sort);
-    if (view === "map") add("view", "map");
     return q.join("&");
   }
 
@@ -679,12 +752,11 @@
     function get(k) { return params.get ? (params.get(k) || "") : (params[k] || ""); }
     var f = blankFilters();
     f.q = get("q");
-    f.cuisine = get("cuisine") || "All";
+    f.cuisine = cuisineSelection({ cuisine: get("cuisine") });
     f.byo = get("byo") || "All";
     f.corkage = get("corkage") || "All";
     f.rating = Number(get("rating")) || 0;
     f.radius = Number(get("radius")) || 0;
-    f.tonight = get("tonight") === "1";
     f.sort = get("sort") || "";
     return f;
   }
@@ -696,6 +768,7 @@
     prepare: prepare,
     searchLocations: searchLocations,
     browse: browse,
+    isStateDump: isStateDump,
     inArea: inArea,
     countArea: countArea,
     parentArea: parentArea,
@@ -711,6 +784,8 @@
     formatNumber: formatNumber,
     haversine: haversine,
     byoTonightStatus: byoTonightStatus,
+    byoDayStatus: byoDayStatus,
+    cuisineSelection: cuisineSelection,
     sydneyWeekday: sydneyWeekday,
     blankFilters: blankFilters,
     filtersActive: filtersActive,
