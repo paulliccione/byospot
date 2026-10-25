@@ -100,14 +100,19 @@
   }
 
   function homeArt() {
-    return '<svg class="home-art" viewBox="0 0 240 120" role="img" aria-label="">' +
-      '<g fill="none" stroke="#800020" stroke-width="3" stroke-linecap="round">' +
-      '<path d="M48 18h36l-5 28a16 16 0 0 1-26 0L48 18z"/><path d="M66 48v16M54 70h24"/>' +
-      '<path d="M58 34c4-3 8 3 12 0s8-3 12 0" stroke-width="2.4"/>' +
+    return '<svg class="home-art" viewBox="0 0 220 108" role="img" aria-hidden="true">' +
+      '<g fill="none" stroke="#800020" stroke-width="2.6" stroke-linejoin="round">' +
+      '<path d="M46 10h40l-5 32a18 18 0 0 1-30 0L46 10z" fill="#fff"/>' +
+      '<path d="M52 30c5-6 10 4 15 0s10-6 15 0v8a12 12 0 0 1-30 0v-8z" fill="#800020" stroke="none"/>' +
+      '<path d="M66 48v16M52 68h28" stroke-linecap="round"/>' +
       "</g>" +
-      '<g fill="none" stroke="#001838" stroke-width="3" stroke-linecap="round">' +
-      '<ellipse cx="156" cy="62" rx="42" ry="16"/><path d="M122 58c8-22 60-22 68 0"/>' +
-      '<path d="M138 50c6 8 14 6 18-2"/><path d="M150 44c4 10 12 8 16-1"/>' +
+      '<g stroke="#001838" stroke-width="2.6" stroke-linecap="round">' +
+      '<ellipse cx="150" cy="72" rx="46" ry="16" fill="#fff"/>' +
+      '<ellipse cx="150" cy="66" rx="32" ry="11" fill="#f6e6cf" stroke="none"/>' +
+      '<path d="M128 64c8-7 14 5 22 0s14-7 22 0" fill="none" stroke="#d7a04a"/>' +
+      '<path d="M130 70c8-5 14 4 20 0s12-5 18 1" fill="none" stroke="#c4842c"/>' +
+      '<circle cx="150" cy="62" r="5.5" fill="#800020" stroke="none"/>' +
+      '<path d="M184 28v26M178 28v12M190 28v12" fill="none"/>' +
       "</g></svg>";
   }
 
