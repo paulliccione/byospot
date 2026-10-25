@@ -1,892 +1,967 @@
 (function () {
   "use strict";
+  var L = window.BYOLogic;
   var D = window.BYO;
+  if (!L || !D) return;
+  var model = L.prepare(D);
   var $ = function (id) { return document.getElementById(id); };
-  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
-  var norm = function (s) { return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); };
-  var slug = function (s) { return norm(s).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); };
-
-  var REGIONS = D.regions || [];
-  // Cities drive the City / area chips. Older data.js files are Sydney-only.
-  var CITIES = (D.cities && D.cities.length) ? D.cities : [{ id: "Sydney", label: "Sydney", regions: REGIONS.slice() }];
-  function cityById(id) {
-    for (var i = 0; i < CITIES.length; i++) if (CITIES[i].id === id) return CITIES[i];
-    return CITIES[0];
-  }
-  function activeCity() { return cityById(state.city); }
-  function activeRegions() {
-    var regions = activeCity().regions;
-    return (regions && regions.length) ? regions : REGIONS;
-  }
-  function inSelectedCity(p) {
-    var city = activeCity();
-    if (p.city) return p.city === city.id;
-    return activeRegions().indexOf(p.region) >= 0;
-  }
-  var places = D.places.slice();
-  // Per-region rank = position inside its region in data.js (pinned places first).
-  var byRegion = {};
-  places.forEach(function (p, i) {
-    p._i = i;
-    p.id = p.id || (norm(p.name) + "-" + norm(p.suburb)).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || ("p" + i);
-    (byRegion[p.region] = byRegion[p.region] || []).push(p);
-  });
-  // A few border suburbs are listed in two regions. Keep both rows, but give the
-  // second a distinct id so Plan a night doesn't treat them as one place.
-  var seenId = {};
-  places.forEach(function (p) {
-    if (!seenId[p.id]) { seenId[p.id] = 1; return; }
-    var regionSlug = norm(p.region).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    var id = p.id + "-" + regionSlug, n = 2;
-    while (seenId[id]) { id = p.id + "-" + regionSlug + "-" + n; n++; }
-    p.id = id;
-    seenId[id] = 1;
-  });
-  var byId = {}; places.forEach(function (p) { byId[p.id] = p; });
-  Object.keys(byRegion).forEach(function (r) {
-    byRegion[r].sort(function (a, b) { return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || a._i - b._i; });
-    byRegion[r].forEach(function (p, i) { p._rank = i + 1; });
-  });
-  var regionIndex = function (r) { var i = REGIONS.indexOf(r); return i < 0 ? 99 : i; };
-  places.sort(function (a, b) { return regionIndex(a.region) - regionIndex(b.region) || a._rank - b._rank; });
-  places.forEach(function (p) { p._search = norm([p.name, p.suburb, p.cuisine, /^unknown\b/i.test(p.dish || "") ? "" : p.dish, p.region, p.city].join(" ")); });
-  var hero = places.filter(function (p) { return p.pinned; })[0] || places[0];
-  function count(r) {
-    var cityId = activeCity().id;
-    return (byRegion[r] || []).filter(function (p) { return !p.city || p.city === cityId; }).length;
-  }
-  var famSet = D.families.filter(function (f) { return places.some(function (p) { return p.family === f; }); });
-
-  function stars(n) { var f = Math.round(n); return "★".repeat(f) + "☆".repeat(5 - f); }
-  function priceText(p) { return p.price === "?" ? "Price ?" : (p.priceEstimate ? "~" : "") + p.price; }
-  function famColor(f) { return "var(--fam-" + slug(f || "other") + ", var(--fam-other))"; }
-  function chip(t, cls, c) { return '<span class="chip ' + (cls || "") + '"' + (c ? ' style="--c:' + c + '"' : "") + ">" + esc(t) + "</span>"; }
-  function host(u) { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return u; } }
-  function fmtDist(m) { return m < 1000 ? Math.round(m / 10) * 10 + " m" : (m / 1000).toFixed(1) + " km"; }
-  function haversine(a, b, c, d) {
-    var R = 6371000, t = Math.PI / 180, p1 = a * t, p2 = c * t, dp = (c - a) * t, dl = (d - b) * t;
-    var h = Math.sin(dp / 2) * Math.sin(dp / 2) + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) * Math.sin(dl / 2);
-    return 2 * R * Math.asin(Math.sqrt(h));
-  }
-  function takeawayChip(p) {
-    if (p.takeaway === "yes") return chip("🥡 Takeaway", "tint ta");
-    if (p.takeaway === "no") return chip("Dine-in only", "muted");
-    return chip("🥡 ?", "muted");
-  }
-  // Two compact lines: nearest chain and nearest boutique/independent (OSM, straight-line, 2 km max).
-  function shopRow(b, kind, label) {
-    if (b === undefined) return "";
-    if (b === null) return '<li class="none"><span class="k">' + label + '</span><span>No ' + (kind === "chain" ? "chain" : "independent") + " within 2 km</span></li>";
-    var url = "https://www.google.com/maps/dir/?api=1&destination=" + b.lat + "," + b.lng + "&travelmode=walking";
-    return '<li><span class="k">' + label + '</span><a href="' + url + '" target="_blank" rel="noopener" title="Approx. straight-line distance" aria-label="Walking directions to nearest ' + (kind === "chain" ? "chain bottle shop" : "independent bottle shop") + ", " + esc(b.name) + ", about " + fmtDist(b.distanceM) + ' away"><span class="n">' + esc(b.name) + '</span><span class="d">~' + fmtDist(b.distanceM) + "</span></a></li>";
-  }
-  function bottleLine(p) {
-    var s = p.bottleShops;
-    if (!s && p.bottleShop !== undefined) s = { chain: undefined, independent: p.bottleShop };   // legacy single shop
-    if (!s) return "";
-    return '<ul class="bottle" aria-label="Nearest bottle shops">' + shopRow(s.chain, "chain", "🍾 Chain") + shopRow(s.independent, "independent", "🍷 Indie") + "</ul>";
-  }
-
-  // Header
-  $("title").textContent = D.title;
-  $("summary").textContent = D.summary;
-
-  // State
-  var state = { q: "", city: CITIES[0].id, region: "All", suburb: "All", fam: "All", price: "Any", deals: false, takeaway: false, tonight: false, sort: "region", loc: null, subMore: false, limit: 24, planMode: false, picks: [] };
-  var BASE_TITLE = document.title;
-  var WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  function sydneyWeekday() {
-    try { return new Intl.DateTimeFormat("en-AU", { timeZone: "Australia/Sydney", weekday: "long" }).format(new Date()); }
-    catch (e) { return WEEKDAYS[new Date().getDay()]; }
-  }
-  function normByoDays(p) {
-    var d = p.byoDays;
-    if (d == null || d === "" || (Array.isArray(d) && !d.length)) return [];
-    return (Array.isArray(d) ? d : [d]).map(function (x) { return String(x).trim().toLowerCase(); }).filter(Boolean);
-  }
-  // Every-day wording. A full Sun–Sat list is handled separately so it is not "tonight only".
-  var ALWAYS_BYO = { daily: 1, everyday: 1, "every day": 1, "every night": 1, "all week": 1, "all days": 1, "any day": 1, "7 days": 1, "seven days": 1 };
-  function hasAlwaysToken(normed) {
-    return normed.some(function (x) { return ALWAYS_BYO[x]; });
-  }
-  function coversEveryWeekday(normed) {
-    var have = {};
-    normed.forEach(function (x) {
-      if (WEEKDAYS.some(function (w) { return w.toLowerCase() === x; })) have[x] = 1;
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
-    return WEEKDAYS.every(function (w) { return have[w.toLowerCase()]; });
-  }
-  function isAlwaysByoSchedule(normed) {
-    return !normed.length || hasAlwaysToken(normed) || coversEveryWeekday(normed);
-  }
-  function byoTonightStatus(p) {
-    if (p.byoTonight === true) return "yes";
-    if (p.byoTonight === false) return "no";
-    var normed = normByoDays(p);
-    if (!normed.length) return "unknown";
-    var today = sydneyWeekday().toLowerCase();
-    if (hasAlwaysToken(normed)) return "yes";
-    if (normed.indexOf("weeknights") >= 0 || normed.indexOf("weeknight") >= 0) {
-      return ["monday", "tuesday", "wednesday", "thursday"].indexOf(today) >= 0 ? "yes" : "no";
-    }
-    return normed.indexOf(today) >= 0 ? "yes" : "no";
-  }
-  // Limited days that include today — not "no byoDays" and not an every-day schedule.
-  function isByoTonightOnly(p) {
-    if (p.byoTonight === false) return false;
-    var normed = normByoDays(p);
-    if (isAlwaysByoSchedule(normed)) return false;
-    if (byoTonightStatus(p) !== "yes") return false;
-    var today = sydneyWeekday().toLowerCase();
-    if (normed.indexOf("weeknights") >= 0 || normed.indexOf("weeknight") >= 0) {
-      return ["monday", "tuesday", "wednesday", "thursday"].indexOf(today) >= 0;
-    }
-    return normed.indexOf(today) >= 0;
-  }
-  function parseCorkageDollars(p) {
-    // Best-effort parse of "$10 a bottle" / "$5 pp" — returns {amount, per:"bottle"|"person"|null, unknown:bool}
-    var c = (p && p.corkage) || "";
-    if (!c || /^unknown$/i.test(c) || /^corkage:\s*ask$/i.test(c)) return { amount: null, per: null, unknown: true };
-    var m = c.match(/\$\s*([0-9]+(?:\.[0-9]+)?)/);
-    if (!m) return { amount: null, per: null, unknown: true };
-    var amount = parseFloat(m[1]);
-    var per = /\b(pp|per person|a person)\b/i.test(c) ? "person" : "bottle";
-    return { amount: amount, per: per, unknown: false };
-  }
-  var PAGE = 24, PER_GROUP = 3, SUB_MAX = 12, SUB_SHOW = 10;
+  };
 
-  // Hero
-  function renderHero() {
-    var H = D.hero || {}, p = hero;
-    $("hero").innerHTML =
-      '<div class="hero-rank">#' + p._rank + "</div>" +
-      '<div class="hero-body">' +
-        '<div class="eyebrow">' + esc(H.eyebrow || "Top of the list") + " · " + esc(p.region) + "</div>" +
-        '<div class="hero-name">' + esc(p.name) + "</div>" +
-        '<div class="stars">' + stars(p.stars) + " <span>" + esc(p.stars) + " from " + esc(p.reviews) + " Google reviews</span><span class=\"price\" style=\"color:inherit\"> · " + esc(priceText(p)) + "</span></div>" +
-        (dishOf(p) ? "<div>" + esc(dishOf(p)) + "</div>" : "") +
-        '<div class="chips">' + chip(p.cuisine, "nearest") + chip(p.address.replace(/ NSW \d{4}$/, "")) + chip(/^unknown$/i.test(p.corkage) ? "Corkage: ask" : p.corkage + " corkage", "corkage") + chip(p.priceBasis) + (p.takeaway === "yes" ? chip("🥡 Takeaway") : "") + "</div>" +
-        (p.takeawayDetail ? '<div class="hero-small">Takeaway: ' + esc(p.takeawayDetail) + "</div>" : "") +
-        bottleLine(p) +
-        '<div class="hero-small">' + esc(p.note) + ". " + esc(H.extraNote || "") + (p.website ? ' <a href="' + esc(p.website) + '" target="_blank" rel="noopener">' + esc(host(p.website)) + "</a>" : "") + "</div>" +
-      "</div>";
-  }
-  renderHero();
+  var state = {
+    screen: "home",
+    area: null,
+    filters: L.blankFilters(),
+    view: "list",
+    picks: loadPicks(),
+    limit: 24,
+    browseStack: [],
+    locQuery: "",
+    locReturn: "results",
+    rows: [],
+    showAll: null,
+    coords: loadCoords(),
+    geoBusy: false,
+    geoError: "",
+    detailId: "",
+    menuOpen: false,
+    filtersOpen: false,
+    draft: null,
+    mapId: "",
+    poll: null,
+    token: "",
+    pollError: "",
+    shareBusy: false,
+    voteChoice: "",
+    voteError: "",
+    voteBusy: false,
+    voteDone: false,
+    removedNote: "",
+    legacyIds: [],
+    toast: "",
+    keepScroll: false
+  };
+  var depth = 0;
 
-  // Metrics stay the two honest figures (region count and takeaway stay hidden).
-  // Numbers follow the selected city, not the whole file.
-  function renderMetrics() {
-    var list = places.filter(inSelectedCity);
-    $("metrics").innerHTML = [
-      [list.length, "BYO spots"],
-      [list.filter(function (p) { return p.deal; }).length, "With EatClub deals"]
-    ].map(function (m) { return '<div class="metric"><div class="v">' + esc(m[0]) + '</div><div class="l">' + esc(m[1]) + "</div></div>"; }).join("");
+  function loadPicks() {
+    try {
+      var raw = JSON.parse(sessionStorage.getItem("byospot-picks") || "[]");
+      return Array.isArray(raw) ? raw.filter(function (id) { return typeof id === "string"; }) : [];
+    } catch (e) { return []; }
   }
-  function renderCaption() {
-    var city = activeCity();
-    var n = activeRegions().length;
-    $("caption").textContent = "Every BYO restaurant we could find rated 4.0★ or higher on Google in " + city.label + " (" + n + " " + (n === 1 ? "region" : "regions") + "), ranked by Google rating. Top 3 per region shown first; tap See all, or pick a region and suburb. As of " + D.asOf + ".";
+  function savePicks() {
+    state.picks = state.picks.filter(function (id) { return model.byId[id]; });
+    try { sessionStorage.setItem("byospot-picks", JSON.stringify(state.picks)); } catch (e) {}
+  }
+  function loadCoords() {
+    try {
+      var c = JSON.parse(sessionStorage.getItem("byospot-coords") || "null");
+      if (c && typeof c.lat === "number" && typeof c.lng === "number") return c;
+    } catch (e) {}
+    return null;
+  }
+  function saveCoords(c) {
+    state.coords = c;
+    try { sessionStorage.setItem("byospot-coords", JSON.stringify(c)); } catch (e) {}
+  }
+  function voterToken() {
+    var key = "byospot-voter";
+    try {
+      var v = localStorage.getItem(key);
+      if (v && /^[A-Za-z0-9_-]{8,80}$/.test(v)) return v;
+      var bytes = new Uint8Array(12);
+      crypto.getRandomValues(bytes);
+      v = "v";
+      for (var i = 0; i < bytes.length; i++) v += bytes[i].toString(36);
+      v = v.replace(/[^a-z0-9]/gi, "").slice(0, 24);
+      while (v.length < 10) v += "x";
+      localStorage.setItem(key, v);
+      return v;
+    } catch (e) { return "vsession00"; }
   }
 
-  // Generic pressed-button group
-  function group(el, opts, key, after) {
-    el.innerHTML = opts.map(function (o) {
-      return '<button type="button" class="' + (o.cls || "") + '" data-v="' + esc(o.v) + '" aria-pressed="' + (state[key] === o.v) + '"' + (o.disabled ? " disabled" : "") + ">" + o.html + "</button>";
-    }).join("");
-    el.onclick = function (e) {
-      var b = e.target.closest("button"); if (!b || b.disabled) return;
-      state[key] = b.getAttribute("data-v");
-      Array.prototype.forEach.call(el.children, function (c) { c.setAttribute("aria-pressed", String(c === b)); });
-      if (after) after();
-      render();
-    };
-  }
-  function renderRegions() {
-    var city = activeCity();
-    group($("regionChips"), [{ v: "All", html: "All " + esc(city.label) }].concat(activeRegions().map(function (r) {
-      var n = count(r);
-      return { v: r, cls: n ? "" : "soon", html: esc(r) + (n ? '<span class="count">' + n + "</span>" : "<small>soon</small>") };
-    })), "region", function () {
-      state.suburb = "All"; state.subMore = false;
-      if (state.region !== "All" && state.sort === "region") state.sort = "rank";
-      if (state.region === "All" && state.sort === "rank") state.sort = "region";
-      invalidateCalcPlaces();
-      renderSuburbs(); renderSort();
-    });
-    var scroller = $("regionChips").parentElement;
-    if (scroller) scroller.scrollLeft = 0;
-  }
-  function cityPlaceCount(c) {
-    var regs = c.regions || [];
-    return places.filter(function (p) { return p.city ? p.city === c.id : regs.indexOf(p.region) >= 0; }).length;
-  }
-  function paintCityFills() {
-    var el = $("cityChips");
-    if (!el) return;
-    var alt = 0;
-    Array.prototype.forEach.call(el.children, function (btn) {
-      if (!btn || btn.tagName !== "BUTTON") return;
-      btn.classList.add("city-fill");
-      btn.classList.remove("city-teal", "city-coral", "is-selected");
-      if (btn.getAttribute("aria-pressed") === "true") btn.classList.add("is-selected");
-      else {
-        btn.classList.add(alt % 2 ? "city-coral" : "city-teal");
-        alt++;
-      }
-    });
-  }
-  function renderCityChips() {
-    var el = $("cityChips");
-    if (!el) return;
-    group(el, CITIES.map(function (c) {
-      return { v: c.id, cls: "city-fill", html: esc(c.label) + '<span class="count">' + cityPlaceCount(c) + "</span>" };
-    }), "city", function () {
-      paintCityFills();
-      state.region = "All";
-      state.suburb = "All";
-      state.subMore = false;
-      if (state.sort === "rank") state.sort = "region";
-      invalidateCalcPlaces();
-      renderRegions();
-      renderSuburbs();
-      renderSort();
-    });
-    paintCityFills();
-  }
-  renderCityChips();
-  renderRegions();
-  group($("famSeg"), ["All"].concat(famSet).map(function (f) { return { v: f, html: esc(f) }; }), "fam");
-  group($("priceSeg"), ["Any", "$", "$$", "$$$", "$$$$"].map(function (f) { return { v: f, html: esc(f) }; }), "price");
-  $("priceLegend").innerHTML = (D.priceLegend || []).map(function (l) { return "<span><b>" + esc(l.level) + "</b> " + esc(l.label) + "</span>"; }).join("") + '<span class="ln">' + esc(D.priceLegendNote || "") + "</span>";
-  $("dealsOnly").addEventListener("change", function (e) { state.deals = e.target.checked; render(); });
-  $("takeawayOnly").addEventListener("change", function (e) { state.takeaway = e.target.checked; render(); });
-  $("byoTonight").addEventListener("change", function (e) {
-    state.tonight = e.target.checked;
-    // Soft preference works best as a flat list with section dividers
-    if (state.tonight && state.region === "All" && state.sort === "region") { state.sort = "stars"; renderSort(); }
-    render();
-  });
-
-  function renderSuburbs() {
-    var row = $("suburbRow"), list = byRegion[state.region];
-    if (!list) { row.hidden = true; row.innerHTML = ""; return; }
-    // Only suburbs that actually have listed places, most places first.
-    var tally = {};
-    list.forEach(function (p) { tally[p.suburb] = (tally[p.suburb] || 0) + 1; });
-    var subs = Object.keys(tally).sort(function (a, b) { return tally[b] - tally[a] || a.localeCompare(b); });
-    row.hidden = false;
-    // Keep the row manageable: past ~12 suburbs show the top 10 and a More chip.
-    var hiddenN = 0;
-    if (subs.length > SUB_MAX && !state.subMore) {
-      var shown = subs.slice(0, SUB_SHOW);
-      if (state.suburb !== "All" && shown.indexOf(state.suburb) < 0) shown.push(state.suburb);
-      hiddenN = subs.length - shown.length; subs = shown;
-    }
-    var opts = [{ v: "All", html: "All of " + esc(state.region) }].concat(subs.map(function (s) { return { v: s, html: esc(s) + '<span class="count">' + tally[s] + "</span>" }; }));
-    if (hiddenN) opts.push({ v: "__more", cls: "more", html: "More <span class=\"count\">+" + hiddenN + "</span>" });
-    group(row, opts, "suburb", function () { if (state.suburb === "__more") { state.suburb = "All"; state.subMore = true; renderSuburbs(); } });
-  }
-  function renderSort() {
-    var opts = [state.region === "All" ? { v: "region", html: "By region" } : { v: "rank", html: "Ranked" }];
-    opts.push({ v: "stars", html: "Stars" });
-    // Nearest only appears once location is known. Near me is the only way to ask for it.
-    if (state.loc) opts.push({ v: "near", html: "Nearest" });
-    group($("sortSeg"), opts, "sort", syncNearBtn);
-  }
-  renderSort();
-
-  // Search. The region chip stays put; the list heading is what says the query worked.
-  var search = $("search");
-  var scrollTimer = null;
-  function syncSearchbarHeight() {
-    var bar = document.querySelector(".searchbar");
-    if (bar) document.documentElement.style.setProperty("--searchbar-h", bar.offsetHeight + "px");
-  }
-  function searchContext(matches) {
-    var regions = [], suburbs = [];
-    matches.forEach(function (p) {
-      if (regions.indexOf(p.region) < 0) regions.push(p.region);
-      if (suburbs.indexOf(p.suburb) < 0) suburbs.push(p.suburb);
-    });
-    var raw = String(state.q || "").trim();
-    if (regions.length === 1) {
-      if (suburbs.length === 1 && norm(suburbs[0]) !== norm(raw)) return suburbs[0] + ", " + regions[0];
-      return regions[0];
-    }
-    if (!matches.length && state.region !== "All") return state.suburb !== "All" ? state.suburb + ", " + state.region : state.region;
+  function icon(name) {
+    if (name === "menu") return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    if (name === "back") return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    if (name === "pin") return '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>';
+    if (name === "close") return '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    if (name === "glass") return '<svg viewBox="0 0 48 48" width="32" height="32" aria-hidden="true"><path d="M14 8h20l-3 16a8 8 0 0 1-14 0L14 8z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M18 18c2-2 4 2 6 0s4-2 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M24 26v8M18 38h12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
     return "";
   }
-  function setListHeading(matches) {
-    var raw = String(state.q || "").trim();
-    var el = $("listHeading");
-    if (!raw) {
-      el.textContent = state.region === "All" ? "All of " + activeCity().label : state.region;
-      document.title = BASE_TITLE;
-      return;
+
+  function header(home) {
+    var back = home ? "" : '<button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>";
+    return '<header class="top' + (home ? " top-home" : "") + '">' + back +
+      '<a href="/" data-action="home"><img class="logo" src="icons/logo-horizontal.png" alt="BYOSpot"></a>' +
+      '<button type="button" class="icon-btn" data-action="menu" aria-label="Menu" aria-expanded="' + (state.menuOpen ? "true" : "false") + '">' + icon("menu") + "</button></header>";
+  }
+
+  function homeArt() {
+    return '<svg class="home-art" viewBox="0 0 240 120" role="img" aria-label="">' +
+      '<g fill="none" stroke="#800020" stroke-width="3" stroke-linecap="round">' +
+      '<path d="M48 18h36l-5 28a16 16 0 0 1-26 0L48 18z"/><path d="M66 48v16M54 70h24"/>' +
+      '<path d="M58 34c4-3 8 3 12 0s8-3 12 0" stroke-width="2.4"/>' +
+      "</g>" +
+      '<g fill="none" stroke="#001838" stroke-width="3" stroke-linecap="round">' +
+      '<ellipse cx="156" cy="62" rx="42" ry="16"/><path d="M122 58c8-22 60-22 68 0"/>' +
+      '<path d="M138 50c6 8 14 6 18-2"/><path d="M150 44c4 10 12 8 16-1"/>' +
+      "</g></svg>";
+  }
+
+  function homeHtml() {
+    var err = state.geoError ? '<p class="loc-status" role="status">' + state.geoError + "</p>" : "";
+    return header(true) + '<main id="main" class="home">' +
+      '<div class="home-copy"><h1>Great food.<br>Your wine.</h1>' +
+      '<p class="lede">Find your next BYO restaurant.</p>' + homeArt() + "</div>" +
+      '<div class="home-actions">' + err +
+      '<button type="button" class="btn btn-primary" data-action="near" ' + (state.geoBusy ? "disabled aria-busy=\"true\"" : "") + ">" +
+      icon("pin") + "<span>" + (state.geoBusy ? "Finding restaurants near you…" : "Find BYO Near Me") + "</span></button>" +
+      '<button type="button" class="btn btn-secondary" data-action="choose-location">' + icon("pin") + "<span>Choose a Location</span></button>" +
+      '<p class="home-note">Two choices. Your next BYO spot is only a tap away.</p></div></main>';
+  }
+
+  function locationListInner() {
+    var q = state.locQuery.trim();
+    if (q) {
+      var matches = L.searchLocations(q, model.index);
+      state.rows = matches.map(function (m) {
+        return {
+          label: m.name,
+          meta: m.context + (m.count ? "" : " · No BYO listings yet"),
+          area: m.area
+        };
+      });
+      state.showAll = null;
+      if (!matches.length) {
+        return '<div class="empty-panel"><h2>We couldn’t find that location</h2>' +
+          "<p>Check the spelling, or browse states, regions and suburbs.</p>" +
+          '<div class="stack"><button type="button" class="btn btn-secondary" data-action="clear-loc">Browse states, regions and suburbs</button></div></div>';
+      }
+      return rowsHtml(state.rows);
     }
-    var ctx = searchContext(matches);
-    var title = !matches.length
-      ? "No results for \"" + raw + "\"" + (ctx ? " · " + ctx : "")
-      : (ctx ? "Matching " + raw + " · " + ctx : "Results for \"" + raw + "\"");
-    if (matches.length && ctx) el.innerHTML = esc("Matching " + raw) + ' <span class="head-ctx">· ' + esc(ctx) + "</span>";
-    else el.textContent = title;
-    document.title = title + " · BYO Spot";
+    var frame = state.browseStack[state.browseStack.length - 1] || { level: "states" };
+    var page = L.browse(model.index, frame);
+    state.showAll = page.showAll;
+    state.rows = page.rows;
+    var show = page.showAll ? '<button type="button" class="show-all" data-action="show-all">' + esc(page.showAll.label) + "</button>" : "";
+    return '<p class="eyebrow">' + esc(page.eyebrow || "") + "</p>" + show + rowsHtml(page.rows);
   }
-  function scrollMatchesIntoView() {
-    syncSearchbarHeight();
-    var grid = $("grid");
-    var anchor = $("resultCount");
-    if (!grid || !anchor || !grid.children.length) return;
-    var bar = document.querySelector(".searchbar");
-    var head = document.querySelector("#listSection .section-head");
-    var chrome = (bar ? bar.offsetHeight : 0) + (head ? head.offsetHeight : 0);
-    var viewH = window.innerHeight || document.documentElement.clientHeight || 800;
-    var anchorTop = anchor.getBoundingClientRect().top;
-    var gridTop = grid.getBoundingClientRect().top;
-    if (anchorTop >= chrome - 8 && anchorTop < chrome + 64 && gridTop < viewH - 80) return;
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var y = window.pageYOffset + anchorTop - chrome - 6;
-    window.scrollTo({ top: Math.max(0, y), behavior: reduce ? "auto" : "smooth" });
+  function rowsHtml(rows) {
+    return rows.map(function (row, i) {
+      var chev = row.drill ? '<span class="chev" aria-hidden="true">›</span>' : "";
+      return '<button type="button" class="loc-row" data-action="loc-row" data-i="' + i + '"><span><span class="label">' +
+        esc(row.label) + '</span></span><span class="meta">' + esc(row.meta || "") + "</span>" + chev + "</button>";
+    }).join("");
   }
-  function cancelScrollToMatches() { if (scrollTimer) { clearTimeout(scrollTimer); scrollTimer = null; } }
-  function scheduleScrollToMatches() {
-    cancelScrollToMatches();
-    scrollTimer = setTimeout(function () { scrollTimer = null; scrollMatchesIntoView(); }, 220);
+  function locationHtml() {
+    return header(false) + '<main id="main" class="screen"><h1>Choose a location</h1>' +
+      '<form id="locForm" role="search"><label class="search"><span class="sr" style="position:absolute;left:-999px">Search suburb, city or region</span>' +
+      '<input id="locQ" type="search" enterkeyhint="search" placeholder="Search suburb, city or region" autocomplete="off" value="' + esc(state.locQuery) + '">' +
+      (state.locQuery ? '<button type="button" class="clear" data-action="clear-loc" aria-label="Clear search">×</button>' : "") +
+      "</label></form><div id=\"locList\">" + locationListInner() + "</div></main>";
   }
-  search.addEventListener("input", function () {
-    state.q = search.value;
-    $("clearSearch").hidden = !search.value;
-    render();
-    if (norm(state.q).trim() && $("grid").children.length) scheduleScrollToMatches();
-    else cancelScrollToMatches();
-  });
-  search.addEventListener("search", function () {
-    if (!norm(state.q).trim() || !$("grid").children.length) return;
-    cancelScrollToMatches();
-    scrollMatchesIntoView();
-  });
-  function revealListHeading() {
-    syncSearchbarHeight();
-    var head = $("listHeading");
-    if (!head) return;
-    var bar = document.querySelector(".searchbar");
-    var stickyH = bar ? bar.offsetHeight : 0;
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var y = window.pageYOffset + head.getBoundingClientRect().top - stickyH - 8;
-    window.scrollTo({ top: Math.max(0, y), behavior: reduce ? "auto" : "smooth" });
-  }
-  $("clearSearch").addEventListener("click", function () {
-    search.value = ""; state.q = ""; $("clearSearch").hidden = true; search.focus();
-    cancelScrollToMatches();
-    render();
-    revealListHeading();
-  });
-  window.addEventListener("resize", syncSearchbarHeight);
-  syncSearchbarHeight();
 
-  // Near me — the only entry point for location. Once it succeeds, the Nearest chip appears.
-  var msg = $("locMsg"), nearBtn = $("nearMe");
-  function syncNearBtn() {
-    var on = !!(state.loc && state.sort === "near");
-    var label = nearBtn.querySelector("span");
-    if (label) label.textContent = on ? "Nearest first" : "Near me";
-    nearBtn.setAttribute("aria-pressed", String(on));
-    if (on) nearBtn.setAttribute("aria-label", "Nearest first");
-    else nearBtn.removeAttribute("aria-label");
-  }
-  function showMsg(html) { msg.innerHTML = html; msg.hidden = !html; }
-  nearBtn.addEventListener("click", function () {
-    if (state.loc && state.sort === "near") { state.sort = "rank"; syncNearBtn(); renderSort(); render(); return; }
-    if (!("geolocation" in navigator)) { showMsg("<strong>Location isn't available</strong> on this browser, so we can't sort by distance. Try picking a region instead."); return; }
-    nearBtn.setAttribute("aria-busy", "true");
-    navigator.geolocation.getCurrentPosition(function (pos) {
-      nearBtn.removeAttribute("aria-busy");
-      state.loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-      places.forEach(function (p) { p._dist = haversine(state.loc.lat, state.loc.lng, p.lat, p.lng); });
-      state.sort = "near"; syncNearBtn();
-      showMsg(""); renderSort(); render();
-    }, function (err) {
-      nearBtn.removeAttribute("aria-busy");
-      if (err.code === 1) showMsg("<strong>No worries.</strong> Location is switched off for this app, so we can't sort by distance. To use Near me, allow location for this site in your browser settings, or just pick a region below.");
-      else showMsg("<strong>Couldn't find your location</strong> just now. Check location is on and try again, or pick a region below.");
-    }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
-  });
-
-  // Research placeholders ("Unknown", "Unknown – check menu (seafood)") are shown as gaps, never as text.
-  function dishOf(p) { return /^unknown\b/i.test(p.dish || "") ? "" : (p.dish || ""); }
-  function dishHint(p) { var m = /^unknown\b.*?\(([^)]+)\)/i.exec(p.dish || ""); return m ? m[1] : ""; }
-  function corkageOf(p) { return !p.corkage || /^unknown$/i.test(p.corkage) ? "Corkage: ask" : p.corkage; }
-
-  function card(p, compact, tone) {
-    var dish = dishOf(p), hint = dishHint(p);
-    var dealHtml = p.deal ? (compact
-      ? '<a class="deal-chip" href="' + esc(p.deal.url) + '" target="_blank" rel="noopener">EatClub ' + esc(p.deal.pct) + " ↗</a>"
-      : '<a class="deal" href="' + esc(p.deal.url) + '" target="_blank" rel="noopener"><div class="d1">EatClub ' + esc(p.deal.pct) + '</div><div class="d2">' + esc(p.deal.when) + "</div></a>") : "";
-    var ta = p.takeaway === "yes" ? chip("🥡 Takeaway", "tint ta") : p.takeaway === "no" ? chip("Dine-in only", "muted") : (compact ? "" : chip("Takeaway: ask", "muted"));
-    var ton = tone || (state.tonight ? byoTonightStatus(p) : "");
-    var tonightChip = "";
-    if (state.tonight) {
-      if (isByoTonightOnly(p)) tonightChip = chip("BYO tonight only", "special");
-      else if (ton === "yes") tonightChip = chip("BYO tonight", "tint ok");
-      else if (ton === "no") tonightChip = chip("Other night", "muted");
-      else tonightChip = chip("BYO days unknown — call ahead", "warn");
+  function currentList() {
+    if (state.area && state.area.shortlist) {
+      var picked = state.picks.map(function (id) { return model.byId[id]; }).filter(Boolean);
+      var narrowed = Object.assign(L.blankFilters(), state.filters);
+      narrowed.radius = 0;
+      return L.filterPlaces(picked, { near: true }, narrowed, null);
     }
-    var picked = state.picks.indexOf(p.id) >= 0;
-    var planBtn = state.planMode
-      ? '<button type="button" class="plan-add' + (picked ? " on" : "") + '" data-add="' + esc(p.id) + '" aria-pressed="' + picked + '">' + (picked ? "Added" : "Add") + "</button>"
+    var coords = state.area && state.area.near ? state.coords : null;
+    return L.filterPlaces(model.places, state.area, state.filters, coords);
+  }
+  function resultsHeading() {
+    if (!state.area) return "BYO restaurants";
+    if (state.area.near) return "BYO restaurants near you";
+    if (state.area.unrecognised || state.area.knownEmpty) return "Search results";
+    return "BYO restaurants in " + state.area.label;
+  }
+
+  function badgeHtml(p) {
+    var byo = L.byoPresentation(p);
+    var cork = L.corkageText(p);
+    return '<div class="byo-row"><span class="badge ' + byo.tone + '">' + esc(byo.label) + "</span>" +
+      (cork ? '<span class="cork">' + esc(cork) + "</span>" : "") + "</div>";
+  }
+  function cardHtml(p) {
+    var view = L.presentPlace(p);
+    var rating = typeof p.stars === "number"
+      ? '<p class="rating"><span class="star" aria-hidden="true">★</span> ' + esc(p.stars) +
+        (view.reviews ? ' <span class="muted">(' + esc(L.formatNumber(view.reviews)) + " Google reviews)</span>" : "") + "</p>"
       : "";
-    var details =
-      '<div class="meta">' + esc(p.priceBasis) + (p.priceEstimate ? " (estimate)" : "") + (p.takeaway === "yes" && p.takeawayDetail && !/^takeaway$/i.test(p.takeawayDetail) ? " · Takeaway: " + esc(p.takeawayDetail) : "") + "</div>" +
-      '<div class="card-foot">' + (p.website ? '<a href="' + esc(p.website) + '" target="_blank" rel="noopener">Website ↗</a>' : "<span class=\"muted-t\">No website</span>") + "</div>" +
-      (p.note || hint ? '<div class="note">' + esc([p.note, hint].filter(Boolean).join(". ")) + "</div>" : "") +
-      '<button type="button" class="calc-open" data-calc="' + esc(p.id) + '">Corkage vs wine list</button>';
-    var cls = "card" + (compact ? " compact" : "") + (ton === "no" || ton === "unknown" ? " dim" : "") + (picked ? " picked" : "");
-    return '<article class="' + cls + '" data-id="' + esc(p.id) + '" style="--c:' + famColor(p.family) + '">' +
-      '<div class="card-top"><div class="card-name">' + esc(p.name) + '</div><div class="rank"><b>#' + p._rank + "</b><small>" + esc(p.region) + "</small></div></div>" +
-      planBtn +
-      (state.loc ? '<span class="dist chip nearest">📍 ' + (p._dist / 1000).toFixed(1) + " km away</span>" : "") +
-      '<div class="stars">' + stars(p.stars) + " <span>" + esc(p.stars) + " (" + esc(p.reviews) + ')</span><span class="price">· ' + esc(priceText(p)) + "</span></div>" +
-      '<div class="chips">' + chip(corkageOf(p), "corkage") + chip(p.cuisine, "tint", famColor(p.family)) + chip(p.suburb, "nearest") + ta + (p.byoConfirmed ? "" : chip("Confirm BYO", "warn")) + tonightChip + "</div>" +
-      (dish ? '<div class="dish">' + esc(dish) + "</div>" : "") +
-      (compact ? dealHtml : dealHtml) +
-      (compact
-        ? '<button type="button" class="details-btn" aria-expanded="false">Corkage, price &amp; more <span aria-hidden="true">▾</span></button><div class="details" hidden>' + bottleLine(p) + details + "</div>"
-        : bottleLine(p) + details) +
-    "</article>";
+    var addr = view.address
+      ? (view.directions
+        ? '<p class="addr"><a href="' + esc(view.directions) + '" target="_blank" rel="noopener">' + esc(view.address) + "</a></p>"
+        : '<p class="addr">' + esc(view.address) + "</p>")
+      : "";
+    var dist = state.area && state.area.near && typeof p._dist === "number" ? '<p class="dist">' + esc(formatDist(p._dist)) + " away</p>" : "";
+    var actions = "";
+    if (view.directions) actions += '<a href="' + esc(view.directions) + '" target="_blank" rel="noopener">Directions</a>';
+    if (view.website) actions += '<a href="' + esc(view.website) + '" target="_blank" rel="noopener">Website</a>';
+    if (view.phone) actions += '<a href="' + esc(view.phone) + '">Call</a>';
+    actions += '<button type="button" data-action="details" data-id="' + esc(p.id) + '">More details</button>';
+    return '<article class="card"><button type="button" class="card-hit" data-action="details" data-id="' + esc(p.id) + '">' +
+      '<span class="thumb">' + icon("glass") + "</span><span><h3>" + esc(p.name) + "</h3>" +
+      '<p class="meta">' + esc([p.cuisine, p.suburb].filter(Boolean).join(" · ")) + "</p>" +
+      rating + badgeHtml(p) + addr + dist + "</span></button><div class=\"actions\">" + actions + "</div></article>";
+  }
+  function formatDist(m) {
+    if (m < 950) return Math.max(10, Math.round(m / 10) * 10) + " m";
+    var km = m / 1000;
+    return (km < 10 ? km.toFixed(1) : String(Math.round(km))) + " km";
+  }
+
+  function emptyHtml(list) {
+    if (list.length) return "";
+    if (L.filtersActive(state.filters) && state.area && !state.area.unrecognised && !state.area.knownEmpty) {
+      return '<div class="empty-panel"><h2>No restaurants match these filters</h2><p>Clear them to see every listing for this search.</p>' +
+        '<div class="stack"><button type="button" class="btn btn-primary" data-action="reset-filters">Clear filters</button></div></div>';
+    }
+    if (state.area && state.area.unrecognised) {
+      return '<div class="empty-panel"><h2>We couldn’t find that location</h2>' +
+        "<p>Check the spelling, or browse states, regions and suburbs.</p>" +
+        '<div class="stack"><button type="button" class="btn btn-primary" data-action="choose-location">Browse states, regions and suburbs</button></div></div>';
+    }
+    var name = (state.area && state.area.label) || "this place";
+    var parent = state.area ? L.broadenArea(model.places, state.area) : null;
+    return '<div class="empty-panel"><div class="thumb" style="margin:0 auto 8px">' + icon("glass") + "</div>" +
+      "<h2>No BYO restaurants found in " + esc(name) + "</h2>" +
+      "<p>Try a nearby suburb or broaden your search to the surrounding region.</p>" +
+      '<div class="stack"><button type="button" class="btn btn-primary" data-action="broaden">' +
+      (parent ? "Explore nearby areas" : "Explore nearby areas") + "</button>" +
+      '<button type="button" class="btn btn-secondary" data-action="choose-location">Browse states, regions and suburbs</button></div>' +
+      '<p class="section-label">Try a broader location</p></div>';
+  }
+
+  function mapHtml(list) {
+    var plot = L.projectPins(list);
+    var selected = state.mapId && model.byId[state.mapId] ? model.byId[state.mapId] : null;
+    if (!selected && list[0]) selected = list[0];
+    var pins = plot.pins.map(function (pin) {
+      var on = selected && pin.id === selected.id;
+      var id = esc(pin.id);
+      return '<g data-action="map-pin" data-id="' + id + '" style="cursor:pointer">' +
+        '<circle cx="' + pin.x + '" cy="' + pin.y + '" r="7" fill="transparent"></circle>' +
+        '<circle cx="' + pin.x + '" cy="' + pin.y + '" r="' + (on ? 3.4 : 2.6) + '" fill="' + (on ? "#5c0018" : "#800020") + '" stroke="#fff" stroke-width="0.8"></circle></g>';
+    }).join("");
+    var preview = "";
+    if (selected) {
+      var byo = L.byoPresentation(selected);
+      preview = '<button type="button" class="map-preview" data-action="details" data-id="' + esc(selected.id) + '"><strong>' +
+        esc(selected.name) + "</strong><span>" + esc([selected.cuisine, selected.suburb, byo.label].filter(Boolean).join(" · ")) + "</span></button>";
+    }
+    return '<div class="map-wrap"><svg class="map-svg" viewBox="0 0 ' + plot.width + " " + plot.height + '" role="img" aria-label="Map of restaurants at stored coordinates">' +
+      pins + "</svg></div>" + preview +
+      '<p class="map-caption">Pins use each restaurant’s stored coordinates.</p>';
+  }
+
+  function resultsHtml() {
+    if (state.area && state.area.near && !state.coords) {
+      return header(false) + '<main id="main" class="screen"><h1>BYO restaurants near you</h1>' +
+        '<div class="panel"><p>We need your location to list restaurants near you. BYOSpot only asks when you tap the button.</p>' +
+        '<div class="stack"><button type="button" class="btn btn-primary" data-action="near">' + (state.geoBusy ? "Finding restaurants near you…" : "Find BYO Near Me") + "</button>" +
+        '<button type="button" class="btn btn-secondary" data-action="choose-location">Choose a Location</button></div>' +
+        (state.geoError ? '<p class="loc-status" role="status">' + state.geoError + "</p>" : "") +
+        "</div></main>";
+    }
+    var list = currentList();
+    var shown = state.view === "map" ? list : list.slice(0, state.limit);
+    var nFilters = activeFilterCount(state.filters);
+    var body;
+    if (!list.length) body = emptyHtml(list);
+    else if (state.view === "map") body = mapHtml(list);
+    else {
+      body = '<div class="cards">' + shown.map(cardHtml).join("") + "</div>";
+      if (list.length > shown.length) body += '<div class="stack" style="margin-top:12px"><button type="button" class="btn btn-ghost" id="showMore" data-action="more">Show more</button></div><div id="moreSentinel"></div>';
+    }
+    var banner = list.length ? '<section class="vote-banner"><h2>Where Should We Eat?</h2>' +
+      "<p>Going out with friends? Shortlist a few BYO restaurants and let everyone vote.</p>" +
+      '<button type="button" class="btn btn-primary" data-action="vote-start">Put It to a Vote</button></section>' : "";
+    var locLabel = state.area && state.area.near ? "Near you" : ((state.area && state.area.label) || "Choose a location");
+    return header(false) + '<main id="main" class="screen"><h1>' + esc(resultsHeading()) + "</h1>" +
+      '<button type="button" class="loc-line" data-action="choose-location">' + icon("pin") + "<span>" + esc(locLabel) + "</span><span>Change</span></button>" +
+      banner +
+      '<div class="toolbar"><h2>Restaurants</h2><div class="toolbar-actions">' +
+      '<button type="button" class="btn btn-small btn-ghost" data-action="filters">Filters' + (nFilters ? " · " + nFilters : "") + "</button>" +
+      '<div class="seg" role="group" aria-label="List or map"><button type="button" data-action="view" data-view="list" aria-pressed="' + (state.view !== "map") + '">List</button>' +
+      '<button type="button" data-action="view" data-view="map" aria-pressed="' + (state.view === "map") + '">Map</button></div></div></div>' +
+      (list.length ? '<p class="sort-note">' + esc(L.sortLabel(state.filters.sort, state.area)) + "</p><p class=\"count-line\">" + list.length + (list.length === 1 ? " restaurant" : " restaurants") + "</p>" : "") +
+      body + "</main>";
+  }
+
+  function activeFilterCount(f) {
+    var n = 0;
+    if (String(f.q || "").trim()) n++;
+    if (f.cuisine && f.cuisine !== "All") n++;
+    if (f.byo && f.byo !== "All") n++;
+    if (f.corkage && f.corkage !== "All") n++;
+    if (Number(f.rating) > 0) n++;
+    if (Number(f.radius) > 0) n++;
+    if (f.tonight) n++;
+    if (f.sort && f.sort !== L.defaultSort(state.area)) n++;
+    return n;
+  }
+
+  function selectHtml() {
+    var list = currentList();
+    if (!(state.area && state.area.shortlist)) {
+      var allowed = {};
+      list.forEach(function (p) { allowed[p.id] = 1; });
+      var dropped = state.picks.filter(function (id) { return !allowed[id]; });
+      if (dropped.length) {
+        state.picks = state.picks.filter(function (id) { return allowed[id]; });
+        savePicks();
+        if (!state.removedNote) state.removedNote = "Removed " + dropped.length + (dropped.length === 1 ? " restaurant that isn’t" : " restaurants that aren’t") + " in this area.";
+      }
+    }
+    var ids = {};
+    list.forEach(function (p) { ids[p.id] = 1; });
+    var visiblePicks = state.picks.filter(function (id) { return ids[id]; });
+    var shown = list.slice(0, state.limit || 30);
+    var cards = shown.map(function (p) {
+      var on = visiblePicks.indexOf(p.id) >= 0;
+      var cork = L.corkageText(p);
+      return '<button type="button" class="check" data-action="toggle" data-id="' + esc(p.id) + '" aria-pressed="' + on + '">' +
+        '<span class="box" aria-hidden="true">' + (on ? "✓" : "") + "</span><span><strong>" + esc(p.name) + "</strong>" +
+        '<span class="fine">' + esc([p.cuisine, p.suburb].filter(Boolean).join(" · ")) + "</span><br>" +
+        '<span class="fine">' + esc(L.byoPresentation(p).label + (cork ? " · " + cork : "")) + "</span>" +
+        (p.address ? '<br><span class="fine">' + esc(p.address) + "</span>" : "") +
+        "</span></button>";
+    }).join("");
+    var note = state.removedNote ? '<p class="note" role="status">' + esc(state.removedNote) + "</p>" : "";
+    var err = state.pollError ? '<p class="loc-status" role="alert">' + esc(state.pollError) + "</p>" : "";
+    var locLabel = state.area && state.area.near ? "Near you" : ((state.area && state.area.label) || "Choose a location");
+    return header(false) + '<main id="main" class="screen screen-select">' + steps(1) +
+      "<h1>Where Should We Eat?</h1><p class=\"sub\">Tick the restaurants you’d like your friends to choose between.</p>" +
+      '<button type="button" class="loc-line" data-action="choose-location">' + icon("pin") + "<span>" + esc(locLabel) + "</span><span>Change</span></button>" +
+      note + err +
+      '<div class="toolbar"><h2>Restaurants</h2><button type="button" class="btn btn-small btn-ghost" data-action="filters">Filters' + (activeFilterCount(state.filters) ? " · " + activeFilterCount(state.filters) : "") + "</button></div>" +
+      (list.length ? cards + (list.length > shown.length ? '<div class="stack"><button type="button" class="btn btn-ghost" data-action="more">Show more</button></div>' : "") : emptyHtml(list)) +
+      '<p class="fine-print">Choose at least two. There’s no three-restaurant limit.</p></main>' +
+      '<div class="dock"><div class="dock-inner"><div class="dock-meta"><strong>' + visiblePicks.length + " restaurant" + (visiblePicks.length === 1 ? "" : "s") + " selected</strong><span>Minimum 2</span></div>" +
+      '<button type="button" class="btn btn-primary" data-action="continue-share" ' + (visiblePicks.length < 2 || state.shareBusy ? "disabled" : "") + ">" +
+      (state.shareBusy ? "Saving shortlist…" : "Continue to share") + "</button></div></div>";
+  }
+
+  function steps(n) {
+    function dot(i, label) {
+      var cls = i < n ? "step done" : i === n ? "step on" : "step";
+      var mark = i < n ? "✓" : String(i);
+      return '<span class="' + cls + '" aria-hidden="true">' + mark + "</span>";
+    }
+    return '<div class="steps" aria-label="Step ' + n + ' of 3">' + dot(1, "Select") + '<i class="step-line"></i>' + dot(2, "Share") + '<i class="step-line"></i>' + dot(3, "Vote") + "</div>" +
+      '<div class="step-labels"><span>Select</span><span>Share</span><span>Vote</span></div>';
+  }
+
+  function shareHtml() {
+    var poll = state.poll;
+    if (state.pollLoading) return header(false) + '<main id="main" class="screen"><p class="sub" role="status">Loading shortlist…</p></main>';
+    if (!poll) return header(false) + '<main id="main" class="screen"><div class="panel"><h1>This shortlist isn’t available</h1><p>' +
+      esc(state.pollError || "This voting link isn’t valid or has expired.") + "</p></div></main>";
+    var url = location.origin + "/vote/" + poll.shareToken;
+    var rows = poll.restaurantIds.map(function (id) {
+      var p = model.byId[id];
+      var name = p ? p.name : "A restaurant no longer listed";
+      var meta = p ? [p.cuisine, p.suburb].filter(Boolean).join(" · ") : "";
+      return '<button type="button" class="place-row" data-action="details" data-id="' + esc(id) + '"><span><strong>' + esc(name) + "</strong><br><span class=\"fine\">" + esc(meta) + '</span></span><span class="chev" aria-hidden="true">›</span></button>';
+    }).join("");
+    return header(false) + '<main id="main" class="screen">' + steps(2) +
+      '<div style="text-align:center"><div class="thumb" style="margin:8px auto">' + icon("glass") + "</div><h1>Your shortlist is ready!</h1>" +
+      '<p class="sub">Share a link with your friends so they can vote on where to eat.</p></div>' +
+      '<div class="link-row"><code>' + esc(url.replace(/^https?:\/\//, "")) + '</code><button type="button" class="btn btn-small btn-secondary" data-action="copy" data-url="' + esc(url) + '">Copy</button></div>' +
+      '<button type="button" class="btn btn-primary" data-action="native-share" data-url="' + esc(url) + '">Share with friends</button>' +
+      '<p class="section-label">Restaurants (' + poll.restaurantIds.length + ")</p>" + rows +
+      '<div class="stack"><button type="button" class="btn btn-secondary" data-action="edit-shortlist">Edit shortlist</button>' +
+      '<a class="btn btn-ghost" href="/vote/' + esc(poll.shareToken) + '">Preview the voting screen</a></div>' +
+      (state.toast ? '<p id="toast" class="toast" role="status">' + esc(state.toast) + "</p>" : '<p id="toast" class="toast" role="status" hidden></p>') +
+      "</main>";
+  }
+
+  function voteHtml() {
+    if (state.pollLoading) return header(false) + '<main id="main" class="screen"><p role="status">Loading the shortlist…</p></main>';
+    var poll = state.poll;
+    if (!poll) return header(false) + '<main id="main" class="screen"><div class="panel"><h1>This voting link isn’t valid or has expired</h1><p>' +
+      esc(state.pollError || "Ask the person who shared it for a new link.") + '</p><button type="button" class="btn btn-primary" data-action="home">Find a BYO restaurant</button></div></main>';
+    var done = state.voteDone || !!poll.myVote;
+    var choices = poll.restaurantIds.map(function (id) {
+      var p = model.byId[id];
+      var name = p ? p.name : "Restaurant no longer listed";
+      var bits = [];
+      if (p) {
+        if (p.cuisine) bits.push(p.cuisine);
+        if (p.suburb) bits.push(p.suburb);
+        var cork = L.corkageText(p);
+        bits.push(cork || L.byoPresentation(p).label);
+      }
+      var pressed = (state.voteChoice || poll.myVote) === id;
+      if (done) {
+        return '<div class="choice" aria-pressed="' + pressed + '"><span class="radio"></span><span><strong>' + esc(name) + '</strong><br><span class="fine">' + esc(bits.join(" · ")) + "</span></span></div>";
+      }
+      return '<button type="button" class="choice" data-action="pick-vote" data-id="' + esc(id) + '" aria-pressed="' + pressed + '"><span class="radio"></span><span><strong>' +
+        esc(name) + '</strong><br><span class="fine">' + esc(bits.join(" · ")) + "</span></span></button>";
+    }).join("");
+    var summary = "";
+    if (poll.summary && (done || (poll.total || 0) > 0)) {
+      if (poll.summary.kind === "tie") summary = "<p><strong>It’s a tie.</strong></p>";
+      else if (poll.summary.kind === "lead") {
+        var lead = model.byId[poll.summary.ids[0]];
+        summary = "<p><strong>Leading: " + esc(lead ? lead.name : "one restaurant") + "</strong></p>";
+      } else if (done) summary = "<p>No votes yet.</p>";
+      if (poll.summary.kind !== "none" || done) {
+        var max = 0;
+        poll.restaurantIds.forEach(function (id) { max = Math.max(max, poll.tallies[id] || 0); });
+        summary += '<div class="bars">' + poll.restaurantIds.map(function (id) {
+          var n = poll.tallies[id] || 0;
+          var p = model.byId[id];
+          var w = max ? Math.round(100 * n / max) : 0;
+          return '<div class="bar-row"><span>' + esc(p ? p.name : "Restaurant") + "</span><span>" + n + '</span><span class="track"><i style="width:' + w + '%"></i></span></div>';
+        }).join("") + "</div>";
+      }
+    }
+    return header(false) + '<main id="main" class="screen">' + steps(3) +
+      "<h1>Where should we eat?</h1><p class=\"sub\">Pick your favourite restaurant. No account needed.</p>" +
+      (state.voteError ? '<p class="loc-status" role="alert">' + esc(state.voteError) + "</p>" : "") +
+      (done ? '<p class="note" role="status">Thanks — your vote’s in.</p>' : "") +
+      choices +
+      (done ? "" : '<button type="button" class="btn btn-primary" data-action="submit-vote" ' + (!state.voteChoice || state.voteBusy ? "disabled" : "") + ">" +
+        (state.voteBusy ? "Submitting…" : "Submit my vote") + "</button>") +
+      summary +
+      '<p class="fine-print">Voting is saved for this browser. A repeat tap won’t be counted twice.</p></main>';
+  }
+
+  function legacyHtml() {
+    var ids = state.legacyIds || [];
+    if (ids.length < 2) {
+      return header(false) + '<main id="main" class="screen"><div class="panel"><h1>This older link can’t collect votes</h1><p>Ask for a new share link with at least two restaurants.</p>' +
+        '<button type="button" class="btn btn-primary" data-action="home">Find a BYO restaurant</button></div></main>';
+    }
+    state.picks = ids.slice();
+    var rows = ids.map(function (id) {
+      var p = model.byId[id];
+      return "<p><strong>" + esc(p.name) + "</strong><br><span class=\"fine\">" + esc(p.suburb) + "</span></p>";
+    }).join("");
+    return header(false) + '<main id="main" class="screen"><h1>This is an older shortlist link</h1>' +
+      "<p class=\"sub\">Votes on the old link stayed on each phone. Create a new link so friends vote on the same shortlist.</p>" +
+      rows + (state.pollError ? '<p class="loc-status" role="alert">' + esc(state.pollError) + "</p>" : "") +
+      '<button type="button" class="btn btn-primary" data-action="continue-share">' + (state.shareBusy ? "Saving shortlist…" : "Create a shareable poll") + "</button></main>";
+  }
+
+  function detailSheet() {
+    var p = model.byId[state.detailId];
+    if (!p) return "";
+    var view = L.presentPlace(p);
+    var bits = [];
+    if (view.price) bits.push("<p><strong>Price</strong> " + esc(view.price) + (p.priceBasis ? " · " + esc(p.priceBasis) : "") + "</p>");
+    var dish = /^unknown\b/i.test(p.dish || "") ? "" : (p.dish || "");
+    if (dish) bits.push("<p><strong>Known for</strong> " + esc(dish) + "</p>");
+    if (p.note) bits.push("<p>" + esc(p.note) + "</p>");
+    if (p.takeaway === "yes" || p.takeaway === "no") {
+      bits.push("<p><strong>Takeaway</strong> " + (p.takeaway === "yes" ? "Yes" : "Dine-in only") + (p.takeawayDetail ? " · " + esc(p.takeawayDetail) : "") + "</p>");
+    }
+    if (p.byoDays) {
+      var days = Array.isArray(p.byoDays) ? p.byoDays.join(", ") : String(p.byoDays);
+      if (days) bits.push("<p><strong>BYO days</strong> " + esc(days) + "</p>");
+    }
+    if (p.deal && p.deal.url) bits.push('<p><a href="' + esc(p.deal.url) + '" target="_blank" rel="noopener">EatClub ' + esc(p.deal.pct || "") + "</a>" + (p.deal.when ? " · " + esc(p.deal.when) : "") + "</p>");
+    if (view.address && !view.directions) bits.push("<p>Directions stay hidden until this record has a full street address.</p>");
+    var shops = shopBlock(p);
+    var actions = "";
+    if (view.directions) actions += '<a class="btn btn-secondary" href="' + esc(view.directions) + '" target="_blank" rel="noopener">Directions</a>';
+    if (view.website) actions += '<a class="btn btn-ghost" href="' + esc(view.website) + '" target="_blank" rel="noopener">Website</a>';
+    if (view.phone) actions += '<a class="btn btn-ghost" href="' + esc(view.phone) + '">Call</a>';
+    return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="sheet-card detail">' +
+      '<div class="sheet-head"><h2 id="detailTitle">' + esc(p.name) + '</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
+      "<p class=\"meta\">" + esc([p.cuisine, p.suburb, p.region].filter(Boolean).join(" · ")) + "</p>" +
+      (typeof p.stars === "number" ? '<p class="rating"><span class="star">★</span> ' + esc(p.stars) + " <span class=\"muted\">(" + esc(L.formatNumber(view.reviews)) + " Google reviews)</span></p>" : "") +
+      badgeHtml(p) + (view.address ? "<p class=\"addr\">" + esc(view.address) + "</p>" : "") +
+      bits.join("") + shops + '<div class="stack">' + actions + "</div></div></div>";
+  }
+  function shopBlock(p) {
+    var s = p.bottleShops;
+    if (!s) return "";
+    function row(b, label) {
+      if (!b) return "";
+      var url = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(b.lat + "," + b.lng) + "&travelmode=walking";
+      var dist = typeof b.distanceM === "number" ? " · ~" + (b.distanceM < 1000 ? Math.round(b.distanceM) + " m" : (b.distanceM / 1000).toFixed(1) + " km") : "";
+      return '<li><a href="' + url + '" target="_blank" rel="noopener">' + esc(label + ": " + b.name + dist) + "</a></li>";
+    }
+    var html = row(s.chain, "Nearest chain") + row(s.independent, "Nearest indie");
+    return html ? '<p><strong>Bottle shops within 2 km</strong></p><ul class="shops">' + html + "</ul>" : "";
+  }
+
+  function menuSheet() {
+    if (!state.menuOpen) return "";
+    var calls = (D.callFirst || []).map(function (c) {
+      var tel = "+61" + String(c.phone || "").replace(/\D/g, "").replace(/^0/, "");
+      var detail = /rank/i.test(c.detail || "") ? "Call to confirm" : (c.detail || "");
+      return '<li><a href="tel:' + esc(tel) + '"><span><strong>' + esc(String(c.title || "").split(",")[0]) + "</strong><br><span class=\"fine\">" + esc(detail) + "</span></span><span>" + esc(c.phone || "") + "</span></a></li>";
+    }).join("");
+    return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="menuTitle"><div class="sheet-card">' +
+      '<div class="sheet-head"><h2 id="menuTitle">Menu</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
+      '<p>BYOSpot lists BYO restaurants rated 4.0★ or higher on Google across Sydney, the Blue Mountains, Melbourne and the Victorian coast. Listings as of ' + esc(D.asOf || "") + ". Corkage and BYO policy can change — call the restaurant to confirm.</p>" +
+      "<h3>Call before you go</h3><ul class=\"call-list\">" + calls + "</ul>" +
+      "<h3>EatClub</h3><p class=\"fine-print\">" + esc(D.finePrint || "") + "</p></div></div>";
+  }
+
+  function filtersSheet() {
+    if (!state.filtersOpen) return "";
+    var d = state.draft || L.blankFilters();
+    function chips(group, options) {
+      return '<div class="chips" role="group">' + options.map(function (o) {
+        var on = String(d[group] == null ? "" : d[group]) === String(o.v);
+        return '<button type="button" class="chip" data-action="draft" data-key="' + group + '" data-v="' + esc(o.v) + '" aria-pressed="' + on + '">' + esc(o.label) + "</button>";
+      }).join("") + "</div>";
+    }
+    var cuisines = [{ v: "All", label: "Any" }].concat((model.families || []).map(function (f) { return { v: f, label: f }; }));
+    var sorts = [{ v: "", label: "Default" }, { v: "name", label: "A–Z" }, { v: "rating", label: "Rating" }];
+    if (state.area && state.area.near && state.coords) sorts.splice(1, 0, { v: "distance", label: "Distance" });
+    var radius = "";
+    if (state.area && state.area.near && state.coords) {
+      radius = "<h3>Search radius</h3>" + chips("radius", [
+        { v: "0", label: "Any" }, { v: "5", label: "5 km" }, { v: "10", label: "10 km" }, { v: "25", label: "25 km" }, { v: "50", label: "50 km" }
+      ]);
+    }
+    var preview = L.filterPlaces(model.places, state.area, d, state.area && state.area.near ? state.coords : null);
+    return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="filterTitle"><div class="sheet-card">' +
+      '<div class="sheet-head"><h2 id="filterTitle">Filters</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
+      '<label class="field"><span>Restaurant name</span><input id="filterQ" type="search" value="' + esc(d.q || "") + '" placeholder="Name or dish"></label>' +
+      "<h3>Cuisine</h3>" + chips("cuisine", cuisines) +
+      "<h3>BYO status</h3>" + chips("byo", [
+        { v: "All", label: "Any" }, { v: "confirmed", label: "BYO confirmed" }, { v: "listed", label: "BYO listed — call to confirm" }
+      ]) +
+      "<h3>Corkage</h3>" + chips("corkage", [{ v: "All", label: "Any" }, { v: "known", label: "Amount listed" }]) +
+      "<h3>Google rating</h3>" + chips("rating", [{ v: "0", label: "Any" }, { v: "4.5", label: "4.5+" }]) +
+      radius +
+      "<h3>Sort</h3>" + chips("sort", sorts) +
+      '<div class="chips" style="margin-top:12px"><button type="button" class="chip" data-action="draft" data-key="tonight" data-v="' + (d.tonight ? "0" : "1") + '" aria-pressed="' + !!d.tonight + '">Prefer BYO tonight</button></div>' +
+      '<p class="count-line" id="filterCount">' + preview.length + (preview.length === 1 ? " restaurant" : " restaurants") + "</p>" +
+      '<div class="stack"><button type="button" class="btn btn-primary" data-action="apply-filters">Show restaurants</button>' +
+      '<button type="button" class="btn btn-ghost" data-action="reset-filters">Clear filters</button></div></div></div>';
+  }
+
+  function screenHtml() {
+    if (state.screen === "home") return homeHtml();
+    if (state.screen === "location") return locationHtml();
+    if (state.screen === "results") return resultsHtml();
+    if (state.screen === "select") return selectHtml();
+    if (state.screen === "share") return shareHtml();
+    if (state.screen === "vote") return voteHtml();
+    if (state.screen === "legacy") return legacyHtml();
+    return homeHtml();
   }
 
   function render() {
-    renderMetrics();
-    renderCaption();
-    var q = norm(state.q).trim();
-    var terms = q ? q.split(/\s+/) : [];
-    var list = places.filter(function (p) {
-      return inSelectedCity(p) &&
-        (state.region === "All" || p.region === state.region) &&
-        (state.suburb === "All" || p.suburb === state.suburb) &&
-        (state.fam === "All" || p.family === state.fam) &&
-        (state.price === "Any" || p.price === state.price) &&
-        (!state.deals || !!p.deal) && (!state.takeaway || p.takeaway === "yes") &&
-        terms.every(function (t) { return p._search.indexOf(t) >= 0; });
-    });
-    var filtered = !!(q || state.suburb !== "All" || state.fam !== "All" || state.price !== "Any" || state.deals || state.takeaway);
-    var tonightOn = !!state.tonight;
-    var grouped = state.sort === "region" && state.region === "All" && !tonightOn;
-    var showHero = !filtered && !tonightOn && !state.planMode && (grouped || state.sort === "rank") && (state.region === "All" || state.region === hero.region) && inSelectedCity(hero);
-    $("hero").hidden = !showHero;
-    document.body.classList.toggle("searching", !!q);
-    document.body.classList.toggle("plan-mode", !!state.planMode);
-    document.body.classList.toggle("tonight-on", tonightOn);
-    if (showHero) list = list.filter(function (p) { return p !== hero; });
-    if (state.sort === "near" && state.loc) list.sort(function (a, b) { return a._dist - b._dist; });
-    else if (state.sort === "stars") list.sort(function (a, b) { return b.stars - a.stars || parseInt(String(b.reviews).replace(/\D/g, ""), 10) - parseInt(String(a.reviews).replace(/\D/g, ""), 10); });
+    var y = window.scrollY || 0;
+    var keep = state.keepScroll;
+    state.keepScroll = false;
+    document.body.classList.toggle("modal-open", !!(state.detailId || state.menuOpen || state.filtersOpen));
+    $("app").innerHTML = screenHtml() + detailSheet() + menuSheet() + filtersSheet();
+    var title = "BYOSpot";
+    if (state.screen === "home") title = "BYOSpot · Find a BYO restaurant";
+    else if (state.screen === "results") title = resultsHeading() + " · BYOSpot";
+    else if (state.screen === "location") title = "Choose a location · BYOSpot";
+    else if (state.screen === "select" || state.screen === "share") title = "Where Should We Eat? · BYOSpot";
+    else if (state.screen === "vote") title = "Where should we eat? · BYOSpot";
+    document.title = title;
+    if (keep) window.scrollTo(0, y);
+  }
 
-    var yes = [], unk = [], no = [];
-    if (tonightOn) {
-      list.forEach(function (p) {
-        var st = byoTonightStatus(p);
-        if (st === "yes") yes.push(p); else if (st === "no") no.push(p); else unk.push(p);
-      });
-      // Limited "tonight only" matches first, then every-day BYO. Nothing is removed.
-      yes.sort(function (a, b) {
-        return (isByoTonightOnly(a) ? 0 : 1) - (isByoTonightOnly(b) ? 0 : 1);
-      });
-      list = yes.concat(unk, no);
+  function resultsQuery() {
+    return L.writeParams(state.area, state.filters, state.view);
+  }
+  function go(path, opts) {
+    opts = opts || {};
+    if (opts.replace) history.replaceState({ app: 1, depth: depth }, "", path);
+    else { depth += 1; history.pushState({ app: 1, depth: depth }, "", path); }
+    applyRoute(true);
+  }
+  function syncUrl() {
+    var base = state.screen === "select" ? "/select" : "/results";
+    var qs = resultsQuery();
+    history.replaceState({ app: 1, depth: depth }, "", base + (qs ? "?" + qs : ""));
+    render();
+  }
+
+  function applyRoute(scroll) {
+    var route = parseRoute();
+    state.screen = route.screen;
+    state.detailId = "";
+    state.menuOpen = false;
+    state.filtersOpen = false;
+    if (route.screen === "results" || route.screen === "select") {
+      state.area = L.areaFromParams(route.params) || state.area;
+      state.filters = L.filtersFromParams(route.params);
+      state.view = route.params.get("view") === "map" ? "map" : "list";
+      if (!state.area) { state.screen = "home"; }
+      if (state.screen === "select" && state.limit < 30) state.limit = 30;
     }
-
-    var html = "", total = list.length + (showHero ? 1 : 0);
-    if (grouped) {
-      var cap = filtered ? 6 : PER_GROUP;
-      activeRegions().forEach(function (r) {
-        var g = list.filter(function (p) { return p.region === r; });
-        var n = g.length + (showHero && hero.region === r ? 1 : 0);
-        if (!g.length) return;
-        // See all lives in the header so it shows with the region name, not after the top cards.
-        var more = n > cap + (showHero && hero.region === r ? 1 : 0) || filtered;
-        var see = more
-          ? '<button type="button" class="group-see" data-region="' + esc(r) + '" aria-label="' + esc(filtered ? "See all of " + r : "See all " + n + " in " + r) + '">See all <span aria-hidden="true">→</span></button>'
-          : "";
-        html += '<section class="region-group"><h3 class="group-head"><span class="group-title">' + esc(r) + '<span class="group-count"> · ' + n + "</span></span>" + see + "</h3>" +
-          '<div class="grid">' + g.slice(0, cap).map(function (p) { return card(p, true); }).join("") + "</div></section>";
-      });
-    } else if (tonightOn) {
-      var shown = list.slice(0, state.limit);
-      var parts = [];
-      var lastBand = null;
-      var allUnknown = !yes.length && !no.length;
-      if (allUnknown) {
-        parts.push('<p class="tonight-note" role="status">We don’t know BYO days for these places yet — call ahead. Order is otherwise unchanged.</p>');
-      } else {
-        parts.push('<p class="tonight-note" role="status">Showing places that look BYO-friendly <strong>tonight (' + esc(sydneyWeekday()) + ', ' + esc(activeCity().label) + ')</strong> first. <strong>BYO tonight only</strong> means that place isn’t BYO every night. Always-BYO places stay in the list.</p>');
+    if (route.screen === "vote" || route.screen === "share") {
+      if (state.token !== route.token) {
+        state.token = route.token;
+        state.poll = null;
+        state.voteDone = false;
+        state.voteChoice = "";
+        state.voteError = "";
+        state.pollError = "";
       }
-      parts.push('<div class="grid">');
-      shown.forEach(function (p) {
-        var st = byoTonightStatus(p);
-        var band = st === "yes" ? "yes" : st === "no" ? "no" : "unknown";
-        if (!allUnknown && band !== lastBand) {
-          if (band === "yes") parts.push('<h3 class="band-head">BYO tonight</h3>');
-          else if (band === "unknown") parts.push('<h3 class="band-head muted">BYO days unknown — call ahead</h3>');
-          else parts.push('<h3 class="band-head muted">Other nights</h3>');
-          lastBand = band;
+      if (!state.poll) loadPoll(route.token, route.screen);
+    }
+    if (route.screen === "legacy") state.legacyIds = route.ids;
+    if (route.screen === "home") state.geoError = state.geoError;
+    render();
+    if (scroll) window.scrollTo(0, 0);
+  }
+
+  function parseRoute() {
+    var path = location.pathname.replace(/\/index\.html$/, "").replace(/\/+$/, "") || "/";
+    var params = new URLSearchParams(location.search);
+    var hash = location.hash || "";
+    if (hash === "#plan" || hash.indexOf("#plan=") === 0) {
+      var body = hash === "#plan" ? "" : hash.slice("#plan=".length);
+      var ids = body.split(",").filter(function (id) { return !!model.byId[id]; });
+      return { screen: "legacy", ids: ids, params: params };
+    }
+    var vote = path.match(/^\/vote\/([A-Za-z0-9_-]+)$/);
+    if (vote) return { screen: "vote", token: vote[1], params: params };
+    var share = path.match(/^\/share\/([A-Za-z0-9_-]+)$/);
+    if (share) return { screen: "share", token: share[1], params: params };
+    if (path === "/location") return { screen: "location", params: params };
+    if (path === "/select") return { screen: "select", params: params };
+    if (path === "/results") return { screen: "results", params: params };
+    return { screen: "home", params: params };
+  }
+
+  function loadPoll(token, screen) {
+    state.pollLoading = true;
+    render();
+    fetch("/api/polls/" + encodeURIComponent(token) + "?voter=" + encodeURIComponent(voterToken()))
+      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, status: res.status, data: data }; }); })
+      .then(function (r) {
+        state.pollLoading = false;
+        if (!r.ok) { state.poll = null; state.pollError = (r.data && r.data.error) || "This voting link isn’t valid or has expired."; }
+        else {
+          state.poll = r.data;
+          state.pollError = "";
+          if (r.data.myVote) { state.voteDone = true; state.voteChoice = r.data.myVote; }
         }
-        parts.push(card(p, false, st));
+        if (state.screen === screen && state.token === token) render();
+      })
+      .catch(function () {
+        state.pollLoading = false;
+        state.poll = null;
+        state.pollError = "You're offline or we couldn't reach the voting service. Check your connection and try again.";
+        if (state.screen === screen) render();
       });
-      parts.push("</div>");
-      html = parts.join("");
-      if (list.length > state.limit) html += '<button type="button" class="see-all show-more" id="showMore">Show ' + Math.min(PAGE, list.length - state.limit) + " more · " + (list.length - state.limit) + " left</button>";
-    } else {
-      html = '<div class="grid">' + list.slice(0, state.limit).map(function (p) { return card(p, false); }).join("") + "</div>";
-      if (list.length > state.limit) html += '<button type="button" class="see-all show-more" id="showMore">Show ' + Math.min(PAGE, list.length - state.limit) + " more · " + (list.length - state.limit) + " left</button>";
-    }
-    $("grid").innerHTML = list.length ? html : "";
-    var tonightBit = tonightOn ? (", " + yes.length + " look good tonight") : "";
-    var cityLabel = activeCity().label;
-    var nearBit = state.sort === "near" ? ", nearest first" : "";
-    var rawQ = String(state.q || "").trim();
-    if (rawQ) {
-      var ctx = searchContext(list);
-      var where = ctx ? " in " + ctx : (state.region === "All" ? " across " + cityLabel : " in " + state.region + (state.suburb !== "All" ? " · " + state.suburb : ""));
-      $("resultCount").textContent = total + (total === 1 ? " place matching " : " places matching ") + rawQ + where + nearBit + tonightBit;
-    } else {
-      $("resultCount").textContent = total + (total === 1 ? " place" : " places") + (state.region === "All" ? " across " + cityLabel : " in " + state.region) + (state.suburb !== "All" ? " · " + state.suburb : "") + nearBit + (grouped && !filtered ? ", top 3 per region" : "") + tonightBit;
-    }
-    setListHeading(list);
-    var on = (state.fam !== "All") + (state.price !== "Any") + state.deals + state.takeaway;
-    $("moreFiltersLabel").textContent = on ? "More filters · " + on + " on" : "More filters";
-
-    var empty = $("empty");
-    if (list.length || showHero) { empty.hidden = true; return; }
-    empty.hidden = false;
-    if (state.region !== "All" && !count(state.region)) empty.innerHTML = '<div class="big">🍷</div><strong>' + esc(state.region) + " is coming soon</strong>We're still researching this region.";
-    else empty.innerHTML = "<strong>Nothing matches yet</strong>Try a different search, suburb, cuisine, price or toggle.";
   }
 
-  // Reset paging whenever the view changes; "Show more" / See all are delegated.
-  var baseRender = render;
-  render = function (keepLimit) { if (keepLimit !== true) state.limit = PAGE; baseRender(); };
-  $("grid").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    if (b.id === "showMore") { state.limit += PAGE; baseRender(); return; }
-    if (b.classList.contains("details-btn")) {
-      var open = b.getAttribute("aria-expanded") !== "true";
-      b.setAttribute("aria-expanded", String(open)); b.nextElementSibling.hidden = !open; return;
-    }
-    var addId = b.getAttribute("data-add");
-    if (addId) { togglePick(addId); render(true); syncPlanner(); return; }
-    var calcId = b.getAttribute("data-calc");
-    if (calcId) { openCalcFor(calcId); return; }
-    var r = b.getAttribute("data-region");
-    if (r) {
-      var chip = $("regionChips").querySelector('button[data-v="' + r.replace(/"/g, '\\"') + '"]');
-      if (chip) { chip.click(); chip.scrollIntoView({ block: "nearest", inline: "center" }); $("listSection").scrollIntoView({ behavior: "smooth", block: "start" }); }
-    }
-  });
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (es) {
-      es.forEach(function (en) { if (en.isIntersecting && document.getElementById("showMore")) { state.limit += PAGE; baseRender(); } });
-    }, { rootMargin: "600px" }).observe($("footSentinel") || $("empty"));
-  }
-  renderSuburbs();
-  render();
-
-  // Fine print, calls, reserve
-  $("finePrint").textContent = D.finePrint;
-  $("calls").innerHTML = (D.callFirst || []).map(function (c) {
-    var tel = "+61" + String(c.phone).replace(/\D/g, "").replace(/^0/, "");
-    return '<li><a href="tel:' + tel + '"><div><div class="row-title">' + esc(c.title) + '</div><div class="row-detail">' + esc(c.detail) + '</div></div><span class="row-phone">📞 ' + esc(c.phone) + "</span></a></li>";
-  }).join("");
-  $("reserve").textContent = D.reserve;
-  $("footnote").textContent = "Bottle shops are from OpenStreetMap, within 2 km, with straight-line distances, so the walk may be a little longer. Chain means a big brand or banner group (Dan Murphy's, BWS, Liquorland, First Choice, Vintage Cellars, IGA, Bottlemart, Cellarbrations and the like); Indie is every other bottle shop or wine store. Data as of " + D.asOf + ".";
-
-  // ---- Group night planner (URL hash shortlist + localStorage votes) ----
-  function togglePick(id) {
-    var i = state.picks.indexOf(id);
-    if (i >= 0) state.picks.splice(i, 1);
-    else {
-      if (state.picks.length >= 6) { showPlannerMsg("Up to 6 places."); return; }
-      state.picks.push(id);
-    }
-    showPlannerMsg("");
-    writePlanHash();
-  }
-  function isPlanHash(hash) {
-    var h = hash || "";
-    return h === "#plan" || h.indexOf("#plan=") === 0;
-  }
-  function validIdsFromHash(hash) {
-    var h = hash == null ? (location.hash || "") : hash;
-    if (!isPlanHash(h)) return [];
-    var body = h === "#plan" ? "" : h.slice("#plan=".length);
-    return body.split(",").filter(function (id) {
-      return !!id && Object.prototype.hasOwnProperty.call(byId, id);
-    });
-  }
-  function stripDeadPlanHash() {
-    var h = location.hash || "";
-    if (!isPlanHash(h) || validIdsFromHash(h).length) return false;
-    history.replaceState(null, "", location.pathname + location.search);
-    if ($("voteSheet")) $("voteSheet").hidden = true;
-    return true;
-  }
-  function writePlanHash() {
-    if (!state.picks.length) {
-      if (isPlanHash(location.hash || "")) history.replaceState(null, "", location.pathname + location.search);
+  function chooseArea(area) {
+    var ret = state.locReturn || "results";
+    try { ret = sessionStorage.getItem("byospot-loc-return") || ret; } catch (e) {}
+    if (!area.near && state.filters.sort === "distance") state.filters.sort = "";
+    if (ret === "select") {
+      var next = L.filterPlaces(model.places, area, state.filters, area.near ? state.coords : null);
+      var keep = {};
+      next.forEach(function (p) { keep[p.id] = 1; });
+      var removed = state.picks.filter(function (id) { return !keep[id]; });
+      state.picks = state.picks.filter(function (id) { return keep[id]; });
+      savePicks();
+      state.removedNote = removed.length ? ("Removed " + removed.length + (removed.length === 1 ? " restaurant that isn’t" : " restaurants that aren’t") + " in this area.") : "";
+      state.area = area;
+      state.view = "list";
+      go("/select?" + L.writeParams(area, state.filters, "list"));
       return;
     }
-    var h = "#plan=" + state.picks.join(",");
-    if (location.hash !== h) history.replaceState(null, "", h);
+    state.area = area;
+    state.view = "list";
+    state.limit = 24;
+    go("/results?" + L.writeParams(area, state.filters, "list"));
   }
-  function readPlanHash() {
-    var ids = validIdsFromHash(location.hash);
-    return ids.length ? ids : null;
+
+  function openLocation(ret) {
+    state.locReturn = ret;
+    state.locQuery = "";
+    state.browseStack = [];
+    try { sessionStorage.setItem("byospot-loc-return", ret); } catch (e) {}
+    go("/location");
   }
-  function voteKey(ids) { return "byospot-votes-" + ids.slice().sort().join(","); }
-  function loadVotes(ids) {
-    try { return JSON.parse(localStorage.getItem(voteKey(ids)) || "{}") || {}; }
-    catch (e) { return {}; }
+
+  function requestNear() {
+    state.geoError = "";
+    if (!("geolocation" in navigator)) {
+      state.geoError = "Location isn’t available in this browser. Choose a location instead.";
+      render();
+      return;
+    }
+    state.geoBusy = true;
+    render();
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      state.geoBusy = false;
+      state.geoError = "";
+      saveCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+      state.area = { near: true, label: "Near you" };
+      state.filters.sort = "distance";
+      state.view = "list";
+      state.limit = 24;
+      go("/results?" + L.writeParams(state.area, state.filters, "list"));
+    }, function (err) {
+      state.geoBusy = false;
+      if (err && err.code === 1) state.geoError = "Location is off for this site, so we can’t sort by distance. Choose a location instead.";
+      else state.geoError = "We couldn’t find your location just now. Choose a location instead.";
+      if (state.screen !== "home" && state.screen !== "results") state.screen = "home";
+      render();
+    }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 });
   }
-  function saveVotes(ids, votes) {
-    try { localStorage.setItem(voteKey(ids), JSON.stringify(votes)); } catch (e) {}
+
+  function uiBack() {
+    if (history.state && history.state.app && depth > 0) { history.back(); return; }
+    if (state.screen === "share") { go("/select?" + resultsQuery(), { replace: true }); return; }
+    if (state.screen === "select" || state.screen === "location" || state.screen === "results") {
+      if (state.screen === "select" && state.area) { go("/results?" + resultsQuery(), { replace: true }); return; }
+      go("/", { replace: true });
+      return;
+    }
+    go("/", { replace: true });
   }
-  function voterId() {
-    var k = "byospot-voter";
-    try {
-      var v = localStorage.getItem(k);
-      if (v) return v;
-      v = "v" + Math.random().toString(36).slice(2, 10);
-      localStorage.setItem(k, v);
-      return v;
-    } catch (e) { return "anon"; }
-  }
-  var PLAN_GOAL = 3;
-  function planCountLabel(n) { return n > PLAN_GOAL ? String(n) : (n + "/" + PLAN_GOAL); }
-  function planMeterHTML(n, withPips) {
-    var label = "<b>" + planCountLabel(n) + "</b>";
-    if (!withPips) return label;
-    var dots = "";
-    for (var i = 0; i < PLAN_GOAL; i++) dots += "<i" + (i < n ? ' class="on"' : "") + "></i>";
-    return '<span class="plan-pips" aria-hidden="true">' + dots + "</span>" + label;
-  }
-  function paintMeter(el, n, withPips) {
-    if (!el) return;
-    el.innerHTML = planMeterHTML(n, withPips);
-    el.setAttribute("aria-label", n + " of about 3 places");
-  }
-  function showPlannerMsg(t) {
-    [$("plannerMsg"), $("planBarMsg")].forEach(function (el) {
-      if (!el) return;
-      el.hidden = !t; el.textContent = t || "";
+
+  function createShare() {
+    if (state.picks.length < 2 || state.shareBusy) return;
+    state.shareBusy = true;
+    state.pollError = "";
+    render();
+    fetch("/api/polls", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ restaurantIds: state.picks })
+    }).then(function (res) {
+      return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+    }).then(function (r) {
+      state.shareBusy = false;
+      if (!r.ok) {
+        state.pollError = (r.data && r.data.error) || "We couldn’t save this shortlist, so a shareable link isn’t ready.";
+        render();
+        return;
+      }
+      state.poll = r.data;
+      state.token = r.data.shareToken;
+      state.pollError = "";
+      go("/share/" + r.data.shareToken);
+    }).catch(function () {
+      state.shareBusy = false;
+      state.pollError = "We couldn’t save this shortlist. Check your connection and try again.";
+      render();
     });
   }
-  function syncPlanner() {
-    var box = $("plannerPicks"), empty = $("plannerEmpty"), share = $("plannerShare");
-    var n = state.picks.length;
-    if (box) {
-      box.innerHTML = state.picks.map(function (id, i) {
-        var p = byId[id]; if (!p) return "";
-        return '<div class="planner-row"><span class="planner-idx">' + (i + 1) + '</span><div><strong>' + esc(p.name) + "</strong><span>" + esc(p.suburb) + "</span></div>" +
-          '<button type="button" class="planner-x" data-add="' + esc(id) + '" aria-label="Remove ' + esc(p.name) + '">×</button></div>';
-      }).join("");
+
+  function submitVote() {
+    if (!state.voteChoice || state.voteBusy || !state.token) return;
+    state.voteBusy = true;
+    state.voteError = "";
+    render();
+    var voter = voterToken();
+    fetch("/api/polls/" + encodeURIComponent(state.token) + "/vote", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ restaurantId: state.voteChoice, participantToken: voter })
+    }).then(function (res) {
+      return res.json().then(function (data) { return { ok: res.ok, status: res.status, data: data }; });
+    }).then(function (r) {
+      state.voteBusy = false;
+      if (!r.ok) {
+        state.voteError = (r.data && r.data.error) || "We couldn’t save your vote.";
+        if (r.data && r.data.tallies) state.poll = r.data;
+        if (r.status === 409) state.voteDone = true;
+        render();
+        return;
+      }
+      state.poll = r.data;
+      state.voteDone = true;
+      state.voteError = "";
+      render();
+    }).catch(function () {
+      state.voteBusy = false;
+      state.voteError = "You're offline or we couldn't reach the voting service. Check your connection and try again.";
+      render();
+    });
+  }
+
+  function copyText(url) {
+    function ok() {
+      var el = $("toast");
+      if (el) { el.hidden = false; el.textContent = "Link copied."; return; }
+      state.toast = "Link copied.";
+      render();
     }
-    if (empty) empty.hidden = n > 0;
-    if (share) share.disabled = n < 2;
-    var clear = $("plannerClear");
-    if (clear) clear.hidden = n === 0;
-    paintMeter($("planMeter"), n, false);
-    paintMeter($("plannerCount"), n, true);
-    var bar = $("planBar");
-    if (bar) bar.hidden = !state.planMode;
-    var shortBtn = $("planShortlist");
-    if (shortBtn) shortBtn.classList.toggle("ready", n >= 2);
-    var planBtn = $("planNight");
-    planBtn.setAttribute("aria-pressed", String(state.planMode));
-    planBtn.textContent = "Plan a night";
-    if (state.planMode) planBtn.setAttribute("aria-label", "Leave plan a night");
-    else planBtn.removeAttribute("aria-label");
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok).catch(function () { window.prompt("Copy this link:", url); ok(); });
+    else { window.prompt("Copy this link:", url); ok(); }
   }
-  function openPlanner() {
-    state.planMode = true;
-    $("plannerSheet").hidden = false;
-    syncPlanner();
-    var share = $("plannerShare");
-    if (share && !share.disabled) share.focus();
-    else $("plannerClose").focus();
-  }
-  function closePlanner() { $("plannerSheet").hidden = true; }
-  $("planNight").addEventListener("click", function () {
-    state.planMode = !state.planMode;
-    closePlanner();
-    if (!state.planMode) showPlannerMsg("");
-    syncPlanner();
-    render(true);
+
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-action], a.logo, a[data-action='home']");
+    if (!el) return;
+    var action = el.getAttribute("data-action");
+    if (el.tagName === "A" && el.getAttribute("href") === "/" && !action) action = "home";
+    if (action === "home") { e.preventDefault(); go("/"); return; }
+    if (action === "back") {
+      if (state.screen === "location" && state.locQuery) { state.locQuery = ""; render(); return; }
+      if (state.screen === "location" && state.browseStack.length) { state.browseStack.pop(); render(); return; }
+      uiBack();
+      return;
+    }
+    if (action === "menu") { state.menuOpen = true; state.detailId = ""; state.filtersOpen = false; render(); return; }
+    if (action === "close") { state.menuOpen = false; state.detailId = ""; state.filtersOpen = false; state.keepScroll = true; render(); return; }
+    if (action === "near") { requestNear(); return; }
+    if (action === "choose-location") {
+      openLocation(state.screen === "select" ? "select" : "results");
+      return;
+    }
+    if (action === "clear-loc") { state.locQuery = ""; state.browseStack = []; render(); return; }
+    if (action === "loc-row") {
+      var row = state.rows[Number(el.getAttribute("data-i"))];
+      if (!row) return;
+      if (row.drill) { state.browseStack.push(row.drill); state.locQuery = ""; render(); return; }
+      if (row.area) chooseArea(row.area);
+      return;
+    }
+    if (action === "show-all" && state.showAll) { chooseArea(state.showAll.area); return; }
+    if (action === "broaden") {
+      var parent = state.area ? L.broadenArea(model.places, state.area) : null;
+      if (parent) chooseArea(parent);
+      else openLocation("results");
+      return;
+    }
+    if (action === "view") {
+      state.view = el.getAttribute("data-view") === "map" ? "map" : "list";
+      syncUrl();
+      return;
+    }
+    if (action === "filters") {
+      state.draft = Object.assign(L.blankFilters(), state.filters);
+      state.filtersOpen = true;
+      state.menuOpen = false;
+      render();
+      return;
+    }
+    if (action === "draft") {
+      var key = el.getAttribute("data-key");
+      var val = el.getAttribute("data-v");
+      if (!state.draft) state.draft = Object.assign(L.blankFilters(), state.filters);
+      if (key === "tonight") state.draft.tonight = val === "1";
+      else if (key === "rating" || key === "radius") state.draft[key] = Number(val) || 0;
+      else state.draft[key] = val;
+      render();
+      return;
+    }
+    if (action === "apply-filters") {
+      var qEl = $("filterQ");
+      if (qEl && state.draft) state.draft.q = qEl.value;
+      state.filters = Object.assign(L.blankFilters(), state.draft || {});
+      state.filtersOpen = false;
+      state.limit = 24;
+      syncUrl();
+      return;
+    }
+    if (action === "reset-filters") {
+      var sort = state.area && state.area.near ? "distance" : "";
+      state.filters = L.blankFilters();
+      state.filters.sort = sort;
+      state.draft = Object.assign(L.blankFilters(), state.filters);
+      state.filtersOpen = false;
+      state.limit = 24;
+      if (state.screen === "results" || state.screen === "select") syncUrl();
+      else render();
+      return;
+    }
+    if (action === "more") { state.limit += 24; state.keepScroll = true; render(); return; }
+    if (action === "details") {
+      var id = el.getAttribute("data-id");
+      if (id && model.byId[id]) { state.detailId = id; state.menuOpen = false; render(); }
+      return;
+    }
+    if (action === "map-pin") { state.mapId = el.getAttribute("data-id") || ""; state.keepScroll = true; render(); return; }
+    if (action === "vote-start") {
+      state.limit = 30;
+      state.pollError = "";
+      go("/select?" + L.writeParams(state.area, state.filters, "list"));
+      return;
+    }
+    if (action === "toggle") {
+      var tid = el.getAttribute("data-id");
+      var at = state.picks.indexOf(tid);
+      if (at >= 0) state.picks.splice(at, 1);
+      else state.picks.push(tid);
+      savePicks();
+      state.keepScroll = true;
+      render();
+      return;
+    }
+    if (action === "continue-share") { createShare(); return; }
+    if (action === "copy") { copyText(el.getAttribute("data-url") || ""); return; }
+    if (action === "native-share") {
+      var url = el.getAttribute("data-url") || "";
+      if (navigator.share) {
+        navigator.share({ title: "Where should we eat?", text: "Vote on a BYO shortlist.", url: url }).catch(function (err) {
+          if (err && err.name === "AbortError") return;
+          copyText(url);
+        });
+      } else copyText(url);
+      return;
+    }
+    if (action === "edit-shortlist") {
+      if (state.poll && state.poll.restaurantIds) { state.picks = state.poll.restaurantIds.filter(function (id) { return model.byId[id]; }); savePicks(); }
+      state.area = { shortlist: true, label: "Your shortlist" };
+      state.removedNote = "Changing area keeps restaurants that are still in the new results and removes the others from this shortlist.";
+      go("/select?" + L.writeParams(state.area, state.filters, "list"));
+      return;
+    }
+    if (action === "pick-vote") { state.voteChoice = el.getAttribute("data-id") || ""; state.keepScroll = true; render(); return; }
+    if (action === "submit-vote") { submitVote(); return; }
   });
-  $("planShortlist").addEventListener("click", openPlanner);
-  $("plannerSheet").addEventListener("click", function (e) {
-    if (e.target === $("plannerSheet")) closePlanner();
+
+  document.addEventListener("input", function (e) {
+    if (e.target.id === "locQ") {
+      state.locQuery = e.target.value;
+      var list = $("locList");
+      var clear = document.querySelector(".search .clear");
+      if (!clear && state.locQuery) { render(); var again = $("locQ"); if (again) { again.focus(); again.setSelectionRange(again.value.length, again.value.length); } return; }
+      if (clear && !state.locQuery) { render(); return; }
+      if (list) list.innerHTML = locationListInner();
+    }
+    if (e.target.id === "filterQ" && state.draft) {
+      state.draft.q = e.target.value;
+      var count = $("filterCount");
+      if (count) {
+        var preview = L.filterPlaces(model.places, state.area, state.draft, state.area && state.area.near ? state.coords : null);
+        count.textContent = preview.length + (preview.length === 1 ? " restaurant" : " restaurants");
+      }
+    }
+  });
+  document.addEventListener("submit", function (e) {
+    if (e.target.id !== "locForm") return;
+    e.preventDefault();
+    var q = state.locQuery.trim();
+    if (!q) return;
+    if (state.rows && state.rows[0] && state.rows[0].area) { chooseArea(state.rows[0].area); return; }
+    chooseArea({ unrecognised: true, query: q, label: q });
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && $("plannerSheet") && !$("plannerSheet").hidden) closePlanner();
+    if (e.key === "Escape" && (state.detailId || state.menuOpen || state.filtersOpen)) {
+      state.detailId = ""; state.menuOpen = false; state.filtersOpen = false; state.keepScroll = true; render();
+    }
   });
-  $("plannerClose").addEventListener("click", closePlanner);
-  $("plannerClear").addEventListener("click", function () {
-    state.picks = []; writePlanHash(); showPlannerMsg(""); syncPlanner(); render(true);
-  });
-  $("plannerShare").addEventListener("click", function () {
-    if (state.picks.length < 2) return;
-    writePlanHash();
-    var url = location.href.split("#")[0] + "#plan=" + state.picks.join(",");
-    function ok() { showPlannerMsg("Link copied."); }
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok).catch(function () { prompt("Copy this link:", url); ok(); });
-    else { prompt("Copy this link:", url); ok(); }
-  });
-  $("plannerPicks").addEventListener("click", function (e) {
-    var b = e.target.closest("[data-add]"); if (!b) return;
-    togglePick(b.getAttribute("data-add")); syncPlanner(); render(true);
+  window.addEventListener("popstate", function () {
+    depth = (history.state && history.state.depth) || 0;
+    applyRoute(true);
   });
 
-  function renderVoteSheet(ids) {
-    if (!ids || !ids.length) { $("voteSheet").hidden = true; return; }
-    var votes = loadVotes(ids);
-    var me = voterId();
-    var my = votes[me] || null;
-    var tallies = {};
-    ids.forEach(function (id) { tallies[id] = 0; });
-    Object.keys(votes).forEach(function (vid) { if (tallies[votes[vid]] != null) tallies[votes[vid]]++; });
-    var totalVoters = Object.keys(votes).length;
-    $("voteList").innerHTML = ids.map(function (id) {
-      var p = byId[id]; if (!p) return "";
-      var n = tallies[id] || 0;
-      var pct = totalVoters ? Math.round(100 * n / totalVoters) : 0;
-      return '<button type="button" class="vote-row' + (my === id ? " mine" : "") + '" data-vote="' + esc(id) + '">' +
-        '<div class="vote-main"><strong>' + esc(p.name) + '</strong><span>' + esc(p.suburb) + " · ★" + esc(p.stars) + " · " + esc(corkageOf(p)) + '</span></div>' +
-        '<div class="vote-tally"><b>' + n + '</b><small>' + pct + '%</small></div></button>';
-    }).join("") + (totalVoters ? '<p class="vote-meta">' + totalVoters + (totalVoters === 1 ? " vote" : " votes") + " on this device</p>" : '<p class="vote-meta">No votes yet — be the first.</p>');
-    $("voteEmpty").hidden = ids.length > 0;
-    $("voteSheet").hidden = false;
-  }
-  $("voteList").addEventListener("click", function (e) {
-    var b = e.target.closest("[data-vote]"); if (!b) return;
-    var ids = readPlanHash() || state.picks;
-    if (!ids || !ids.length) return;
-    var votes = loadVotes(ids);
-    votes[voterId()] = b.getAttribute("data-vote");
-    saveVotes(ids, votes);
-    renderVoteSheet(ids);
-  });
-  $("voteClose").addEventListener("click", function () { $("voteSheet").hidden = true; });
-  $("voteBrowse").addEventListener("click", function () {
-    $("voteSheet").hidden = true;
-    history.replaceState(null, "", location.pathname + location.search);
-  });
-  function bootHash() {
-    var ids = readPlanHash();
-    if (ids) { state.picks = ids.slice(); renderVoteSheet(ids); syncPlanner(); return; }
-    if (stripDeadPlanHash()) {
-      state.picks = [];
-      closePlanner();
-      syncPlanner();
-      render(true);
-    }
-  }
-  window.addEventListener("hashchange", bootHash);
-
-  // ---- Corkage vs wine-list calculator ----
-  function openCalcFor(id) {
-    var p = byId[id]; if (!p) return;
-    $("calcPanel").hidden = false;
-    $("calcToggle").setAttribute("aria-expanded", "true");
-    ensureCalcPlaces();
-    $("calcPlace").value = id;
-    applyCalcPlace(p);
-  }
-  function invalidateCalcPlaces() {
-    var sel = $("calcPlace");
-    if (!sel) return;
-    sel.removeAttribute("data-ready");
-    if ($("calcPanel") && !$("calcPanel").hidden) ensureCalcPlaces();
-  }
-  function ensureCalcPlaces() {
-    var sel = $("calcPlace");
-    if (sel.getAttribute("data-ready") === "1") return;
-    var opts = ['<option value="">— type corkage yourself —</option>'];
-    var pool = state.picks.length ? state.picks.map(function (id) { return byId[id]; }).filter(Boolean)
-      : places.filter(function (p) {
-          return inSelectedCity(p) && (state.region === "All" || p.region === state.region);
-        }).slice(0, 80);
-    pool.slice(0, 100).forEach(function (p) {
-      opts.push('<option value="' + esc(p.id) + '">' + esc(p.name) + " (" + esc(p.suburb) + ")</option>");
-    });
-    sel.innerHTML = opts.join("");
-    sel.setAttribute("data-ready", "1");
-  }
-  function applyCalcPlace(p) {
-    var parsed = parseCorkageDollars(p);
-    var hint = $("calcCorkHint");
-    if (parsed.unknown) {
-      $("calcCork").value = "";
-      hint.hidden = false;
-      hint.textContent = "Corkage unknown for " + p.name + " — ask the venue, then type it in.";
-      $("calcCork").removeAttribute("data-per");
-    } else {
-      $("calcCork").value = String(parsed.amount);
-      hint.hidden = false;
-      hint.textContent = parsed.per === "person"
-        ? ("Listed as about $" + parsed.amount + " per person. We’ll multiply by party size.")
-        : ("Prefilling $" + parsed.amount + " from the listing (per bottle). Edit if wrong.");
-      $("calcCork").setAttribute("data-per", parsed.per || "bottle");
-    }
-    runCalc();
-  }
-  function runCalc() {
-    var cork = parseFloat($("calcCork").value);
-    var party = parseInt($("calcParty").value, 10) || 0;
-    var bottle = parseFloat($("calcBottle").value);
-    var list = parseFloat($("calcList").value);
-    var per = $("calcCork").getAttribute("data-per") || "bottle";
-    var out = $("calcResult");
-    if (!party) { out.textContent = "Add a party size."; out.className = "calc-result"; return; }
-    if (isNaN(cork) || cork < 0) { out.textContent = "Need corkage (or ask the venue) to compare honestly."; out.className = "calc-result need"; return; }
-    if (isNaN(bottle) || bottle < 0) { out.textContent = "Add what your bottle cost (bottle shop / what you brought)."; out.className = "calc-result need"; return; }
-    var corkTotal = per === "person" ? cork * party : cork;
-    var byoTotal = bottle + corkTotal;
-    if (isNaN(list) || list <= 0) {
-      out.innerHTML = "<strong>BYO night ≈ $" + byoTotal.toFixed(0) + "</strong> (bottle $" + bottle.toFixed(0) + " + corkage $" + corkTotal.toFixed(0) + "). Add a wine-list bottle price to see which wins.";
-      out.className = "calc-result info";
-      return;
-    }
-    var diff = list - byoTotal;
-    if (Math.abs(diff) < 1) {
-      out.innerHTML = "<strong>About even</strong> — BYO ≈ $" + byoTotal.toFixed(0) + ", wine list $" + list.toFixed(0) + ".";
-      out.className = "calc-result even";
-    } else if (diff > 0) {
-      out.innerHTML = "<strong>BYO wins by ~$" + diff.toFixed(0) + "</strong> — BYO ≈ $" + byoTotal.toFixed(0) + " vs wine list $" + list.toFixed(0) + ".";
-      out.className = "calc-result win";
-    } else {
-      out.innerHTML = "<strong>Wine list wins by ~$" + (-diff).toFixed(0) + "</strong> — wine list $" + list.toFixed(0) + " vs BYO ≈ $" + byoTotal.toFixed(0) + ".";
-      out.className = "calc-result lose";
-    }
-  }
-  $("calcToggle").addEventListener("click", function () {
-    var open = $("calcPanel").hidden;
-    $("calcPanel").hidden = !open;
-    $("calcToggle").setAttribute("aria-expanded", String(open));
-    if (open) { ensureCalcPlaces(); runCalc(); }
-  });
-  $("calcPlace").addEventListener("change", function () {
-    var p = byId[$("calcPlace").value];
-    if (p) applyCalcPlace(p); else { $("calcCorkHint").hidden = true; $("calcCork").removeAttribute("data-per"); runCalc(); }
-  });
-  ["calcCork", "calcParty", "calcBottle", "calcList"].forEach(function (id) {
-    $(id).addEventListener("input", function () {
-      if (id === "calcCork") $("calcCork").removeAttribute("data-per");
-      runCalc();
-    });
-  });
-
-  bootHash();
-  syncPlanner();
+  depth = (history.state && history.state.depth) || 0;
+  history.replaceState({ app: 1, depth: depth }, "", location.pathname + location.search + location.hash);
+  applyRoute(false);
 
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
-    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
+    window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () {}); });
   }
 })();

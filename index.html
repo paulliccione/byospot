@@ -2,176 +2,29 @@
 <html lang="en-AU">
 <head>
   <meta charset="utf-8">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>BYO Spot · BYO restaurants</title>
-  <meta name="description" content="BYO Spot: every BYO restaurant we could find rated 4.0★ or higher on Google — Sydney, the Blue Mountains, Melbourne and the Victorian coast. Bring the wine.">
-  <meta name="theme-color" content="#fff8f0" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#170d14" media="(prefers-color-scheme: dark)">
-  <meta name="color-scheme" content="light dark">
+  <title>BYOSpot · Find a BYO restaurant</title>
+  <meta name="description" content="Find BYO restaurants in Sydney, the Blue Mountains, Melbourne and the Victorian coast. Check corkage, get directions, and vote with friends.">
+  <meta name="theme-color" content="#FFF9F3">
+  <meta name="color-scheme" content="light">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="BYO Spot">
+  <meta name="apple-mobile-web-app-title" content="BYOSpot">
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="page">
-    <header class="page-head">
-      <div class="brand"><img src="icons/icon-192.png" alt="" width="34" height="34"><span>BYO Spot</span></div>
-      <h1 id="title"></h1>
-      <p id="summary" class="summary"></p>
-    </header>
-
-    <div class="finder-stick">
-    <div class="searchbar" role="search">
-      <label class="search">
-        <span class="search-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        </span>
-        <input id="search" type="search" placeholder="Name, suburb, cuisine, dish" autocomplete="off" enterkeyhint="search" aria-label="Search restaurants">
-        <button type="button" id="clearSearch" class="clear" aria-label="Clear search" hidden>×</button>
-      </label>
-      <button type="button" id="nearMe" class="nearme" aria-pressed="false">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z" fill="currentColor"/><circle cx="12" cy="9" r="2.6" fill="var(--nearme-dot)"/></svg>
-        <span>Near me</span>
-      </button>
-      <button type="button" id="planNight" class="plan-btn" aria-pressed="false" title="Add places, then share">Plan a night</button>
-    </div>
-    <div id="planBar" class="plan-bar" hidden>
-      <p class="plan-steps">1. Add ~3 places · 2. Share</p>
-      <button type="button" id="planShortlist" class="plan-shortlist">
-        <span>Shortlist</span>
-        <span class="plan-meter" id="planMeter" aria-live="polite"></span>
-      </button>
-      <p id="planBarMsg" class="plan-bar-msg" role="status" hidden></p>
-    </div>
-    </div>
-    <div id="locMsg" class="locmsg" role="status" hidden></div>
-
-    <section id="hero" class="hero" aria-label="Top of the list"></section>
-
-    <section id="metrics" class="metrics" aria-label="Summary"></section>
-
-    <section class="section" id="listSection">
-      <div class="section-head">
-        <h2 id="listHeading">The list</h2>
-        <p id="caption" class="caption"></p>
-      </div>
-
-      <div class="filters">
-        <div class="filter-group">
-          <div class="filter-label">City / area</div>
-          <div id="cityChips" class="chipset cities" role="group" aria-label="City / area"></div>
-        </div>
-        <div class="filter-group">
-          <div class="filter-label">Region</div>
-          <div class="region-scroll"><div id="regionChips" class="chipset regions" role="group" aria-label="Region"></div></div>
-          <div id="suburbRow" class="chipset sub" role="group" aria-label="Suburb" hidden></div>
-        </div>
-        <details class="more-filters" id="moreFilters">
-          <summary><span id="moreFiltersLabel">More filters</span><small>Cuisine, price, deals, takeaway</small></summary>
-          <div class="more-body">
-        <div class="filter-group">
-          <div class="filter-label">Cuisine</div>
-          <div class="seg-wrap"><div id="famSeg" class="seg" role="group" aria-label="Cuisine"></div></div>
-        </div>
-        <div class="filter-group">
-          <div class="filter-label">Price</div>
-          <div class="seg-wrap"><div id="priceSeg" class="seg" role="group" aria-label="Price"></div></div>
-          <div id="priceLegend" class="legend"></div>
-        </div>
-        <div class="toggles">
-          <label class="toggle"><input type="checkbox" id="dealsOnly"><span class="track" aria-hidden="true"><span class="thumb"></span></span><span>EatClub deals only</span></label>
-          <label class="toggle"><input type="checkbox" id="takeawayOnly"><span class="track" aria-hidden="true"><span class="thumb"></span></span><span>Takeaway</span></label>
-        </div>
-          </div>
-        </details>
-        <div class="toggles tonight-row">
-          <label class="toggle toggle-tonight"><input type="checkbox" id="byoTonight"><span class="track" aria-hidden="true"><span class="thumb"></span></span><span>BYO tonight</span></label>
-        </div>
-        <div class="filter-group">
-          <div class="filter-label">Sort</div>
-          <div class="seg-wrap"><div id="sortSeg" class="seg" role="group" aria-label="Sort"></div></div>
-        </div>
-      </div>
-
-      <p id="resultCount" class="result-count" aria-live="polite"></p>
-      <div id="grid"></div>
-      <div id="empty" class="empty" hidden></div>
-      <div id="footSentinel" aria-hidden="true"></div>
-    </section>
-
-    <aside class="callout info"><strong>EatClub fine print</strong> <span id="finePrint"></span></aside>
-
-    <section class="section">
-      <h2>Call before you go</h2>
-      <ul id="calls" class="rows"></ul>
-    </section>
-
-    <aside class="callout"><strong>Reserve pick</strong> <span id="reserve"></span></aside>
-
-    <p id="footnote" class="footnote"></p>
-  </main>
-
-  <!-- Group night planner (hash shortlist + localStorage votes) -->
-  <div id="plannerSheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="plannerTitle">
-    <div class="sheet-card">
-      <header class="sheet-head">
-        <div class="planner-title">
-          <h2 id="plannerTitle">Shortlist</h2>
-          <p class="sheet-lead" id="plannerLead">1. Add ~3 places · 2. Share</p>
-        </div>
-        <div class="plan-meter" id="plannerCount" aria-hidden="true"></div>
-        <button type="button" class="sheet-close" id="plannerClose" aria-label="Close">×</button>
-      </header>
-      <div id="plannerPicks" class="planner-picks"></div>
-      <p id="plannerEmpty" class="planner-empty" hidden>Tap Add on a place.</p>
-      <div class="sheet-actions">
-        <button type="button" class="btn primary" id="plannerShare" disabled>Share</button>
-        <button type="button" class="btn ghost" id="plannerClear" hidden>Clear</button>
-      </div>
-      <p id="plannerMsg" class="sheet-msg" role="status" hidden></p>
-    </div>
-  </div>
-
-  <div id="voteSheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="voteTitle">
-    <div class="sheet-card">
-      <header class="sheet-head">
-        <h2 id="voteTitle">Vote on tonight</h2>
-        <button type="button" class="sheet-close" id="voteClose" aria-label="Close">×</button>
-      </header>
-      <p class="sheet-lead">Tap your favourite. Your vote is saved on this device; tallies update here when friends vote on theirs and refresh.</p>
-      <div id="voteList" class="vote-list"></div>
-      <p id="voteEmpty" class="sheet-empty" hidden>This shortlist is empty or the link is broken.</p>
-      <div class="sheet-actions">
-        <button type="button" class="btn ghost" id="voteBrowse">Browse all places</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sticky corkage vs wine-list calculator -->
-  <aside id="calcSticky" class="calc-sticky" aria-label="Corkage calculator">
-    <div id="calcPanel" class="calc-panel" hidden>
-      <p class="calc-lead">Is BYO actually cheaper tonight? Prefills corkage when we know it — otherwise type it in.</p>
-      <label class="calc-field">Place <select id="calcPlace"><option value="">— optional —</option></select></label>
-      <div class="calc-grid">
-        <label class="calc-field">Corkage $ <input id="calcCork" type="number" inputmode="decimal" min="0" step="0.5" placeholder="e.g. 10"></label>
-        <label class="calc-field">Party size <input id="calcParty" type="number" inputmode="numeric" min="1" max="20" value="2"></label>
-        <label class="calc-field">Your bottle $ <input id="calcBottle" type="number" inputmode="decimal" min="0" step="1" placeholder="from bottle shop"></label>
-        <label class="calc-field">Wine-list bottle $ <input id="calcList" type="number" inputmode="decimal" min="0" step="1" placeholder="optional"></label>
-      </div>
-      <p id="calcCorkHint" class="calc-hint" hidden></p>
-      <div id="calcResult" class="calc-result" aria-live="polite">Enter corkage and a bottle price to compare.</div>
-    </div>
-    <button type="button" id="calcToggle" class="calc-toggle" aria-expanded="false" aria-controls="calcPanel">Corkage vs wine list</button>
-  </aside>
-
+  <a class="skip" href="#main">Skip to content</a>
+  <div id="app"></div>
+  <noscript><p style="padding:24px;font-family:sans-serif">BYOSpot needs JavaScript to find restaurants and share a vote.</p></noscript>
   <script src="data.js"></script>
+  <script src="logic.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

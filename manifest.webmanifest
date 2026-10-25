@@ -1,13 +1,13 @@
 {
-  "name": "BYO Spot",
-  "short_name": "BYO Spot",
-  "description": "Every BYO restaurant we could find rated 4.0★ or higher on Google — Sydney, the Blue Mountains, Melbourne and the Victorian coast. Bring the wine.",
+  "name": "BYOSpot",
+  "short_name": "BYOSpot",
+  "description": "Find BYO restaurants in Sydney, the Blue Mountains, Melbourne and the Victorian coast. Check corkage, get directions, and vote with friends.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#fff8f0",
-  "theme_color": "#fff8f0",
+  "background_color": "#FFF9F3",
+  "theme_color": "#FFF9F3",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
