@@ -89,13 +89,21 @@
     return "";
   }
 
+  function landingMark() {
+    return '<svg class="mark-glass" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">' +
+      '<path d="M7.2 3.1h9.6L15.9 9.4a4.05 4.05 0 0 1-7.8 0L7.2 3.1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>' +
+      '<path d="M12 13.5v5.2M8.5 20.7h7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>' +
+      "</svg><span>BYO SPOT</span>";
+  }
+
   function header(home) {
     var back = home ? "" : '<button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>";
-    var right = home
-      ? '<a class="about-link" href="/privacy" data-action="privacy">About</a>'
-      : '<span class="icon-spacer" aria-hidden="true"></span>';
+    var brand = home
+      ? landingMark()
+      : '<img src="icons/icon-192.png" alt="" width="40" height="40"><span>BYO Spot</span>';
+    var right = home ? "" : '<span class="icon-spacer" aria-hidden="true"></span>';
     return '<header class="top' + (home ? " top-home" : "") + '">' + back +
-      '<a class="brand" href="/" data-action="home"><img src="icons/icon-192.png" alt="" width="40" height="40"><span>BYO Spot</span></a>' +
+      '<a class="brand' + (home ? " brand-landing" : "") + '" href="/" data-action="home">' + brand + "</a>" +
       right + "</header>";
   }
 
@@ -104,37 +112,12 @@
     return '<footer class="site-footer"><a href="/privacy" data-action="privacy">Privacy</a></footer>';
   }
 
-  // Glass and spaghetti shapes are adapted from Twemoji (CC BY 4.0): https://github.com/jdecked/twemoji
-  function homeArt() {
-    return '<div class="home-art-wrap"><svg class="home-art" viewBox="0 0 196 100" role="img" aria-hidden="true">' +
-      '<g transform="translate(2 8) scale(2.42)">' +
-      '<path fill="#E7D9D2" d="M19 20.255S29.042 18.042 29.042 4.25c0-1.481-1.167-2.25-3.416-2.25H9.129C8.004 2 5.8 1.738 5.8 4.125c0 13.708 10.2 16.13 10.2 16.13v10.123s-4.584 2.34-5.498 2.883c-.984.562-.33 1.462.063 1.617.656.258 2.253 1.102 6.78 1.102 4.641 0 6.202-.914 6.765-1.102.217-.072 1.347-.932.011-1.723C21.743 31.747 19 30.378 19 30.378V20.255z"/>' +
-      '<path fill="#FFF" d="M29 3.442c0 1.621-3.547 2.935-11.623 2.935-8.076 0-11.623-1.314-11.623-2.935C5.754 1.82 9.301.507 17.377.507 25.453.507 29 1.821 29 3.442z"/>' +
-      '<path fill="#FFF" opacity="0.9" d="M7.458 3.583c2.042 9.5 5.458 12.792 8.699 13.835 1.11.358 2.026.428 2.801.123 3.5-1.375 7.542-5.667 8.167-13.583.161-2.037-19.667-.375-19.667-.375z"/>' +
-      '<path fill="#A0041E" d="M9 9.5C9 13 12.333 18 17.333 18S26 12.542 26 9.542c-6 0-17-.042-17-.042z"/>' +
-      '<ellipse fill="#DD2E44" cx="17.5" cy="9.5" rx="8.5" ry="1.5"/>' +
-      '<path fill="#FFF" d="M17.168 6.659c-5.03 0-8.783-1.11-9.801-1.587-.5-.234-.715-.83-.481-1.33.234-.501.831-.716 1.33-.481 1.239.582 9.455 2.894 18.596-.127.523-.174 1.088.112 1.262.636.174.524-.111 1.09-.636 1.264-3.676 1.214-7.209 1.625-10.27 1.625z"/>' +
-      "</g>" +
-      '<g transform="translate(104 10) scale(2.32)">' +
-      '<ellipse fill="#E8D0C8" cx="18" cy="24" rx="18" ry="10"/>' +
-      '<ellipse fill="#FFF" cx="18" cy="22" rx="18" ry="10"/>' +
-      '<ellipse fill="#FFCC4D" cx="18" cy="21.611" rx="14.8" ry="7.611"/>' +
-      '<path fill="#FFE8B6" d="M11 27c-.552 0-1-.447-1-1s.448-1 1-1c1.898 0 3.082-1.085 3.174-1.835.091-.736-.96-1.081-1.417-1.195-.906-.225-1.58.033-2.358.335-1.068.414-2.531.978-4.106-.598-.689-.688-.868-1.604-.492-2.513C6.534 17.425 9.245 16 11 16c.552 0 1 .448 1 1s-.448 1-1 1c-1.115 0-2.995 1.099-3.351 1.96-.074.178-.044.23.058.333.629.628.928.548 1.971.147.862-.334 2.042-.79 3.564-.409 2.384.596 3.07 2.136 2.917 3.379C15.942 25.174 13.953 27 11 27zm6 1c-.552 0-1-.447-1-1s.448-1 1-1c5.697 0 9.833-1.247 12.293-3.707.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414C27.858 26.556 23.247 28 17 28z"/>' +
-      '<path fill="#FFE8B6" d="M21.349 24.16c-.537 0-1.069-.06-1.591-.191-.543-.135-2.194-.548-2.246-1.883-.038-1 .661-2.172 5.938-3.957C22.875 17.66 21.492 17 20 17c-2.513 0-3.797.211-4.293.707-.391.391-1.023.391-1.414 0s-.391-1.023 0-1.414C15.248 15.338 16.741 15 20 15c2.396 0 5.396 1.333 5.676 3.053.107.662-.193 1.506-1.359 1.895-2.583.861-3.921 1.549-4.501 1.957.112.039.253.081.427.125 3.231.804 7.322-2.366 7.768-3.18.072-.481.488-.85.989-.85.553 0 1 .448 1 1 0 .706-.635 1.56-1.887 2.537-1.743 1.361-4.289 2.622-6.764 2.623z"/>' +
-      '<path fill="#DD2E44" d="M27 20.5c0 2.485-2.029 5.5-7 5.5s-4-2-12-5c-3.376-1.266 5.029-5 10-5s9 2.015 9 4.5z"/>' +
-      '<path fill="#EA596E" d="M16 24c-.256 0-.512-.098-.707-.293-.391-.391-.391-1.023 0-1.414.281-.305.112-.474 0-.586-.558-.558-2.238-.616-3.846.188-.495.247-1.095.047-1.342-.447-.247-.494-.047-1.095.447-1.342 1.977-.988 4.726-1.242 6.154.188 1.252 1.252.686 2.728 0 3.414-.194.194-.45.292-.706.292zm4-4c-2.414 0-3.685-1.271-4.707-2.293-.391-.391-.391-1.023 0-1.414s1.023-.391 1.414 0C17.661 17.247 18.414 18 20 18c.773 0 2.586 0 3.293-.707.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414C23.414 20 21.108 20 20 20zm0 4c-.553 0-1-.447-1-1s.447-1 1-1c1.847 0 4.548-.962 5.293-1.707.391-.391 1.023-.391 1.414 0s.391 1.023 0 1.414C25.416 22.998 22.041 24 20 24z"/>' +
-      '<path fill="#FFAC33" d="M17.001 20c-.367 0-.72-.202-.896-.553-.999-1.997-3.077-6.153-4.098-14.323-.068-.548.32-1.048.868-1.116.544-.07 1.048.32 1.116.868.979 7.83 2.953 11.779 3.902 13.677.247.494.047 1.095-.447 1.342-.142.071-.295.105-.445.105z"/>' +
-      '<path fill="#99AAB5" d="M35.125 11.042l-15.24-4.503C16.534 1.23 12.319 2.084 10 2c-.25-.009-.819.22-.833.625-.015.392 1.026.337 1.186.343 1.705.062 3.945.176 6.132 2.486C13.827 4.528 9.744 3.933 9 4c-.458.042-.5.375.042.625.445.206 4.572 1.647 6.84 2.34-1.419.489-3.286.715-6.434-.86C8.951 5.857 8.247 5.506 8 6c-.247.494.506.753 1 1 2.16 1.08 3.43 2.332 4.823 2.332 1.656 0 2.854-.505 3.792-.899.333-.14.634-.263.903-.343.016.01.028.024.044.033l14.805 6.592c.485.265 1.572-.791 1.837-1.275.265-.486.28-2.175-.079-2.398z"/>' +
-      '<path fill="#FFAC33" d="M13 19c-.256 0-.512-.098-.707-.293-1.315-1.315-4.446-8.867-.074-14.332.345-.432.976-.501 1.405-.156.432.345.502.974.156 1.405-3.648 4.561-.778 10.963-.074 11.668.391.391.391 1.023 0 1.414-.194.196-.45.294-.706.294z"/>' +
-      "</g></svg></div>";
-  }
-
   function homeHtml() {
     var err = state.geoError ? '<p class="loc-status" role="status">' + state.geoError + "</p>" : "";
     return header(true) + '<main id="main" class="home">' +
       '<div class="home-copy"><h1>Great food.<br>Your wine.</h1>' +
       '<p class="lede">Find your next BYO restaurant.</p></div>' +
-      homeArt() +
+      '<div class="home-hero-wrap"><img class="home-hero" src="images/home-hero.jpg" alt="" width="1080" height="810"></div>' +
       '<div class="home-actions">' + err +
       '<button type="button" class="btn btn-primary" data-action="near" ' + (state.geoBusy ? "disabled aria-busy=\"true\"" : "") + ">" +
       icon("pin") + "<span>" + (state.geoBusy ? "Finding restaurants near you…" : "Find BYO Near Me") + "</span></button>" +
@@ -597,6 +580,7 @@
     var keep = state.keepScroll;
     state.keepScroll = false;
     document.body.classList.toggle("modal-open", !!(state.detailId || state.filtersOpen));
+    document.body.classList.toggle("screen-home", state.screen === "home");
     $("app").innerHTML = screenHtml() + detailSheet() + filtersSheet();
     var title = "BYOSpot";
     if (state.screen === "home") title = "BYOSpot · Find a BYO restaurant";
