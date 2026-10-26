@@ -1,8 +1,9 @@
 // Bump VERSION whenever you publish an update so phones fetch the new files.
-var VERSION = "byo-2026-10-25aa";
+var VERSION = "byo-2026-10-25ab";
 var FILES = ["./", "index.html", "style.css", "app.js", "logic.js", "data.js", "manifest.webmanifest",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png",
   "icons/icon-maskable-512.png",
+  "images/home-hero.jpg",
   "fonts/inter-latin.woff2", "fonts/fraunces-latin.woff2"];
 
 self.addEventListener("install", function (e) {
