@@ -86,13 +86,15 @@
   function icon(name) {
     if (name === "back") return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     if (name === "pin") return '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>';
+    if (name === "pin-lg") return '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>';
+    if (name === "pin-outline") return '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-6-5.1-6-10a6 6 0 1 1 12 0c0 4.9-6 10-6 10z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="11" r="1.6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
     if (name === "close") return '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     if (name === "glass") return '<svg viewBox="0 0 48 48" width="32" height="32" aria-hidden="true"><path d="M14 8h20l-3 16a8 8 0 0 1-14 0L14 8z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M18 18c2-2 4 2 6 0s4-2 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M24 26v8M18 38h12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
     return "";
   }
 
   function landingMark() {
-    return '<img class="home-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="194" height="48">';
+    return '<img class="home-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="155" height="38">';
   }
 
   function brandScreen() {
@@ -128,8 +130,8 @@
       '<div class="home-hero-wrap"><img class="home-hero" src="images/home-hero.jpg" alt="" width="1080" height="810"></div>' +
       '<div class="home-actions">' + err +
       '<button type="button" class="btn btn-primary" data-action="near" ' + (state.geoBusy ? "disabled aria-busy=\"true\"" : "") + ">" +
-      icon("pin") + "<span>" + (state.geoBusy ? "Finding restaurants near you…" : "Find BYO Near Me") + "</span></button>" +
-      '<button type="button" class="btn btn-secondary" data-action="choose-location">' + icon("pin") + "<span>Choose a Location</span></button>" +
+      icon("pin-lg") + "<span>" + (state.geoBusy ? "Finding restaurants near you…" : "Find BYO Near Me") + "</span></button>" +
+      '<button type="button" class="btn btn-secondary" data-action="choose-location">' + icon("pin-outline") + "<span>Choose a Location</span></button>" +
       "</div>" + footerHtml() + "</main>";
   }
 
