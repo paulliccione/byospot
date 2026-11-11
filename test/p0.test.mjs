@@ -237,7 +237,7 @@ test("removed product copy is gone from the client", function () {
     assert.equal(html.indexOf(phrase), -1, phrase);
     assert.equal(css.indexOf(phrase), -1, phrase);
   });
-  assert.match(app, /Good food\./);
+  assert.match(app, /Great food\./);
   assert.match(app, /Find your next BYO restaurant\./);
   assert.match(app, /Find BYO Near Me/);
   assert.match(app, /Choose a Location/);

@@ -92,7 +92,7 @@
   }
 
   function landingMark() {
-    return '<img class="home-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37">';
+    return '<img class="home-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="194" height="48">';
   }
 
   function brandScreen() {
@@ -123,7 +123,7 @@
   function homeHtml() {
     var err = state.geoError ? '<p class="loc-status" role="status">' + state.geoError + "</p>" : "";
     return header(true) + '<main id="main" class="home">' +
-      '<div class="home-copy"><h1>Good food.<br>Your wine.</h1>' +
+      '<div class="home-copy"><h1>Great food.<br>Your wine.</h1>' +
       '<p class="lede">Find your next BYO restaurant.</p></div>' +
       '<div class="home-hero-wrap"><img class="home-hero" src="images/home-hero.jpg" alt="" width="1080" height="810"></div>' +
       '<div class="home-actions">' + err +
