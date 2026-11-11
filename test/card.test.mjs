@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import vm from "node:vm";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
@@ -122,6 +123,30 @@ test("address without directions is text, and a directions link is not underline
   assert.match(css, /\.venue-shop \{[^}]*min-height:\s*44px/);
 });
 
+test("every stored cuisine maps to an illustrative photo", function () {
+  const sandbox = { window: {} };
+  vm.runInNewContext(fs.readFileSync(new URL("../data.js", import.meta.url), "utf8"), sandbox);
+  const groups = {};
+  sandbox.window.BYO.places.forEach(function (place) {
+    const group = card.cuisineGroup(place.cuisine);
+    groups[group] = (groups[group] || 0) + 1;
+    assert.equal(fs.existsSync(new URL("../images/cuisine/" + group + ".webp", import.meta.url)), true, place.cuisine);
+  });
+  assert.equal(card.cuisineGroup("Northern Thai"), "thai");
+  assert.equal(card.cuisineGroup("Italian"), "italian");
+  assert.equal(card.cuisineGroup("Middle Eastern (Lebanese)"), "middle-eastern");
+  assert.equal(card.cuisineGroup("Restaurant"), "generic");
+  assert.equal(card.cuisineGroup(""), "generic");
+  const italian = card.renderDetail({ id: "la-favola-newtown", name: "La Favola", cuisine: "Italian" });
+  assert.match(italian, /src="images\/cuisine\/italian\.webp"/);
+  assert.match(italian, /alt="Illustrative photo of Italian food"/);
+  assert.match(italian, /loading="lazy"/);
+  assert.match(italian, /Illustrative photo</);
+  const thai = card.renderDetail({ id: "thai-pothong-newtown", name: "Thai Pothong", cuisine: "Thai" });
+  assert.match(thai, /src="images\/cuisine\/thai\.webp"/);
+  assert.ok(Object.keys(groups).length >= 8);
+});
+
 test("app wires every surface through the same component and bumps the cache", function () {
   const app = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
   const cardFn = app.slice(app.indexOf("function cardHtml"), app.indexOf("function nearestMode"));
@@ -133,7 +158,8 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12f");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12g");
+  assert.equal(sw.indexOf("images/cuisine"), -1);
   assert.equal(sw.indexOf("localities.json"), -1);
   assert.match(sw, /card\.js/);
   const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");

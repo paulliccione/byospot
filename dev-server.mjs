@@ -19,7 +19,8 @@ const types = {
   ".svg": "image/svg+xml",
   ".woff2": "font/woff2",
   ".ttf": "font/ttf",
-  ".jpg": "image/jpeg"
+  ".jpg": "image/jpeg",
+  ".webp": "image/webp"
 };
 
 function load() {
