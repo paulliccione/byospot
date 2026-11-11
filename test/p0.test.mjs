@@ -135,6 +135,17 @@ test("polls require two restaurants, persist a vote once, and can tie", function
   assert.equal(summarizeTallies({ a: 2, b: 2 }, ["a", "b"]).kind, "tie");
 });
 
+test("suburb-only venues are not shown as an exact distance", function () {
+  const vague = model.places.find(function (p) { return p.addressSource === "suburb-only"; });
+  vague._dist = 420;
+  assert.equal(logic.distanceLabel(vague), "in " + vague.suburb);
+  assert.equal(logic.directionsUrl(vague), "");
+  const routed = model.places.find(function (p) { return p.addressSource === "osm" || p.addressSource === "venue"; });
+  routed._dist = 420;
+  assert.equal(logic.distanceLabel(routed), "420 m away");
+  assert.match(logic.directionsUrl(routed), /^https:\/\/www\.google\.com\/maps\/dir\//);
+});
+
 test("google ratings and copied addresses are not stored", function () {
   const raw = fs.readFileSync(new URL("../data.js", import.meta.url), "utf8");
   const readme = fs.readFileSync(new URL("../README.md", import.meta.url), "utf8");
@@ -156,9 +167,12 @@ test("google ratings and copied addresses are not stored", function () {
     if (p.addressSource === "suburb-only") {
       assert.equal(p.address, p.suburb);
       assert.equal(logic.directionsUrl(p), "");
+      assert.equal(p.addressSourceUrl, undefined);
     } else {
       assert.equal(logic.addressRoutable(p.address), true, p.name);
       assert.ok(logic.directionsUrl(p), p.name);
+      assert.match(p.addressSourceUrl || "", /^https?:\/\//, p.name);
+      assert.equal(p.addressCheckedAt, "2026-11-12");
     }
   });
   assert.equal(counts.osm + counts.venue + counts["suburb-only"], data.places.length);

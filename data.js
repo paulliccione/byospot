@@ -5,7 +5,9 @@
   Field reference: research/SCHEMA.md
   Places are not ranked. Google star ratings, review counts and copied addresses are not stored.
   addressSource is "osm" (OpenStreetMap), "venue" (the venue's own website) or "suburb-only".
-  Directions stay hidden when addressSource is "suburb-only".
+  addressSourceUrl and addressCheckedAt are set only when the street address was verified.
+  Directions stay hidden when addressSource is "suburb-only". Near Me then says "in {Suburb}"
+  rather than a precise distance, and does not use a suburb centre for directions.
   "bottleShops" comes from OpenStreetMap via nearest_bottleshop.py.
   "pinned": true keeps Viet Eatery pinned in its region. It is not a rating.
   "tried" (optional, for later) is not shown in the app yet.
@@ -101,6 +103,8 @@ window.BYO = {
       "suburb": "Ultimo",
       "address": "63 Mountain Street, Ultimo NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13046889447",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.884146,
       "lng": 151.196285,
       "cuisine": "Malaysian roti",
@@ -112,7 +116,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Roti with curry",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Wine only, no beer or spirits",
       "website": "https://kafekooks.com.au",
       "city": "Sydney",
@@ -134,7 +137,8 @@ window.BYO = {
           "osm": "node/4071269495",
           "distanceM": 170
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Spice Paradise",
@@ -151,11 +155,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -175,7 +176,10 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 490
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Maydanoz",
@@ -183,6 +187,8 @@ window.BYO = {
       "suburb": "Sydney",
       "address": "50 Carrington St, Sydney NSW 2000",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.maydanoz.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.866316,
       "lng": 151.20661,
       "cuisine": "Turkish",
@@ -194,7 +200,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Book via SevenRooms",
       "website": "https://www.maydanoz.com.au",
       "city": "Sydney",
@@ -216,7 +221,8 @@ window.BYO = {
           "osm": "node/13542684683",
           "distanceM": 390
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "The Sanderson",
@@ -224,6 +230,8 @@ window.BYO = {
       "suburb": "Sydney",
       "address": "285 George Street, Sydney NSW 2000",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.thesanderson.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8655,
       "lng": 151.2069,
       "cuisine": "Steak and seafood",
@@ -238,7 +246,6 @@ window.BYO = {
       ],
       "dish": "Set menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Thursdays only, with a set-menu booking",
       "website": "https://www.thesanderson.com.au",
       "city": "Sydney",
@@ -260,7 +267,8 @@ window.BYO = {
           "osm": "node/10096957811",
           "distanceM": 360
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Lee Ho Fook",
@@ -268,6 +276,8 @@ window.BYO = {
       "suburb": "Sydney",
       "address": "1/203 Castlereagh St, Sydney NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.leehofook.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.875956,
       "lng": 151.208864,
       "cuisine": "Modern Chinese",
@@ -282,7 +292,6 @@ window.BYO = {
       ],
       "dish": "Crispy eggplant, prawn toast",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Free BYO Mondays only; closed Sun",
       "website": "https://www.leehofook.com.au",
       "city": "Sydney",
@@ -304,7 +313,8 @@ window.BYO = {
           "osm": "node/5931142056",
           "distanceM": 120
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Fish At The Rocks",
@@ -312,6 +322,8 @@ window.BYO = {
       "suburb": "Millers Point",
       "address": "29 Kent Street, Millers Point NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4514137743",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.858612,
       "lng": 151.203459,
       "cuisine": "Seafood",
@@ -321,9 +333,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.fishattherocks.com.au/",
       "city": "Sydney",
@@ -345,7 +355,9 @@ window.BYO = {
           "osm": "node/1648303037",
           "distanceM": 410
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "The Charles Grand Brasserie",
@@ -353,6 +365,8 @@ window.BYO = {
       "suburb": "Sydney",
       "address": "66 King St, Sydney NSW 2000",
       "addressSource": "venue",
+      "addressSourceUrl": "https://thecharles.sydney",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8685,
       "lng": 151.2062,
       "cuisine": "Brasserie",
@@ -367,7 +381,6 @@ window.BYO = {
       ],
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Mondays only, in the brasserie; closed Sun",
       "website": "https://thecharles.sydney",
       "city": "Sydney",
@@ -389,7 +402,8 @@ window.BYO = {
           "osm": "node/9892834905",
           "distanceM": 240
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Porkfat",
@@ -397,6 +411,8 @@ window.BYO = {
       "suburb": "Haymarket",
       "address": "33 ultimo rd, Haymarket NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.porkfat.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.881037,
       "lng": 151.202502,
       "cuisine": "Thai",
@@ -408,7 +424,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pork larb, crab fried rice, crying tiger beef",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Closed Mon and Tue; book ahead, 1.5-hour sittings",
       "website": "https://www.porkfat.com.au",
       "city": "Sydney",
@@ -430,7 +445,8 @@ window.BYO = {
           "osm": "node/5956222295",
           "distanceM": 460
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Soi 25 Xpress Thai Fusion",
@@ -438,6 +454,8 @@ window.BYO = {
       "suburb": "Pyrmont",
       "address": "52A Harris Street, Pyrmont NSW 2009",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.soi25xpress.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8668,
       "lng": 151.1924,
       "cuisine": "Thai",
@@ -479,6 +497,8 @@ window.BYO = {
       "suburb": "Haymarket",
       "address": "92 Hay Street, Haymarket NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/10295907309",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8793,
       "lng": 151.203676,
       "cuisine": "Malaysian",
@@ -490,7 +510,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Laksa, char koay teow, nasi lemak",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Open daily",
       "website": "https://www.hojiak.com.au/haymarket/",
       "city": "Sydney",
@@ -512,7 +531,8 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 420
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Chinta Ria Buddha Love",
@@ -529,11 +549,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -553,7 +570,10 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 490
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Caysorn Thai",
@@ -611,11 +631,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -635,7 +652,10 @@ window.BYO = {
           "osm": "node/5956222295",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fix Wine Bar + Restaurant",
@@ -643,6 +663,8 @@ window.BYO = {
       "suburb": "Sydney",
       "address": "111 Elizabeth St, Sydney NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://fixwine.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8698,
       "lng": 151.2102,
       "cuisine": "Modern Australian",
@@ -654,7 +676,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Madeleines to finish",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Weekdays only; tick BYO when booking",
       "website": "https://fixwine.com.au",
       "city": "Sydney",
@@ -676,7 +697,8 @@ window.BYO = {
           "osm": "node/9892834905",
           "distanceM": 190
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Chat Thai Haymarket",
@@ -684,6 +706,8 @@ window.BYO = {
       "suburb": "Haymarket",
       "address": "20 Campbell Street, Haymarket NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/14004109182",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.879121,
       "lng": 151.206377,
       "cuisine": "Thai",
@@ -695,7 +719,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Busy; open late Fri and Sat",
       "website": "https://chatthai.com.au",
       "city": "Sydney",
@@ -717,7 +740,8 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 210
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Wild Sage Barangaroo",
@@ -734,11 +758,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -758,7 +779,10 @@ window.BYO = {
           "osm": "node/1648303037",
           "distanceM": 300
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Menya Noodle Bar",
@@ -766,6 +790,8 @@ window.BYO = {
       "suburb": "Sydney",
       "address": "2/1 Market Street, Sydney NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2972878167",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.871252,
       "lng": 151.204603,
       "cuisine": "Japanese ramen",
@@ -807,6 +833,8 @@ window.BYO = {
       "suburb": "Sydney",
       "address": "644 George Street, Sydney NSW 2000",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.yayoi.com.au/stores/location-world-square/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.876786,
       "lng": 151.206884,
       "cuisine": "Japanese",
@@ -816,9 +844,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.yayoi.com.au/stores/location-world-square/",
       "city": "Sydney",
@@ -840,7 +866,9 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Tago-an",
@@ -848,6 +876,8 @@ window.BYO = {
       "suburb": "Millers Point",
       "address": "25 Kent Street, Millers Point NSW 2000",
       "addressSource": "venue",
+      "addressSourceUrl": "https://tago-an.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.859024,
       "lng": 151.203573,
       "cuisine": "Japanese",
@@ -898,11 +928,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -922,7 +949,10 @@ window.BYO = {
           "osm": "node/1648303037",
           "distanceM": 210
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Taste on the Rocks",
@@ -939,11 +969,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -963,7 +990,10 @@ window.BYO = {
           "osm": "node/1648303037",
           "distanceM": 390
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mamak",
@@ -971,6 +1001,8 @@ window.BYO = {
       "suburb": "Haymarket",
       "address": "15 Goulburn Street, Haymarket NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4242643119",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.877793,
       "lng": 151.204204,
       "cuisine": "Malaysian",
@@ -982,7 +1014,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Roti canai, satay",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "No bookings, expect a queue",
       "website": "https://mamak.com.au",
       "city": "Sydney",
@@ -1004,7 +1035,8 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 330
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Auvers Dining - Darling Square",
@@ -1021,9 +1053,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.darlingsq.com/?utm_content=Darling%20Square%20-%20Haymarket&utm_campaign=Google%20My%20Business&utm_medium=organic&utm_source=google&utm_term=plcid_13627576043964618814",
       "city": "Sydney",
@@ -1045,7 +1075,9 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 520
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Yok Yor Thai Food Factory",
@@ -1053,6 +1085,8 @@ window.BYO = {
       "suburb": "Haymarket",
       "address": "Shop G06/323 Castlereagh Street, Haymarket NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7015713585",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.879939,
       "lng": 151.208081,
       "cuisine": "Thai and Isaan",
@@ -1094,6 +1128,8 @@ window.BYO = {
       "suburb": "Haymarket",
       "address": "423 Pitt Street, Haymarket NSW 2000",
       "addressSource": "venue",
+      "addressSourceUrl": "https://encasa.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.878631,
       "lng": 151.207147,
       "cuisine": "Spanish",
@@ -1103,9 +1139,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://encasa.com.au/",
       "city": "Sydney",
@@ -1127,7 +1161,9 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 130
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Chinatown Noodle King",
@@ -1135,6 +1171,8 @@ window.BYO = {
       "suburb": "Sydney",
       "address": "1/357 Sussex St, Sydney NSW 2000",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.chinatownnoodleking.com",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.87659,
       "lng": 151.204378,
       "cuisine": "Chinese noodles",
@@ -1146,7 +1184,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Handmade noodles, dumplings",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Closed Mon; call to check corkage",
       "website": "http://www.chinatownnoodleking.com",
       "city": "Sydney",
@@ -1168,7 +1205,8 @@ window.BYO = {
           "osm": "node/10205545063",
           "distanceM": 320
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "The Living Room",
@@ -1185,11 +1223,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1209,7 +1244,10 @@ window.BYO = {
           "osm": "node/14007712941",
           "distanceM": 350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kura Kura Japanese Dining",
@@ -1226,11 +1264,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1250,7 +1285,10 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 420
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Show Neua Thai Street Food",
@@ -1267,11 +1305,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1291,7 +1326,10 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "PIER Dining",
@@ -1308,11 +1346,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1332,7 +1367,10 @@ window.BYO = {
           "osm": "node/14007712941",
           "distanceM": 520
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Viet Eatery",
@@ -1340,6 +1378,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "622 Crown Street, Surry Hills NSW 2010",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.vieteatery.net",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8905,
       "lng": 151.2133,
       "cuisine": "Vietnamese",
@@ -1380,8 +1420,10 @@ window.BYO = {
       "name": "Thai Baan",
       "region": "Inner City",
       "suburb": "Waterloo",
-      "address": "Waterloo",
-      "addressSource": "suburb-only",
+      "address": "29a Botany Road, Waterloo NSW",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://www.thaibaanrestaurant.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8959,
       "lng": 151.1992,
       "cuisine": "Isaan Thai",
@@ -1432,11 +1474,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1456,7 +1495,10 @@ window.BYO = {
           "osm": "node/5301566680",
           "distanceM": 400
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ran Proad",
@@ -1503,8 +1545,10 @@ window.BYO = {
       "name": "Alchemy572",
       "region": "Inner City",
       "suburb": "Surry Hills",
-      "address": "Surry Hills",
-      "addressSource": "suburb-only",
+      "address": "572 Crown Street, Surry Hills NSW 2010",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://alchemy-restaurant.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.889113,
       "lng": 151.213421,
       "cuisine": "Polish",
@@ -1555,11 +1599,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1579,7 +1620,10 @@ window.BYO = {
           "osm": "node/9900955418",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ezra",
@@ -1587,6 +1631,8 @@ window.BYO = {
       "suburb": "Potts Point",
       "address": "3 Kellett Street, Potts Point NSW 2011",
       "addressSource": "venue",
+      "addressSourceUrl": "https://ezrarestaurant.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.874222,
       "lng": 151.22388,
       "cuisine": "Eastern Mediterranean",
@@ -1598,7 +1644,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Whipped cod roe, baba ganoush with hot pita, roast spatchcock",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Courtyard dining; book ahead",
       "website": "https://ezrarestaurant.com.au",
       "city": "Sydney",
@@ -1620,7 +1665,8 @@ window.BYO = {
           "osm": "node/12306013101",
           "distanceM": 70
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Thai Tharee",
@@ -1669,6 +1715,8 @@ window.BYO = {
       "suburb": "Potts Point",
       "address": "50-58 Macleay Street, Potts Point NSW 2011",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6668277985",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.872027,
       "lng": 151.225387,
       "cuisine": "French",
@@ -1686,7 +1734,6 @@ window.BYO = {
       ],
       "dish": "Steak frites, cheese souffle",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO midweek only",
       "website": "https://www.bistrorex.com.au",
       "city": "Sydney",
@@ -1708,7 +1755,8 @@ window.BYO = {
           "osm": "node/11124593885",
           "distanceM": 80
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Urban Thai Waterloo",
@@ -1725,11 +1773,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1749,7 +1794,10 @@ window.BYO = {
           "osm": "node/9218427006",
           "distanceM": 760
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Radio Taco",
@@ -1766,11 +1814,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1790,7 +1835,10 @@ window.BYO = {
           "osm": "node/1653998464",
           "distanceM": 130
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Arthur",
@@ -1798,6 +1846,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "544 bourke street, Surry Hills NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.arthurrestaurant.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.888976,
       "lng": 151.215445,
       "cuisine": "Modern Australian",
@@ -1807,9 +1857,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$35 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine at weekend lunch only, $35/bottle corkage",
       "website": "https://www.arthurrestaurant.com/",
       "city": "Sydney",
@@ -1831,7 +1879,9 @@ window.BYO = {
           "osm": "node/10650874272",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Restaurant Moon",
@@ -1839,6 +1889,8 @@ window.BYO = {
       "suburb": "Darlinghurst",
       "address": "346 Liverpool Street, Darlinghurst NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.restaurantmoon.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.878343,
       "lng": 151.222692,
       "cuisine": "Asian fusion",
@@ -1848,9 +1900,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.restaurantmoon.com.au/",
       "city": "Sydney",
@@ -1872,7 +1922,9 @@ window.BYO = {
           "osm": "node/9900955418",
           "distanceM": 130
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Khoi's",
@@ -1880,6 +1932,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "583 Crown St, Surry Hills NSW 2010",
       "addressSource": "venue",
+      "addressSourceUrl": "https://khois.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8912,
       "lng": 151.2126,
       "cuisine": "Vietnamese",
@@ -1921,6 +1975,8 @@ window.BYO = {
       "suburb": "Zetland",
       "address": "779 Elizabeth St, Zetland NSW 2017",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.timeout.com/sydney/restaurants/mon-thai",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.9058,
       "lng": 151.2062,
       "cuisine": "Northern Thai",
@@ -1962,6 +2018,8 @@ window.BYO = {
       "suburb": "Woolloomooloo",
       "address": "41 Crown Street, Woolloomooloo NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://viand.club/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.874107,
       "lng": 151.216361,
       "cuisine": "Thai",
@@ -1971,9 +2029,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$89 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://viand.club/",
       "city": "Sydney",
@@ -1995,7 +2051,9 @@ window.BYO = {
           "osm": "node/4739424521",
           "distanceM": 520
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Wilde and Co Cafe",
@@ -2003,6 +2061,8 @@ window.BYO = {
       "suburb": "Darlinghurst",
       "address": "265 Liverpool Street, Darlinghurst NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5492279221",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.877524,
       "lng": 151.215768,
       "cuisine": "Cafe (Australian Brunch With Korean Infl",
@@ -2012,11 +2072,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2036,7 +2093,10 @@ window.BYO = {
           "osm": "node/6006786865",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kepos Street Kitchen",
@@ -2044,6 +2104,8 @@ window.BYO = {
       "suburb": "Redfern",
       "address": "96 Kepos Street, Redfern NSW 2016",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7021421285",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.896813,
       "lng": 151.21268,
       "cuisine": "Middle Eastern",
@@ -2055,7 +2117,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Falafel with green tahini, Moroccan lamb cigars",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Daytime only, 8am to 3pm; walk-in waitlist",
       "website": "https://www.keposstreetkitchen.com.au",
       "city": "Sydney",
@@ -2077,7 +2138,8 @@ window.BYO = {
           "osm": "node/10181545224",
           "distanceM": 100
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Zoo Family Restaurant",
@@ -2094,11 +2156,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2118,7 +2177,10 @@ window.BYO = {
           "osm": "node/9218427006",
           "distanceM": 610
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Panchina",
@@ -2135,11 +2197,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2159,7 +2218,10 @@ window.BYO = {
           "osm": "node/10650874272",
           "distanceM": 210
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Coppola",
@@ -2167,6 +2229,8 @@ window.BYO = {
       "suburb": "Redfern",
       "address": "152 Redfern Street, Redfern NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4229023085",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.892401,
       "lng": 151.201916,
       "cuisine": "Sicilian pizza",
@@ -2217,11 +2281,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2241,14 +2302,19 @@ window.BYO = {
           "osm": "node/9567276152",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sang by Mabasa",
       "region": "Inner City",
       "suburb": "Surry Hills",
-      "address": "Surry Hills",
-      "addressSource": "suburb-only",
+      "address": "98 Fitzroy St, Surry Hills NSW",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://www.sangbymabasa.com.au/contact1.html",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.885693,
       "lng": 151.216981,
       "cuisine": "Korean",
@@ -2260,7 +2326,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Bossam, yassam, daegu tang",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Open Thu to Sun only; small, book ahead",
       "website": "http://www.sangbymabasa.com.au",
       "city": "Sydney",
@@ -2282,7 +2347,8 @@ window.BYO = {
           "osm": "node/10650874272",
           "distanceM": 420
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "ATTENZIONE! Food & Wine",
@@ -2290,6 +2356,8 @@ window.BYO = {
       "suburb": "Redfern",
       "address": "180 Redfern Street, Redfern NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5739975353",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.892261,
       "lng": 151.200939,
       "cuisine": "Italian",
@@ -2301,7 +2369,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pico XL pasta, pistachio tiramisu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Closed Mon and Tue",
       "website": "https://www.attenzionefoodandwine.com",
       "city": "Sydney",
@@ -2323,7 +2390,8 @@ window.BYO = {
           "osm": "node/4770686823",
           "distanceM": 330
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Joe's Table",
@@ -2331,6 +2399,8 @@ window.BYO = {
       "suburb": "Darlinghurst",
       "address": "1/185 A Bourke st, Darlinghurst NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://joestable.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.874795,
       "lng": 151.217844,
       "cuisine": "Thai",
@@ -2342,7 +2412,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Red curry of barbecue duck, soft-shell crab",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Closed Sun and Mon; book by SMS 0452 429 855",
       "website": "https://joestable.com.au",
       "city": "Sydney",
@@ -2364,7 +2433,8 @@ window.BYO = {
           "osm": "node/4739424521",
           "distanceM": 360
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "The Prophet",
@@ -2372,6 +2442,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "274 Cleveland Street, Surry Hills NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.theprophetrestaurant.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.889946,
       "lng": 151.208236,
       "cuisine": "Lebanese",
@@ -2413,6 +2485,8 @@ window.BYO = {
       "suburb": "Potts Point",
       "address": "2/14 Bayswater Rd, Potts Point NSW 2011",
       "addressSource": "venue",
+      "addressSourceUrl": "https://grapegardenbeijingcuisine.com",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.874759,
       "lng": 151.222967,
       "cuisine": "Beijing Chinese",
@@ -2424,7 +2498,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Dan dan noodles, dumplings, Peking duck",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Closed Mon",
       "website": "https://grapegardenbeijingcuisine.com",
       "city": "Sydney",
@@ -2446,7 +2519,8 @@ window.BYO = {
           "osm": "node/2751696177",
           "distanceM": 100
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Bar Reggio",
@@ -2495,6 +2569,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "409 Cleveland Street, Surry Hills NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.erciyesrestaurant.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.891706,
       "lng": 151.212956,
       "cuisine": "Turkish",
@@ -2536,6 +2612,8 @@ window.BYO = {
       "suburb": "Potts Point",
       "address": "2-14 Bayswater Road, Potts Point NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://friggitoria.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.874994,
       "lng": 151.223514,
       "cuisine": "Italian street food and pasta",
@@ -2547,7 +2625,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Fresh pasta, Italian fried street food",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Open daily noon to 10pm",
       "website": "https://friggitoria.com.au",
       "city": "Sydney",
@@ -2569,7 +2646,8 @@ window.BYO = {
           "osm": "node/12306013101",
           "distanceM": 140
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "St Jude",
@@ -2577,6 +2655,8 @@ window.BYO = {
       "suburb": "Redfern",
       "address": "728 Bourke Street, Redfern NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/9385116120",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.894164,
       "lng": 151.213829,
       "cuisine": "Restaurant",
@@ -2586,11 +2666,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2610,7 +2687,10 @@ window.BYO = {
           "osm": "node/10181545224",
           "distanceM": 240
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Golden Pide",
@@ -2627,7 +2707,6 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -2651,7 +2730,8 @@ window.BYO = {
           "osm": "node/5608349141",
           "distanceM": 160
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Santorini On Oxford",
@@ -2659,6 +2739,8 @@ window.BYO = {
       "suburb": "Darlinghurst",
       "address": "217 Oxford Street, Darlinghurst NSW 2010",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.santorinionoxford.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.881236,
       "lng": 151.217814,
       "cuisine": "Restaurant",
@@ -2668,9 +2750,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.santorinionoxford.com/",
       "city": "Sydney",
@@ -2692,7 +2772,9 @@ window.BYO = {
           "osm": "node/5886006994",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Meet Gerard",
@@ -2709,11 +2791,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2733,7 +2812,10 @@ window.BYO = {
           "osm": "node/4770686823",
           "distanceM": 930
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Macleay St Bistro",
@@ -2752,7 +2834,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Salmon mousse, duck breast, crepes Suzette",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Closed Mon for lunch; dinner daily",
       "website": "https://macleaystbistro.com.au",
       "city": "Sydney",
@@ -2774,7 +2855,8 @@ window.BYO = {
           "osm": "node/11124593885",
           "distanceM": 210
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Thai Nesia",
@@ -2782,6 +2864,8 @@ window.BYO = {
       "suburb": "Darlinghurst",
       "address": "243 Oxford St, Darlinghurst NSW 2010",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.thainesia.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.88146,
       "lng": 151.21841,
       "cuisine": "Thai",
@@ -2832,11 +2916,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2856,7 +2937,10 @@ window.BYO = {
           "osm": "node/12306013101",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Emad's",
@@ -2864,6 +2948,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "298-300 Cleveland Street, Surry Hills NSW 2010",
       "addressSource": "venue",
+      "addressSourceUrl": "https://emadsrestaurant.sydney",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.89013,
       "lng": 151.20878,
       "cuisine": "Lebanese",
@@ -2905,6 +2991,8 @@ window.BYO = {
       "suburb": "Potts Point",
       "address": "4/2-14 Bayswater Road, Potts Point NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5812308297",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.874689,
       "lng": 151.222995,
       "cuisine": "Restaurant",
@@ -2914,11 +3002,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2938,14 +3023,19 @@ window.BYO = {
           "osm": "node/2751696177",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Spice Alley",
       "region": "Inner City",
       "suburb": "Chippendale",
-      "address": "Chippendale",
-      "addressSource": "suburb-only",
+      "address": "18-20 Kensington Street, Chippendale NSW 2008",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://spicealley.com.au/contact/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.884998,
       "lng": 151.201708,
       "cuisine": "Asian",
@@ -2955,9 +3045,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "No corkage (wine, beer)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Free BYO across the entire precinct. Multiple Asian vendors",
       "website": "https://www.spicealley.com.au/",
       "city": "Sydney",
@@ -2979,7 +3067,9 @@ window.BYO = {
           "osm": "node/5956222295",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Malabar South Indian Restaurant",
@@ -2987,6 +3077,8 @@ window.BYO = {
       "suburb": "Darlinghurst",
       "address": "274 Victoria St, Darlinghurst NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://malabarcuisine.com.au/darlinghurst/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.876356,
       "lng": 151.221997,
       "cuisine": "South Indian",
@@ -2996,9 +3088,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://malabarcuisine.com.au/darlinghurst/",
       "city": "Sydney",
@@ -3020,7 +3110,9 @@ window.BYO = {
           "osm": "node/4739424521",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Maggie's Thai",
@@ -3037,11 +3129,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3061,7 +3150,10 @@ window.BYO = {
           "osm": "node/12039041894",
           "distanceM": 570
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Madame Nhu Crown Street",
@@ -3069,6 +3161,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "82 Campbell Street, Surry Hills NSW 2010",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.madamenhu.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.880095,
       "lng": 151.210055,
       "cuisine": "Asian",
@@ -3078,9 +3172,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.madamenhu.com/",
       "city": "Sydney",
@@ -3102,7 +3194,9 @@ window.BYO = {
           "osm": "node/4021093889",
           "distanceM": 260
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Bill & Toni Italian Restaurant",
@@ -3110,6 +3204,8 @@ window.BYO = {
       "suburb": "Darlinghurst",
       "address": "72-74 Stanley St, Darlinghurst NSW 2010",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.billandtonis.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.875895,
       "lng": 151.216044,
       "cuisine": "Italian",
@@ -3119,9 +3215,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$4 per person (wine, beer)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine and beer — $4 per person corkage (confirmed by phone with the venue, 25 Sept 2026)",
       "website": "http://www.billandtonis.com.au/",
       "city": "Sydney",
@@ -3143,7 +3237,9 @@ window.BYO = {
           "osm": "node/6006786865",
           "distanceM": 370
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Otto Ristorante",
@@ -3151,6 +3247,8 @@ window.BYO = {
       "suburb": "Woolloomooloo",
       "address": "6 Cowper Wharf Road, Woolloomooloo NSW 2011",
       "addressSource": "venue",
+      "addressSourceUrl": "https://ottoristorante.com.au/sydney/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.868062,
       "lng": 151.22055,
       "cuisine": "Italian",
@@ -3160,9 +3258,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$25 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine & champagne $25/bottle, max one 750ml per person",
       "website": "https://ottoristorante.com.au/sydney/",
       "city": "Sydney",
@@ -3184,7 +3280,9 @@ window.BYO = {
           "osm": "node/11124593885",
           "distanceM": 550
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Spice I Am",
@@ -3192,6 +3290,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "90 Wentworth Avenue, Surry Hills NSW 2010",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/1044374699",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.87972,
       "lng": 151.20952,
       "cuisine": "Thai",
@@ -3242,11 +3342,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3266,7 +3363,10 @@ window.BYO = {
           "osm": "node/9567276152",
           "distanceM": 390
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Don't Tell Aunty",
@@ -3274,6 +3374,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "414 Bourke street, Surry Hills NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://donttellaunty.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.885114,
       "lng": 151.215996,
       "cuisine": "Indian",
@@ -3283,9 +3385,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$20 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine, $20 per bottle. Modern Indian, seven days",
       "website": "https://donttellaunty.com.au/",
       "city": "Sydney",
@@ -3307,7 +3407,9 @@ window.BYO = {
           "osm": "node/5367304151",
           "distanceM": 370
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Una's",
@@ -3315,6 +3417,8 @@ window.BYO = {
       "suburb": "Darlinghurst",
       "address": "340 Victoria Street, Darlinghurst NSW 2010",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4645231591",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.877567,
       "lng": 151.221729,
       "cuisine": "Alpine/European (Hungarian/Austrian)",
@@ -3324,9 +3428,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$4.5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://www.unasrestaurant.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -3347,7 +3449,9 @@ window.BYO = {
           "osm": "node/9900955418",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Phamish",
@@ -3364,9 +3468,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only — $5 corkage (confirmed by phone with the venue, 25 Sept 2026)",
       "website": "https://www.phamishrestaurant.com.au",
       "city": "Sydney",
@@ -3388,7 +3490,9 @@ window.BYO = {
           "osm": "node/6091814525",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Allspice Thai Kitchen",
@@ -3396,6 +3500,8 @@ window.BYO = {
       "suburb": "Waterloo",
       "address": "3/25-33 Allen Street, Waterloo NSW 2017",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/11934653869",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.902596,
       "lng": 151.204741,
       "cuisine": "Thai",
@@ -3405,11 +3511,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3429,7 +3532,10 @@ window.BYO = {
           "osm": "node/9218427006",
           "distanceM": 610
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Photown Alexandria",
@@ -3446,11 +3552,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3470,7 +3573,10 @@ window.BYO = {
           "osm": "node/9494269390",
           "distanceM": 980
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Seasoning Thai",
@@ -3478,6 +3584,8 @@ window.BYO = {
       "suburb": "Alexandria",
       "address": "500 Botany Road, Alexandria NSW 2015",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/772480869",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.913178,
       "lng": 151.201211,
       "cuisine": "Thai",
@@ -3487,11 +3595,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3511,7 +3616,10 @@ window.BYO = {
           "osm": "node/9567276152",
           "distanceM": 130
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Little Fu",
@@ -3528,11 +3636,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3552,7 +3657,10 @@ window.BYO = {
           "osm": "node/4739424521",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Maya Da Dhaba",
@@ -3560,6 +3668,8 @@ window.BYO = {
       "suburb": "Surry Hills",
       "address": "431 Cleveland Street, Surry Hills NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5608349181",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.89182,
       "lng": 151.21392,
       "cuisine": "Indian",
@@ -3651,11 +3761,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3675,7 +3782,10 @@ window.BYO = {
           "osm": "node/9218427006",
           "distanceM": 760
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kim's Bop Korean Eatery",
@@ -3692,11 +3802,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3716,7 +3823,10 @@ window.BYO = {
           "osm": "node/7765400658",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lil Franky Pizzeria",
@@ -3724,6 +3834,8 @@ window.BYO = {
       "suburb": "Tempe",
       "address": "703 Princess Highway, Tempe NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.lilfranky.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.923565,
       "lng": 151.161815,
       "cuisine": "Italian (Pizzeria)",
@@ -3733,9 +3845,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "http://www.lilfranky.com.au",
       "city": "Sydney",
@@ -3757,7 +3867,9 @@ window.BYO = {
           "osm": "node/5367211622",
           "distanceM": 1360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Sixpenny",
@@ -3774,11 +3886,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3798,7 +3907,10 @@ window.BYO = {
           "osm": "node/5842632688",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fanoos Persian restaurant",
@@ -3815,11 +3927,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3839,7 +3948,10 @@ window.BYO = {
           "osm": "node/11816090992",
           "distanceM": 440
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Trattoria Sotto Casa",
@@ -3856,11 +3968,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3880,7 +3989,10 @@ window.BYO = {
           "osm": "way/1445920517",
           "distanceM": 1060
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Divide 8 Stanmore",
@@ -3897,11 +4009,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3921,7 +4030,10 @@ window.BYO = {
           "osm": "node/5842632688",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "olotl",
@@ -3938,11 +4050,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3962,7 +4071,10 @@ window.BYO = {
           "osm": "node/7039553985",
           "distanceM": 390
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sushi Gen",
@@ -3979,11 +4091,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4003,7 +4112,10 @@ window.BYO = {
           "osm": "node/7765400658",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Frankly Nicks Pizzeria",
@@ -4011,6 +4123,8 @@ window.BYO = {
       "suburb": "Hurlstone Park",
       "address": "36 Floss Street, Hurlstone Park NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/14100122490",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.910638,
       "lng": 151.132802,
       "cuisine": "Pizza",
@@ -4020,11 +4134,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4044,7 +4155,10 @@ window.BYO = {
           "osm": "way/462009484",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Yori Japanese Fusion",
@@ -4061,11 +4175,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4085,7 +4196,10 @@ window.BYO = {
           "osm": "node/11816119287",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rucira Foods",
@@ -4093,6 +4207,8 @@ window.BYO = {
       "suburb": "Burwood",
       "address": "1/131 Liverpool Rd, Burwood NSW 2134",
       "addressSource": "venue",
+      "addressSourceUrl": "https://rucira-foods.yumbojumbo.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.887554,
       "lng": 151.101292,
       "cuisine": "Nepalese",
@@ -4102,9 +4218,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://rucira-foods.yumbojumbo.com.au/",
       "city": "Sydney",
@@ -4126,7 +4240,9 @@ window.BYO = {
           "osm": "node/9215612217",
           "distanceM": 1630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Thai Pothong",
@@ -4134,6 +4250,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "294 King Street, Newtown NSW 2042",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/263133050",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.896789,
       "lng": 151.179762,
       "cuisine": "Thai",
@@ -4145,9 +4263,7 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Banquet for groups",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Huge and busy, seven days",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4167,7 +4283,9 @@ window.BYO = {
           "osm": "node/12039041894",
           "distanceM": 50
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Botte D'Oro Restaurant",
@@ -4175,6 +4293,8 @@ window.BYO = {
       "suburb": "Leichhardt",
       "address": "137 Marion Street, Leichhardt NSW 2040",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/3377509892",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.883997,
       "lng": 151.15031,
       "cuisine": "Restaurant",
@@ -4184,11 +4304,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4208,7 +4325,10 @@ window.BYO = {
           "osm": "node/11816090992",
           "distanceM": 1050
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Glebe Point Diner",
@@ -4216,6 +4336,8 @@ window.BYO = {
       "suburb": "Glebe",
       "address": "407 Glebe Point Road, Glebe NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://glebepointdiner.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.874672,
       "lng": 151.183345,
       "cuisine": "Modern Australian",
@@ -4227,7 +4349,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Seasonal menu",
       "website": "https://glebepointdiner.com.au",
       "city": "Sydney",
@@ -4249,7 +4370,8 @@ window.BYO = {
           "osm": "node/7732728719",
           "distanceM": 130
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Monte Restaurant",
@@ -4266,11 +4388,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4290,7 +4409,10 @@ window.BYO = {
           "osm": "node/5324992587",
           "distanceM": 300
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pizza Da Noi",
@@ -4298,6 +4420,8 @@ window.BYO = {
       "suburb": "Glebe",
       "address": "198-206 St, Glebe NSW 2037",
       "addressSource": "venue",
+      "addressSourceUrl": "https://pizzadanoi.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8833,
       "lng": 151.183552,
       "cuisine": "Italian",
@@ -4307,9 +4431,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://pizzadanoi.com.au/",
       "city": "Sydney",
@@ -4331,7 +4453,9 @@ window.BYO = {
           "osm": "node/7765400658",
           "distanceM": 740
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Postino Osteria",
@@ -4350,8 +4474,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4371,7 +4493,9 @@ window.BYO = {
           "osm": "way/549056960",
           "distanceM": 160
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Donny's Pizza",
@@ -4388,11 +4512,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4412,7 +4533,10 @@ window.BYO = {
           "osm": "way/1445920517",
           "distanceM": 1920
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "San Pancho Mexican Taqueria",
@@ -4429,9 +4553,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.sanpancho.com.au",
       "city": "Sydney",
@@ -4453,7 +4575,9 @@ window.BYO = {
           "osm": "way/1104860917",
           "distanceM": 270
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Three One Nine",
@@ -4461,6 +4585,8 @@ window.BYO = {
       "suburb": "Concord West",
       "address": "319 Concord Road, Concord West NSW 2138",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.threeonenine.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.84818,
       "lng": 151.089924,
       "cuisine": "Modern Australian",
@@ -4470,9 +4596,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$12 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine, ~$10-15 corkage; BYO listed but not confirmed, so call first",
       "website": "https://www.threeonenine.com.au/",
       "city": "Sydney",
@@ -4494,7 +4618,9 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 1480
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Daikoku Teppanyaki Restaurant",
@@ -4511,11 +4637,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4535,7 +4658,10 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Favola",
@@ -4543,6 +4669,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "170 King Street, Newtown NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.favola.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.894117,
       "lng": 151.183127,
       "cuisine": "Italian",
@@ -4559,9 +4687,7 @@ window.BYO = {
         "Wednesday",
         "Thursday"
       ],
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only, $18 per bottle — no BYO on Friday & Saturday (their menu)",
       "website": "http://www.favola.com.au",
       "city": "Sydney",
@@ -4583,7 +4709,9 @@ window.BYO = {
           "osm": "node/7039553985",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Pastizzi Cafe",
@@ -4591,6 +4719,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "523 King Street, Newtown NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2125897845",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.903197,
       "lng": 151.179532,
       "cuisine": "Italian",
@@ -4600,10 +4730,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$3 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4623,7 +4750,10 @@ window.BYO = {
           "osm": "node/4860772953",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Yia Mas Greek Taverna",
@@ -4631,6 +4761,8 @@ window.BYO = {
       "suburb": "St Peters",
       "address": "1-5 Princes Hwy, St Peters NSW 2044",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.yiamas.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.908858,
       "lng": 151.180942,
       "cuisine": "Restaurant",
@@ -4640,9 +4772,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.yiamas.com.au/",
       "city": "Sydney",
@@ -4664,7 +4794,9 @@ window.BYO = {
           "osm": "node/5862426459",
           "distanceM": 340
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Nawaz Flavour of India",
@@ -4672,6 +4804,8 @@ window.BYO = {
       "suburb": "Glebe",
       "address": "142A Glebe Point Road, Glebe NSW 2037",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6403202886",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.879754,
       "lng": 151.186802,
       "cuisine": "Asian",
@@ -4681,9 +4815,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://nawazflavourofindia.com.au/",
       "city": "Sydney",
@@ -4705,7 +4837,9 @@ window.BYO = {
           "osm": "node/7765400658",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Grappa Ristorante e Bar",
@@ -4713,6 +4847,8 @@ window.BYO = {
       "suburb": "Leichhardt",
       "address": "267-277 NORTON ST, Leichhardt NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://grappa.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.875468,
       "lng": 151.15642,
       "cuisine": "Italian",
@@ -4724,7 +4860,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Closed Mon",
       "website": "https://grappa.com.au",
       "city": "Sydney",
@@ -4746,7 +4881,8 @@ window.BYO = {
           "osm": "node/5324992587",
           "distanceM": 20
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Little Sicily",
@@ -4754,6 +4890,8 @@ window.BYO = {
       "suburb": "Haberfield",
       "address": "60 Dalhousie Street, Haberfield NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.littlesicily.org/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.880824,
       "lng": 151.13834,
       "cuisine": "Italian",
@@ -4763,7 +4901,6 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -4787,7 +4924,8 @@ window.BYO = {
           "osm": "node/11816090992",
           "distanceM": 110
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Khoi Eatery",
@@ -4795,6 +4933,8 @@ window.BYO = {
       "suburb": "Marrickville",
       "address": "310 Illawarra Rd, Marrickville NSW 2204",
       "addressSource": "venue",
+      "addressSourceUrl": "https://khoieatery.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.91232,
       "lng": 151.154218,
       "cuisine": "Vietnamese",
@@ -4806,7 +4946,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Call to check corkage",
       "website": "https://khoieatery.com.au",
       "city": "Sydney",
@@ -4828,7 +4967,8 @@ window.BYO = {
           "osm": "way/1104860917",
           "distanceM": 30
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Filicudi Restaurant",
@@ -4836,6 +4976,8 @@ window.BYO = {
       "suburb": "Five Dock",
       "address": "11 Ramsay Rd, Five Dock NSW 2046",
       "addressSource": "venue",
+      "addressSourceUrl": "https://filicudi.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.87252,
       "lng": 151.132163,
       "cuisine": "Italian",
@@ -4845,9 +4987,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO. Corkage: corkage applies (amount not stated on site)",
       "website": "https://filicudi.com.au/",
       "city": "Sydney",
@@ -4869,7 +5009,9 @@ window.BYO = {
           "osm": "node/11816119287",
           "distanceM": 910
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Bamiyan Restaurant Five Dock",
@@ -4886,11 +5028,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4910,7 +5049,10 @@ window.BYO = {
           "osm": "node/11816119287",
           "distanceM": 1470
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kandy Bites by Chef Ceylon",
@@ -4918,6 +5060,8 @@ window.BYO = {
       "suburb": "Glebe",
       "address": "21 Glebe Point Road, Glebe NSW 2037",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/614635524",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.883929,
       "lng": 151.192536,
       "cuisine": "Sri Lankan",
@@ -4927,9 +5071,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://kandybites.com.au/",
       "city": "Sydney",
@@ -4951,7 +5093,9 @@ window.BYO = {
           "osm": "node/4071269495",
           "distanceM": 180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Osteria di Russo & Russo",
@@ -4959,6 +5103,8 @@ window.BYO = {
       "suburb": "Enmore",
       "address": "154 Enmore Road, Enmore NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1036427814",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.899091,
       "lng": 151.171841,
       "cuisine": "Italian",
@@ -4970,9 +5116,7 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Good date-night spot",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4992,7 +5136,9 @@ window.BYO = {
           "osm": "way/617718919",
           "distanceM": 130
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Phamous Kitchen",
@@ -5009,11 +5155,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5033,7 +5176,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 1540
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Alo Ban",
@@ -5050,9 +5196,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://social.quandoo.com/en/groups/alo-ban",
       "city": "Sydney",
@@ -5074,7 +5218,9 @@ window.BYO = {
           "osm": "node/9215612217",
           "distanceM": 90
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "SAI JUNCTION Indian Restaurant",
@@ -5091,11 +5237,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5115,7 +5258,10 @@ window.BYO = {
           "osm": "way/1445920517",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cairo Takeaway",
@@ -5123,6 +5269,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "81 Enmore Road, Newtown NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13994952094",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.89852,
       "lng": 151.174895,
       "cuisine": "Egyptian",
@@ -5164,6 +5312,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "341 King Street, Newtown NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://goldenlotus-vegan.com",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.89831,
       "lng": 151.178016,
       "cuisine": "Vegan Vietnamese",
@@ -5175,7 +5325,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Vegan pho, dumplings, stir-fries",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "All vegan",
       "website": "https://goldenlotus-vegan.com",
       "city": "Sydney",
@@ -5197,7 +5346,8 @@ window.BYO = {
           "osm": "node/14038562104",
           "distanceM": 190
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Thai Paragon",
@@ -5214,11 +5364,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5238,7 +5385,10 @@ window.BYO = {
           "osm": "node/9215612217",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Delhi 'O' Delhi",
@@ -5246,6 +5396,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "3 Erskineville Road, Newtown NSW 2042",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.delhiodelhi.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.897384,
       "lng": 151.180935,
       "cuisine": "Indian",
@@ -5255,9 +5407,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "http://www.delhiodelhi.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -5278,7 +5428,9 @@ window.BYO = {
           "osm": "node/12039041894",
           "distanceM": 150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "La Disfida",
@@ -5286,6 +5438,8 @@ window.BYO = {
       "suburb": "Haberfield",
       "address": "109 Ramsay Street, Haberfield NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://ladisfida.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8812,
       "lng": 151.1396,
       "cuisine": "Italian pizza",
@@ -5332,6 +5486,8 @@ window.BYO = {
       "suburb": "Enmore",
       "address": "10-14 Stanmore Road, Enmore NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5634430336",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.899406,
       "lng": 151.17047,
       "cuisine": "Restaurant",
@@ -5341,9 +5497,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.littleturtlerestaurant.com/",
       "city": "Sydney",
@@ -5365,7 +5519,9 @@ window.BYO = {
           "osm": "way/617718919",
           "distanceM": 260
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Rosso Antico Pizza Bar",
@@ -5373,6 +5529,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "52-60 Enmore Road, Newtown NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://rossoanticopizzabar.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.898796,
       "lng": 151.176325,
       "cuisine": "Italian / Pizza",
@@ -5382,9 +5540,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$5.5 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed pizza bar that has allowed BYO wine (corkage $5.50 per bottle) — a diner reported that might have changed, so p; BYO listed but not confirmed, so call first",
       "website": "http://rossoanticopizzabar.com.au/",
       "city": "Sydney",
@@ -5406,7 +5562,9 @@ window.BYO = {
           "osm": "node/14038562104",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Pron Prohm Thai Restaurant",
@@ -5414,6 +5572,8 @@ window.BYO = {
       "suburb": "North Strathfield",
       "address": "209 Concord Road, North Strathfield NSW 2137",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6467485518",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.856778,
       "lng": 151.091872,
       "cuisine": "Thai",
@@ -5423,11 +5583,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5447,7 +5604,10 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 1070
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "That's Amore",
@@ -5464,11 +5624,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5488,7 +5645,10 @@ window.BYO = {
           "osm": "node/11816090992",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bay Tinh",
@@ -5496,6 +5656,8 @@ window.BYO = {
       "suburb": "Marrickville",
       "address": "318 Victoria Road, Marrickville NSW 2204",
       "addressSource": "venue",
+      "addressSourceUrl": "https://baytinhrestaurant.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.9121,
       "lng": 151.1604,
       "cuisine": "Vietnamese",
@@ -5507,7 +5669,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Entrees and house sauces",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Dinner from 5:30pm daily; licensed too",
       "website": "https://baytinhrestaurant.com.au",
       "city": "Sydney",
@@ -5529,7 +5690,8 @@ window.BYO = {
           "osm": "node/5367211622",
           "distanceM": 110
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Post Cafe Marrickville",
@@ -5537,6 +5699,8 @@ window.BYO = {
       "suburb": "Marrickville",
       "address": "274 Marrickville Road, Marrickville NSW 2204",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.postcafe.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.911069,
       "lng": 151.157246,
       "cuisine": "Cafe",
@@ -5546,9 +5710,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "http://www.postcafe.com.au",
       "city": "Sydney",
@@ -5570,7 +5732,9 @@ window.BYO = {
           "osm": "way/1104860917",
           "distanceM": 290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Taste of Himalaya",
@@ -5578,6 +5742,8 @@ window.BYO = {
       "suburb": "Ashfield",
       "address": "241 Liverpool Road, Ashfield NSW 2131",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/14103531251",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8891,
       "lng": 151.125509,
       "cuisine": "Nepalese and Indian",
@@ -5589,7 +5755,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Lakhavi seekh kebab, tandoori prawns",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Closed Tue",
       "website": "https://tasteofhimalaya.com.au",
       "city": "Sydney",
@@ -5611,7 +5776,8 @@ window.BYO = {
           "osm": "node/11061427105",
           "distanceM": 160
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Derrel's",
@@ -5632,7 +5798,6 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "Uber Eats",
       "note": "Bottle shop across the road",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5652,7 +5817,8 @@ window.BYO = {
           "osm": "node/12698832631",
           "distanceM": 520
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "By George",
@@ -5669,11 +5835,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5693,7 +5856,10 @@ window.BYO = {
           "osm": "node/11061427105",
           "distanceM": 1710
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Yume Sushi",
@@ -5710,11 +5876,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -5726,7 +5889,10 @@ window.BYO = {
           "osm": "way/1445920517",
           "distanceM": 880
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Asako",
@@ -5743,9 +5909,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://asako.com.au/",
       "city": "Sydney",
@@ -5767,7 +5931,9 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 1810
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "New Shanghai Ashfield",
@@ -5775,6 +5941,8 @@ window.BYO = {
       "suburb": "Ashfield",
       "address": "273 Liverpool Road, Ashfield NSW 2131",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13399495252",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.888326,
       "lng": 151.124421,
       "cuisine": "Shanghainese",
@@ -5786,8 +5954,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Shanghai dumplings",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5807,7 +5973,9 @@ window.BYO = {
           "osm": "node/11061427105",
           "distanceM": 20
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "VN Streetfoods",
@@ -5815,6 +5983,8 @@ window.BYO = {
       "suburb": "Marrickville",
       "address": "294 Illawarra Rd, Marrickville NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.vnstreetfoods.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.912072,
       "lng": 151.154555,
       "cuisine": "Vietnamese",
@@ -5824,9 +5994,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.vnstreetfoods.com.au",
       "city": "Sydney",
@@ -5848,7 +6016,9 @@ window.BYO = {
           "osm": "way/1104860917",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Taste of Turkey Newtown",
@@ -5856,6 +6026,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "90 Enmore Road, Newtown NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.tasteofturkey.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.899018,
       "lng": 151.174762,
       "cuisine": "Turkish",
@@ -5865,9 +6037,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.tasteofturkey.com.au/",
       "city": "Sydney",
@@ -5889,7 +6059,9 @@ window.BYO = {
           "osm": "node/14038562104",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Arabella",
@@ -5897,6 +6069,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "489-491 King St, Newtown NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.arabella.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.902321,
       "lng": 151.178845,
       "cuisine": "Middle Eastern (Lebanese)",
@@ -5906,9 +6080,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.arabella.com.au/",
       "city": "Sydney",
@@ -5930,7 +6102,9 @@ window.BYO = {
           "osm": "node/4860772953",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Two Chaps",
@@ -5938,6 +6112,8 @@ window.BYO = {
       "suburb": "Marrickville",
       "address": "122 Chapel Street, Marrickville NSW 2204",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/323166726",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.905543,
       "lng": 151.162027,
       "cuisine": "Cafe",
@@ -5951,9 +6127,7 @@ window.BYO = {
         "Friday",
         "Saturday"
       ],
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine and beer, $10 per bottle. Friday and Saturday evenings only",
       "website": "https://twochaps.com.au/",
       "city": "Sydney",
@@ -5975,7 +6149,9 @@ window.BYO = {
           "osm": "node/5367211622",
           "distanceM": 650
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "KADMUS Lebanese Drummoyne",
@@ -5992,11 +6168,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6016,7 +6189,10 @@ window.BYO = {
           "osm": "way/1445920517",
           "distanceM": 430
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Silvas",
@@ -6024,6 +6200,8 @@ window.BYO = {
       "suburb": "Petersham",
       "address": "82 New Canterbury Road, Petersham NSW 2049",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2886393718",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.896382,
       "lng": 151.154066,
       "cuisine": "Portuguese (Charcoal Chicken)",
@@ -6033,9 +6211,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.instagram.com/silvas.restaurant",
       "city": "Sydney",
@@ -6057,7 +6233,9 @@ window.BYO = {
           "osm": "node/5839511929",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Pashas",
@@ -6074,9 +6252,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://pashasrestaurant.com.au/",
       "city": "Sydney",
@@ -6098,7 +6274,9 @@ window.BYO = {
           "osm": "node/4860772953",
           "distanceM": 280
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Atom Thai Restaurant",
@@ -6106,6 +6284,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "130 King Street, Newtown NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/423230446",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.893441,
       "lng": 151.183972,
       "cuisine": "Thai",
@@ -6115,10 +6295,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6138,7 +6315,10 @@ window.BYO = {
           "osm": "node/7039553985",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rosso Balmain",
@@ -6146,6 +6326,8 @@ window.BYO = {
       "suburb": "Balmain",
       "address": "360 Darling Street, Balmain NSW 2041",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.rossobalmain.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8567,
       "lng": 151.1783,
       "cuisine": "Italian pizza and pasta",
@@ -6157,7 +6339,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pizza",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Formerly Rosso Pomodoro",
       "website": "https://www.rossobalmain.com.au",
       "city": "Sydney",
@@ -6179,7 +6360,8 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 1260
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Corinthian Rotisserie Restaurant",
@@ -6187,6 +6369,8 @@ window.BYO = {
       "suburb": "Marrickville",
       "address": "283 Marrickville Road, Marrickville NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1103684081",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.909316,
       "lng": 151.153786,
       "cuisine": "Greek",
@@ -6196,9 +6380,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://corinthianrotisserierestaurant.gotoeat.net/",
       "city": "Sydney",
@@ -6220,7 +6402,9 @@ window.BYO = {
           "osm": "way/1104860917",
           "distanceM": 320
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Angelo's Cabarita",
@@ -6237,11 +6421,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6261,7 +6442,10 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 1420
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Shenkin Kitchen",
@@ -6269,6 +6453,8 @@ window.BYO = {
       "suburb": "Enmore",
       "address": "129 Enmore Road, Enmore NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7259530585",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.898756,
       "lng": 151.173528,
       "cuisine": "Brunch",
@@ -6278,11 +6464,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6302,7 +6485,10 @@ window.BYO = {
           "osm": "way/617718919",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Original Europe Grill",
@@ -6310,6 +6496,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "506 King Street, Newtown NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4860780934",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.902091,
       "lng": 151.179139,
       "cuisine": "Balkan grill",
@@ -6321,7 +6509,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Balkan grilled meats",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://www.originaleuropegrill.com",
       "city": "Sydney",
       "bottleShops": {
@@ -6342,7 +6529,8 @@ window.BYO = {
           "osm": "node/4860772953",
           "distanceM": 230
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Ramen Goku",
@@ -6350,6 +6538,8 @@ window.BYO = {
       "suburb": "Glebe",
       "address": "30 Glebe Point Road, Glebe NSW 2037",
       "addressSource": "venue",
+      "addressSourceUrl": "https://ramengoku.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8837,
       "lng": 151.1918,
       "cuisine": "Japanese ramen",
@@ -6361,7 +6551,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Gyokai tonkotsu, tsukemen",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://ramengoku.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -6382,7 +6571,8 @@ window.BYO = {
           "osm": "node/4071269495",
           "distanceM": 250
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Steki Taverna",
@@ -6390,6 +6580,8 @@ window.BYO = {
       "suburb": "Enmore",
       "address": "149 Enmore Road, Enmore NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://stekitaverna.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.898646,
       "lng": 151.17299,
       "cuisine": "Restaurant",
@@ -6399,9 +6591,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://stekitaverna.com/",
       "city": "Sydney",
@@ -6423,7 +6613,9 @@ window.BYO = {
           "osm": "way/617718919",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Kafeine",
@@ -6440,11 +6632,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6464,7 +6653,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 1430
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Plunge 46",
@@ -6472,6 +6664,8 @@ window.BYO = {
       "suburb": "Summer Hill",
       "address": "46 Lackey Street, Summer Hill NSW 2130",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/549039318",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.89163,
       "lng": 151.138261,
       "cuisine": "Restaurant",
@@ -6481,11 +6675,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6505,7 +6696,10 @@ window.BYO = {
           "osm": "way/549056960",
           "distanceM": 110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Maranellos Veloce Croydon Park",
@@ -6513,6 +6707,8 @@ window.BYO = {
       "suburb": "Croydon Park",
       "address": "127 Georges River Road, Croydon Park NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.maranellosveloce.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.895403,
       "lng": 151.107484,
       "cuisine": "Italian",
@@ -6522,7 +6718,6 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -6546,7 +6741,8 @@ window.BYO = {
           "osm": "node/11061427105",
           "distanceM": 1740
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Huong Huong",
@@ -6563,11 +6759,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6587,7 +6780,10 @@ window.BYO = {
           "osm": "node/5367211622",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai-Namic Leichardt",
@@ -6604,11 +6800,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6628,7 +6821,10 @@ window.BYO = {
           "osm": "node/5324992587",
           "distanceM": 750
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "De Lanna Thai Street Cuisine",
@@ -6645,9 +6841,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.delannathai.com.au",
       "city": "Sydney",
@@ -6669,7 +6863,9 @@ window.BYO = {
           "osm": "node/4491615090",
           "distanceM": 570
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Bangkok Bowl and Brew House",
@@ -6686,11 +6882,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6710,7 +6903,10 @@ window.BYO = {
           "osm": "way/617718919",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Guk En Bab",
@@ -6727,11 +6923,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6744,7 +6937,10 @@ window.BYO = {
           "distanceM": 1900
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "21 Thai",
@@ -6761,11 +6957,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6785,7 +6978,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 530
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Marina Lunga",
@@ -6802,11 +6998,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6826,7 +7019,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 1250
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Flamin Grillz Concord West",
@@ -6843,11 +7039,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6867,7 +7060,10 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 1800
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cappello Ristorante & Pizzeria",
@@ -6925,11 +7121,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6949,7 +7142,10 @@ window.BYO = {
           "osm": "node/5842632895",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Saveur",
@@ -6966,11 +7162,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6990,7 +7183,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 1140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Vatel Restaurant",
@@ -7007,11 +7203,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7031,7 +7224,10 @@ window.BYO = {
           "osm": "way/1445920517",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bar Italia",
@@ -7039,6 +7235,8 @@ window.BYO = {
       "suburb": "Leichhardt",
       "address": "169-171 Norton Street, Leichhardt NSW 2040",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/3617618648",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.881107,
       "lng": 151.156897,
       "cuisine": "Italian",
@@ -7050,9 +7248,7 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pasta, pizza, house gelato",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Cash only; since 1952",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7072,7 +7268,9 @@ window.BYO = {
           "osm": "node/5324992587",
           "distanceM": 620
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Auvers Dining - Rhodes",
@@ -7089,11 +7287,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7106,7 +7301,10 @@ window.BYO = {
           "distanceM": 90
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Jasmin1 Restaurant Leichhardt",
@@ -7123,11 +7321,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7147,14 +7342,19 @@ window.BYO = {
           "osm": "node/5324992587",
           "distanceM": 1110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Emma's Snack Bar",
       "region": "Inner West",
       "suburb": "Enmore",
-      "address": "Enmore",
-      "addressSource": "suburb-only",
+      "address": "59 Liberty St, Enmore NSW 2042",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://emmassnackbar.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.896756,
       "lng": 151.170706,
       "cuisine": "Lebanese",
@@ -7166,7 +7366,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Dips, fried cauliflower, arak garlic prawns, knafeh",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Tue to Sat",
       "website": "https://emmassnackbar.com.au",
       "city": "Sydney",
@@ -7188,7 +7387,8 @@ window.BYO = {
           "osm": "way/617718919",
           "distanceM": 350
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Revolver",
@@ -7196,6 +7396,8 @@ window.BYO = {
       "suburb": "Annandale",
       "address": "291 Annandale Street, Annandale NSW 2038",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5401138881",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.875835,
       "lng": 151.171803,
       "cuisine": "Restaurant",
@@ -7205,11 +7407,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7229,7 +7428,10 @@ window.BYO = {
           "osm": "node/7727981495",
           "distanceM": 570
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rosso Pomodoro",
@@ -7246,10 +7448,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "No corkage (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7269,7 +7468,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 1070
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mario's Pizzeria",
@@ -7277,6 +7479,8 @@ window.BYO = {
       "suburb": "Croydon",
       "address": "81 Edwin Street, Croydon NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.mariospizzeria.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.883494,
       "lng": 151.116669,
       "cuisine": "Restaurant",
@@ -7286,9 +7490,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.mariospizzeria.com.au/",
       "city": "Sydney",
@@ -7310,7 +7512,9 @@ window.BYO = {
           "osm": "node/11061427105",
           "distanceM": 870
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Kreta Ayer Ashfield",
@@ -7327,11 +7531,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7351,7 +7552,10 @@ window.BYO = {
           "osm": "node/11061427105",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Home Grounds - Five Dock",
@@ -7368,11 +7572,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7392,7 +7593,10 @@ window.BYO = {
           "osm": "way/1445920517",
           "distanceM": 1450
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Jbeil Cuisine Enfield",
@@ -7409,11 +7613,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7433,7 +7634,10 @@ window.BYO = {
           "osm": "node/13670958706",
           "distanceM": 840
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Surjit's",
@@ -7441,6 +7645,8 @@ window.BYO = {
       "suburb": "Annandale",
       "address": "215 Parramatta Rd, Annandale NSW 2038",
       "addressSource": "venue",
+      "addressSourceUrl": "https://surjits.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.888049,
       "lng": 151.165473,
       "cuisine": "Indian",
@@ -7450,9 +7656,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$2.5 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://surjits.com.au/",
       "city": "Sydney",
@@ -7474,7 +7678,9 @@ window.BYO = {
           "osm": "node/5842632688",
           "distanceM": 570
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Il Grappolo",
@@ -7491,11 +7697,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7515,7 +7718,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 460
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Simply the Best Restaurant",
@@ -7532,11 +7738,9 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7556,7 +7760,9 @@ window.BYO = {
           "osm": "node/11816119287",
           "distanceM": 1310
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Aberdeen Dining",
@@ -7564,6 +7770,8 @@ window.BYO = {
       "suburb": "Haberfield",
       "address": "73 Dalhousie St, Haberfield NSW 2045",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.aberdeendining.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.880983,
       "lng": 151.138727,
       "cuisine": "Modern Australian",
@@ -7575,7 +7783,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://www.aberdeendining.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -7596,7 +7803,8 @@ window.BYO = {
           "osm": "node/11816090992",
           "distanceM": 70
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Granatas Canada Bay",
@@ -7613,11 +7821,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7630,7 +7835,10 @@ window.BYO = {
           "distanceM": 800
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Platform 8",
@@ -7647,11 +7855,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7671,7 +7876,10 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 1540
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Andiamo Trattoria",
@@ -7688,9 +7896,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$7 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine, approx $7/bottle corkage; neighbourhood Italian trattoria in Summer Hill",
       "website": "https://www.andiamotrattoria.com.au/",
       "city": "Sydney",
@@ -7712,7 +7918,9 @@ window.BYO = {
           "osm": "way/549056960",
           "distanceM": 170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Abhi's Indian Restaurant",
@@ -7720,6 +7928,8 @@ window.BYO = {
       "suburb": "North Strathfield",
       "address": "163 Concord Road, North Strathfield NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.abhisindian.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.858012,
       "lng": 151.092446,
       "cuisine": "Indian",
@@ -7729,9 +7939,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$4 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only with $4 per person corkage. Long-running fine Indian restaurant from chef Kumar Mahadevan",
       "website": "http://www.abhisindian.com.au/",
       "city": "Sydney",
@@ -7753,7 +7961,9 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 1050
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Maenam Lao & Thai",
@@ -7770,11 +7980,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7794,7 +8001,10 @@ window.BYO = {
           "osm": "node/9215612217",
           "distanceM": 90
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Hub House Diner",
@@ -7811,11 +8021,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7835,7 +8042,10 @@ window.BYO = {
           "osm": "way/1052598445",
           "distanceM": 90
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Otto Noorba",
@@ -7852,11 +8062,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7876,7 +8083,10 @@ window.BYO = {
           "osm": "node/4071269495",
           "distanceM": 410
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rasika Indian Restaurant",
@@ -7884,6 +8094,8 @@ window.BYO = {
       "suburb": "Homebush",
       "address": "7 Rochester Street, Homebush NSW 2140",
       "addressSource": "venue",
+      "addressSourceUrl": "http://rasikaindian.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.866788,
       "lng": 151.084561,
       "cuisine": "Indian",
@@ -7893,9 +8105,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://rasikaindian.com.au/",
       "city": "Sydney",
@@ -7909,7 +8119,9 @@ window.BYO = {
           "osm": "node/9215612217",
           "distanceM": 1210
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Costa Do Sol",
@@ -7926,11 +8138,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7950,7 +8159,10 @@ window.BYO = {
           "osm": "way/1052598445",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kokoro Japanese Restaurant",
@@ -7967,11 +8179,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7991,14 +8200,19 @@ window.BYO = {
           "osm": "node/2330509904",
           "distanceM": 90
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Pizza Maker",
       "region": "Inner West",
       "suburb": "Petersham",
-      "address": "Petersham",
-      "addressSource": "suburb-only",
+      "address": "Shop 1/121-123 New Canterbury Rd, Petersham NSW 2049",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://thepizzamaker.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.896843,
       "lng": 151.151832,
       "cuisine": "Italian (Pizza)",
@@ -8008,9 +8222,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://thepizzamaker.com.au/",
       "city": "Sydney",
@@ -8032,7 +8244,9 @@ window.BYO = {
           "osm": "node/5839511929",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Ruck Thai Restaurant",
@@ -8049,11 +8263,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8073,7 +8284,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cinnamon Thai - Abbotsford",
@@ -8090,11 +8304,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8114,7 +8325,10 @@ window.BYO = {
           "osm": "way/1445920517",
           "distanceM": 1940
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Wagyu House",
@@ -8131,11 +8345,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8155,7 +8366,10 @@ window.BYO = {
           "osm": "node/11816119287",
           "distanceM": 1640
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Sultan's Table",
@@ -8163,6 +8377,8 @@ window.BYO = {
       "suburb": "Enmore",
       "address": "179 Enmore Road, Enmore NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4762860221",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.898871,
       "lng": 151.172245,
       "cuisine": "Turkish",
@@ -8172,9 +8388,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "No corkage (wine, beer)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Free BYO wine and beer. Turkish",
       "website": "https://thesultanstable.com.au/",
       "city": "Sydney",
@@ -8196,7 +8410,9 @@ window.BYO = {
           "osm": "way/617718919",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Okami Marrickville",
@@ -8213,9 +8429,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$10 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine and champagne only with $10 per bottle corkage; all-you-can-eat Japanese",
       "website": "http://okamirestaurant.com.au/",
       "city": "Sydney",
@@ -8237,7 +8451,9 @@ window.BYO = {
           "osm": "way/1104860917",
           "distanceM": 170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Fourth Fish Rozelle",
@@ -8254,11 +8470,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8278,7 +8491,10 @@ window.BYO = {
           "osm": "node/1739970858",
           "distanceM": 510
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ferah Cafe & Restaurant",
@@ -8286,6 +8502,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "433 King Street, Newtown NSW 2042",
       "addressSource": "venue",
+      "addressSourceUrl": "https://ferahcaferestaurant.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.900848,
       "lng": 151.178221,
       "cuisine": "Turkish",
@@ -8295,9 +8513,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://ferahcaferestaurant.com.au/",
       "city": "Sydney",
@@ -8319,7 +8535,9 @@ window.BYO = {
           "osm": "node/14038562104",
           "distanceM": 310
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Hikaru",
@@ -8336,9 +8554,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.facebook.com/pages/Hikaru-Japanese-Courtyard-Restaurant/104792799583990",
       "city": "Sydney",
@@ -8360,7 +8576,9 @@ window.BYO = {
           "osm": "node/7039553985",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "It's Time for Thai",
@@ -8368,6 +8586,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "233 King St, Newtown NSW 2042",
       "addressSource": "venue",
+      "addressSourceUrl": "https://timeforthai.com.au/thai-newtown.html",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.895391,
       "lng": 151.181222,
       "cuisine": "Thai",
@@ -8377,9 +8597,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "No corkage (wine, beer)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://timeforthai.com.au/thai-newtown.html",
       "city": "Sydney",
       "bottleShops": {
@@ -8400,7 +8618,9 @@ window.BYO = {
           "osm": "node/12039041894",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Chinese Dumpling Master",
@@ -8408,6 +8628,8 @@ window.BYO = {
       "suburb": "Newtown",
       "address": "91 Enmore Road, Newtown NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13707141464",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.89852,
       "lng": 151.174556,
       "cuisine": "Chinese (Northern-Style Dumplings)",
@@ -8417,10 +8639,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8440,7 +8659,10 @@ window.BYO = {
           "osm": "way/617718919",
           "distanceM": 130
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Casa Bella Pizza",
@@ -8457,11 +8679,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8474,7 +8693,10 @@ window.BYO = {
           "distanceM": 70
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Woodfired In and Out Pizza",
@@ -8482,6 +8704,8 @@ window.BYO = {
       "suburb": "Marrickville",
       "address": "464A Marrickville Road, Marrickville NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.woodfiredinandoutpizza.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.90686,
       "lng": 151.145824,
       "cuisine": "Pizza",
@@ -8491,9 +8715,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.woodfiredinandoutpizza.com.au",
       "city": "Sydney",
@@ -8515,7 +8737,9 @@ window.BYO = {
           "osm": "way/1052598445",
           "distanceM": 490
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Let's Chon Sydenham",
@@ -8532,9 +8756,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.instagram.com/lets_chon/",
       "city": "Sydney",
@@ -8556,7 +8778,9 @@ window.BYO = {
           "osm": "node/5367211622",
           "distanceM": 700
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Rurouni",
@@ -8573,11 +8797,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8597,7 +8818,10 @@ window.BYO = {
           "osm": "node/10915460946",
           "distanceM": 1190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rasa House",
@@ -8614,11 +8838,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8638,7 +8859,10 @@ window.BYO = {
           "osm": "node/12094246172",
           "distanceM": 330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Louie",
@@ -8655,9 +8879,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.louiecoogee.com.au/",
       "city": "Sydney",
@@ -8679,7 +8901,9 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 920
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Civico 47",
@@ -8701,9 +8925,7 @@ window.BYO = {
       ],
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Thu lunch and dinner, Fri and Sat lunch only",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8723,7 +8945,9 @@ window.BYO = {
           "osm": "node/12089720395",
           "distanceM": 500
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chubby Cheeks",
@@ -8740,11 +8964,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8764,7 +8985,10 @@ window.BYO = {
           "osm": "node/12089720395",
           "distanceM": 630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bibo Wine Bar",
@@ -8772,6 +8996,8 @@ window.BYO = {
       "suburb": "Double Bay",
       "address": "7 Bay Street, Double Bay NSW 2028",
       "addressSource": "venue",
+      "addressSourceUrl": "https://bibowinebar.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.878201,
       "lng": 151.241601,
       "cuisine": "Portuguese",
@@ -8781,9 +9007,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$35 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine at Saturday lunch only, $35 per bottle corkage (Vino Cammino 2025 guide)",
       "website": "https://bibowinebar.com.au/",
       "city": "Sydney",
@@ -8805,7 +9029,9 @@ window.BYO = {
           "osm": "node/7811338131",
           "distanceM": 130
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Catalina Restaurant",
@@ -8813,6 +9039,8 @@ window.BYO = {
       "suburb": "Rose Bay",
       "address": "Lyne Park New South Head Road, Rose Bay NSW 2029",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/111087583",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.870522,
       "lng": 151.262727,
       "cuisine": "Restaurant",
@@ -8822,11 +9050,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8846,7 +9071,10 @@ window.BYO = {
           "osm": "node/12094246172",
           "distanceM": 610
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Flavour of India Edgecliff",
@@ -8854,6 +9082,8 @@ window.BYO = {
       "suburb": "Edgecliff",
       "address": "128 New South Head Road, Edgecliff NSW 2027",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.flavourofindia.co/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.878056,
       "lng": 151.234751,
       "cuisine": "Asian",
@@ -8863,9 +9093,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.flavourofindia.co/",
       "city": "Sydney",
@@ -8887,7 +9115,9 @@ window.BYO = {
           "osm": "node/7811338131",
           "distanceM": 700
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Mand's Indian Restaurant",
@@ -8895,6 +9125,8 @@ window.BYO = {
       "suburb": "Randwick",
       "address": "139 Avoca Street, Randwick NSW 2031",
       "addressSource": "venue",
+      "addressSourceUrl": "https://mandsindianrestaurant.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.912901,
       "lng": 151.242251,
       "cuisine": "North Indian",
@@ -8906,7 +9138,6 @@ window.BYO = {
       "byoConfirmed": false,
       "dish": "Tandoori, naan",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Call to confirm BYO",
       "website": "https://mandsindianrestaurant.com.au",
       "city": "Sydney",
@@ -8928,7 +9159,8 @@ window.BYO = {
           "osm": "node/5872652634",
           "distanceM": 180
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Mami's",
@@ -8977,6 +9209,8 @@ window.BYO = {
       "suburb": "Paddington",
       "address": "268 Oxford Street, Paddington NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://porcine.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.885045,
       "lng": 151.227653,
       "cuisine": "French",
@@ -8988,7 +9222,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pork chop with choucroute, gougeres",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://porcine.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -9009,7 +9242,8 @@ window.BYO = {
           "osm": "node/12089720395",
           "distanceM": 280
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Balance Thai",
@@ -9026,11 +9260,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9050,7 +9281,10 @@ window.BYO = {
           "osm": "node/13329798299",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chiswick",
@@ -9058,6 +9292,8 @@ window.BYO = {
       "suburb": "Woollahra",
       "address": "65 Ocean Street, Woollahra NSW 2025",
       "addressSource": "venue",
+      "addressSourceUrl": "https://chiswickwoollahra.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.886028,
       "lng": 151.240034,
       "cuisine": "Modern Australian",
@@ -9073,7 +9309,6 @@ window.BYO = {
       ],
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Mon and Tue only (offer runs to 30 Mar 2027)",
       "website": "https://chiswickwoollahra.com.au",
       "city": "Sydney",
@@ -9095,7 +9330,8 @@ window.BYO = {
           "osm": "node/7811338131",
           "distanceM": 1000
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Pizza Moncur",
@@ -9112,11 +9348,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9136,7 +9369,10 @@ window.BYO = {
           "osm": "node/10915460946",
           "distanceM": 890
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Brown Sugar",
@@ -9144,6 +9380,8 @@ window.BYO = {
       "suburb": "Bondi Beach",
       "address": "106 Curlewis Street, Bondi Beach NSW 2026",
       "addressSource": "venue",
+      "addressSourceUrl": "https://brownsugarbondi.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.88785,
       "lng": 151.273186,
       "cuisine": "Modern Mediterranean",
@@ -9155,7 +9393,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Fish pie, goat cheese gnocchi",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Dinner Wed to Sun; lunch Sat and Sun",
       "website": "https://brownsugarbondi.com.au",
       "city": "Sydney",
@@ -9177,7 +9414,8 @@ window.BYO = {
           "osm": "node/6796831037",
           "distanceM": 190
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Cipri Italian",
@@ -9185,6 +9423,8 @@ window.BYO = {
       "suburb": "Paddington",
       "address": "10 ELIZABETH ST, Paddington NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://cipriitalian.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.886423,
       "lng": 151.231611,
       "cuisine": "Italian",
@@ -9202,7 +9442,6 @@ window.BYO = {
       ],
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Mon to Thu dinner and Fri lunch",
       "website": "https://cipriitalian.com.au",
       "city": "Sydney",
@@ -9224,7 +9463,8 @@ window.BYO = {
           "osm": "node/12089720395",
           "distanceM": 530
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Pizza Laundry",
@@ -9232,6 +9472,8 @@ window.BYO = {
       "suburb": "Bondi Beach",
       "address": "141 Glenayr Ave, Bondi Beach NSW 2026",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.pizzalaundry.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8875,
       "lng": 151.2716,
       "cuisine": "Pizza",
@@ -9284,8 +9526,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9305,7 +9545,9 @@ window.BYO = {
           "osm": "node/6338721705",
           "distanceM": 1140
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Poke Mix",
@@ -9322,11 +9564,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9346,7 +9585,10 @@ window.BYO = {
           "osm": "node/6652928344",
           "distanceM": 260
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pinto Thong Thai Restaurant",
@@ -9363,11 +9605,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9387,7 +9626,10 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 1050
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Corner 75",
@@ -9395,6 +9637,8 @@ window.BYO = {
       "suburb": "Randwick",
       "address": "75 Frenchmans Road, Randwick NSW 2031",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/9920797023",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.907522,
       "lng": 151.248726,
       "cuisine": "Hungarian",
@@ -9404,11 +9648,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9428,7 +9669,10 @@ window.BYO = {
           "osm": "node/6338721705",
           "distanceM": 170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hotel Centennial",
@@ -9445,9 +9689,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine on select nights; BYO listed but not confirmed, so call first",
       "website": "https://merivale.com/venues/hotelcentennial?&utm_source=googlemybusiness_venue&utm_medium=organic&utm_campaign=googlemybusiness_venue_organic_hotelcentennial&utm_content=website",
       "city": "Sydney",
@@ -9469,7 +9711,9 @@ window.BYO = {
           "osm": "node/12089720395",
           "distanceM": 1120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Jozo",
@@ -9486,11 +9730,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9510,7 +9751,10 @@ window.BYO = {
           "osm": "node/12089720395",
           "distanceM": 870
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sefa Kitchen",
@@ -9518,6 +9762,8 @@ window.BYO = {
       "suburb": "Bondi",
       "address": "292 Bondi Rd, Bondi NSW 2026",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.sefakitchen.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.894393,
       "lng": 151.268091,
       "cuisine": "Mediterranean",
@@ -9533,7 +9779,6 @@ window.BYO = {
       ],
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Wed and Thu only",
       "website": "https://www.sefakitchen.com.au",
       "city": "Sydney",
@@ -9555,7 +9800,8 @@ window.BYO = {
           "osm": "node/8676483423",
           "distanceM": 460
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Vacanza Pizzeria",
@@ -9563,6 +9809,8 @@ window.BYO = {
       "suburb": "Waverley",
       "address": "261 Bronte Road, Waverley NSW 2024",
       "addressSource": "venue",
+      "addressSourceUrl": "https://vacanza.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.902,
       "lng": 151.2542,
       "cuisine": "Italian pizza",
@@ -9574,7 +9822,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pizza, burrata",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://vacanza.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -9595,7 +9842,8 @@ window.BYO = {
           "osm": "node/6338721705",
           "distanceM": 970
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Bondi Trattoria",
@@ -9603,6 +9851,8 @@ window.BYO = {
       "suburb": "Bondi Beach",
       "address": "34 Campbell Parade, Bondi Beach NSW 2026",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.bonditrattoria.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.893842,
       "lng": 151.272854,
       "cuisine": "Italian",
@@ -9612,9 +9862,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.bonditrattoria.com.au/",
       "city": "Sydney",
@@ -9636,7 +9884,9 @@ window.BYO = {
           "osm": "node/5892223186",
           "distanceM": 450
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Totti’s",
@@ -9653,7 +9903,6 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -9677,7 +9926,8 @@ window.BYO = {
           "osm": "node/8676483423",
           "distanceM": 530
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Mr Nam",
@@ -9694,11 +9944,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9718,7 +9965,10 @@ window.BYO = {
           "osm": "node/5481702795",
           "distanceM": 1040
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pondok Buyung",
@@ -9735,11 +9985,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9759,7 +10006,10 @@ window.BYO = {
           "osm": "node/976978465",
           "distanceM": 550
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Arte Bianca",
@@ -9776,9 +10026,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$15 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://artebianca.com.au/",
       "city": "Sydney",
@@ -9800,7 +10048,9 @@ window.BYO = {
           "osm": "node/7811338131",
           "distanceM": 180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Spaghetteria",
@@ -9817,9 +10067,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "No corkage (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://spaghetteria.com.au/",
       "city": "Sydney",
@@ -9841,7 +10089,9 @@ window.BYO = {
           "osm": "node/6338721705",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Rosebery Martabak",
@@ -9858,11 +10108,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9882,7 +10129,10 @@ window.BYO = {
           "osm": "node/976978465",
           "distanceM": 1220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Da Lat Restaurant",
@@ -9890,6 +10140,8 @@ window.BYO = {
       "suburb": "Randwick",
       "address": "125 Belmore Rd, Randwick NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.dalatrestaurant.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.916,
       "lng": 151.2409,
       "cuisine": "Vietnamese",
@@ -9931,6 +10183,8 @@ window.BYO = {
       "suburb": "Clovelly",
       "address": "347 Clovelly Rd, Clovelly NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.pizzavelly.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.912172,
       "lng": 151.259613,
       "cuisine": "Italian pizza",
@@ -9942,7 +10196,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Napoli-style pizza, tiramisu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://www.pizzavelly.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -9963,7 +10216,8 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 1090
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Myoko Sushi Bar",
@@ -9971,6 +10225,8 @@ window.BYO = {
       "suburb": "Bondi Beach",
       "address": "72 Gould Street, Bondi Beach NSW 2026",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.myokosushibar.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8892,
       "lng": 151.2751,
       "cuisine": "Japanese sushi",
@@ -9982,7 +10238,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Sushi train",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "10% surcharge on public holidays",
       "website": "https://www.myokosushibar.com.au",
       "city": "Sydney",
@@ -10004,7 +10259,8 @@ window.BYO = {
           "osm": "node/5892223186",
           "distanceM": 320
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Csalt On The Beach Restaurant",
@@ -10021,11 +10277,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -10037,7 +10290,10 @@ window.BYO = {
           "osm": "way/1174504496",
           "distanceM": 1370
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lorraines",
@@ -10054,11 +10310,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10078,7 +10331,10 @@ window.BYO = {
           "osm": "node/6338721705",
           "distanceM": 1040
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Vitaly",
@@ -10086,6 +10342,8 @@ window.BYO = {
       "suburb": "Randwick",
       "address": "137 Avoca St, Randwick NSW 2031",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.vitalyitalian.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.912934,
       "lng": 151.242423,
       "cuisine": "Northern Italian",
@@ -10095,9 +10353,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.vitalyitalian.com/",
       "city": "Sydney",
@@ -10119,7 +10375,9 @@ window.BYO = {
           "osm": "node/5872652634",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Bangkok Bites",
@@ -10127,6 +10385,8 @@ window.BYO = {
       "suburb": "Bondi Beach",
       "address": "95 Hall Street, Bondi Beach NSW 2026",
       "addressSource": "venue",
+      "addressSourceUrl": "https://bangkokbites.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.888933,
       "lng": 151.270916,
       "cuisine": "Thai",
@@ -10138,7 +10398,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Loud and busy",
       "website": "https://bangkokbites.com.au",
       "city": "Sydney",
@@ -10160,7 +10419,8 @@ window.BYO = {
           "osm": "node/6817267980",
           "distanceM": 100
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "La Sen Restaurant",
@@ -10168,6 +10428,8 @@ window.BYO = {
       "suburb": "Randwick",
       "address": "35 Perouse Road, Randwick NSW 2031",
       "addressSource": "venue",
+      "addressSourceUrl": "http://lasenrestaurant.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.919586,
       "lng": 151.242797,
       "cuisine": "Gluten-free",
@@ -10177,9 +10439,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://lasenrestaurant.com.au/",
       "city": "Sydney",
@@ -10201,7 +10461,9 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "The Cook and Baker",
@@ -10218,9 +10480,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://thecookandbaker.com.au/",
       "city": "Sydney",
@@ -10242,7 +10502,9 @@ window.BYO = {
           "osm": "node/10915460946",
           "distanceM": 1220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "La Piadina",
@@ -10259,9 +10521,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.lapiadina.com.au/",
       "city": "Sydney",
@@ -10283,7 +10543,9 @@ window.BYO = {
           "osm": "node/6796831037",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Riva Rose Bay",
@@ -10300,11 +10562,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10324,7 +10583,10 @@ window.BYO = {
           "osm": "node/12094246172",
           "distanceM": 730
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Shanghai Washoku Kitchen",
@@ -10341,11 +10603,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10365,7 +10624,10 @@ window.BYO = {
           "osm": "node/976978465",
           "distanceM": 1360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Soul Burger Randwick",
@@ -10373,6 +10635,8 @@ window.BYO = {
       "suburb": "Randwick",
       "address": "49 Perouse Rd, Randwick NSW 2031",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.soulburger.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.919923,
       "lng": 151.242795,
       "cuisine": "Hamburger",
@@ -10382,9 +10646,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.soulburger.com.au/",
       "city": "Sydney",
@@ -10406,7 +10668,9 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 690
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Maranello's",
@@ -10414,6 +10678,8 @@ window.BYO = {
       "suburb": "Maroubra",
       "address": "51/737 Anzac Parade, Maroubra NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://maranellos.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.941348,
       "lng": 151.238906,
       "cuisine": "Italian",
@@ -10423,9 +10689,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$3.5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only with $3.50 per person corkage; Neapolitan woodfired pizza and Italian fare",
       "website": "https://maranellos.com.au/",
       "city": "Sydney",
@@ -10440,7 +10704,9 @@ window.BYO = {
           "distanceM": 40
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Osteria Riva",
@@ -10448,6 +10714,8 @@ window.BYO = {
       "suburb": "Bondi Junction",
       "address": "1/96 Bronte Road, Bondi Junction NSW 2022",
       "addressSource": "venue",
+      "addressSourceUrl": "https://osteriariva.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.895063,
       "lng": 151.250717,
       "cuisine": "Italian",
@@ -10457,9 +10725,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$20 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO. Corkage $20 per bottle",
       "website": "https://osteriariva.com.au/",
       "city": "Sydney",
@@ -10481,7 +10747,9 @@ window.BYO = {
           "osm": "node/8676483423",
           "distanceM": 1160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Jewel on the bay",
@@ -10498,11 +10766,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10522,7 +10787,10 @@ window.BYO = {
           "osm": "node/12094246172",
           "distanceM": 330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Martina Rose Bay",
@@ -10539,11 +10807,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10563,7 +10828,10 @@ window.BYO = {
           "osm": "node/12094246172",
           "distanceM": 320
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Eugene's",
@@ -10571,6 +10839,8 @@ window.BYO = {
       "suburb": "Bronte",
       "address": "69 MacPherson Street, Bronte NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/14019043451",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.905807,
       "lng": 151.258856,
       "cuisine": "Restaurant",
@@ -10580,11 +10850,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10604,7 +10871,10 @@ window.BYO = {
           "osm": "node/6338721705",
           "distanceM": 1110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Itsumo Sushi",
@@ -10621,11 +10891,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10645,7 +10912,10 @@ window.BYO = {
           "osm": "node/5481702795",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Boatshed La Perouse",
@@ -10653,6 +10923,8 @@ window.BYO = {
       "suburb": "La Perouse",
       "address": "1609 Anzac Parade, La Perouse NSW 2036",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/172446561",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.987752,
       "lng": 151.231388,
       "cuisine": "Restaurant",
@@ -10662,11 +10934,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -10678,7 +10947,10 @@ window.BYO = {
           "osm": "way/1174504496",
           "distanceM": 1490
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Little Kitchen",
@@ -10686,6 +10958,8 @@ window.BYO = {
       "suburb": "Coogee",
       "address": "275 Arden Street, Coogee NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6780199285",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.923845,
       "lng": 151.256288,
       "cuisine": "Cafe",
@@ -10695,9 +10969,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://thelittlekitchen.au/",
       "city": "Sydney",
@@ -10719,7 +10991,9 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 990
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Sushi Tengoku",
@@ -10736,9 +11010,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://social.quandoo.com/en/groups/sushi-tengoku",
       "city": "Sydney",
@@ -10760,7 +11032,9 @@ window.BYO = {
           "osm": "node/976978465",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "The Clove Indian Restaurant",
@@ -10768,6 +11042,8 @@ window.BYO = {
       "suburb": "Coogee",
       "address": "102 Beach Street, Coogee NSW 2034",
       "addressSource": "venue",
+      "addressSourceUrl": "https://theclove.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.91723,
       "lng": 151.258668,
       "cuisine": "Indian",
@@ -10777,9 +11053,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO; long-running North Indian restaurant in Coogee (over two decades)",
       "website": "https://theclove.com.au/",
       "city": "Sydney",
@@ -10801,7 +11075,9 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 860
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Viet Senses",
@@ -10818,11 +11094,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10842,7 +11115,10 @@ window.BYO = {
           "osm": "node/13329798299",
           "distanceM": 1110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Gitano Sydney",
@@ -10850,6 +11126,8 @@ window.BYO = {
       "suburb": "Double Bay",
       "address": "Shop 2/53 Cross Street, Double Bay NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/10294827636",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.875759,
       "lng": 151.242296,
       "cuisine": "Mexican",
@@ -10859,11 +11137,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10883,7 +11158,10 @@ window.BYO = {
           "osm": "node/4930714306",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Spice Thai Cuisine Coogee",
@@ -10891,6 +11169,8 @@ window.BYO = {
       "suburb": "Coogee",
       "address": "3/183 Coogee Bay Road, Coogee NSW 2034",
       "addressSource": "venue",
+      "addressSourceUrl": "https://spicethaicuisine.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.920642,
       "lng": 151.255439,
       "cuisine": "Thai",
@@ -10900,9 +11180,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$2 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine, $2 per person corkage; Thai restaurant in the heart of Coogee; BYO listed but not confirmed, so call first",
       "website": "https://spicethaicuisine.com.au/",
       "city": "Sydney",
@@ -10924,7 +11202,9 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 690
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Coconut Spice",
@@ -10941,9 +11221,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.coconutspiceyoganaturopathy.com/schedule",
       "city": "Sydney",
@@ -10965,7 +11243,9 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Thai Banyantree Coogee",
@@ -10973,6 +11253,8 @@ window.BYO = {
       "suburb": "Coogee",
       "address": "267 Arden Street, Coogee NSW 2034",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1361604509",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.923417,
       "lng": 151.256441,
       "cuisine": "Rice",
@@ -10982,11 +11264,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11006,7 +11285,10 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 970
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Botany Cantonese Takeway",
@@ -11023,11 +11305,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11047,7 +11327,9 @@ window.BYO = {
           "osm": "node/5481702795",
           "distanceM": 1550
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Beach Burrito Coogee",
@@ -11064,9 +11346,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://coogeebeachhouse.com/",
       "city": "Sydney",
@@ -11088,7 +11368,9 @@ window.BYO = {
           "osm": "node/6371771514",
           "distanceM": 770
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Sean's",
@@ -11096,6 +11378,8 @@ window.BYO = {
       "suburb": "North Bondi",
       "address": "270 Campbell Parade, North Bondi NSW 2026",
       "addressSource": "venue",
+      "addressSourceUrl": "https://seansbondi.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.889898,
       "lng": 151.282856,
       "cuisine": "Seafood",
@@ -11105,9 +11389,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$35 per bottle (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine, $35 per standard bottle and $60 per magnum (confirmed by phone, 6 Oct 2026). Licensed as well. Known as Sean's",
       "website": "https://seansbondi.com/",
       "city": "Sydney",
@@ -11129,7 +11411,9 @@ window.BYO = {
           "osm": "node/20979854",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Sea Sand Thai",
@@ -11146,11 +11430,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11170,7 +11451,10 @@ window.BYO = {
           "osm": "way/1174491859",
           "distanceM": 1470
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sushi Junction",
@@ -11187,11 +11471,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11204,7 +11485,10 @@ window.BYO = {
           "distanceM": 100
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Han's Kitchen",
@@ -11221,11 +11505,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11245,7 +11526,10 @@ window.BYO = {
           "osm": "node/2625897230",
           "distanceM": 590
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Haidilao Hotpot Chatswood",
@@ -11262,9 +11546,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.superhiinternational.com/",
       "city": "Sydney",
@@ -11286,7 +11568,9 @@ window.BYO = {
           "osm": "node/4491735591",
           "distanceM": 140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Grace of India",
@@ -11294,6 +11578,8 @@ window.BYO = {
       "suburb": "Milsons Point",
       "address": "16 ENNIS RD, Milsons Point NSW 2061",
       "addressSource": "venue",
+      "addressSourceUrl": "https://graceofindia.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.845569,
       "lng": 151.212351,
       "cuisine": "North Indian",
@@ -11305,7 +11591,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Mango chicken, garlic naan, mango lassi (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Family-run since 1990; also fully licensed. BYO from listings, own site doesn't state it",
       "website": "https://graceofindia.com.au/",
       "city": "Sydney",
@@ -11327,7 +11612,8 @@ window.BYO = {
           "osm": "node/14004124467",
           "distanceM": 20
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Oishi-Billi",
@@ -11344,9 +11630,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.billiscafe.com.au",
       "city": "Sydney",
@@ -11368,7 +11652,9 @@ window.BYO = {
           "osm": "node/13673344144",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "El Jefe Restaurant",
@@ -11376,6 +11662,8 @@ window.BYO = {
       "suburb": "North Sydney",
       "address": "5 Ridge Street, North Sydney NSW 2060",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12405566868",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.83278,
       "lng": 151.20577,
       "cuisine": "Latin American",
@@ -11385,11 +11673,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11409,7 +11694,10 @@ window.BYO = {
           "osm": "way/1385522652",
           "distanceM": 320
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Angora Sydney",
@@ -11426,11 +11714,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11443,7 +11728,10 @@ window.BYO = {
           "distanceM": 110
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Erin's",
@@ -11451,6 +11739,8 @@ window.BYO = {
       "suburb": "West Ryde",
       "address": "1067 Victoria Road, West Ryde NSW 2114",
       "addressSource": "venue",
+      "addressSourceUrl": "http://erins.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.806786,
       "lng": 151.08475,
       "cuisine": "Restaurant",
@@ -11460,9 +11750,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://erins.com.au/",
       "city": "Sydney",
@@ -11484,7 +11772,9 @@ window.BYO = {
           "osm": "node/11955849579",
           "distanceM": 1670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Kholl",
@@ -11501,9 +11791,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$14 per bottle (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only. Corkage per bottle: $14 Wednesday, Thursday and Sunday; $19 Friday and Saturday (per the venue's website)",
       "website": "http://bistrokholl.com/",
       "city": "Sydney",
@@ -11525,7 +11813,9 @@ window.BYO = {
           "osm": "node/9884061892",
           "distanceM": 170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Ken-Chan Curry",
@@ -11574,6 +11864,8 @@ window.BYO = {
       "suburb": "Gladesville",
       "address": "255 Victoria Rd, Gladesville NSW 2111",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.rossoitalian.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.830582,
       "lng": 151.126907,
       "cuisine": "Italian",
@@ -11583,7 +11875,6 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -11600,7 +11891,8 @@ window.BYO = {
           "distanceM": 1630
         },
         "independent": null
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Poetica Bar & Grill",
@@ -11608,6 +11900,8 @@ window.BYO = {
       "suburb": "North Sydney",
       "address": "1 Denison Street, North Sydney NSW 2060",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13805836936",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.838178,
       "lng": 151.208197,
       "cuisine": "Steakhouse",
@@ -11623,7 +11917,6 @@ window.BYO = {
       ],
       "dish": "Flat iron steak, smoked John Dory (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Mon–Tue only (per IWFS guide; own site doesn't state it)",
       "website": "https://poetica.sydney/",
       "city": "Sydney",
@@ -11645,7 +11938,8 @@ window.BYO = {
           "osm": "node/13724233565",
           "distanceM": 90
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Johnny Gio's Pizza Lane Cove",
@@ -11662,9 +11956,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://johnnygiospizza.com.au/",
       "city": "Sydney",
@@ -11686,7 +11978,9 @@ window.BYO = {
           "osm": "node/6305259885",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Le Coq and Fish",
@@ -11694,6 +11988,8 @@ window.BYO = {
       "suburb": "Waverton",
       "address": "69 Bay Road, Waverton NSW 2060",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.lecoqandfish.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.837504,
       "lng": 151.196663,
       "cuisine": "French bistro",
@@ -11709,7 +12005,6 @@ window.BYO = {
       ],
       "dish": "Seasonal French bistro dishes (menu changes)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Tue & Wed only",
       "website": "https://www.lecoqandfish.com.au/",
       "city": "Sydney",
@@ -11731,7 +12026,8 @@ window.BYO = {
           "osm": "node/1815543236",
           "distanceM": 80
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Motza Pizza",
@@ -11739,6 +12035,8 @@ window.BYO = {
       "suburb": "Castlecrag",
       "address": "122 Edinburgh Road, Castlecrag NSW 2068",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12531468876",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.802622,
       "lng": 151.213108,
       "cuisine": "Pizza",
@@ -11748,11 +12046,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11772,7 +12067,10 @@ window.BYO = {
           "osm": "node/12531461472",
           "distanceM": 10
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Brasserie@156",
@@ -11789,11 +12087,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11806,7 +12101,10 @@ window.BYO = {
           "distanceM": 1600
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dodici",
@@ -11814,6 +12112,8 @@ window.BYO = {
       "suburb": "Chatswood",
       "address": "130 Beaconsfield Road, Chatswood NSW 2067",
       "addressSource": "venue",
+      "addressSourceUrl": "https://newgreenschatswood.com.au/dodici-italian-restaurant/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8011,
       "lng": 151.163293,
       "cuisine": "Italian",
@@ -11823,9 +12123,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://newgreenschatswood.com.au/dodici-italian-restaurant/",
       "city": "Sydney",
@@ -11847,7 +12145,9 @@ window.BYO = {
           "osm": "node/6305259885",
           "distanceM": 1570
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "I Love Pho",
@@ -11855,6 +12155,8 @@ window.BYO = {
       "suburb": "Crows Nest",
       "address": "47 Willoughby Rd, Crows Nest NSW 2065",
       "addressSource": "venue",
+      "addressSourceUrl": "https://ilovepho.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.826167,
       "lng": 151.201162,
       "cuisine": "Vietnamese",
@@ -11866,7 +12168,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pho, pork chop rice (mentioned by reviewers)",
       "takeaway": "yes",
-      "takeawayDetail": "",
       "note": "Halal meat, vegan menu",
       "website": "https://ilovepho.com.au/",
       "city": "Sydney",
@@ -11888,7 +12189,8 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 230
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Pho luck",
@@ -11905,11 +12207,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11929,7 +12228,10 @@ window.BYO = {
           "osm": "node/11955849579",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cucinetta",
@@ -11937,6 +12239,8 @@ window.BYO = {
       "suburb": "Woolwich",
       "address": "103 Woolwich Road, Woolwich NSW 2110",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.cucinetta.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.840185,
       "lng": 151.169704,
       "cuisine": "Italian",
@@ -11946,9 +12250,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.cucinetta.com.au/",
       "city": "Sydney",
@@ -11962,7 +12264,9 @@ window.BYO = {
           "osm": "node/12591613144",
           "distanceM": 1820
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Annata",
@@ -11970,6 +12274,8 @@ window.BYO = {
       "suburb": "St Leonards",
       "address": "66 Chandos Street, St Leonards NSW 2065",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.annatasydney.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.821863,
       "lng": 151.198262,
       "cuisine": "Modern Australian",
@@ -11984,7 +12290,6 @@ window.BYO = {
       ],
       "dish": "Chef's tasting menu, pan-fried cod (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Wed dinner, Fri & Sat lunch only; wine bar",
       "website": "https://www.annatasydney.com/",
       "city": "Sydney",
@@ -12006,7 +12311,8 @@ window.BYO = {
           "osm": "node/2625897230",
           "distanceM": 250
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Nilgiri's",
@@ -12014,6 +12320,8 @@ window.BYO = {
       "suburb": "Cremorne",
       "address": "3/283 Military Road, Cremorne NSW 2090",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1226063927",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.829051,
       "lng": 151.228988,
       "cuisine": "Indian",
@@ -12023,11 +12331,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12047,7 +12352,10 @@ window.BYO = {
           "osm": "node/9884061892",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mars Pizza",
@@ -12055,6 +12363,8 @@ window.BYO = {
       "suburb": "Marsfield",
       "address": "76A Agincourt Rd, Marsfield NSW 2122",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.marspizza.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.782789,
       "lng": 151.104115,
       "cuisine": "Italian",
@@ -12064,9 +12374,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.marspizza.au/",
       "city": "Sydney",
@@ -12088,7 +12396,9 @@ window.BYO = {
           "osm": "node/1974543112",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Lane 198",
@@ -12105,11 +12415,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12122,7 +12429,10 @@ window.BYO = {
           "distanceM": 1630
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fratelli's",
@@ -12139,11 +12449,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12163,7 +12470,10 @@ window.BYO = {
           "osm": "node/9884061892",
           "distanceM": 110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Nico",
@@ -12171,6 +12481,8 @@ window.BYO = {
       "suburb": "Cammeray",
       "address": "18/450 MILLER ST, Cammeray NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.nicorestaurant.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.823524,
       "lng": 151.209472,
       "cuisine": "Italian",
@@ -12188,7 +12500,6 @@ window.BYO = {
       ],
       "dish": "Crab pasta, burrata, salmon tartare (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Mon–Thu",
       "website": "https://www.nicorestaurant.com.au/",
       "city": "Sydney",
@@ -12210,7 +12521,8 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 780
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Chiosco by Ormeggio",
@@ -12229,7 +12541,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu (pasta and seafood trattoria)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "On the marina at The Spit",
       "website": "https://www.chiosco.com.au/",
       "city": "Sydney",
@@ -12244,7 +12555,8 @@ window.BYO = {
           "distanceM": 1110
         },
         "independent": null
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Toshiya",
@@ -12252,6 +12564,8 @@ window.BYO = {
       "suburb": "Cremorne",
       "address": "1/283 Military Rd, Cremorne NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.toshiya.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.829017,
       "lng": 151.228884,
       "cuisine": "Japanese",
@@ -12263,7 +12577,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only; corkage not stated",
       "website": "https://www.toshiya.com.au/",
       "city": "Sydney",
@@ -12285,7 +12598,8 @@ window.BYO = {
           "osm": "node/9884061892",
           "distanceM": 60
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "The Wilkes",
@@ -12302,11 +12616,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12326,7 +12637,10 @@ window.BYO = {
           "osm": "node/3608748995",
           "distanceM": 840
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Berempah",
@@ -12334,6 +12648,8 @@ window.BYO = {
       "suburb": "Crows Nest",
       "address": "16 Willoughby Road, Crows Nest NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13459678001",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.827057,
       "lng": 151.200625,
       "cuisine": "Malaysian",
@@ -12343,9 +12659,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.berempahmalaysian.com.au/",
       "city": "Sydney",
@@ -12367,7 +12681,9 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Hoo & Tu's Kitchen",
@@ -12375,6 +12691,8 @@ window.BYO = {
       "suburb": "Artarmon",
       "address": "1A Broughton Rd, Artarmon NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://hooandtuskitchen.yumbojumbo.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.808898,
       "lng": 151.183977,
       "cuisine": "Malaysian/Taiwanese Hawker (Chinese)",
@@ -12384,9 +12702,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://hooandtuskitchen.yumbojumbo.com.au/",
       "city": "Sydney",
@@ -12408,7 +12724,9 @@ window.BYO = {
           "osm": "node/3608748995",
           "distanceM": 780
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Tew Thai",
@@ -12416,6 +12734,8 @@ window.BYO = {
       "suburb": "Gladesville",
       "address": "246A Victoria Road, Gladesville NSW 2111",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13428174801",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.829218,
       "lng": 151.126326,
       "cuisine": "Thai",
@@ -12425,11 +12745,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12442,7 +12759,10 @@ window.BYO = {
           "distanceM": 1720
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pizza Tutti's",
@@ -12459,11 +12779,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12483,7 +12800,10 @@ window.BYO = {
           "osm": "node/12531461472",
           "distanceM": 970
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Voco Thai Kitchen",
@@ -12500,9 +12820,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://revu.website/173467",
       "city": "Sydney",
@@ -12524,7 +12842,9 @@ window.BYO = {
           "osm": "node/13371670020",
           "distanceM": 1620
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Public Dining Room",
@@ -12532,6 +12852,8 @@ window.BYO = {
       "suburb": "Mosman",
       "address": "2A The Esplanade, Mosman NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2699271907",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.827604,
       "lng": 151.252379,
       "cuisine": "Modern Australian, seafood",
@@ -12546,7 +12868,6 @@ window.BYO = {
       ],
       "dish": "Unknown – check menu (seafood focus)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Wednesdays only, all day; corkage per IWFS",
       "website": "https://www.publicdiningroom.com.au/",
       "city": "Sydney",
@@ -12568,7 +12889,8 @@ window.BYO = {
           "osm": "node/8945210300",
           "distanceM": 100
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "S’more",
@@ -12585,11 +12907,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12609,7 +12928,10 @@ window.BYO = {
           "osm": "node/12531461472",
           "distanceM": 310
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bacari",
@@ -12617,6 +12939,8 @@ window.BYO = {
       "suburb": "Kirribilli",
       "address": "1/3 Broughton Street, Kirribilli NSW 2061",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.bacari.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.847266,
       "lng": 151.213198,
       "cuisine": "Modern Italian",
@@ -12628,7 +12952,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Oysters, pasta, tiramisu (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Sun–Thu; heated outdoor seating",
       "website": "https://www.bacari.com.au/",
       "city": "Sydney",
@@ -12650,7 +12973,8 @@ window.BYO = {
           "osm": "node/14004124467",
           "distanceM": 190
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "The Wooden Whisk",
@@ -12658,6 +12982,8 @@ window.BYO = {
       "suburb": "St Leonards",
       "address": "38 - 46 Albany Street, St Leonards NSW 2065",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2626274474",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.823561,
       "lng": 151.198643,
       "cuisine": "Restaurant",
@@ -12667,11 +12993,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12691,7 +13014,10 @@ window.BYO = {
           "osm": "node/2625897230",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Garfish Crows Nest",
@@ -12699,6 +13025,8 @@ window.BYO = {
       "suburb": "Crows Nest",
       "address": "6/29 Holtermann St, Crows Nest NSW 2065",
       "addressSource": "venue",
+      "addressSourceUrl": "https://garfish.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.825106,
       "lng": 151.202214,
       "cuisine": "Seafood",
@@ -12713,7 +13041,6 @@ window.BYO = {
       ],
       "dish": "Unknown – check menu (seafood)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Tue all day and Sat lunch only",
       "website": "https://garfish.com.au/",
       "city": "Sydney",
@@ -12735,7 +13062,8 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 150
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Hecho En Mexico Lane Cove",
@@ -12752,11 +13080,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12776,7 +13101,10 @@ window.BYO = {
           "osm": "node/13191926775",
           "distanceM": 170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Morgan's Kirribilli",
@@ -12784,6 +13112,8 @@ window.BYO = {
       "suburb": "Kirribilli",
       "address": "2/21 Burton ST, Kirribilli NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://morganskirribilli.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.846144,
       "lng": 151.213746,
       "cuisine": "Modern Australian / Mediterranean",
@@ -12793,9 +13123,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO. Corkage: $5",
       "website": "https://morganskirribilli.com.au/",
       "city": "Sydney",
@@ -12817,7 +13145,9 @@ window.BYO = {
           "osm": "node/14004124467",
           "distanceM": 140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Stir Crazy Thai Kirribilli",
@@ -12834,9 +13164,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.billiscafe.com.au",
       "city": "Sydney",
@@ -12858,7 +13186,9 @@ window.BYO = {
           "osm": "node/13673344144",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "LaanThai",
@@ -12866,6 +13196,8 @@ window.BYO = {
       "suburb": "Meadowbank",
       "address": "7a/27 Bank St, Meadowbank NSW 2114",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.laanthai.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.815767,
       "lng": 151.089492,
       "cuisine": "Asian",
@@ -12875,9 +13207,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.laanthai.com.au/",
       "city": "Sydney",
@@ -12899,7 +13229,9 @@ window.BYO = {
           "osm": "node/13371670020",
           "distanceM": 1520
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Sakana Ya",
@@ -12916,11 +13248,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12940,7 +13269,10 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pasture of Kirribilli",
@@ -12948,6 +13280,8 @@ window.BYO = {
       "suburb": "Kirribilli",
       "address": "31A Fitzroy Street, Kirribilli NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.pastureofkirribilli.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.847444,
       "lng": 151.213501,
       "cuisine": "Modern Australian",
@@ -12959,7 +13293,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pasta, corn fritters (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO for parties up to 8; pet-friendly",
       "website": "https://www.pastureofkirribilli.com.au/",
       "city": "Sydney",
@@ -12981,7 +13314,8 @@ window.BYO = {
           "osm": "node/14004124467",
           "distanceM": 220
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Amici",
@@ -12998,11 +13332,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13022,7 +13353,10 @@ window.BYO = {
           "osm": "node/2625897230",
           "distanceM": 930
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Zapparelli's Pizza",
@@ -13039,11 +13373,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13063,7 +13394,10 @@ window.BYO = {
           "osm": "node/13191926775",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Luck Sushi Japanese Restaurant",
@@ -13071,6 +13405,8 @@ window.BYO = {
       "suburb": "Willoughby",
       "address": "537 Willoughby Road, Willoughby NSW 2068",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13638519680",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.806729,
       "lng": 151.199625,
       "cuisine": "Japanese",
@@ -13080,11 +13416,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13104,7 +13437,10 @@ window.BYO = {
           "osm": "node/12531461472",
           "distanceM": 1340
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dragon Sushi & Roll",
@@ -13121,11 +13457,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13138,7 +13471,10 @@ window.BYO = {
           "distanceM": 40
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ainoya",
@@ -13146,6 +13482,8 @@ window.BYO = {
       "suburb": "Kirribilli",
       "address": "34 Burton St, Kirribilli NSW 2061",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.ainoya.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.845952,
       "lng": 151.213313,
       "cuisine": "Japanese",
@@ -13164,7 +13502,6 @@ window.BYO = {
       ],
       "dish": "Sashimi tacos, wagyu sukiyaki (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Bottled wine only; no BYO Fri/Sat",
       "website": "http://www.ainoya.com.au/",
       "city": "Sydney",
@@ -13186,7 +13523,8 @@ window.BYO = {
           "osm": "node/14004124467",
           "distanceM": 90
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Szechuan Garden Restaurant",
@@ -13194,6 +13532,8 @@ window.BYO = {
       "suburb": "St Leonards",
       "address": "1/599 Pacific Highway, St Leonards NSW 2065",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2625866793",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.82355,
       "lng": 151.197595,
       "cuisine": "Sichuan",
@@ -13203,11 +13543,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13227,7 +13564,10 @@ window.BYO = {
           "osm": "node/2625897230",
           "distanceM": 310
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thaii Restaurant",
@@ -13235,6 +13575,8 @@ window.BYO = {
       "suburb": "Mcmahons Point",
       "address": "69-71 Union Street, McMahons Point NSW 2060",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12591836219",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.841677,
       "lng": 151.202307,
       "cuisine": "Thai",
@@ -13244,11 +13586,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13268,7 +13607,10 @@ window.BYO = {
           "osm": "node/13653750234",
           "distanceM": 270
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "COYA",
@@ -13276,6 +13618,8 @@ window.BYO = {
       "suburb": "St Leonards",
       "address": "2/567 Pacific Hwy, St Leonards NSW 2065",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.coyasydney.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.824404,
       "lng": 151.197972,
       "cuisine": "French / Middle Eastern",
@@ -13287,7 +13631,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu (degustation available)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Tue–Thu; corkage waived with degustation (per IWFS)",
       "website": "https://www.coyasydney.com.au/",
       "city": "Sydney",
@@ -13309,7 +13652,8 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 290
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "WaFire Grill",
@@ -13326,9 +13670,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "No corkage (wine, beer, spirits)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://www.wafiregrill.com.au/",
       "city": "Sydney",
@@ -13350,7 +13692,9 @@ window.BYO = {
           "osm": "node/1916709576",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Korean Samurai",
@@ -13358,6 +13702,8 @@ window.BYO = {
       "suburb": "Cremorne",
       "address": "29/332-346 Military Road, Cremorne NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13738727485",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.828977,
       "lng": 151.227945,
       "cuisine": "Japanese",
@@ -13367,11 +13713,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13391,7 +13734,10 @@ window.BYO = {
           "osm": "node/9884061892",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Jack & Co Lane Cove",
@@ -13408,11 +13754,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13432,7 +13775,10 @@ window.BYO = {
           "osm": "node/6305259885",
           "distanceM": 1260
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lane Cove Golf Club",
@@ -13449,11 +13795,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13473,7 +13816,10 @@ window.BYO = {
           "osm": "node/13191926775",
           "distanceM": 1150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Le Tran",
@@ -13490,11 +13836,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13514,7 +13857,10 @@ window.BYO = {
           "osm": "node/6305259885",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Via Napoli Pizzeria Lane Cove",
@@ -13531,7 +13877,6 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -13555,7 +13900,8 @@ window.BYO = {
           "osm": "node/13191926775",
           "distanceM": 100
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Piato",
@@ -13563,6 +13909,8 @@ window.BYO = {
       "suburb": "McMahons Point",
       "address": "123 Blues Point Road, McMahons Point NSW 2060",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/3338903064",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.844583,
       "lng": 151.204468,
       "cuisine": "Breakfast",
@@ -13572,9 +13920,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://piatorestaurant.com.au/",
       "city": "Sydney",
@@ -13596,7 +13942,9 @@ window.BYO = {
           "osm": "node/13673344144",
           "distanceM": 10
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Eighty Ate",
@@ -13604,6 +13952,8 @@ window.BYO = {
       "suburb": "North Sydney",
       "address": "86-88 West Street, Crows Nest NSW 2060",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/387222133",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.830441,
       "lng": 151.205651,
       "cuisine": "Restaurant",
@@ -13613,11 +13963,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13637,7 +13984,10 @@ window.BYO = {
           "osm": "way/1385522652",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rengaya Japanese Restaurant",
@@ -13654,11 +14004,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13678,7 +14025,10 @@ window.BYO = {
           "osm": "node/13724233565",
           "distanceM": 250
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "New Yatra",
@@ -13686,6 +14036,8 @@ window.BYO = {
       "suburb": "West Ryde",
       "address": "1037 Victoria Road, West Ryde NSW 2114",
       "addressSource": "venue",
+      "addressSourceUrl": "https://newyatra.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.807019,
       "lng": 151.086034,
       "cuisine": "North Indian",
@@ -13695,7 +14047,6 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -13719,7 +14070,8 @@ window.BYO = {
           "osm": "node/11955849579",
           "distanceM": 1720
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Sugarlane",
@@ -13741,7 +14093,6 @@ window.BYO = {
       ],
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Tuesdays only",
       "website": "https://sugarlane.com.au/",
       "city": "Sydney",
@@ -13763,7 +14114,8 @@ window.BYO = {
           "osm": "node/6305259885",
           "distanceM": 120
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Epic Kebab House",
@@ -13780,11 +14132,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13804,7 +14153,10 @@ window.BYO = {
           "osm": "node/2625897230",
           "distanceM": 680
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Botte",
@@ -13812,6 +14164,8 @@ window.BYO = {
       "suburb": "Willoughby",
       "address": "608 Willoughby Rd, Willoughby NSW 2068",
       "addressSource": "venue",
+      "addressSourceUrl": "https://labotte.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.806395,
       "lng": 151.198909,
       "cuisine": "Italian",
@@ -13821,9 +14175,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://labotte.com.au/",
       "city": "Sydney",
@@ -13845,7 +14197,9 @@ window.BYO = {
           "osm": "node/12531461472",
           "distanceM": 1390
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Capo Pizza",
@@ -13853,6 +14207,8 @@ window.BYO = {
       "suburb": "Waverton",
       "address": "100-102 Bay Road, Waverton NSW 2060",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13758102884",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.83775,
       "lng": 151.197069,
       "cuisine": "Restaurant",
@@ -13862,11 +14218,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13886,7 +14239,10 @@ window.BYO = {
           "osm": "node/1815543236",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Don't Miss Out Chinese Cuisine",
@@ -13903,11 +14259,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13920,7 +14273,10 @@ window.BYO = {
           "distanceM": 1640
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "CJ's French Fondue Restaurant",
@@ -13928,6 +14284,8 @@ window.BYO = {
       "suburb": "Neutral Bay",
       "address": "99 Military Road, Neutral Bay NSW 2089",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4265551773",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.830688,
       "lng": 151.219744,
       "cuisine": "Fondue",
@@ -13937,11 +14295,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13961,7 +14316,10 @@ window.BYO = {
           "osm": "node/1916709576",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tokuya",
@@ -13978,11 +14336,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14002,7 +14357,10 @@ window.BYO = {
           "osm": "way/444590237",
           "distanceM": 280
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thaitanium",
@@ -14019,11 +14377,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14043,7 +14398,10 @@ window.BYO = {
           "osm": "node/2625897230",
           "distanceM": 600
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bai Yok",
@@ -14060,11 +14418,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14084,7 +14439,10 @@ window.BYO = {
           "osm": "node/12531461472",
           "distanceM": 240
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ripples Chowder Bay",
@@ -14092,6 +14450,8 @@ window.BYO = {
       "suburb": "Mosman",
       "address": "2 Chowder Bay Road, Mosman NSW 2088",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/1344523941",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.838998,
       "lng": 151.255135,
       "cuisine": "Modern Australian",
@@ -14103,7 +14463,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Wine & champagne only, no beer/spirits",
       "website": "https://srghospitality.com.au/venue/ripples-chowder-bay/",
       "city": "Sydney",
@@ -14125,7 +14484,8 @@ window.BYO = {
           "osm": "node/8945210300",
           "distanceM": 1370
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Loulou Bistro",
@@ -14133,6 +14493,8 @@ window.BYO = {
       "suburb": "Milsons Point",
       "address": "61 Lavender St, Milsons Point NSW 2061",
       "addressSource": "venue",
+      "addressSourceUrl": "https://loulou.sydney/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.843665,
       "lng": 151.210417,
       "cuisine": "French bistro",
@@ -14148,7 +14510,6 @@ window.BYO = {
       ],
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Tue–Wed only; corkage $20–25 a bottle depending on source",
       "website": "https://loulou.sydney/",
       "city": "Sydney",
@@ -14170,7 +14531,8 @@ window.BYO = {
           "osm": "node/13989113860",
           "distanceM": 210
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Dhakshin South Indian Cuisine",
@@ -14187,9 +14549,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://dhakshin-south-indian-restaurant-crows-nest.nextorder.com/",
       "city": "Sydney",
@@ -14211,7 +14571,9 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 370
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Malabar",
@@ -14219,6 +14581,8 @@ window.BYO = {
       "suburb": "Crows Nest",
       "address": "334 Pacific Highway, Crows Nest NSW 2065",
       "addressSource": "venue",
+      "addressSourceUrl": "https://malabarcuisine.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.827094,
       "lng": 151.199801,
       "cuisine": "South Indian",
@@ -14230,7 +14594,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu (South Indian; dosa specialists)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://malabarcuisine.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -14251,7 +14614,8 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 350
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "AJ's Indian Restaurant",
@@ -14259,6 +14623,8 @@ window.BYO = {
       "suburb": "Eastwood",
       "address": "58A Balaclava Rd, Eastwood NSW 2122",
       "addressSource": "venue",
+      "addressSourceUrl": "https://ajsindian.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.784024,
       "lng": 151.093785,
       "cuisine": "Indian",
@@ -14268,9 +14634,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://ajsindian.com.au/",
       "city": "Sydney",
@@ -14292,7 +14656,9 @@ window.BYO = {
           "osm": "node/1974543112",
           "distanceM": 970
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Jugemu & Shimbashi",
@@ -14300,6 +14666,8 @@ window.BYO = {
       "suburb": "Neutral Bay",
       "address": "246 Military Rd, Neutral Bay NSW 2089",
       "addressSource": "venue",
+      "addressSourceUrl": "https://jugemushimbashi.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.830977,
       "lng": 151.224153,
       "cuisine": "Japanese (Teppanyaki/Soba)",
@@ -14309,9 +14677,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$6 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://jugemushimbashi.com.au/",
       "city": "Sydney",
@@ -14333,7 +14699,9 @@ window.BYO = {
           "osm": "node/1916709576",
           "distanceM": 440
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Patio @ Putney",
@@ -14341,6 +14709,8 @@ window.BYO = {
       "suburb": "Putney",
       "address": "83 Charles Street, Putney NSW 2112",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13475772501",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.823063,
       "lng": 151.10868,
       "cuisine": "Restaurant",
@@ -14350,9 +14720,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://social.quandoo.com/en/groups/patio-at-putney",
       "city": "Sydney",
@@ -14366,7 +14734,9 @@ window.BYO = {
           "osm": "node/13371670020",
           "distanceM": 1150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Rangoon Colonial Club",
@@ -14385,9 +14755,7 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only; open 7 days",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14407,7 +14775,9 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 240
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kyushu",
@@ -14424,10 +14794,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14447,7 +14814,10 @@ window.BYO = {
           "osm": "node/1916709576",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lab Kitchen West Ryde",
@@ -14464,11 +14834,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14488,7 +14855,10 @@ window.BYO = {
           "osm": "node/11955849579",
           "distanceM": 1690
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sotto on West",
@@ -14505,11 +14875,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14529,7 +14896,10 @@ window.BYO = {
           "osm": "way/1385522652",
           "distanceM": 180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ramen Toriichi",
@@ -14546,11 +14916,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14570,7 +14937,10 @@ window.BYO = {
           "osm": "node/1916709576",
           "distanceM": 500
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Borrelli's",
@@ -14587,11 +14957,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14611,7 +14978,10 @@ window.BYO = {
           "osm": "way/291435041",
           "distanceM": 180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Infuzions Cammeray",
@@ -14619,6 +14989,8 @@ window.BYO = {
       "suburb": "Cammeray",
       "address": "439 Miller Street, Cammeray NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13447356423",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.822476,
       "lng": 151.210416,
       "cuisine": "Asian fusion",
@@ -14628,11 +15000,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14652,7 +15021,10 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 880
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chedi Thai",
@@ -14660,6 +15032,8 @@ window.BYO = {
       "suburb": "Mcmahons Point",
       "address": "182 Blues Point Road, Mcmahons Point NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13673523308",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.843117,
       "lng": 151.204612,
       "cuisine": "Thai",
@@ -14669,11 +15043,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14693,7 +15064,10 @@ window.BYO = {
           "osm": "node/13653750234",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Jade Delight Meadowbank",
@@ -14710,11 +15084,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14734,7 +15105,10 @@ window.BYO = {
           "osm": "node/13371670020",
           "distanceM": 1540
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Verace Pizzeria",
@@ -14742,6 +15116,8 @@ window.BYO = {
       "suburb": "Macquarie Park",
       "address": "7 Khartoum Road, Macquarie Park NSW 2113",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.veracepizzeria.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.780193,
       "lng": 151.124182,
       "cuisine": "Restaurant",
@@ -14751,9 +15127,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.veracepizzeria.com.au/",
       "city": "Sydney",
@@ -14775,7 +15149,9 @@ window.BYO = {
           "osm": "node/1974543112",
           "distanceM": 1870
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Mamak - Chatswood",
@@ -14783,6 +15159,8 @@ window.BYO = {
       "suburb": "Chatswood",
       "address": "P9/1-5 Railway Street, Chatswood NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/1477428340",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.796616,
       "lng": 151.18055,
       "cuisine": "Asian",
@@ -14792,9 +15170,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.mamak.com.au/",
       "city": "Sydney",
@@ -14816,7 +15192,9 @@ window.BYO = {
           "osm": "way/444590237",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Garcon",
@@ -14833,11 +15211,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14857,7 +15232,10 @@ window.BYO = {
           "osm": "node/13191926775",
           "distanceM": 150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mario Brothers Pizza and Pasta",
@@ -14874,11 +15252,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14898,7 +15273,10 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 390
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Holy Basil Thai",
@@ -14915,11 +15293,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14939,7 +15314,10 @@ window.BYO = {
           "osm": "node/3608748995",
           "distanceM": 630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Nine",
@@ -14947,6 +15325,8 @@ window.BYO = {
       "suburb": "Mosman",
       "address": "3 Vista St, Mosman NSW 2088",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.thaininemosman.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.824966,
       "lng": 151.240621,
       "cuisine": "Thai",
@@ -14956,9 +15336,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://www.thaininemosman.com/",
       "city": "Sydney",
@@ -14980,7 +15358,9 @@ window.BYO = {
           "osm": "node/8945210300",
           "distanceM": 1040
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Tran's Restaurant",
@@ -14997,11 +15377,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15021,7 +15398,10 @@ window.BYO = {
           "osm": "node/9884061892",
           "distanceM": 1030
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lusso Kitchen",
@@ -15038,11 +15418,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15062,7 +15439,10 @@ window.BYO = {
           "osm": "node/13191926775",
           "distanceM": 990
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hunter Thai Restaurant",
@@ -15079,11 +15459,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15096,7 +15473,10 @@ window.BYO = {
           "distanceM": 10
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Persian Basement",
@@ -15113,11 +15493,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15137,7 +15514,10 @@ window.BYO = {
           "osm": "node/6305259885",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Curry Lovers Epping",
@@ -15154,11 +15534,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15178,7 +15555,10 @@ window.BYO = {
           "osm": "way/291435041",
           "distanceM": 230
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Essence of North India",
@@ -15186,6 +15566,8 @@ window.BYO = {
       "suburb": "North Ryde",
       "address": "124 Wicks Rd, North Ryde NSW 2113",
       "addressSource": "venue",
+      "addressSourceUrl": "http://essenceofnorthindia.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.792617,
       "lng": 151.128512,
       "cuisine": "Indian",
@@ -15195,9 +15577,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://essenceofnorthindia.com/",
       "city": "Sydney",
@@ -15212,7 +15592,9 @@ window.BYO = {
           "distanceM": 520
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Sushi Roll - Top Ryde",
@@ -15229,11 +15611,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15253,7 +15632,10 @@ window.BYO = {
           "osm": "node/13371670020",
           "distanceM": 110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Hills Middle Eastern",
@@ -15270,11 +15652,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15287,7 +15666,10 @@ window.BYO = {
           "distanceM": 20
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Yume Sushi 3 (Gladesville)",
@@ -15304,11 +15686,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15321,7 +15700,10 @@ window.BYO = {
           "distanceM": 1630
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ciao Ciao Woodfired Pizza",
@@ -15338,11 +15720,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15362,7 +15742,9 @@ window.BYO = {
           "osm": "node/988622214",
           "distanceM": 190
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "We Thai Cuisine",
@@ -15379,11 +15761,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15403,7 +15782,10 @@ window.BYO = {
           "osm": "node/13371670020",
           "distanceM": 1550
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Charm Thai Eatery",
@@ -15420,11 +15802,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15437,7 +15816,10 @@ window.BYO = {
           "distanceM": 80
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "On Dough",
@@ -15454,11 +15836,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15471,7 +15850,10 @@ window.BYO = {
           "distanceM": 1840
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Young's Gourmet Pizzeria",
@@ -15479,6 +15861,8 @@ window.BYO = {
       "suburb": "Normanhurst",
       "address": "54 Denman Parade, Normanhurst NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.ygp.pizza/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.721269,
       "lng": 151.097185,
       "cuisine": "Italian",
@@ -15488,9 +15872,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.ygp.pizza/",
       "city": "Sydney",
@@ -15505,7 +15887,9 @@ window.BYO = {
           "distanceM": 1830
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Bonjour Vietnam",
@@ -15513,6 +15897,8 @@ window.BYO = {
       "suburb": "Lindfield",
       "address": "364 Pacific Hwy, Lindfield NSW 2070",
       "addressSource": "venue",
+      "addressSourceUrl": "http://bonjourvietnam.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.774492,
       "lng": 151.167945,
       "cuisine": "Vietnamese",
@@ -15524,7 +15910,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Spring rolls (reviewers call them a must-order)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only",
       "website": "http://bonjourvietnam.com.au/",
       "city": "Sydney",
@@ -15546,7 +15931,8 @@ window.BYO = {
           "osm": "node/5809698053",
           "distanceM": 1460
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Zaika Roseville",
@@ -15554,6 +15940,8 @@ window.BYO = {
       "suburb": "Roseville",
       "address": "110 Pacific Highway, Roseville NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://zaikaroseville.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.784421,
       "lng": 151.176366,
       "cuisine": "Indian",
@@ -15563,9 +15951,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://zaikaroseville.com.au/",
       "city": "Sydney",
@@ -15587,7 +15973,9 @@ window.BYO = {
           "osm": "node/5809698053",
           "distanceM": 180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Meena Thai",
@@ -15595,6 +15983,8 @@ window.BYO = {
       "suburb": "East Lindfield",
       "address": "6/11 Hughes Place, East Lindfield NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4891164721",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.767483,
       "lng": 151.187625,
       "cuisine": "Thai",
@@ -15604,9 +15994,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$4 per person (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine — $4 per person corkage (confirmed by phone, 26 Sept 2026)",
       "website": "https://www.meenathai.com.au/",
       "city": "Sydney",
@@ -15628,7 +16016,9 @@ window.BYO = {
           "osm": "way/1416665626",
           "distanceM": 1400
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Saveur",
@@ -15636,6 +16026,8 @@ window.BYO = {
       "suburb": "Roseville",
       "address": "11 Hill Street, Roseville NSW 2069",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.saveur.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.784714,
       "lng": 151.178944,
       "cuisine": "French",
@@ -15654,7 +16046,6 @@ window.BYO = {
       ],
       "dish": "Duck à l'orange, escargot (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "No BYO Fri/Sat dinner or groups of 8+",
       "website": "https://www.saveur.com.au/",
       "city": "Sydney",
@@ -15676,7 +16067,8 @@ window.BYO = {
           "osm": "node/5809698053",
           "distanceM": 70
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Itihaas Indian Restaurant",
@@ -15693,11 +16085,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15710,7 +16099,10 @@ window.BYO = {
           "distanceM": 1390
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thaiangle House",
@@ -15727,11 +16119,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15751,7 +16140,10 @@ window.BYO = {
           "osm": "way/1416665626",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Berowra Chinese Restaurant",
@@ -15768,11 +16160,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15785,7 +16174,10 @@ window.BYO = {
           "distanceM": 80
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tony's Woodfire",
@@ -15802,11 +16194,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15826,7 +16215,10 @@ window.BYO = {
           "osm": "way/1315042278",
           "distanceM": 1350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Twenty74",
@@ -15843,11 +16235,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15860,7 +16249,10 @@ window.BYO = {
           "distanceM": 90
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Café Lyon",
@@ -15868,6 +16260,8 @@ window.BYO = {
       "suburb": "Lindfield",
       "address": "366 Pacific Highway, Lindfield NSW 2070",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5572989226",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.774502,
       "lng": 151.167791,
       "cuisine": "French bistro",
@@ -15884,7 +16278,6 @@ window.BYO = {
       ],
       "dish": "Garlic snails, raspberry soufflé (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Tue–Thu (per IWFS; own site doesn't state it)",
       "website": "http://www.cafelyon.com.au/",
       "city": "Sydney",
@@ -15906,7 +16299,8 @@ window.BYO = {
           "osm": "node/5809698053",
           "distanceM": 1470
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Curry Monitor",
@@ -15923,16 +16317,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pear Thai",
@@ -15949,11 +16343,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15973,7 +16364,10 @@ window.BYO = {
           "osm": "node/5003536380",
           "distanceM": 1180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mehfil Indian",
@@ -15990,16 +16384,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "LongTai Restaurant",
@@ -16016,11 +16410,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -16032,7 +16423,10 @@ window.BYO = {
           "osm": "node/2075767203",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pizza 101",
@@ -16049,11 +16443,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16073,7 +16464,10 @@ window.BYO = {
           "osm": "way/1315042278",
           "distanceM": 1340
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Teta's Authentic Lebanese",
@@ -16081,6 +16475,8 @@ window.BYO = {
       "suburb": "Roseville Chase",
       "address": "25 Babbage Road, Roseville Chase NSW 2069",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.tetas.net.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.778295,
       "lng": 151.195287,
       "cuisine": "Lebanese",
@@ -16095,7 +16491,6 @@ window.BYO = {
       ],
       "dish": "Fattoush, trio of dips, garlic sauce (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Wednesday nights only; belly dancers",
       "website": "https://www.tetas.net.au/",
       "city": "Sydney",
@@ -16117,7 +16512,8 @@ window.BYO = {
           "osm": "way/1416665626",
           "distanceM": 10
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Mehmaan Indian Cuisine",
@@ -16125,6 +16521,8 @@ window.BYO = {
       "suburb": "Hornsby",
       "address": "264 Peats Ferry Road, Hornsby NSW 2077",
       "addressSource": "venue",
+      "addressSourceUrl": "https://mehmaan.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.704734,
       "lng": 151.098598,
       "cuisine": "Indian",
@@ -16136,7 +16534,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu (mixed entrée plate mentioned by a reviewer)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Dinner Tue–Sun 5–9:30pm; weekend lunch",
       "website": "https://mehmaan.com.au/",
       "city": "Sydney",
@@ -16150,7 +16547,8 @@ window.BYO = {
           "osm": "way/440747021",
           "distanceM": 1060
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Organica Pizzeria",
@@ -16167,11 +16565,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -16183,7 +16578,10 @@ window.BYO = {
           "osm": "node/2075767203",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Makiato",
@@ -16200,11 +16598,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16224,7 +16619,10 @@ window.BYO = {
           "osm": "node/5809698053",
           "distanceM": 1480
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Jaam-e-Jam",
@@ -16232,6 +16630,8 @@ window.BYO = {
       "suburb": "Hornsby",
       "address": "121/133 Pacific Hwy, Hornsby NSW 2077",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.jaamejam.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.706703,
       "lng": 151.098518,
       "cuisine": "Persian",
@@ -16243,7 +16643,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://www.jaamejam.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -16256,7 +16655,8 @@ window.BYO = {
           "osm": "way/440747021",
           "distanceM": 1050
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Karoo & Co",
@@ -16264,6 +16664,8 @@ window.BYO = {
       "suburb": "Wahroonga",
       "address": "178 Fox Valley Road, Wahroonga NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/10014412177",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.736699,
       "lng": 151.100384,
       "cuisine": "Modern Australian",
@@ -16275,8 +16677,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16289,7 +16689,9 @@ window.BYO = {
           "distanceM": 1730
         },
         "independent": null
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hanuman Thai Turramurra",
@@ -16306,11 +16708,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16323,7 +16722,10 @@ window.BYO = {
           "distanceM": 1200
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "It's Thai",
@@ -16340,11 +16742,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16364,7 +16763,10 @@ window.BYO = {
           "osm": "node/3248713638",
           "distanceM": 1770
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rosso Cavallino St Ives",
@@ -16372,6 +16774,8 @@ window.BYO = {
       "suburb": "St Ives",
       "address": "229 Mona Vale Road, St Ives NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://rossocavallino.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.729623,
       "lng": 151.162026,
       "cuisine": "Pizza/Italian",
@@ -16381,9 +16785,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://rossocavallino.com.au/",
       "city": "Sydney",
@@ -16398,7 +16800,9 @@ window.BYO = {
           "distanceM": 130
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Bento ya Japanese Cuisine",
@@ -16415,11 +16819,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16432,7 +16833,10 @@ window.BYO = {
           "distanceM": 70
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Sawmill",
@@ -16440,6 +16844,8 @@ window.BYO = {
       "suburb": "West Pymble",
       "address": "7 Duneba Avenue, West Pymble NSW 2073",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/775436434",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.765058,
       "lng": 151.138431,
       "cuisine": "Restaurant",
@@ -16449,11 +16855,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16473,7 +16876,10 @@ window.BYO = {
           "osm": "node/2075767203",
           "distanceM": 1030
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Thai",
@@ -16481,6 +16887,8 @@ window.BYO = {
       "suburb": "Thornleigh",
       "address": "1/30 Sefton Road, Thornleigh NSW 2120",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/1798158413",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.720833,
       "lng": 151.082222,
       "cuisine": "Thai",
@@ -16490,11 +16898,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16507,7 +16912,10 @@ window.BYO = {
           "distanceM": 1210
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chargrill Charlie's Beecroft",
@@ -16524,11 +16932,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16548,7 +16953,10 @@ window.BYO = {
           "osm": "way/1315042278",
           "distanceM": 1350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hannah's Beecroft",
@@ -16565,11 +16973,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16589,7 +16994,10 @@ window.BYO = {
           "osm": "way/1315042278",
           "distanceM": 1300
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Wok on Fox",
@@ -16597,6 +17005,8 @@ window.BYO = {
       "suburb": "Wahroonga",
       "address": "2-178 Fox Valley Road, Wahroonga NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/10014412176",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.736843,
       "lng": 151.100462,
       "cuisine": "Thai",
@@ -16606,11 +17016,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16623,14 +17030,19 @@ window.BYO = {
           "distanceM": 1710
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Blu Eatery",
       "region": "Upper North Shore",
       "suburb": "Hornsby",
-      "address": "Hornsby",
-      "addressSource": "suburb-only",
+      "address": "Shop B22, Westfield Shoppingtown, Florence St, Hornsby NSW 2077",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://blueatery.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.704202,
       "lng": 151.100721,
       "cuisine": "Modern Australian",
@@ -16640,9 +17052,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$5.5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "http://www.blueatery.com.au/",
       "city": "Sydney",
@@ -16664,7 +17074,9 @@ window.BYO = {
           "osm": "way/440747021",
           "distanceM": 880
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Divan Persian Restaurant",
@@ -16681,11 +17093,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16698,7 +17107,10 @@ window.BYO = {
           "distanceM": 1000
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Okami - Pennant Hills",
@@ -16715,11 +17127,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16739,7 +17148,10 @@ window.BYO = {
           "osm": "node/5003536380",
           "distanceM": 240
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Got Pho",
@@ -16756,11 +17168,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16773,7 +17182,10 @@ window.BYO = {
           "distanceM": 300
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Zana Ristorante",
@@ -16790,9 +17202,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://www.lazana.com.au/",
       "city": "Sydney",
@@ -16807,7 +17217,9 @@ window.BYO = {
           "distanceM": 930
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Maharaja’s On Carmen",
@@ -16824,11 +17236,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16848,7 +17257,10 @@ window.BYO = {
           "osm": "way/1315042278",
           "distanceM": 1870
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sento Japanese Kitchen",
@@ -16865,11 +17277,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16882,14 +17291,19 @@ window.BYO = {
           "distanceM": 20
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fish & Chix - Hornsby",
       "region": "Upper North Shore",
       "suburb": "Hornsby",
-      "address": "Hornsby",
-      "addressSource": "suburb-only",
+      "address": "Level 3, Westfield Hornsby, 236 Pacific Hwy, Hornsby NSW 2077",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://www.fishandchix.com.au/locations",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.703365,
       "lng": 151.101313,
       "cuisine": "Seafood",
@@ -16899,9 +17313,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.fishandchix.com.au/",
       "city": "Sydney",
@@ -16923,7 +17335,9 @@ window.BYO = {
           "osm": "way/440747021",
           "distanceM": 870
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Farina Pizzeria",
@@ -16940,11 +17354,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16957,7 +17368,10 @@ window.BYO = {
           "distanceM": 140
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Choyan",
@@ -16974,16 +17388,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Riffic Waitara",
@@ -17000,11 +17414,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17024,7 +17435,10 @@ window.BYO = {
           "osm": "way/440747021",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sizzling Slice",
@@ -17041,11 +17455,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17058,7 +17469,10 @@ window.BYO = {
           "distanceM": 1390
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Love Food Kitchen",
@@ -17075,11 +17489,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17099,7 +17510,10 @@ window.BYO = {
           "osm": "node/12536208939",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fuel By Night",
@@ -17116,11 +17530,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17140,7 +17551,10 @@ window.BYO = {
           "osm": "node/6952981796",
           "distanceM": 910
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "NERAMITR Thai Cuisine",
@@ -17157,11 +17571,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17174,14 +17585,19 @@ window.BYO = {
           "distanceM": 110
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pocket Pizza Brookvale",
       "region": "Northern Beaches",
       "suburb": "Brookvale",
-      "address": "Brookvale",
-      "addressSource": "suburb-only",
+      "address": "515 Pittwater Road, Brookvale NSW 2095",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://www.pocketpizza.com.au/contact-us",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.762585,
       "lng": 151.271431,
       "cuisine": "Restaurant",
@@ -17191,9 +17607,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://pocketpizza.com.au/",
       "city": "Sydney",
@@ -17215,7 +17629,9 @@ window.BYO = {
           "osm": "node/6952981796",
           "distanceM": 890
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Kee Japanese Restaurant",
@@ -17232,9 +17648,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://instagram.com/kee_japanese_restaurant",
       "city": "Sydney",
@@ -17249,7 +17663,9 @@ window.BYO = {
           "distanceM": 20
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Coastal Castile",
@@ -17257,6 +17673,8 @@ window.BYO = {
       "suburb": "Manly Vale",
       "address": "228 Condamine Street, Manly Vale NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.coastalcastilepizza.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.785704,
       "lng": 151.267118,
       "cuisine": "Restaurant",
@@ -17266,9 +17684,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.coastalcastilepizza.com.au/",
       "city": "Sydney",
@@ -17290,7 +17706,9 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 990
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Sri's Indian Eatery",
@@ -17298,6 +17716,8 @@ window.BYO = {
       "suburb": "Narrabeen",
       "address": "1305 Pittwater Road, Narrabeen NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6779966415",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.719885,
       "lng": 151.297816,
       "cuisine": "Indian",
@@ -17339,6 +17759,8 @@ window.BYO = {
       "suburb": "Collaroy",
       "address": "1030-1034 Pittwater Road, Collaroy NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/9231727339",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.736414,
       "lng": 151.302579,
       "cuisine": "Indian",
@@ -17389,9 +17811,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.pizzaatyours.com.au/",
       "city": "Sydney",
@@ -17413,7 +17833,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "KUZIRA Japanese Casual Dining",
@@ -17430,11 +17852,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17454,7 +17873,10 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Curry By the Curve",
@@ -17471,11 +17893,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17495,7 +17914,10 @@ window.BYO = {
           "osm": "node/12536474149",
           "distanceM": 1360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bazaar and Bar",
@@ -17503,6 +17925,8 @@ window.BYO = {
       "suburb": "Brookvale",
       "address": "10 Orchard Rd, Brookvale NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://bazaarandbar.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.765502,
       "lng": 151.271873,
       "cuisine": "Modern Indian",
@@ -17517,7 +17941,6 @@ window.BYO = {
       ],
       "dish": "Regional Indian small plates",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Sundays only; open Wed–Sun",
       "website": "https://bazaarandbar.com/",
       "city": "Sydney",
@@ -17539,7 +17962,8 @@ window.BYO = {
           "osm": "node/6952981796",
           "distanceM": 1190
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Clover Indian",
@@ -17556,11 +17980,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17573,7 +17994,10 @@ window.BYO = {
           "distanceM": 40
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Enishi Sushi",
@@ -17590,11 +18014,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17607,7 +18028,10 @@ window.BYO = {
           "distanceM": 70
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Little Manly Beach Kiosk",
@@ -17624,9 +18048,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.hellomanly.com.au/",
       "city": "Sydney",
@@ -17648,7 +18070,9 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 990
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Jipang",
@@ -17697,6 +18121,8 @@ window.BYO = {
       "suburb": "Manly",
       "address": "94 Pittwater Road, Manly NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://theherringroom.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.7927,
       "lng": 151.2857,
       "cuisine": "International / seafood",
@@ -17708,7 +18134,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu (seafood with Asian flavours)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO groups up to 7; closed Sun–Mon (per IWFS)",
       "website": "https://theherringroom.com.au/",
       "city": "Sydney",
@@ -17730,7 +18155,8 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 520
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Bangkok Soul Thai Restaurant",
@@ -17747,11 +18173,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17771,7 +18194,10 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 1280
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sushi Izakaya Waka",
@@ -17779,6 +18205,8 @@ window.BYO = {
       "suburb": "Manly",
       "address": "155 Pittwater Road, Manly NSW 2095",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.sushiwaka.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.7899,
       "lng": 151.2848,
       "cuisine": "Japanese",
@@ -17829,11 +18257,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17853,7 +18278,10 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 930
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Moby Dicks Whale Beach",
@@ -17870,11 +18298,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -17886,7 +18311,10 @@ window.BYO = {
           "osm": "node/7244449102",
           "distanceM": 1700
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chez Maurice et Linda",
@@ -17894,6 +18322,8 @@ window.BYO = {
       "suburb": "Balgowlah",
       "address": "292 Sydney Rd, Balgowlah NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.chezmauriceetlinda.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.794485,
       "lng": 151.266248,
       "cuisine": "French",
@@ -17905,7 +18335,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Beef Wellington (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Corkage figure from Tripadvisor",
       "website": "http://www.chezmauriceetlinda.com.au/",
       "city": "Sydney",
@@ -17927,7 +18356,8 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 310
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Northern Beaches Tadka",
@@ -17944,11 +18374,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17961,7 +18388,10 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Wooden Spice",
@@ -17978,11 +18408,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18002,7 +18429,10 @@ window.BYO = {
           "osm": "node/9951816160",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Garfish Manly",
@@ -18010,6 +18440,8 @@ window.BYO = {
       "suburb": "Manly",
       "address": "39 East Esplanade, Manly NSW 2095",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/1343184727",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.799854,
       "lng": 151.28602,
       "cuisine": "Seafood",
@@ -18021,7 +18453,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu (seafood)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://garfish.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -18042,7 +18473,8 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 970
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Manly Thai Gourmet",
@@ -18059,7 +18491,6 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -18083,7 +18514,8 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 1080
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Seachange Cafe",
@@ -18100,9 +18532,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://www.seachangecafe.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -18123,7 +18553,9 @@ window.BYO = {
           "osm": "node/9951816160",
           "distanceM": 1220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Phulkari Indian Cuisine",
@@ -18140,11 +18572,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18164,7 +18593,10 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 250
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Livoti's Italian Restaurant",
@@ -18172,6 +18604,8 @@ window.BYO = {
       "suburb": "Dee Why",
       "address": "13-15 FRANCIS STREET, Dee Why NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.livotis.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.752224,
       "lng": 151.284181,
       "cuisine": "Italian",
@@ -18183,7 +18617,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Meatballs, pasta (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Dinner Tue–Sat 6–9pm; reservations required",
       "website": "http://www.livotis.com.au/",
       "city": "Sydney",
@@ -18205,7 +18638,8 @@ window.BYO = {
           "osm": "node/6952981796",
           "distanceM": 900
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Busta",
@@ -18227,9 +18661,7 @@ window.BYO = {
       ],
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO Tuesdays only",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18249,7 +18681,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 800
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Muchacha Mexican Kitchen",
@@ -18266,11 +18700,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18290,7 +18721,10 @@ window.BYO = {
           "osm": "node/9951816160",
           "distanceM": 10
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Arun Thai Cuisine",
@@ -18307,9 +18741,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://arunthai.com.au/",
       "city": "Sydney",
@@ -18331,7 +18763,9 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 930
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "JC's Pizza Elanora",
@@ -18348,11 +18782,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18365,7 +18796,10 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Vietnam Why Not Restaurant",
@@ -18382,9 +18816,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://vietnamwhynot.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -18405,7 +18837,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 790
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Bijolias",
@@ -18426,7 +18860,6 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "Takeaway",
       "note": "BYO wine only",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18446,7 +18879,8 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 1060
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "Cinnamon Allambie Thai Cuisine",
@@ -18454,6 +18888,8 @@ window.BYO = {
       "suburb": "Allambie Heights",
       "address": "141-151 Allambie Rd, Allambie Heights NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.cinnamonthaiallambie.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.765544,
       "lng": 151.250057,
       "cuisine": "Thai",
@@ -18463,9 +18899,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine. Reported by a diner and noted locally as BYO; the venue hasn't confirmed its policy or corkage with us, so cal; BYO listed but not confirmed, so call first",
       "website": "http://www.cinnamonthaiallambie.com/",
       "city": "Sydney",
@@ -18480,7 +18914,9 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Golden Chef Asian Cuisine",
@@ -18497,11 +18933,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18521,7 +18954,10 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 1370
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "de Vita",
@@ -18538,10 +18974,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18561,7 +18994,10 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 950
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pizza Riccardo",
@@ -18569,6 +19005,8 @@ window.BYO = {
       "suburb": "Narrabeen",
       "address": "1425 Pittwater Road, Narrabeen NSW 2101",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6328599232",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.713142,
       "lng": 151.296864,
       "cuisine": "Italian, pizza",
@@ -18612,11 +19050,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18636,7 +19071,10 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 1000
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Toro Nero",
@@ -18686,11 +19124,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18710,7 +19145,10 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 1000
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Wockbar Manly",
@@ -18718,6 +19156,8 @@ window.BYO = {
       "suburb": "Manly",
       "address": "27 Belgrave Street, Manly NSW 2095",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.wockbarmanly.com",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.795974,
       "lng": 151.285269,
       "cuisine": "Asian",
@@ -18727,9 +19167,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://www.wockbarmanly.com",
       "city": "Sydney",
@@ -18751,7 +19189,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 790
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Pizza Capanna",
@@ -18768,11 +19208,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18792,7 +19229,10 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 920
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sankaku Izakaya",
@@ -18800,6 +19240,8 @@ window.BYO = {
       "suburb": "Newport",
       "address": "376 Barrenjoey Rd, Newport NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://sankakuizakaya.wixsite.com/mysite",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.654731,
       "lng": 151.321289,
       "cuisine": "Japanese izakaya",
@@ -18811,7 +19253,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Sushi, sashimi, rice bowls (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only; closed Mon",
       "website": "https://sankakuizakaya.wixsite.com/mysite",
       "city": "Sydney",
@@ -18833,14 +19274,17 @@ window.BYO = {
           "osm": "way/911684008",
           "distanceM": 1290
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Fishmongers Manly",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "Manly",
-      "addressSource": "suburb-only",
+      "address": "Shop 4, 11 Wentworth Street, Manly NSW 2095",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://www.mongers.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.798709,
       "lng": 151.287271,
       "cuisine": "Seafood (Gourmet Fish And Chips)",
@@ -18850,9 +19294,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.mongers.com.au/",
       "city": "Sydney",
@@ -18874,7 +19316,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 1020
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Yok Thai",
@@ -18882,6 +19326,8 @@ window.BYO = {
       "suburb": "Manly",
       "address": "11-21 Wentworth St, Manly NSW 2095",
       "addressSource": "venue",
+      "addressSourceUrl": "https://yokthai.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.798709,
       "lng": 151.287271,
       "cuisine": "Thai",
@@ -18891,9 +19337,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$25 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine at lunch only with $25 corkage (not dinner, public holidays or groups of 8+); modern Thai dining",
       "website": "https://yokthai.com.au",
       "city": "Sydney",
@@ -18915,7 +19359,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 1020
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Rice and Lake Thai",
@@ -18923,6 +19369,8 @@ window.BYO = {
       "suburb": "Narrabeen",
       "address": "2/1425 Pittwater Rd, Narrabeen NSW 2101",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.riceandlakethai.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.71318,
       "lng": 151.296864,
       "cuisine": "Thai",
@@ -18932,9 +19380,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://www.riceandlakethai.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -18948,7 +19394,9 @@ window.BYO = {
           "distanceM": 170
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Cowboy Thai Dee Why Restaurant",
@@ -18965,11 +19413,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18989,7 +19434,10 @@ window.BYO = {
           "osm": "node/6952981796",
           "distanceM": 720
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pound of Pizza",
@@ -19006,11 +19454,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19023,7 +19468,10 @@ window.BYO = {
           "distanceM": 1430
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Delhi Darbar Indian Restaurant",
@@ -19040,11 +19488,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19057,7 +19502,10 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tommy Panini Brookvale",
@@ -19074,11 +19522,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19098,7 +19543,10 @@ window.BYO = {
           "osm": "node/6952981796",
           "distanceM": 890
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chubb's Brookvale",
@@ -19115,11 +19563,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19139,7 +19584,10 @@ window.BYO = {
           "osm": "node/6952981796",
           "distanceM": 830
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ashiana Indian Restaurant",
@@ -19147,6 +19595,8 @@ window.BYO = {
       "suburb": "Manly",
       "address": "2 Sydney Road, Manly NSW 2095",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.ashianaindianmanly.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.797163,
       "lng": 151.287392,
       "cuisine": "Indian",
@@ -19156,9 +19606,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO",
       "website": "https://www.ashianaindianmanly.com/",
       "city": "Sydney",
@@ -19180,7 +19628,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 990
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Forty Beans",
@@ -19197,11 +19647,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19221,7 +19668,10 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chilli Club Thai Kitchen",
@@ -19238,11 +19688,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19255,7 +19702,10 @@ window.BYO = {
           "distanceM": 160
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kohinoor Indian",
@@ -19272,11 +19722,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19296,7 +19743,10 @@ window.BYO = {
           "osm": "node/1161127096",
           "distanceM": 1150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "JC's Pizza Harbord",
@@ -19313,11 +19763,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19337,7 +19784,10 @@ window.BYO = {
           "osm": "node/9951816160",
           "distanceM": 770
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ninja Japanese Restaurant",
@@ -19345,6 +19795,8 @@ window.BYO = {
       "suburb": "Avalon Beach",
       "address": "11-13 Avalon Parade, Avalon Beach NSW 2107",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12522849014",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.637143,
       "lng": 151.329991,
       "cuisine": "Japanese",
@@ -19354,9 +19806,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$5 per person (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO bottled wine only, $5 per person (from the restaurant's own drinks menu, checked 5 Oct 2026). Licensed as well. Othe",
       "website": "https://ninjarestaurant.com.au/",
       "city": "Sydney",
@@ -19378,7 +19828,9 @@ window.BYO = {
           "osm": "node/12536208939",
           "distanceM": 110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Momo Bar",
@@ -19395,9 +19847,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "http://www.momo.bar/",
       "city": "Sydney",
       "bottleShops": {
@@ -19418,7 +19868,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 910
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Pasadena",
@@ -19426,6 +19878,8 @@ window.BYO = {
       "suburb": "Church Point",
       "address": "1858 Pittwater Road, Church Point NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/328084508",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.644612,
       "lng": 151.284591,
       "cuisine": "Restaurant",
@@ -19435,16 +19889,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bistro Manly",
@@ -19461,9 +19915,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO. Corkage: free (Wednesday lunch only)",
       "website": "https://bistromanly.com.au",
       "city": "Sydney",
@@ -19485,7 +19937,9 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 890
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Cromer Curry House",
@@ -19502,11 +19956,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19526,7 +19977,10 @@ window.BYO = {
           "osm": "node/6952981796",
           "distanceM": 1660
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bluewater Cafe",
@@ -19534,6 +19988,8 @@ window.BYO = {
       "suburb": "Manly",
       "address": "28-29 South Steyne, Manly NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7092023481",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.797898,
       "lng": 151.288367,
       "cuisine": "Modern Australian",
@@ -19543,9 +19999,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$6 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://bluewatercafe.com.au/?utm_source=google&utm_medium=organic&utm_campaign=mybusiness",
       "city": "Sydney",
       "bottleShops": {
@@ -19566,7 +20020,9 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 1100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Thai Khaen Khoon",
@@ -19583,11 +20039,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19607,7 +20060,10 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 1020
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Garlic",
@@ -19624,11 +20080,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19641,7 +20094,10 @@ window.BYO = {
           "distanceM": 100
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cairo Bites",
@@ -19658,16 +20114,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Knuckles 2 You",
@@ -19684,11 +20140,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19701,7 +20154,10 @@ window.BYO = {
           "distanceM": 510
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Blue Heaven",
@@ -19709,6 +20165,8 @@ window.BYO = {
       "suburb": "Hurstville",
       "address": "238 Forest Road, Hurstville NSW 2220",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13989249401",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.96752,
       "lng": 151.10428,
       "cuisine": "Burmese",
@@ -19759,11 +20217,9 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19783,7 +20239,9 @@ window.BYO = {
           "osm": "node/8946450505",
           "distanceM": 240
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Thai Thae Rooftop (Westfield Hurstville)",
@@ -19791,6 +20249,8 @@ window.BYO = {
       "suburb": "Hurstville",
       "address": "3 Cross St, Hurstville NSW 2220",
       "addressSource": "venue",
+      "addressSourceUrl": "https://thaithae.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.96569,
       "lng": 151.10516,
       "cuisine": "Thai",
@@ -19841,11 +20301,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19858,7 +20315,10 @@ window.BYO = {
           "distanceM": 1540
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Eddie's Lebanese Eatery",
@@ -19875,11 +20335,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19899,7 +20356,10 @@ window.BYO = {
           "osm": "node/10619340064",
           "distanceM": 790
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "JHEER HOUSE | Wraps & Skewers",
@@ -19916,11 +20376,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19940,7 +20398,9 @@ window.BYO = {
           "osm": "node/5404621041",
           "distanceM": 90
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Dek Doy Thai Kitchen",
@@ -19998,11 +20458,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20022,7 +20480,9 @@ window.BYO = {
           "osm": "node/13432889391",
           "distanceM": 210
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Salwa's Garden",
@@ -20042,7 +20502,6 @@ window.BYO = {
       "dish": "Lamb mansaf, fattoush",
       "takeaway": "yes",
       "takeawayDetail": "Uber Eats, DoorDash",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20062,7 +20521,8 @@ window.BYO = {
           "osm": "node/3487935104",
           "distanceM": 1720
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "Benvenuti Cucina Italiana",
@@ -20079,11 +20539,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20096,7 +20553,10 @@ window.BYO = {
           "distanceM": 1650
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Cozy Vine",
@@ -20113,11 +20573,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20137,7 +20594,10 @@ window.BYO = {
           "osm": "node/8946450505",
           "distanceM": 360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Firehouse Grill",
@@ -20154,11 +20614,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20178,7 +20635,10 @@ window.BYO = {
           "osm": "node/10619340064",
           "distanceM": 1030
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Non Finito Pizzeria Ristorante",
@@ -20199,7 +20659,6 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "Phone orders 9579 4063",
       "note": "Cash only. Wed–Sun from 5pm",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20219,7 +20678,8 @@ window.BYO = {
           "osm": "node/10619340064",
           "distanceM": 1010
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "Pizzeria 217",
@@ -20236,11 +20696,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20260,7 +20717,10 @@ window.BYO = {
           "osm": "way/544666782",
           "distanceM": 1770
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Napoli Centro Pizzeria",
@@ -20277,11 +20737,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20294,7 +20751,10 @@ window.BYO = {
           "distanceM": 30
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Melthouse Pizza",
@@ -20302,6 +20762,8 @@ window.BYO = {
       "suburb": "Kingsgrove",
       "address": "247 Kingsgrove Road, Kingsgrove NSW 2208",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13412467944",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.941637,
       "lng": 151.10113,
       "cuisine": "Pizza",
@@ -20311,11 +20773,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20328,14 +20787,19 @@ window.BYO = {
           "distanceM": 90
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sunny Seafood Restaurant",
       "region": "St George",
       "suburb": "Mortdale",
-      "address": "Mortdale",
-      "addressSource": "suburb-only",
+      "address": "8 Pitt St, Mortdale NSW 2223",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://sunnyseafoodrestaurant.com.au/locations/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.97122,
       "lng": 151.080273,
       "cuisine": "Dim sum",
@@ -20345,9 +20809,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://sunnyseafoodrestaurant.com.au/",
       "city": "Sydney",
@@ -20369,7 +20831,9 @@ window.BYO = {
           "osm": "node/10619340064",
           "distanceM": 1000
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Thaleia Greek Taverna",
@@ -20377,6 +20841,8 @@ window.BYO = {
       "suburb": "Beverly Hills",
       "address": "467 King Georges Road, Beverly Hills NSW 2209",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/11053178030",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.951387,
       "lng": 151.082235,
       "cuisine": "Restaurant",
@@ -20386,11 +20852,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20410,7 +20873,10 @@ window.BYO = {
           "osm": "node/1081321621",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Land Thai Kitchen",
@@ -20427,11 +20893,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20451,7 +20914,10 @@ window.BYO = {
           "osm": "node/8946450505",
           "distanceM": 290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Burger World",
@@ -20468,11 +20934,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20492,7 +20955,10 @@ window.BYO = {
           "osm": "node/8946450505",
           "distanceM": 400
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Wok & Roast BBQ Kitchen",
@@ -20509,11 +20975,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20526,7 +20989,10 @@ window.BYO = {
           "distanceM": 1210
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pinocchio's Allawah",
@@ -20534,6 +21000,8 @@ window.BYO = {
       "suburb": "Allawah",
       "address": "440 Railway Parade, Allawah NSW 2218",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4279918890",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.970231,
       "lng": 151.115799,
       "cuisine": "Italian",
@@ -20543,9 +21011,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://pinocchios.com.au/",
       "city": "Sydney",
@@ -20567,7 +21033,9 @@ window.BYO = {
           "osm": "node/13432889391",
           "distanceM": 1390
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Thai on Sky",
@@ -20588,7 +21056,6 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "Pickup",
       "note": "Daily 5–10pm",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20608,7 +21075,8 @@ window.BYO = {
           "osm": "node/10619340064",
           "distanceM": 790
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "Thai Thae Hurstville",
@@ -20616,6 +21084,8 @@ window.BYO = {
       "suburb": "Hurstville",
       "address": "33 Macmahon St, Hurstville NSW 2220",
       "addressSource": "venue",
+      "addressSourceUrl": "https://thaithae.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.96548,
       "lng": 151.10211,
       "cuisine": "Thai",
@@ -20666,11 +21136,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20683,7 +21150,10 @@ window.BYO = {
           "distanceM": 1500
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Asahi Teppanyaki",
@@ -20691,6 +21161,8 @@ window.BYO = {
       "suburb": "Beverly Hills",
       "address": "459 King Georges Road, Beverly Hills NSW 2209",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/1081321644",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.95119,
       "lng": 151.081806,
       "cuisine": "Teppanyaki",
@@ -20700,11 +21172,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20724,7 +21193,10 @@ window.BYO = {
           "osm": "node/1081321621",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chez Pascal",
@@ -20732,6 +21204,8 @@ window.BYO = {
       "suburb": "Sans Souci",
       "address": "440 Rocky Point Road, Sans Souci NSW 2219",
       "addressSource": "venue",
+      "addressSourceUrl": "https://chezpascal.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.99443,
       "lng": 151.13082,
       "cuisine": "French",
@@ -20743,14 +21217,14 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Escargot, braised beef cheeks",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Tue–Sat 6:30–10:30pm. Older review mentions $8 corkage (unverified)",
       "website": "https://chezpascal.com.au",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Ramsgate Beach House",
@@ -20767,16 +21241,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mark's at Oatley",
@@ -20793,11 +21267,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20817,7 +21288,10 @@ window.BYO = {
           "osm": "node/3487935104",
           "distanceM": 2000
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tadka Indian Restaurant",
@@ -20825,6 +21299,8 @@ window.BYO = {
       "suburb": "Riverwood",
       "address": "4/176-180 Belmore Road, Riverwood NSW 2210",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4803278249",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.953436,
       "lng": 151.052112,
       "cuisine": "Indian",
@@ -20834,11 +21310,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20851,7 +21324,10 @@ window.BYO = {
           "distanceM": 1760
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tin Thai Restaurant",
@@ -20859,6 +21335,8 @@ window.BYO = {
       "suburb": "Kingsgrove",
       "address": "237 Kingsgrove Road, Kingsgrove NSW 2208",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13412467936",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.941345,
       "lng": 151.101073,
       "cuisine": "Thai",
@@ -20868,9 +21346,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$1.5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "http://www.tinthairestaurant.com/",
       "city": "Sydney",
       "bottleShops": {
@@ -20884,7 +21360,9 @@ window.BYO = {
           "distanceM": 70
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "JML DUMPLINGS Wolli Creek",
@@ -20901,11 +21379,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20925,7 +21400,10 @@ window.BYO = {
           "osm": "node/8946450505",
           "distanceM": 1050
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chubby Buns Burgers Rockdale",
@@ -20942,11 +21420,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20966,7 +21441,10 @@ window.BYO = {
           "osm": "node/5404621041",
           "distanceM": 290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Eat Grk",
@@ -20974,6 +21452,8 @@ window.BYO = {
       "suburb": "Beverly Hills",
       "address": "437-441 King Georges Road, Beverly Hills NSW 2209",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4803278248",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.950431,
       "lng": 151.081157,
       "cuisine": "Greek",
@@ -20983,11 +21463,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21007,7 +21484,10 @@ window.BYO = {
           "osm": "node/1081321621",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Imperial Peking Blakehurst",
@@ -21024,11 +21504,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21041,7 +21518,10 @@ window.BYO = {
           "distanceM": 1310
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cafe Talk",
@@ -21049,6 +21529,8 @@ window.BYO = {
       "suburb": "Kogarah",
       "address": "126 Railway Parade, Kogarah NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://cafetalk.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.964714,
       "lng": 151.132404,
       "cuisine": "Nepalese",
@@ -21058,9 +21540,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://cafetalk.com.au/",
       "city": "Sydney",
@@ -21082,7 +21562,9 @@ window.BYO = {
           "osm": "node/5404620962",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Jailhouse Rock Pizza & Pasta",
@@ -21099,9 +21581,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.jailhouse.com.au/",
       "city": "Sydney",
@@ -21123,7 +21603,9 @@ window.BYO = {
           "osm": "node/5404621041",
           "distanceM": 1950
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Sammy's Restaurant",
@@ -21131,6 +21613,8 @@ window.BYO = {
       "suburb": "Brighton-Le-Sands",
       "address": "168A President Avenue, Brighton-Le-Sands NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://sammysrestaurant.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.965886,
       "lng": 151.148888,
       "cuisine": "Lebanese/Mediterranean",
@@ -21140,9 +21624,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://sammysrestaurant.com.au/",
       "city": "Sydney",
@@ -21164,7 +21646,9 @@ window.BYO = {
           "osm": "node/5404620962",
           "distanceM": 1740
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Laltin Nepalese Cuisine",
@@ -21181,11 +21665,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21205,7 +21686,10 @@ window.BYO = {
           "osm": "node/5404621041",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lai Wah Chinese Restaurant",
@@ -21222,16 +21706,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bayblu Seafood Restaurant",
@@ -21248,11 +21732,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21265,7 +21746,10 @@ window.BYO = {
           "distanceM": 1540
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mamma Barone",
@@ -21282,9 +21766,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.mammabarone.com.au/",
       "city": "Sydney",
@@ -21306,7 +21788,9 @@ window.BYO = {
           "osm": "node/10619340064",
           "distanceM": 820
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Golden Oceans Chinese Seafood Restaurant",
@@ -21323,11 +21807,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine, spirits)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21347,7 +21828,10 @@ window.BYO = {
           "osm": "node/1081321621",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rokko",
@@ -21355,6 +21839,8 @@ window.BYO = {
       "suburb": "Hurstville",
       "address": "342 Forest Road, Hurstville NSW 2220",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13432889392",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.966667,
       "lng": 151.1,
       "cuisine": "Yakiniku",
@@ -21364,11 +21850,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21388,7 +21871,10 @@ window.BYO = {
           "osm": "node/13432889391",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Blue Buddha Thai Kitchen",
@@ -21405,16 +21891,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Queue A Bowl",
@@ -21431,11 +21917,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21455,7 +21938,10 @@ window.BYO = {
           "osm": "node/12803765952",
           "distanceM": 1040
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Gymea Pizza",
@@ -21472,11 +21958,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -21488,7 +21971,10 @@ window.BYO = {
           "osm": "node/9562721715",
           "distanceM": 960
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ros Niyom Thai Restaurant and Bar",
@@ -21546,9 +22032,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://depalmkitchen.com.au/",
       "city": "Sydney",
@@ -21570,7 +22054,9 @@ window.BYO = {
           "osm": "node/12149163896",
           "distanceM": 1370
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Fioretti Pizza",
@@ -21587,11 +22073,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21611,7 +22094,10 @@ window.BYO = {
           "osm": "node/2412504096",
           "distanceM": 1970
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "ALMO Pizza",
@@ -21628,11 +22114,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21652,7 +22135,10 @@ window.BYO = {
           "osm": "node/3595863262",
           "distanceM": 260
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Little Parrot on Oak",
@@ -21660,6 +22146,8 @@ window.BYO = {
       "suburb": "Cronulla",
       "address": "147 Ewos Parade, Cronulla NSW 2230",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.littleparrot.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.068175,
       "lng": 151.155066,
       "cuisine": "Australian",
@@ -21669,9 +22157,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.littleparrot.com.au/",
       "city": "Sydney",
@@ -21693,7 +22179,9 @@ window.BYO = {
           "osm": "way/617383022",
           "distanceM": 1640
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Good Time Indian Restaurant",
@@ -21710,9 +22198,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://goodtimeindian.com.au/",
       "city": "Sydney",
@@ -21734,7 +22220,9 @@ window.BYO = {
           "osm": "node/5427924724",
           "distanceM": 1690
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Hatz Off BBQ",
@@ -21751,11 +22239,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21775,7 +22261,9 @@ window.BYO = {
           "osm": "node/5427924724",
           "distanceM": 550
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "NOBORI Japanese Restaurant",
@@ -21792,11 +22280,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21816,7 +22301,10 @@ window.BYO = {
           "osm": "node/12803765952",
           "distanceM": 1240
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Charlie's Grill",
@@ -21833,11 +22321,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21850,7 +22335,10 @@ window.BYO = {
           "distanceM": 1930
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Salty Pearl",
@@ -21867,16 +22355,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rocksalt",
@@ -21884,6 +22372,8 @@ window.BYO = {
       "suburb": "Menai",
       "address": "72-80 Allison Crescent, Menai NSW 2234",
       "addressSource": "venue",
+      "addressSourceUrl": "https://rocksaltrestaurant.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.01238,
       "lng": 151.01771,
       "cuisine": "Modern Australian",
@@ -21983,11 +22473,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22000,7 +22487,10 @@ window.BYO = {
           "distanceM": 1850
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Majestic Indian",
@@ -22049,6 +22539,8 @@ window.BYO = {
       "suburb": "Sylvania",
       "address": "14 Princes Highway, Sylvania NSW 2224",
       "addressSource": "venue",
+      "addressSourceUrl": "https://sevenlanterns.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.00807,
       "lng": 151.10612,
       "cuisine": "Korean-Japanese",
@@ -22088,8 +22580,10 @@ window.BYO = {
       "name": "Copperpot Indian",
       "region": "Sutherland Shire",
       "suburb": "Menai",
-      "address": "Menai",
-      "addressSource": "suburb-only",
+      "address": "8/72-80 Allison Cres, Menai NSW 2234",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://copperpotindianrestaurant.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.01238,
       "lng": 151.01771,
       "cuisine": "Indian",
@@ -22134,7 +22628,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Seafood platter",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine 7 days",
       "website": "https://sealevel.com.au",
       "city": "Sydney",
@@ -22156,7 +22649,8 @@ window.BYO = {
           "osm": "node/1281315698",
           "distanceM": 490
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Jensens",
@@ -22164,6 +22658,8 @@ window.BYO = {
       "suburb": "Kareela",
       "address": "13 Freya Street, Kareela NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://jensensrestaurant.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.01789,
       "lng": 151.08053,
       "cuisine": "Modern Australian",
@@ -22219,11 +22715,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22243,7 +22736,10 @@ window.BYO = {
           "osm": "node/12149163896",
           "distanceM": 1420
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Rim Nam",
@@ -22251,6 +22747,8 @@ window.BYO = {
       "suburb": "Como",
       "address": "2 Cremona Road, Como NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.thairimnam.com.au/index.html",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.997333,
       "lng": 151.070493,
       "cuisine": "Thai",
@@ -22260,9 +22758,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$4 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed and BYO wine only, $4 per person corkage; riverside Thai restaurant overlooking the Georges River; BYO listed but not confirmed, so call first",
       "website": "http://www.thairimnam.com.au/index.html",
       "city": "Sydney",
@@ -22284,7 +22780,9 @@ window.BYO = {
           "osm": "node/5264065352",
           "distanceM": 1470
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Talotta's Pizzeria",
@@ -22301,11 +22799,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22318,7 +22813,10 @@ window.BYO = {
           "distanceM": 10
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Akita Teppanyaki",
@@ -22335,11 +22833,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22359,7 +22854,10 @@ window.BYO = {
           "osm": "node/5264065352",
           "distanceM": 1350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sa-Ne' Thai Cuisine",
@@ -22367,6 +22865,8 @@ window.BYO = {
       "suburb": "Sutherland",
       "address": "790 Old Princes Hwy, Sutherland NSW 2232",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.sanethai.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.03135,
       "lng": 151.06615,
       "cuisine": "Thai",
@@ -22378,7 +22878,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Khao soi, avocado green curry, duck curry",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed; BYO per a 2025 review",
       "website": "https://www.sanethai.com.au",
       "city": "Sydney",
@@ -22400,7 +22899,8 @@ window.BYO = {
           "osm": "node/5299038871",
           "distanceM": 560
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Cornerstone",
@@ -22417,11 +22917,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22441,7 +22938,10 @@ window.BYO = {
           "osm": "node/3595863262",
           "distanceM": 260
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chiang Mai House",
@@ -22458,11 +22958,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22475,7 +22972,10 @@ window.BYO = {
           "distanceM": 1090
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Giro Osteria",
@@ -22496,7 +22996,6 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "Online order (orderonline.giro-osteria.com.au)",
       "note": "$20 pasta Thu nights",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22516,7 +23015,8 @@ window.BYO = {
           "osm": "node/1281315698",
           "distanceM": 190
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "Fior",
@@ -22538,7 +23038,6 @@ window.BYO = {
       ],
       "dish": "Rigatoni alla vodka",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO lunches & Sunday night only, wine/sparkling",
       "website": "https://fiorrestaurant.com.au",
       "city": "Sydney",
@@ -22560,7 +23059,8 @@ window.BYO = {
           "osm": "node/5299038871",
           "distanceM": 1380
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "The Local Pantry",
@@ -22577,11 +23077,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22601,7 +23098,10 @@ window.BYO = {
           "osm": "node/3595863262",
           "distanceM": 250
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Moksha Indian Restaurant",
@@ -22609,6 +23109,8 @@ window.BYO = {
       "suburb": "Jannali",
       "address": "1/523 Box Road, Jannali NSW 2226",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/3157395370",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.016094,
       "lng": 151.066641,
       "cuisine": "Indian",
@@ -22618,11 +23120,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22642,14 +23141,19 @@ window.BYO = {
           "osm": "node/5264065352",
           "distanceM": 1670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Monkey Thai",
       "region": "Sutherland Shire",
       "suburb": "Sylvania Waters",
-      "address": "Sylvania Waters",
-      "addressSource": "suburb-only",
+      "address": "217 Belgrave Esplanade, Sylvania Waters NSW",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://www.monkeythai.com.au/contact.html",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.02288,
       "lng": 151.10878,
       "cuisine": "Thai",
@@ -22700,11 +23204,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22724,7 +23225,10 @@ window.BYO = {
           "osm": "node/2412504096",
           "distanceM": 1220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Jbeil Cuisine Kareela",
@@ -22741,11 +23245,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22765,7 +23266,10 @@ window.BYO = {
           "osm": "node/5264065352",
           "distanceM": 1150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Green Shiso",
@@ -22823,11 +23327,9 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22847,7 +23349,9 @@ window.BYO = {
           "osm": "node/2412504096",
           "distanceM": 1750
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "P&P Kitchen",
@@ -22864,16 +23368,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Chef John's dumplings",
@@ -22890,11 +23394,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22914,7 +23415,10 @@ window.BYO = {
           "osm": "node/5264065352",
           "distanceM": 1190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dose Engadine",
@@ -22931,11 +23435,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22955,7 +23456,10 @@ window.BYO = {
           "osm": "node/3595863262",
           "distanceM": 800
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Engadine Foodstop",
@@ -22972,11 +23476,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22996,7 +23497,10 @@ window.BYO = {
           "osm": "node/3595863262",
           "distanceM": 800
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Summer Salt",
@@ -23004,6 +23508,8 @@ window.BYO = {
       "suburb": "Cronulla",
       "address": "66 Mitchell Rd, Cronulla NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://srghospitality.com.au/venue/summer-salt/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.046169,
       "lng": 151.158844,
       "cuisine": "Modern Australian (Seafood)",
@@ -23013,9 +23519,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$18 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Corkage $18 per bottle",
       "website": "https://srghospitality.com.au/venue/summer-salt/",
       "city": "Sydney",
@@ -23037,7 +23541,9 @@ window.BYO = {
           "osm": "node/1281315698",
           "distanceM": 900
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Kuroneko Ramen Noodle Bar",
@@ -23056,9 +23562,7 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Tonkotsu ramen",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23078,7 +23582,9 @@ window.BYO = {
           "osm": "node/5299038871",
           "distanceM": 1090
         }
-      }
+      },
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Siam Thai Sutherland",
@@ -23086,6 +23592,8 @@ window.BYO = {
       "suburb": "Sutherland",
       "address": "754-760 Old Princes Hwy, Sutherland NSW 2232",
       "addressSource": "venue",
+      "addressSourceUrl": "https://siamthaisuther.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.03065,
       "lng": 151.06457,
       "cuisine": "Thai",
@@ -23126,6 +23634,8 @@ window.BYO = {
       "suburb": "Cronulla",
       "address": "5/1 Ocean Grove, Cronulla NSW 2230",
       "addressSource": "venue",
+      "addressSourceUrl": "https://royalorchardthai.com",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.05336,
       "lng": 151.15348,
       "cuisine": "Thai",
@@ -23176,11 +23686,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23193,7 +23700,10 @@ window.BYO = {
           "distanceM": 70
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pippis Cronulla",
@@ -23201,6 +23711,8 @@ window.BYO = {
       "suburb": "Cronulla",
       "address": "2 Tonkin Street, Cronulla NSW 2230",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.pippiscronulla.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.055762,
       "lng": 151.1501,
       "cuisine": "Restaurant",
@@ -23210,9 +23722,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.pippiscronulla.com.au/",
       "city": "Sydney",
@@ -23234,7 +23744,9 @@ window.BYO = {
           "osm": "way/617383022",
           "distanceM": 340
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "La Cucina",
@@ -23251,11 +23763,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23275,7 +23784,10 @@ window.BYO = {
           "osm": "node/5299038871",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rosin Court",
@@ -23292,11 +23804,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23316,7 +23825,10 @@ window.BYO = {
           "osm": "node/12803765952",
           "distanceM": 1210
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bellezza Pizza",
@@ -23333,11 +23845,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23350,7 +23859,10 @@ window.BYO = {
           "distanceM": 190
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Moon's Sushi",
@@ -23367,11 +23879,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23384,7 +23893,10 @@ window.BYO = {
           "distanceM": 190
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Benny's Cronulla",
@@ -23392,6 +23904,8 @@ window.BYO = {
       "suburb": "Cronulla",
       "address": "27 Tonkin St, Cronulla NSW 2230",
       "addressSource": "venue",
+      "addressSourceUrl": "https://bennyscronulla.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.057419,
       "lng": 151.151003,
       "cuisine": "Restaurant",
@@ -23401,9 +23915,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://bennyscronulla.com.au/",
       "city": "Sydney",
@@ -23425,7 +23937,9 @@ window.BYO = {
           "osm": "way/617383022",
           "distanceM": 460
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Ur Pho",
@@ -23433,6 +23947,8 @@ window.BYO = {
       "suburb": "Cronulla",
       "address": "63 Cronulla St, Cronulla NSW 2230",
       "addressSource": "venue",
+      "addressSourceUrl": "http://urpho.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.054516,
       "lng": 151.152043,
       "cuisine": "Vietnamese",
@@ -23442,9 +23958,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$4.5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO, approx $4.50 corkage; Vietnamese pho restaurant in Cronulla Mall by Munro Park",
       "website": "http://urpho.com.au/",
       "city": "Sydney",
@@ -23466,7 +23980,9 @@ window.BYO = {
           "osm": "way/617383022",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Tasty Tandoori Indian Restaurant",
@@ -23483,9 +23999,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://tastytandooriindianrestaurant.com.au/",
       "city": "Sydney",
@@ -23507,7 +24021,9 @@ window.BYO = {
           "osm": "node/5427924724",
           "distanceM": 1630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Vinegar and Brown Paper",
@@ -23524,16 +24040,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Sum Lam Restaurant",
@@ -23550,11 +24066,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23567,7 +24080,10 @@ window.BYO = {
           "distanceM": 1100
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chunn Thai Cuisine",
@@ -23584,11 +24100,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23601,7 +24114,10 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fahita Pizza",
@@ -23618,11 +24134,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23635,7 +24148,10 @@ window.BYO = {
           "distanceM": 1260
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pho & Spice",
@@ -23652,11 +24168,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23669,7 +24182,10 @@ window.BYO = {
           "distanceM": 20
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Breakfoosh",
@@ -23686,11 +24202,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23703,7 +24216,10 @@ window.BYO = {
           "distanceM": 1260
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cocktails & CO",
@@ -23720,16 +24236,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "3 Tomatoes",
@@ -23737,6 +24253,8 @@ window.BYO = {
       "suburb": "Ashbury",
       "address": "121 Holden Street, Ashbury NSW 2193",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/361665584",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.895959,
       "lng": 151.124851,
       "cuisine": "Breakfast",
@@ -23746,11 +24264,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23770,7 +24285,10 @@ window.BYO = {
           "osm": "node/11061427105",
           "distanceM": 860
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "First Street Pantry",
@@ -23787,11 +24305,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23811,7 +24326,10 @@ window.BYO = {
           "osm": "way/544666782",
           "distanceM": 930
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tsipouro Taverna",
@@ -23819,6 +24337,8 @@ window.BYO = {
       "suburb": "Earlwood",
       "address": "22 Clarke Street, Earlwood NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://tsipourotaverna.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.92612,
       "lng": 151.12291,
       "cuisine": "Greek",
@@ -23869,11 +24389,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23886,7 +24403,10 @@ window.BYO = {
           "distanceM": 30
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pikkio Pizzeria Trattoria",
@@ -23894,6 +24414,8 @@ window.BYO = {
       "suburb": "Panania",
       "address": "188A Tower St, Panania NSW 2213",
       "addressSource": "venue",
+      "addressSourceUrl": "https://pikkio.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.95558,
       "lng": 150.99383,
       "cuisine": "Italian",
@@ -23928,11 +24450,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23945,7 +24464,10 @@ window.BYO = {
           "distanceM": 1610
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Belmore Pizza and Manooush",
@@ -23962,11 +24484,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23979,7 +24498,10 @@ window.BYO = {
           "distanceM": 1300
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Aces Ocean Foods",
@@ -23987,6 +24509,8 @@ window.BYO = {
       "suburb": "Padstow",
       "address": "2 Howard Road, Padstow NSW 2211",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.acesoceanfoods.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.953078,
       "lng": 151.034676,
       "cuisine": "Hamburger",
@@ -23996,9 +24520,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.acesoceanfoods.com.au/",
       "city": "Sydney",
@@ -24013,7 +24535,9 @@ window.BYO = {
           "distanceM": 150
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Pizza Boss Sydney",
@@ -24030,11 +24554,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24047,7 +24568,10 @@ window.BYO = {
           "distanceM": 1780
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Toscanini Italian restaurant",
@@ -24064,11 +24588,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24081,7 +24602,10 @@ window.BYO = {
           "distanceM": 1880
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ozi Desi",
@@ -24098,11 +24622,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24115,7 +24636,10 @@ window.BYO = {
           "distanceM": 1550
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "A Brothers Kebab & Pizza",
@@ -24123,6 +24647,8 @@ window.BYO = {
       "suburb": "Chester Hill",
       "address": "5A Chester Hill Road, Chester Hill NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/13784036120",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.883347,
       "lng": 151.00086,
       "cuisine": "Turkish",
@@ -24132,11 +24658,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24149,7 +24672,10 @@ window.BYO = {
           "distanceM": 110
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tokyo Table",
@@ -24157,6 +24683,8 @@ window.BYO = {
       "suburb": "Canterbury",
       "address": "5/1 Cooks Avenue, Canterbury NSW 2193",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/10897730635",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.91561,
       "lng": 151.11173,
       "cuisine": "Japanese",
@@ -24170,7 +24698,6 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "DoorDash",
       "note": "BYO unverified — AGFG listing only",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24190,7 +24717,8 @@ window.BYO = {
           "osm": "way/544666782",
           "distanceM": 890
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "Nahm Thai",
@@ -24207,16 +24735,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Corner Crave",
@@ -24233,16 +24761,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Se Jong Korean BBQ Buffet",
@@ -24259,9 +24787,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$4 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed and BYO wine only, $4 corkage per bottle; Korean BBQ buffet on Campsie's Beamish St; BYO listed but not confirmed, so call first",
       "website": "https://social.quandoo.com/en/groups/Se-Jong-Korean-BBQ-Buffet-Campsie",
       "city": "Sydney",
@@ -24283,7 +24809,9 @@ window.BYO = {
           "osm": "way/544666782",
           "distanceM": 1510
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Me Pho Vietnamese Kogarah",
@@ -24300,9 +24828,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "http://mepho.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -24316,7 +24842,9 @@ window.BYO = {
           "distanceM": 260
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Wally & Ossie's",
@@ -24324,6 +24852,8 @@ window.BYO = {
       "suburb": "Campsie",
       "address": "288 Beamish Street, Campsie NSW 2194",
       "addressSource": "venue",
+      "addressSourceUrl": "https://wallyandossies.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.913987,
       "lng": 151.10398,
       "cuisine": "Pizza",
@@ -24333,9 +24863,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://wallyandossies.com.au/",
       "city": "Sydney",
@@ -24357,7 +24885,9 @@ window.BYO = {
           "osm": "way/544666782",
           "distanceM": 1500
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "The Kebab Shop",
@@ -24374,11 +24904,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24391,7 +24918,10 @@ window.BYO = {
           "distanceM": 210
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mina Bay Seafood",
@@ -24408,11 +24938,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24425,7 +24952,10 @@ window.BYO = {
           "distanceM": 1930
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "MAMMA DELLA PIZZA",
@@ -24442,11 +24972,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24459,7 +24986,10 @@ window.BYO = {
           "distanceM": 420
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Hanoi",
@@ -24510,16 +25040,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Spring Garden Restaurant",
@@ -24536,16 +25066,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Milperra Pizza & Pasta",
@@ -24562,16 +25092,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Raw Prawn Fish Market",
@@ -24588,11 +25118,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24605,7 +25132,10 @@ window.BYO = {
           "distanceM": 1460
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Al Aseel Greenacre",
@@ -24622,11 +25152,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24639,7 +25166,10 @@ window.BYO = {
           "distanceM": 1800
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Twin Willows Hotels",
@@ -24656,11 +25186,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24673,7 +25200,10 @@ window.BYO = {
           "distanceM": 1880
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pasta La Vista",
@@ -24690,11 +25220,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24707,7 +25234,10 @@ window.BYO = {
           "distanceM": 1300
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Kebab BROTHER'S",
@@ -24724,11 +25254,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24741,7 +25268,10 @@ window.BYO = {
           "distanceM": 240
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Daily Garden Chinese Take Away",
@@ -24758,16 +25288,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Gebran Lebanese Cuisine",
@@ -24784,11 +25314,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24801,7 +25328,10 @@ window.BYO = {
           "distanceM": 630
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "MaZi at Lantern Club",
@@ -24818,11 +25348,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24835,7 +25362,10 @@ window.BYO = {
           "distanceM": 1560
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Hutt Greenacre",
@@ -24852,11 +25382,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24869,7 +25396,10 @@ window.BYO = {
           "distanceM": 1780
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Shawerma Aldaya'a",
@@ -24886,11 +25416,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24903,7 +25430,10 @@ window.BYO = {
           "distanceM": 240
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mano Manoush",
@@ -24920,11 +25450,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24937,7 +25464,10 @@ window.BYO = {
           "distanceM": 370
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Telopea Take Away",
@@ -24954,11 +25484,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24978,7 +25506,9 @@ window.BYO = {
           "osm": "node/12310919526",
           "distanceM": 1400
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "barcelona restaurant",
@@ -24995,11 +25525,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25012,7 +25539,10 @@ window.BYO = {
           "distanceM": 270
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Zeitoon Grill Restaurant",
@@ -25029,16 +25559,16 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Liverpool Nutrition",
@@ -25055,9 +25585,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.instagram.com/liverpoolnutrition/",
       "city": "Sydney",
@@ -25079,7 +25607,9 @@ window.BYO = {
           "osm": "node/9676422221",
           "distanceM": 320
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "MASHAAWEE W BASS",
@@ -25096,16 +25626,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Asees Indian Restaurant",
@@ -25113,6 +25643,8 @@ window.BYO = {
       "suburb": "Harris Park",
       "address": "97 Wigram St, Harris Park NSW 2150",
       "addressSource": "venue",
+      "addressSourceUrl": "http://aseesharrispark.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.820208,
       "lng": 151.009581,
       "cuisine": "Indian",
@@ -25122,9 +25654,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$3 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine, $3 per person corkage. North Indian restaurant on Harris Park's Little India strip; BYO listed but not confirmed, so call first",
       "website": "http://aseesharrispark.com.au/",
       "city": "Sydney",
@@ -25146,7 +25676,9 @@ window.BYO = {
           "osm": "node/6669783188",
           "distanceM": 280
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Il Eok Jo",
@@ -25163,11 +25695,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -25179,7 +25708,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mithho Nepalese Restaurant",
@@ -25196,11 +25728,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -25212,7 +25741,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sungshim",
@@ -25229,11 +25761,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -25245,7 +25774,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 130
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sushi Sapporo Westmead",
@@ -25262,11 +25794,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25286,7 +25815,10 @@ window.BYO = {
           "osm": "node/1635957633",
           "distanceM": 710
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "TJ's Pizza",
@@ -25294,6 +25826,8 @@ window.BYO = {
       "suburb": "Telopea",
       "address": "5/1-6 Benaud Place, Telopea NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1536472726",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.796129,
       "lng": 151.044524,
       "cuisine": "Pizza",
@@ -25303,11 +25837,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25327,7 +25858,10 @@ window.BYO = {
           "osm": "node/12310919526",
           "distanceM": 1370
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ogong",
@@ -25344,11 +25878,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -25360,7 +25891,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 270
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Birdies Woodfired Kitchen",
@@ -25377,16 +25911,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Vita Mediterranean",
@@ -25403,11 +25937,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25420,7 +25951,10 @@ window.BYO = {
           "distanceM": 40
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Meo's Kitchen",
@@ -25437,11 +25971,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -25453,7 +25984,10 @@ window.BYO = {
           "osm": "node/14045696942",
           "distanceM": 1610
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Naked Flame Pizzeria",
@@ -25461,6 +25995,8 @@ window.BYO = {
       "suburb": "South Penrith",
       "address": "181A Smith Street, South Penrith NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://nakedflamepizzeria.com",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.7667,
       "lng": 150.70196,
       "cuisine": "Italian pizza",
@@ -25472,7 +26008,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pizza",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Wed–Sun 5–9pm",
       "website": "https://nakedflamepizzeria.com",
       "city": "Sydney",
@@ -25494,7 +26029,8 @@ window.BYO = {
           "osm": "node/7221980995",
           "distanceM": 1760
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "OZ GRILLZ",
@@ -25511,11 +26047,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25528,7 +26061,10 @@ window.BYO = {
           "distanceM": 980
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "DUROOWA POCHA",
@@ -25545,11 +26081,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -25561,7 +26094,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 300
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tasty Thai",
@@ -25578,16 +26114,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Windsor Thai",
@@ -25595,6 +26131,8 @@ window.BYO = {
       "suburb": "Windsor",
       "address": "82 George Street, Windsor NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/10591053657",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.605296,
       "lng": 150.823156,
       "cuisine": "Pizza",
@@ -25604,11 +26142,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25621,7 +26156,10 @@ window.BYO = {
           "distanceM": 840
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dawn House",
@@ -25629,6 +26167,8 @@ window.BYO = {
       "suburb": "Auburn",
       "address": "17 Silverwater Road, Auburn NSW 2144",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.dawnhouse.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.84278,
       "lng": 151.04388,
       "cuisine": "Korean BBQ & hotpot buffet",
@@ -25640,7 +26180,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Korean BBQ & hotpot buffet",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Fri–Sun 5:30–10pm. Halal/no-pork options available",
       "website": "https://www.dawnhouse.com.au",
       "city": "Sydney",
@@ -25655,7 +26194,8 @@ window.BYO = {
           "distanceM": 1490
         },
         "independent": null
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "TK Something",
@@ -25672,11 +26212,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25696,7 +26233,10 @@ window.BYO = {
           "osm": "way/1011978702",
           "distanceM": 1360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Barluck Seafood Restaurant",
@@ -25704,6 +26244,8 @@ window.BYO = {
       "suburb": "Cabramatta",
       "address": "94 John St, Cabramatta NSW 2166",
       "addressSource": "venue",
+      "addressSourceUrl": "https://barluck.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.8951,
       "lng": 150.93456,
       "cuisine": "Chinese seafood",
@@ -25715,7 +26257,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Singapore chilli live mud crab",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://barluck.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -25736,7 +26277,8 @@ window.BYO = {
           "osm": "node/7639767185",
           "distanceM": 80
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Ambarsariya Dhaba",
@@ -25753,11 +26295,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25770,7 +26309,10 @@ window.BYO = {
           "distanceM": 1600
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "DJ Vietnamese Pho restaurant",
@@ -25787,11 +26329,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25811,7 +26350,10 @@ window.BYO = {
           "osm": "node/14295197718",
           "distanceM": 1800
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kouzina Greco",
@@ -25819,6 +26361,8 @@ window.BYO = {
       "suburb": "Parramatta",
       "address": "16 Phillip St, Parramatta NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://kouzinagreco.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.81203,
       "lng": 151.00349,
       "cuisine": "Greek",
@@ -25858,8 +26402,10 @@ window.BYO = {
       "name": "PoppiTino",
       "region": "Western Sydney",
       "suburb": "Kingswood",
-      "address": "Kingswood",
-      "addressSource": "suburb-only",
+      "address": "Shop 1, 82a O'Connell Street, Kingswood NSW 2747",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://poppitino.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.768714,
       "lng": 150.734776,
       "cuisine": "Italian",
@@ -25869,9 +26415,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.poppitino.com.au/?utm_source=GMB&utm_medium=GMB&utm_campaign=GMBProfile",
       "city": "Sydney",
@@ -25893,7 +26437,9 @@ window.BYO = {
           "osm": "node/7221980995",
           "distanceM": 1910
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Mamak Parramatta",
@@ -25910,11 +26456,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -25934,7 +26477,10 @@ window.BYO = {
           "osm": "node/3114386659",
           "distanceM": 850
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sushi Mata",
@@ -25942,6 +26488,8 @@ window.BYO = {
       "suburb": "Parramatta",
       "address": "275 Church Street, Parramatta NSW 2150",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.sushimata.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.81253,
       "lng": 151.0036,
       "cuisine": "Japanese",
@@ -25983,6 +26531,8 @@ window.BYO = {
       "suburb": "Penrith",
       "address": "585 High St, Penrith NSW 2750",
       "addressSource": "venue",
+      "addressSourceUrl": "https://thaithae.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.75061,
       "lng": 150.69088,
       "cuisine": "Thai",
@@ -26017,6 +26567,8 @@ window.BYO = {
       "suburb": "Blacktown",
       "address": "17 Patrick St, Blacktown NSW 2148",
       "addressSource": "venue",
+      "addressSourceUrl": "https://vietsoul.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.76987,
       "lng": 150.90651,
       "cuisine": "Vietnamese",
@@ -26028,7 +26580,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pho, crispy chicken rice",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Daily 11am–9:30pm",
       "website": "https://vietsoul.com.au",
       "city": "Sydney",
@@ -26050,7 +26601,8 @@ window.BYO = {
           "osm": "node/2138692504",
           "distanceM": 810
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Rose Niyom Glenmore Park",
@@ -26067,16 +26619,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "5 Star Manoosh & Pizza",
@@ -26093,11 +26645,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26117,7 +26666,10 @@ window.BYO = {
           "osm": "node/14295197718",
           "distanceM": 1890
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Viet House Rolls",
@@ -26125,6 +26677,8 @@ window.BYO = {
       "suburb": "Westmead",
       "address": "160 Hawkesbury Road, Westmead NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/11335014402",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.806524,
       "lng": 150.987312,
       "cuisine": "Vietnamese",
@@ -26134,11 +26688,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26158,7 +26709,10 @@ window.BYO = {
           "osm": "node/1635957633",
           "distanceM": 710
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bau Truong Cabramatta",
@@ -26166,6 +26720,8 @@ window.BYO = {
       "suburb": "Cabramatta",
       "address": "9/11 Hughes Street, Cabramatta NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.bautruong.com.au/restaurant-locations/cabramatta/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.893476,
       "lng": 150.936391,
       "cuisine": "Vietnamese",
@@ -26175,9 +26731,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$1.5 (wine)",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://www.bautruong.com.au/restaurant-locations/cabramatta/",
       "city": "Sydney",
       "bottleShops": {
@@ -26198,7 +26752,9 @@ window.BYO = {
           "osm": "node/7639767185",
           "distanceM": 210
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Ingleburn Nutrition Corner",
@@ -26215,11 +26771,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26239,14 +26792,19 @@ window.BYO = {
           "osm": "node/14295197718",
           "distanceM": 1890
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "BlackBear BBQ",
       "region": "Western Sydney",
       "suburb": "Blacktown",
-      "address": "Blacktown",
-      "addressSource": "suburb-only",
+      "address": "11/27 Forge St, Blacktown NSW 2148",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://www.blackbearbbq.com.au/contact-1",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.75252,
       "lng": 150.91043,
       "cuisine": "American BBQ",
@@ -26258,7 +26816,6 @@ window.BYO = {
       "byoConfirmed": false,
       "dish": "American BBQ (no signature dish verified)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO unverified — AGFG listing only",
       "website": "https://www.blackbearbbq.com.au",
       "city": "Sydney",
@@ -26272,7 +26829,8 @@ window.BYO = {
           "osm": "node/8380734741",
           "distanceM": 1220
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Twelve Spices",
@@ -26280,6 +26838,8 @@ window.BYO = {
       "suburb": "Canley Heights",
       "address": "197 St, Canley Heights NSW 2166",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.twelvespices.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.88677,
       "lng": 150.91369,
       "cuisine": "Lao & Thai",
@@ -26353,6 +26913,8 @@ window.BYO = {
       "suburb": "Auburn",
       "address": "139 Parramatta Road, Auburn NSW 2144",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.peranakanplace.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.843071,
       "lng": 151.039444,
       "cuisine": "Singaporean/Peranakan",
@@ -26362,9 +26924,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "$1.5 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.peranakanplace.com.au/",
       "city": "Sydney",
@@ -26379,7 +26939,9 @@ window.BYO = {
           "distanceM": 1840
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Rydalmere Kebabs",
@@ -26396,11 +26958,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26420,7 +26979,10 @@ window.BYO = {
           "osm": "node/12310919526",
           "distanceM": 1150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tandoori Village",
@@ -26437,11 +26999,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26454,7 +27013,10 @@ window.BYO = {
           "distanceM": 170
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lakeside Restaurant",
@@ -26471,16 +27033,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.lakesiderestaurant.com.au/",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Chinese Hot Pot Noodle",
@@ -26497,11 +27059,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26521,7 +27080,10 @@ window.BYO = {
           "osm": "node/12310919526",
           "distanceM": 1360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Little Neros Pizza & Pasta",
@@ -26538,11 +27100,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26555,7 +27114,10 @@ window.BYO = {
           "distanceM": 270
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tonight Lidcombe",
@@ -26572,11 +27134,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -26588,7 +27147,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 250
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mulgoa Take Away",
@@ -26605,11 +27167,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26622,7 +27181,10 @@ window.BYO = {
           "distanceM": 70
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Restaurant 317",
@@ -26671,6 +27233,8 @@ window.BYO = {
       "suburb": "Cabramatta",
       "address": "100 John Street, Cabramatta NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://tanviet.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.895042,
       "lng": 150.934137,
       "cuisine": "Vietnamese",
@@ -26680,9 +27244,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Varies — call ahead (wine, beer)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO; famous for crispy chicken. Long-running Vietnamese noodle house on Cabramatta's John St strip; BYO listed but not confirmed, so call first",
       "website": "https://tanviet.com.au/",
       "city": "Sydney",
@@ -26704,7 +27266,9 @@ window.BYO = {
           "osm": "node/7639767185",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Candelori's",
@@ -26721,11 +27285,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26738,7 +27299,10 @@ window.BYO = {
           "distanceM": 960
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Luigi's Restaurant",
@@ -26755,11 +27319,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26772,7 +27333,10 @@ window.BYO = {
           "distanceM": 670
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Garden House",
@@ -26780,6 +27344,8 @@ window.BYO = {
       "suburb": "North Parramatta",
       "address": "526 Church Street, North Parramatta NSW 2151",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/3116265707",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.80001,
       "lng": 151.004407,
       "cuisine": "Asian",
@@ -26789,9 +27355,7 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://thaigardenhouse.com.au/",
       "city": "Sydney",
@@ -26813,7 +27377,9 @@ window.BYO = {
           "osm": "node/3114386659",
           "distanceM": 280
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Nunzio's Italian",
@@ -26830,11 +27396,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26847,7 +27410,10 @@ window.BYO = {
           "distanceM": 400
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Andamiro Sushi",
@@ -26864,11 +27430,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -26880,7 +27443,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 130
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Viet Hoa Oyster Bar & Kitchen",
@@ -26901,7 +27467,6 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "Uber Eats",
       "note": "BYO unverified — AGFG listing only. Uber Eats hours weekdays 11–5, weekends 10–8",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26921,7 +27486,8 @@ window.BYO = {
           "osm": "node/7639767185",
           "distanceM": 70
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "Mumma Phan",
@@ -26938,11 +27504,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26962,7 +27526,9 @@ window.BYO = {
           "osm": "way/1011978702",
           "distanceM": 1530
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Pizza Plus 1",
@@ -26979,11 +27545,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27003,7 +27566,10 @@ window.BYO = {
           "osm": "node/12310919526",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Taste of Hong Kong",
@@ -27020,11 +27586,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27044,7 +27607,10 @@ window.BYO = {
           "osm": "node/12310919526",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cocktail Heaven",
@@ -27061,11 +27627,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27078,7 +27641,10 @@ window.BYO = {
           "distanceM": 970
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lansvale Chinese Take Away",
@@ -27095,11 +27661,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27119,7 +27682,10 @@ window.BYO = {
           "osm": "way/1011978702",
           "distanceM": 1480
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Itihaas",
@@ -27138,7 +27704,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Laal maas, butter chicken",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "website": "https://itihaasindianrestaurant.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -27159,7 +27724,8 @@ window.BYO = {
           "osm": "node/1611289094",
           "distanceM": 240
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Abuali's Kebab",
@@ -27176,11 +27742,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27193,7 +27756,10 @@ window.BYO = {
           "distanceM": 250
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pho Pasteur",
@@ -27201,6 +27767,8 @@ window.BYO = {
       "suburb": "Parramatta",
       "address": "137 Church Street, Parramatta NSW 2150",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5421723041",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.81833,
       "lng": 151.0036,
       "cuisine": "Vietnamese",
@@ -27212,7 +27780,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pho",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Tue–Sun 11am–8pm; closed Mon",
       "website": "https://phopasteursydney.com",
       "city": "Sydney",
@@ -27234,7 +27801,8 @@ window.BYO = {
           "osm": "node/1611289094",
           "distanceM": 580
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Hai Au Lang Nuong",
@@ -27255,7 +27823,6 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "Pickup",
       "note": "No website (Instagram only)",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27275,7 +27842,8 @@ window.BYO = {
           "osm": "node/7639767185",
           "distanceM": 1050
         }
-      }
+      },
+      "website": ""
     },
     {
       "name": "Top Shawarma Smithfield",
@@ -27292,11 +27860,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27309,7 +27874,10 @@ window.BYO = {
           "distanceM": 920
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Emerald",
@@ -27326,16 +27894,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hong Kong Chef Oran Park",
@@ -27352,16 +27920,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cucina 105",
@@ -27369,6 +27937,8 @@ window.BYO = {
       "suburb": "Liverpool",
       "address": "105 Moore St, Liverpool NSW 2170",
       "addressSource": "venue",
+      "addressSourceUrl": "https://cucina105.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.92213,
       "lng": 150.92165,
       "cuisine": "Italian",
@@ -27380,7 +27950,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pasta",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only",
       "website": "https://cucina105.com.au",
       "city": "Sydney",
@@ -27402,7 +27971,8 @@ window.BYO = {
           "osm": "node/9676422221",
           "distanceM": 150
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Thai Palate",
@@ -27419,11 +27989,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27436,7 +28003,10 @@ window.BYO = {
           "distanceM": 1200
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Aalishaan Indian Cuisine",
@@ -27444,6 +28014,8 @@ window.BYO = {
       "suburb": "Campbelltown",
       "address": "100 Queen Street, Campbelltown NSW 2560",
       "addressSource": "venue",
+      "addressSourceUrl": "https://aalishaanindiancuisine.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -34.064187,
       "lng": 150.816738,
       "cuisine": "Indian",
@@ -27453,7 +28025,6 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -27477,7 +28048,8 @@ window.BYO = {
           "osm": "node/9211879686",
           "distanceM": 1430
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Farm Pizza and Kebab House",
@@ -27494,11 +28066,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27518,7 +28087,10 @@ window.BYO = {
           "osm": "node/9676422221",
           "distanceM": 1020
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Green Valley Pizza and Pastry",
@@ -27535,11 +28107,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -27551,7 +28120,10 @@ window.BYO = {
           "osm": "node/14045696942",
           "distanceM": 1590
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Palbok BBQ",
@@ -27559,6 +28131,8 @@ window.BYO = {
       "suburb": "Lidcombe",
       "address": "2-4 Bridge Street, Lidcombe NSW 2141",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/242579141",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.864626,
       "lng": 151.043314,
       "cuisine": "Korean barbecue",
@@ -27568,11 +28142,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -27584,7 +28155,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Avoca Woodfired Pizza",
@@ -27601,11 +28175,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -27617,7 +28188,10 @@ window.BYO = {
           "osm": "node/12174085794",
           "distanceM": 360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "West Sydney Pizza & Pasta",
@@ -27634,16 +28208,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Pizza Stop",
@@ -27651,6 +28225,8 @@ window.BYO = {
       "suburb": "Kingswood",
       "address": "3/194-196 Great Western Highway, Kingswood NSW 2747",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4127681509",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.758856,
       "lng": 150.719408,
       "cuisine": "Pizza",
@@ -27660,11 +28236,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27684,7 +28257,10 @@ window.BYO = {
           "osm": "node/7221980995",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Miruna's Restaurant Pty Ltd",
@@ -27701,11 +28277,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27725,7 +28298,10 @@ window.BYO = {
           "osm": "node/14093659424",
           "distanceM": 1660
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Al Pacino's",
@@ -27742,11 +28318,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27766,7 +28339,10 @@ window.BYO = {
           "osm": "node/1613719929",
           "distanceM": 1550
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Frango Glenmore Park",
@@ -27783,16 +28359,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Eddie Road Lunch Shop",
@@ -27800,6 +28376,8 @@ window.BYO = {
       "suburb": "Minchinbury",
       "address": "1/24 Eddie Road, Minchinbury NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/892512558",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.784882,
       "lng": 150.816174,
       "cuisine": "Restaurant",
@@ -27809,11 +28387,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27826,7 +28402,9 @@ window.BYO = {
           "distanceM": 1600
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Odyssey Gourmet Silverwater",
@@ -27843,11 +28421,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27860,7 +28436,9 @@ window.BYO = {
           "distanceM": 860
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Young Station",
@@ -27877,11 +28455,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -27893,7 +28468,10 @@ window.BYO = {
           "osm": "node/7979204885",
           "distanceM": 140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Temasek Restaurant",
@@ -27901,6 +28479,8 @@ window.BYO = {
       "suburb": "Parramatta",
       "address": "100 George St, Parramatta NSW 2150",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.temasekrestaurant.com/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.813854,
       "lng": 151.006571,
       "cuisine": "Singaporean",
@@ -27910,9 +28490,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.temasekrestaurant.com/",
       "city": "Sydney",
@@ -27934,7 +28512,9 @@ window.BYO = {
           "osm": "node/1611289094",
           "distanceM": 280
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Ginger Indian Restaurant",
@@ -27942,6 +28522,8 @@ window.BYO = {
       "suburb": "Harris Park",
       "address": "94 Wigram St, Harris Park NSW 2150",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.gingerindian.com.au",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.820795,
       "lng": 151.008841,
       "cuisine": "Indian",
@@ -27951,9 +28533,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed and BYO wine; corkage fee not stated. North Indian restaurant on the Wigram St strip; BYO listed but not confirmed, so call first",
       "website": "https://www.gingerindian.com.au",
       "city": "Sydney",
@@ -27975,7 +28555,9 @@ window.BYO = {
           "osm": "node/6669783188",
           "distanceM": 190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Happy Inn",
@@ -27983,6 +28565,8 @@ window.BYO = {
       "suburb": "Penrith",
       "address": "401 High Street, Penrith NSW 2750",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7185292364",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.753686,
       "lng": 150.698638,
       "cuisine": "Asian",
@@ -27992,9 +28576,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://happyinnchineserestaurant.com.au/",
       "city": "Sydney",
@@ -28016,7 +28598,9 @@ window.BYO = {
           "osm": "node/7221980995",
           "distanceM": 1880
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Aquacotta Restaurant",
@@ -28033,7 +28617,6 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -28057,7 +28640,8 @@ window.BYO = {
           "osm": "node/9676422221",
           "distanceM": 1440
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Jags Ristorante Newington",
@@ -28074,11 +28658,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28091,14 +28672,19 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Enzo's restaurant",
       "region": "Western Sydney",
       "suburb": "Chipping Norton",
-      "address": "Chipping Norton",
-      "addressSource": "suburb-only",
+      "address": "9 Barry Rd, Chipping Norton NSW 2170",
+      "addressSource": "venue",
+      "addressSourceUrl": "https://enzoscucina.com.au/location/chipping-norton/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.914926,
       "lng": 150.961771,
       "cuisine": "Dessert",
@@ -28108,7 +28694,6 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -28124,7 +28709,8 @@ window.BYO = {
           "osm": "node/2377803873",
           "distanceM": 910
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Tommy's Kebabs",
@@ -28141,11 +28727,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28158,7 +28741,10 @@ window.BYO = {
           "distanceM": 970
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tins & Wood",
@@ -28166,6 +28752,8 @@ window.BYO = {
       "suburb": "Penrith",
       "address": "3/12 Tindale Street, Penrith NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7192760739",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.755011,
       "lng": 150.698812,
       "cuisine": "Italian/Mediterranean",
@@ -28175,9 +28763,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://tinsandwood.com.au/",
       "city": "Sydney",
@@ -28199,7 +28785,9 @@ window.BYO = {
           "osm": "node/7221980995",
           "distanceM": 1830
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "The Gozleme Co",
@@ -28216,16 +28804,16 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Moment Thai Cuisine",
@@ -28242,11 +28830,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28266,7 +28851,10 @@ window.BYO = {
           "osm": "node/7444349484",
           "distanceM": 1170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Finn & Co Emu Plains",
@@ -28283,11 +28871,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28307,7 +28892,10 @@ window.BYO = {
           "osm": "node/8930749198",
           "distanceM": 1390
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Spring Sushi",
@@ -28324,11 +28912,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28341,7 +28926,10 @@ window.BYO = {
           "distanceM": 1600
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Le Wrap",
@@ -28358,16 +28946,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hyde Thai restaurant",
@@ -28384,11 +28972,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28408,7 +28993,10 @@ window.BYO = {
           "osm": "node/9211879686",
           "distanceM": 350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Enzo's Cucina Bonnyrigg",
@@ -28425,11 +29013,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28442,7 +29027,10 @@ window.BYO = {
           "distanceM": 1590
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "V Lounge",
@@ -28459,11 +29047,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -28475,7 +29060,10 @@ window.BYO = {
           "osm": "node/9170548971",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pho 76",
@@ -28492,11 +29080,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -28508,7 +29093,10 @@ window.BYO = {
           "osm": "node/14045696942",
           "distanceM": 1720
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Flipp Burgers | Elara Village",
@@ -28525,11 +29113,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28542,7 +29127,10 @@ window.BYO = {
           "distanceM": 30
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Salvatore Pizza & Pasta",
@@ -28559,11 +29147,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28576,7 +29161,10 @@ window.BYO = {
           "distanceM": 480
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Wah Shing Chinese Restaurant",
@@ -28593,11 +29181,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28617,7 +29202,10 @@ window.BYO = {
           "osm": "node/9364661993",
           "distanceM": 430
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tim's Fish & Chips",
@@ -28634,11 +29222,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28651,7 +29236,10 @@ window.BYO = {
           "distanceM": 1340
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hong Kong Village",
@@ -28668,11 +29256,9 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28692,7 +29278,9 @@ window.BYO = {
           "osm": "node/9364661993",
           "distanceM": 560
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Jaggi 's Indian Eatery",
@@ -28709,11 +29297,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28733,7 +29318,10 @@ window.BYO = {
           "osm": "node/14093659424",
           "distanceM": 1910
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Rock",
@@ -28750,16 +29338,16 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thanh Binh",
@@ -28767,6 +29355,8 @@ window.BYO = {
       "suburb": "Cabramatta",
       "address": "50-52 John Street, Cabramatta NSW 2166",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/246292382",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.895323,
       "lng": 150.936382,
       "cuisine": "Vietnamese",
@@ -28776,11 +29366,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "$2.5 (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28800,7 +29387,10 @@ window.BYO = {
           "osm": "node/7639767185",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Talking Tables",
@@ -28808,6 +29398,8 @@ window.BYO = {
       "suburb": "Penrith",
       "address": "166 Henry Street, Penrith NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://talkingtables.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.752307,
       "lng": 150.693481,
       "cuisine": "Indian",
@@ -28817,9 +29409,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://talkingtables.com.au/",
       "city": "Sydney",
@@ -28834,7 +29424,9 @@ window.BYO = {
           "distanceM": 300
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Watsup Brothers",
@@ -28851,11 +29443,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28868,7 +29457,10 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Red Spoon Thai @ Penrith",
@@ -28876,6 +29468,8 @@ window.BYO = {
       "suburb": "Penrith",
       "address": "541 High St, Penrith NSW 2750",
       "addressSource": "venue",
+      "addressSourceUrl": "https://sp-penrith.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.752678,
       "lng": 150.694255,
       "cuisine": "Restaurant",
@@ -28885,9 +29479,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://sp-penrith.com.au/",
       "city": "Sydney",
@@ -28902,7 +29494,9 @@ window.BYO = {
           "distanceM": 380
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Country Fried Chicken",
@@ -28919,11 +29513,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28943,7 +29534,10 @@ window.BYO = {
           "osm": "node/7221980995",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sacred Platter",
@@ -28960,11 +29554,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -28976,7 +29567,10 @@ window.BYO = {
           "osm": "node/691424021",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ricks Pizzeria e Ristorante",
@@ -28993,11 +29587,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29010,7 +29601,10 @@ window.BYO = {
           "distanceM": 910
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Pancita",
@@ -29027,16 +29621,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Idli Project",
@@ -29053,11 +29647,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29070,7 +29661,10 @@ window.BYO = {
           "distanceM": 1180
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ingu",
@@ -29087,16 +29681,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kellyville Chinese Restaurant",
@@ -29113,11 +29707,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29137,7 +29728,10 @@ window.BYO = {
           "osm": "node/13802305965",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Castle Taj",
@@ -29145,6 +29739,8 @@ window.BYO = {
       "suburb": "Castle Hill",
       "address": "3-9 Terminus Street, Castle Hill NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.castletaj.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.733566,
       "lng": 151.006607,
       "cuisine": "Indian",
@@ -29154,9 +29750,7 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.castletaj.com.au/",
       "city": "Sydney",
@@ -29171,7 +29765,9 @@ window.BYO = {
           "distanceM": 350
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Delhi Heights Indian Restaurant & Function Centre",
@@ -29188,16 +29784,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Varies — call ahead (wine)",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://delhiheightsdural.com.au/",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": ""
     },
     {
       "name": "Madame Thai",
@@ -29216,7 +29812,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Formerly Castle Thai; only just over 100 reviews",
       "website": "https://www.madamethai.com.au/",
       "city": "Sydney",
@@ -29231,7 +29826,8 @@ window.BYO = {
           "distanceM": 180
         },
         "independent": null
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Trevi Lakeside",
@@ -29239,6 +29835,8 @@ window.BYO = {
       "suburb": "Norwest",
       "address": "8 Century Circuit, Norwest NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.trevirestaurant.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.732726,
       "lng": 150.964213,
       "cuisine": "Modern Italian",
@@ -29250,7 +29848,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Spatchcock, clam soup (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO wine only; corkage from a Dec 2024 review",
       "website": "http://www.trevirestaurant.com.au/",
       "city": "Sydney",
@@ -29265,7 +29862,8 @@ window.BYO = {
           "distanceM": 1870
         },
         "independent": null
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "The Heritage House",
@@ -29282,16 +29880,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Red Galangal",
@@ -29342,11 +29940,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29359,7 +29954,10 @@ window.BYO = {
           "distanceM": 110
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lazeez Kitchen",
@@ -29367,6 +29965,8 @@ window.BYO = {
       "suburb": "Rouse Hill",
       "address": "10/40 Panmure Street, Rouse Hill NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.lazeezkitchen.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.683106,
       "lng": 150.917442,
       "cuisine": "Indian",
@@ -29378,7 +29978,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Vegetarian banquet, hara bhara kebab, soya chaap (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Wine & champagne only",
       "website": "http://www.lazeezkitchen.com.au/",
       "city": "Sydney",
@@ -29393,7 +29992,8 @@ window.BYO = {
           "distanceM": 1250
         },
         "independent": null
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Il Lago Italian Restaurant",
@@ -29401,6 +30001,8 @@ window.BYO = {
       "suburb": "Norwest",
       "address": "8 Century Circuit, Norwest NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.illago.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.732726,
       "lng": 150.964213,
       "cuisine": "Italian",
@@ -29412,7 +30014,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Pesto pasta, Capricciosa pizza (mentioned by reviewers)",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Lakeside views; BYO wine only",
       "website": "http://www.illago.com.au/",
       "city": "Sydney",
@@ -29427,7 +30028,8 @@ window.BYO = {
           "distanceM": 1870
         },
         "independent": null
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Thaitory Stanhope",
@@ -29444,11 +30046,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29461,7 +30060,10 @@ window.BYO = {
           "distanceM": 40
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Il Nido The Nest",
@@ -29469,6 +30071,8 @@ window.BYO = {
       "suburb": "Castle Hill",
       "address": "14/9 Terminus St, Castle Hill NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://ilnidothenest.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.733536,
       "lng": 151.006748,
       "cuisine": "Italian",
@@ -29480,7 +30084,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Corkage figure from the venue-hire menu",
       "website": "https://ilnidothenest.com.au/",
       "city": "Sydney",
@@ -29495,7 +30098,8 @@ window.BYO = {
           "distanceM": 360
         },
         "independent": null
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Village Thai Cuisine",
@@ -29512,16 +30116,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kashi Indian Restaurant",
@@ -29538,16 +30142,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Taste of Tuscany",
@@ -29555,6 +30159,8 @@ window.BYO = {
       "suburb": "Carlingford",
       "address": "314 Pennant Hills Road, Carlingford NSW 2118",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.tasteoftuscany.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.783279,
       "lng": 151.046683,
       "cuisine": "Italian",
@@ -29589,6 +30195,8 @@ window.BYO = {
       "suburb": "Epping",
       "address": "3 Bridge St, Epping NSW 2121",
       "addressSource": "venue",
+      "addressSourceUrl": "http://www.borrellis.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.773905,
       "lng": 151.081504,
       "cuisine": "Italian",
@@ -29600,7 +30208,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Housemade pasta",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Bottled wine only; family-run",
       "website": "http://www.borrellis.com.au/",
       "city": "Sydney",
@@ -29622,7 +30229,8 @@ window.BYO = {
           "osm": "way/291435041",
           "distanceM": 180
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "Hayashi Teppanyaki Restaurant",
@@ -29639,11 +30247,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29656,7 +30261,10 @@ window.BYO = {
           "distanceM": 220
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Golden West Chinese Restaurant",
@@ -29673,11 +30281,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29697,7 +30302,10 @@ window.BYO = {
           "osm": "way/1028562067",
           "distanceM": 470
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Glenhaven Pizza and Pasta",
@@ -29714,16 +30322,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Square Cuisine Galston",
@@ -29740,11 +30348,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29757,7 +30362,10 @@ window.BYO = {
           "distanceM": 130
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Gati Thai Restaurant",
@@ -29765,6 +30373,8 @@ window.BYO = {
       "suburb": "Kellyville",
       "address": "19A/90 Wrights Rd, Kellyville NSW",
       "addressSource": "venue",
+      "addressSourceUrl": "https://www.gati.com.au/",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.714009,
       "lng": 150.972675,
       "cuisine": "Thai",
@@ -29776,7 +30386,6 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "Below 4.3 – included because the region has few confirmed BYO options",
       "website": "https://www.gati.com.au/",
       "city": "Sydney",
@@ -29798,7 +30407,8 @@ window.BYO = {
           "osm": "node/13802305965",
           "distanceM": 1400
         }
-      }
+      },
+      "takeawayDetail": ""
     },
     {
       "name": "La Carretta",
@@ -29815,7 +30425,6 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
@@ -29839,7 +30448,8 @@ window.BYO = {
           "osm": "way/1315042278",
           "distanceM": 1890
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Sushi Mura",
@@ -29856,16 +30466,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sahara Street Food",
@@ -29882,11 +30492,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29899,7 +30506,10 @@ window.BYO = {
           "distanceM": 30
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dural Club",
@@ -29916,16 +30526,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Orana Take Away",
@@ -29942,11 +30552,9 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29966,7 +30574,9 @@ window.BYO = {
           "osm": "node/13802305965",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "website": ""
     },
     {
       "name": "Kebabiya Bella Vista",
@@ -29983,11 +30593,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -30000,7 +30607,10 @@ window.BYO = {
           "distanceM": 1340
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lusso Italian",
@@ -30008,6 +30618,8 @@ window.BYO = {
       "suburb": "Rouse Hill",
       "address": "10-14 Market Lane, Rouse Hill NSW 2155",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12773248623",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.69125,
       "lng": 150.924606,
       "cuisine": "Italian",
@@ -30017,11 +30629,8 @@ window.BYO = {
       "priceEstimate": true,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed but not confirmed, so call first",
-      "website": "",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -30034,7 +30643,10 @@ window.BYO = {
           "distanceM": 130
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Megalong Restaurant",
@@ -30051,16 +30663,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Season Sushi",
@@ -30068,6 +30680,8 @@ window.BYO = {
       "suburb": "Katoomba",
       "address": "181-185 Katoomba Street, Katoomba NSW 2780",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6938593173",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.7164417,
       "lng": 150.311031,
       "cuisine": "Japanese",
@@ -30077,11 +30691,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30101,7 +30712,10 @@ window.BYO = {
           "osm": "node/6938921566",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mr Collins of Leura",
@@ -30109,6 +30723,8 @@ window.BYO = {
       "suburb": "Leura",
       "address": "128 Leura Mall, Leura NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/9284057287",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.7126481,
       "lng": 150.331321,
       "cuisine": "Modern Australian",
@@ -30118,11 +30734,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30142,7 +30755,10 @@ window.BYO = {
           "osm": "node/20977070",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Spikes Bistro",
@@ -30159,11 +30775,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": null,
@@ -30175,7 +30788,10 @@ window.BYO = {
           "osm": "node/11147830759",
           "distanceM": 1450
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Basil Nut",
@@ -30192,11 +30808,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO mentioned in tourism/listings; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30216,7 +30829,10 @@ window.BYO = {
           "osm": "node/6690336855",
           "distanceM": 270
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pho Moi",
@@ -30233,11 +30849,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30257,7 +30870,10 @@ window.BYO = {
           "osm": "node/6938921566",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "8Things",
@@ -30274,7 +30890,6 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": true,
-      "dish": "",
       "takeaway": "yes",
       "takeawayDetail": "Takeaway and delivery",
       "note": "BYO confirmed on Tripadvisor / venue listings; small 20-seater, takeaway available",
@@ -30298,7 +30913,8 @@ window.BYO = {
           "osm": "node/6938921566",
           "distanceM": 270
         }
-      }
+      },
+      "dish": ""
     },
     {
       "name": "Blaq",
@@ -30315,11 +30931,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": null,
@@ -30331,7 +30944,10 @@ window.BYO = {
           "osm": "node/11147830759",
           "distanceM": 1470
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Maprang Thai Restaurant",
@@ -30348,11 +30964,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30365,7 +30978,10 @@ window.BYO = {
           "distanceM": 30
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Silk Restaurant",
@@ -30382,11 +30998,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": null,
@@ -30398,7 +31011,10 @@ window.BYO = {
           "osm": "node/7140200314",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Bello Pizzeria",
@@ -30415,11 +31031,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30439,7 +31052,10 @@ window.BYO = {
           "osm": "node/7057810947",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lawson Chinese",
@@ -30456,11 +31072,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30473,7 +31086,10 @@ window.BYO = {
           "distanceM": 230
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lawson Pizza & Kebab",
@@ -30490,11 +31106,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30507,7 +31120,10 @@ window.BYO = {
           "distanceM": 10
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Springwood Thai Kitchen",
@@ -30524,11 +31140,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30548,7 +31161,10 @@ window.BYO = {
           "osm": "node/6690336855",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Wintergarden",
@@ -30565,16 +31181,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Monte's",
@@ -30591,11 +31207,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30615,7 +31228,10 @@ window.BYO = {
           "osm": "node/426899446",
           "distanceM": 1440
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Skewered Lawson",
@@ -30623,6 +31239,8 @@ window.BYO = {
       "suburb": "Lawson",
       "address": "3/7 Staples Crescent, Lawson NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5193531432",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.7204045,
       "lng": 150.428871,
       "cuisine": "Lebanese",
@@ -30632,11 +31250,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30649,7 +31264,10 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Springwood Seafood",
@@ -30666,11 +31284,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30690,7 +31305,10 @@ window.BYO = {
           "osm": "node/6690336855",
           "distanceM": 400
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Amira's Indian Restaurant",
@@ -30698,6 +31316,8 @@ window.BYO = {
       "suburb": "Hazelbrook",
       "address": "197 Great Western Highway, Hazelbrook NSW",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5237774296",
+      "addressCheckedAt": "2026-11-12",
       "lat": -33.7212603,
       "lng": 150.4523121,
       "cuisine": "Indian",
@@ -30707,11 +31327,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": {
@@ -30724,7 +31341,10 @@ window.BYO = {
           "distanceM": 90
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Boiler House",
@@ -30741,16 +31361,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Blue Mountains",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Haidilao Hotpot Emporium",
@@ -30767,11 +31387,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -30791,7 +31408,10 @@ window.BYO = {
           "osm": "node/5928461732",
           "distanceM": 460
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Upper Middle",
@@ -30808,11 +31428,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -30832,7 +31449,10 @@ window.BYO = {
           "osm": "node/583444586",
           "distanceM": 330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Al Dente Enoteca",
@@ -30840,6 +31460,8 @@ window.BYO = {
       "suburb": "Carlton",
       "address": "161 Nicholson Street, Carlton VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/623878812",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7963561,
       "lng": 144.974801,
       "cuisine": "Italian",
@@ -30849,11 +31471,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -30873,7 +31492,10 @@ window.BYO = {
           "osm": "node/2111330502",
           "distanceM": 350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Little Africa",
@@ -30890,11 +31512,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -30914,7 +31533,10 @@ window.BYO = {
           "osm": "node/14288612559",
           "distanceM": 300
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Perso",
@@ -30931,11 +31553,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -30955,7 +31574,10 @@ window.BYO = {
           "osm": "way/154297017",
           "distanceM": 760
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "D'Elephant Thai Richmond",
@@ -30972,11 +31594,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -30996,7 +31615,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 810
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Savanna",
@@ -31013,11 +31635,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31037,7 +31656,10 @@ window.BYO = {
           "osm": "node/2102424277",
           "distanceM": 110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Food Near Me",
@@ -31054,11 +31676,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31078,7 +31697,10 @@ window.BYO = {
           "osm": "node/7684209402",
           "distanceM": 350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Indian Star",
@@ -31095,11 +31717,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31119,7 +31738,10 @@ window.BYO = {
           "osm": "node/7921816575",
           "distanceM": 1000
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "iCurry",
@@ -31136,11 +31758,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31160,7 +31779,10 @@ window.BYO = {
           "osm": "node/587754461",
           "distanceM": 710
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Gemma Simply Italian",
@@ -31168,6 +31790,8 @@ window.BYO = {
       "suburb": "Carlton",
       "address": "183 Elgin Street, Carlton VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/619118851",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.797529,
       "lng": 144.968383,
       "cuisine": "Italian",
@@ -31177,11 +31801,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31201,7 +31822,10 @@ window.BYO = {
           "osm": "node/6649635549",
           "distanceM": 110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fusion Ceylon",
@@ -31218,11 +31842,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31242,7 +31863,10 @@ window.BYO = {
           "osm": "way/966485049",
           "distanceM": 270
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Paris Go Bistro",
@@ -31250,6 +31874,8 @@ window.BYO = {
       "suburb": "Carlton",
       "address": "116 Rathdowne Street, Carlton VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/1064843121",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.796976,
       "lng": 144.970852,
       "cuisine": "French",
@@ -31259,11 +31885,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31283,7 +31906,10 @@ window.BYO = {
           "osm": "node/2111330502",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Nyala African Restaurant",
@@ -31291,6 +31917,8 @@ window.BYO = {
       "suburb": "Fitzroy",
       "address": "1/356 Brunswick Street, Fitzroy VIC 3065",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/11949345069",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7966296,
       "lng": 144.97898,
       "cuisine": "African",
@@ -31300,11 +31928,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31324,7 +31949,10 @@ window.BYO = {
           "osm": "node/3949687617",
           "distanceM": 190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Maria's Trattoria",
@@ -31332,6 +31960,8 @@ window.BYO = {
       "suburb": "North Melbourne",
       "address": "122-124 Peel Street, North Melbourne VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2377573348",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.805216,
       "lng": 144.956418,
       "cuisine": "Italian",
@@ -31341,11 +31971,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31365,7 +31992,10 @@ window.BYO = {
           "osm": "node/14288612559",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mum Mum",
@@ -31382,11 +32012,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31406,7 +32033,10 @@ window.BYO = {
           "osm": "node/2755274448",
           "distanceM": 670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Huy's Kitchen",
@@ -31423,11 +32053,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31447,7 +32074,10 @@ window.BYO = {
           "osm": "node/583444586",
           "distanceM": 250
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Copperwood Restaurant",
@@ -31464,11 +32094,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31488,7 +32115,10 @@ window.BYO = {
           "osm": "node/6649635549",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Co Thu Quan",
@@ -31496,6 +32126,8 @@ window.BYO = {
       "suburb": "Richmond",
       "address": "116 Victoria Street, Richmond VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1065400315",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8101732,
       "lng": 144.9954319,
       "cuisine": "Vietnamese",
@@ -31505,11 +32137,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31529,7 +32158,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 930
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Olive Tree",
@@ -31537,6 +32169,8 @@ window.BYO = {
       "suburb": "South Melbourne",
       "address": "19 Park Street, South Melbourne VIC 3205",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/575417952",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.83306,
       "lng": 144.969898,
       "cuisine": "International",
@@ -31546,11 +32180,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31570,7 +32201,10 @@ window.BYO = {
           "osm": "node/2687818506",
           "distanceM": 340
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Noi Thai",
@@ -31578,6 +32212,8 @@ window.BYO = {
       "suburb": "Fitzroy",
       "address": "205 Smith Street, Fitzroy VIC 3065",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/404852388",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.803058,
       "lng": 144.983384,
       "cuisine": "Thai",
@@ -31587,11 +32223,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31611,7 +32244,10 @@ window.BYO = {
           "osm": "way/404852383",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Handcrafted Pizza and Burger",
@@ -31628,11 +32264,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31652,7 +32285,10 @@ window.BYO = {
           "osm": "node/587754461",
           "distanceM": 690
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Three Pandas Dumpling House",
@@ -31669,11 +32305,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31693,7 +32326,10 @@ window.BYO = {
           "osm": "node/2755274448",
           "distanceM": 510
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Orlo",
@@ -31710,11 +32346,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31734,7 +32367,10 @@ window.BYO = {
           "osm": "way/1396564985",
           "distanceM": 190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Universal Restaurant",
@@ -31751,11 +32387,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31775,7 +32408,10 @@ window.BYO = {
           "osm": "node/2160046246",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Spaghettata",
@@ -31783,6 +32419,8 @@ window.BYO = {
       "suburb": "Carlton",
       "address": "238 Lygon Street, Carlton VIC 3053",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6876562376",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.801605,
       "lng": 144.967045,
       "cuisine": "Italian",
@@ -31792,11 +32430,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31816,7 +32451,10 @@ window.BYO = {
           "osm": "node/2160046246",
           "distanceM": 350
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Topolino's",
@@ -31824,6 +32462,8 @@ window.BYO = {
       "suburb": "St Kilda",
       "address": "85-87 Fitzroy Street, St Kilda VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12419105316",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8604728,
       "lng": 144.9766688,
       "cuisine": "Italian",
@@ -31833,11 +32473,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31857,7 +32494,10 @@ window.BYO = {
           "osm": "node/2535972438",
           "distanceM": 210
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Shawcross Pizza",
@@ -31865,6 +32505,8 @@ window.BYO = {
       "suburb": "Fitzroy",
       "address": "324 Brunswick Street, Fitzroy VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2097608350",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.79752744926595,
       "lng": 144.97870102331353,
       "cuisine": "Pizza",
@@ -31874,11 +32516,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31898,7 +32537,10 @@ window.BYO = {
           "osm": "node/599175496",
           "distanceM": 230
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Il Carretto Pizza Restaurant",
@@ -31915,11 +32557,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31939,7 +32578,10 @@ window.BYO = {
           "osm": "node/10755530477",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tora Dumplings",
@@ -31956,11 +32598,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -31980,7 +32619,10 @@ window.BYO = {
           "osm": "node/599175496",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Il Duca",
@@ -31988,6 +32630,8 @@ window.BYO = {
       "suburb": "East Melbourne",
       "address": "132 Wellington Parade, East Melbourne VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2778777213",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.816236,
       "lng": 144.985683,
       "cuisine": "Italian",
@@ -31997,11 +32641,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32021,7 +32662,10 @@ window.BYO = {
           "osm": "node/2678593677",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hayashi 291",
@@ -32038,11 +32682,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32062,7 +32703,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 850
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pho Oak Park",
@@ -32070,6 +32714,8 @@ window.BYO = {
       "suburb": "Oak Park ",
       "address": "99 Snell Grove, Oak Park VIC 3046",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12186408101",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7180294,
       "lng": 144.9224517,
       "cuisine": "Vietnamese",
@@ -32079,11 +32725,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32103,7 +32746,10 @@ window.BYO = {
           "osm": "node/2488171084",
           "distanceM": 1820
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Farmacy",
@@ -32120,11 +32766,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32144,7 +32787,10 @@ window.BYO = {
           "osm": "node/2755274448",
           "distanceM": 470
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "BuuBBub Burmese & Thai",
@@ -32152,6 +32798,8 @@ window.BYO = {
       "suburb": "Fitzroy",
       "address": "353 Smith Street, Fitzroy VIC 3065",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1412755015",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7984601,
       "lng": 144.9842562,
       "cuisine": "Cafe",
@@ -32161,11 +32809,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32185,7 +32830,10 @@ window.BYO = {
           "osm": "node/2102424277",
           "distanceM": 180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Little Buddha",
@@ -32193,6 +32841,8 @@ window.BYO = {
       "suburb": "Middle Park",
       "address": "5 Armstrong Street, Middle Park VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/340065755",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.850361,
       "lng": 144.964759,
       "cuisine": "Thai",
@@ -32202,11 +32852,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32226,7 +32873,10 @@ window.BYO = {
           "osm": "way/340246081",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "IL Gambero",
@@ -32234,6 +32884,8 @@ window.BYO = {
       "suburb": "Carlton",
       "address": "166 Lygon Street, Carlton VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5316107628",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.803286,
       "lng": 144.96675,
       "cuisine": "Italian",
@@ -32243,11 +32895,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32267,7 +32916,10 @@ window.BYO = {
           "osm": "node/2160046246",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai 29 Restaurant",
@@ -32275,6 +32927,8 @@ window.BYO = {
       "suburb": "South Melbourne",
       "address": "29 York Street, South Melbourne VIC 3205",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2110021727",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8300813,
       "lng": 144.9627976,
       "cuisine": "Thai",
@@ -32284,11 +32938,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32308,7 +32959,10 @@ window.BYO = {
           "osm": "node/583444586",
           "distanceM": 450
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Super Bowl Pho & Bun Bo Hue",
@@ -32325,11 +32979,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32349,7 +33000,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 1100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "iSpicy",
@@ -32357,6 +33011,8 @@ window.BYO = {
       "suburb": "Richmond",
       "address": "80 Victoria Street, Richmond VIC 3121",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1065400299",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.810122,
       "lng": 144.994312,
       "cuisine": "Thai",
@@ -32366,11 +33022,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32390,7 +33043,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 900
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bowl Bowl Dumpling",
@@ -32407,11 +33063,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32431,7 +33084,10 @@ window.BYO = {
           "osm": "way/1396564985",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bossy Beans",
@@ -32448,11 +33104,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32472,7 +33125,10 @@ window.BYO = {
           "osm": "node/2111330502",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Babu Ji",
@@ -32489,11 +33145,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32513,7 +33166,10 @@ window.BYO = {
           "osm": "node/2535972438",
           "distanceM": 320
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thanh Ha 2",
@@ -32521,6 +33177,8 @@ window.BYO = {
       "suburb": "Richmond",
       "address": "120 Victoria Street, Richmond VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1065400317",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.810214,
       "lng": 144.99557,
       "cuisine": "Vietnamese",
@@ -32530,11 +33188,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32554,7 +33209,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 930
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Jai Ho Indian Richmond",
@@ -32571,11 +33229,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32595,7 +33250,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 1120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Nine Elephants Thai Restaurant",
@@ -32612,11 +33270,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32636,7 +33291,10 @@ window.BYO = {
           "osm": "node/6699781948",
           "distanceM": 620
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Vinh Ky",
@@ -32644,6 +33302,8 @@ window.BYO = {
       "suburb": "Richmond",
       "address": "114 Victoria Street, Richmond VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1528530046",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.810183,
       "lng": 144.995366,
       "cuisine": "Chinese",
@@ -32653,11 +33313,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32677,7 +33334,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 930
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "East Imperial",
@@ -32685,6 +33345,8 @@ window.BYO = {
       "suburb": "Carlton",
       "address": "323 Rathdowne Street, Carlton VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/598108466",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.799186,
       "lng": 144.969952,
       "cuisine": "Chinese",
@@ -32694,11 +33356,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32718,7 +33377,10 @@ window.BYO = {
           "osm": "node/2111330502",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Gaylord",
@@ -32735,11 +33397,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32759,7 +33418,10 @@ window.BYO = {
           "osm": "node/5928461732",
           "distanceM": 280
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "CoDo",
@@ -32776,11 +33438,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32800,7 +33459,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 1010
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bedi's Restaurant",
@@ -32817,11 +33479,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32841,7 +33500,10 @@ window.BYO = {
           "osm": "node/5710198622",
           "distanceM": 360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Style Restaurant",
@@ -32858,11 +33520,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32882,7 +33541,10 @@ window.BYO = {
           "osm": "node/5336132542",
           "distanceM": 920
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Masani",
@@ -32890,6 +33552,8 @@ window.BYO = {
       "suburb": "Carlton",
       "address": "313 Drummond Street, Carlton VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/649798969",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.798415,
       "lng": 144.968564,
       "cuisine": "Italian",
@@ -32899,11 +33563,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32923,7 +33584,10 @@ window.BYO = {
           "osm": "node/6649635549",
           "distanceM": 140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Colourful Yunnan - Carlton",
@@ -32940,11 +33604,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -32964,7 +33625,10 @@ window.BYO = {
           "osm": "node/11881012605",
           "distanceM": 360
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Crane Restaurant",
@@ -32981,11 +33645,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33005,7 +33666,10 @@ window.BYO = {
           "osm": "node/5928461732",
           "distanceM": 230
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mister Truong's",
@@ -33013,6 +33677,8 @@ window.BYO = {
       "suburb": "Brunswick West",
       "address": "87 Melville Road, Brunswick West VIC 3055",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/294777167",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7620042,
       "lng": 144.9440669,
       "cuisine": "Vietnamese",
@@ -33022,11 +33688,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33046,7 +33709,10 @@ window.BYO = {
           "osm": "way/40619495",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Il Villaggio",
@@ -33063,11 +33729,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33087,7 +33750,10 @@ window.BYO = {
           "osm": "node/2463906165",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cirelli&co",
@@ -33104,11 +33770,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33128,7 +33791,10 @@ window.BYO = {
           "osm": "way/40619495",
           "distanceM": 420
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pad Cha Thai",
@@ -33136,6 +33802,8 @@ window.BYO = {
       "suburb": "Preston",
       "address": "319 High Street, Preston VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6017200218",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7424,
       "lng": 145.003041,
       "cuisine": "Thai",
@@ -33145,11 +33813,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33169,7 +33834,10 @@ window.BYO = {
           "osm": "node/6017236261",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Compass Pizza",
@@ -33186,11 +33854,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33210,7 +33875,10 @@ window.BYO = {
           "osm": "node/6649635549",
           "distanceM": 10
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Maharaja Tandoori Cuisine",
@@ -33227,11 +33895,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33251,7 +33916,10 @@ window.BYO = {
           "osm": "node/4959284697",
           "distanceM": 1220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Pantry Melbourne",
@@ -33259,6 +33927,8 @@ window.BYO = {
       "suburb": "Pascoe Vale",
       "address": "104 Kent Road, Pascoe Vale VIC 3044",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/8558723123",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.720044,
       "lng": 144.940881,
       "cuisine": "Cafe",
@@ -33268,11 +33938,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33292,7 +33959,10 @@ window.BYO = {
           "osm": "node/2458004388",
           "distanceM": 700
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Postmistress",
@@ -33300,6 +33970,8 @@ window.BYO = {
       "suburb": "Brunswick West",
       "address": "71 Melville Road, Brunswick West VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5754874670",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7638205,
       "lng": 144.9436279,
       "cuisine": "Italian",
@@ -33309,11 +33981,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33333,7 +34002,10 @@ window.BYO = {
           "osm": "way/40619495",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tempo",
@@ -33341,6 +34013,8 @@ window.BYO = {
       "suburb": "Northcote",
       "address": "242 High Street, Northcote VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12245723801",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7731444,
       "lng": 144.9985452,
       "cuisine": "Italian",
@@ -33350,11 +34024,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33374,7 +34045,10 @@ window.BYO = {
           "osm": "node/12245508751",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Shinwa Izakaya",
@@ -33382,6 +34056,8 @@ window.BYO = {
       "suburb": "Brunswick",
       "address": "139 Sydney Road, Brunswick VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7053663494",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.774111,
       "lng": 144.960705,
       "cuisine": "Japanese",
@@ -33391,11 +34067,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33415,7 +34088,10 @@ window.BYO = {
           "osm": "node/6547643507",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Basecamp Northcote",
@@ -33432,11 +34108,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33456,7 +34129,10 @@ window.BYO = {
           "osm": "way/609091151",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Inthanon Thai",
@@ -33464,6 +34140,8 @@ window.BYO = {
       "suburb": "Northcote",
       "address": "182 High Street, Northcote VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/2118855993",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.775019,
       "lng": 144.998031,
       "cuisine": "Thai",
@@ -33473,11 +34151,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33497,7 +34172,10 @@ window.BYO = {
           "osm": "node/12240741521",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "I Carusi",
@@ -33514,11 +34192,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33538,7 +34213,10 @@ window.BYO = {
           "osm": "way/1174950423",
           "distanceM": 320
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Botte Pizza Restaurant",
@@ -33546,6 +34224,8 @@ window.BYO = {
       "suburb": "Pascoe Vale",
       "address": "221 Melville Road, Pascoe Vale VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6968130704",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.739899,
       "lng": 144.945249,
       "cuisine": "Pizza",
@@ -33555,11 +34235,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33579,7 +34256,10 @@ window.BYO = {
           "osm": "node/1733023950",
           "distanceM": 1190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Narai Thai",
@@ -33596,11 +34276,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33620,7 +34297,10 @@ window.BYO = {
           "osm": "way/617504752",
           "distanceM": 610
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Silk Thai",
@@ -33637,11 +34317,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33661,7 +34338,10 @@ window.BYO = {
           "osm": "node/6017236261",
           "distanceM": 1380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lucky Little Dumplings Coburg",
@@ -33678,11 +34358,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33702,7 +34379,10 @@ window.BYO = {
           "osm": "node/12838589603",
           "distanceM": 670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pot House",
@@ -33719,11 +34399,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33743,7 +34420,10 @@ window.BYO = {
           "osm": "way/549301433",
           "distanceM": 1340
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Stefan's Charcoal Grill",
@@ -33760,11 +34440,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33784,7 +34461,10 @@ window.BYO = {
           "osm": "node/3049784556",
           "distanceM": 1060
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lina's Restaurant",
@@ -33801,11 +34481,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33825,7 +34502,10 @@ window.BYO = {
           "osm": "way/860311772",
           "distanceM": 90
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Little Thai Princess",
@@ -33842,11 +34522,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33866,7 +34543,10 @@ window.BYO = {
           "osm": "node/14040960122",
           "distanceM": 790
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "One Thai",
@@ -33874,6 +34554,8 @@ window.BYO = {
       "suburb": "Balwyn",
       "address": "346 Belmore Road, Balwyn VIC 3103",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7895383052",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.80353,
       "lng": 145.10242,
       "cuisine": "Thai",
@@ -33883,11 +34565,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33907,7 +34586,10 @@ window.BYO = {
           "osm": "node/7800138295",
           "distanceM": 1290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mumtaaz Indian Bistro",
@@ -33924,11 +34606,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33948,7 +34627,10 @@ window.BYO = {
           "osm": "node/7800138295",
           "distanceM": 150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Avatar Indian Cuisine",
@@ -33956,6 +34638,8 @@ window.BYO = {
       "suburb": "Balwyn",
       "address": "291 Whitehorse Road, Balwyn VIC 3103",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/11507888890",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.81242448786073,
       "lng": 145.0788433957008,
       "cuisine": "Indian",
@@ -33965,11 +34649,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -33989,7 +34670,10 @@ window.BYO = {
           "osm": "node/3049784556",
           "distanceM": 1070
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Franco-Belge",
@@ -34006,11 +34690,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34030,7 +34711,10 @@ window.BYO = {
           "osm": "way/160348143",
           "distanceM": 610
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Terrace",
@@ -34038,6 +34722,8 @@ window.BYO = {
       "suburb": "Kew",
       "address": "164 Pakington Street, Kew VIC 3101",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/549303336",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.795742,
       "lng": 145.036267,
       "cuisine": "Thai",
@@ -34047,11 +34733,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34071,7 +34754,10 @@ window.BYO = {
           "osm": "way/549301433",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Wing Gourmet Restaurant",
@@ -34088,11 +34774,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34112,7 +34795,10 @@ window.BYO = {
           "osm": "way/160348143",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Choi's",
@@ -34129,11 +34815,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34153,7 +34836,10 @@ window.BYO = {
           "osm": "way/1147777920",
           "distanceM": 670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "So Pho So Good",
@@ -34161,6 +34847,8 @@ window.BYO = {
       "suburb": "Glen Iris",
       "address": "25 High Street, Glen Iris VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/859899270",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.861448,
       "lng": 145.065204,
       "cuisine": "Cafe",
@@ -34170,11 +34858,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34194,7 +34879,10 @@ window.BYO = {
           "osm": "way/860311772",
           "distanceM": 140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Wasabi Place",
@@ -34211,11 +34899,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34235,7 +34920,10 @@ window.BYO = {
           "osm": "way/549301433",
           "distanceM": 1230
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Firebox Pizza",
@@ -34252,11 +34940,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34276,7 +34961,10 @@ window.BYO = {
           "osm": "node/13204106309",
           "distanceM": 290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Eastern Bell",
@@ -34293,11 +34981,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34317,7 +35002,10 @@ window.BYO = {
           "osm": "node/7800138295",
           "distanceM": 1340
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Deco",
@@ -34334,11 +35022,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34358,7 +35043,10 @@ window.BYO = {
           "osm": "way/160348143",
           "distanceM": 630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Charntra",
@@ -34375,11 +35063,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34399,7 +35084,10 @@ window.BYO = {
           "osm": "node/1894121470",
           "distanceM": 1170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Santucci's",
@@ -34407,6 +35095,8 @@ window.BYO = {
       "suburb": "Camberwell",
       "address": "1392 Toorak Road, Camberwell VIC 3124",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/14068434617",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.85042,
       "lng": 145.09403,
       "cuisine": "Modern Australian",
@@ -34416,11 +35106,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34440,7 +35127,10 @@ window.BYO = {
           "osm": "node/7800138294",
           "distanceM": 210
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Aashiana",
@@ -34457,11 +35147,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34481,7 +35168,10 @@ window.BYO = {
           "osm": "node/7800138295",
           "distanceM": 1290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Zen Japanese Restaurant",
@@ -34498,11 +35188,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34522,7 +35209,10 @@ window.BYO = {
           "osm": "way/860568299",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Blue River Thai",
@@ -34539,11 +35229,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34563,7 +35250,10 @@ window.BYO = {
           "osm": "node/1307386361",
           "distanceM": 1680
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Buoy Pizza",
@@ -34580,11 +35270,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34604,7 +35291,10 @@ window.BYO = {
           "osm": "way/549301433",
           "distanceM": 1140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ocha",
@@ -34621,11 +35311,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34645,7 +35332,10 @@ window.BYO = {
           "osm": "node/802084422",
           "distanceM": 880
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Oushou Japanese",
@@ -34662,11 +35352,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34686,7 +35373,10 @@ window.BYO = {
           "osm": "way/160348143",
           "distanceM": 630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rama Thai",
@@ -34703,11 +35393,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34727,7 +35414,10 @@ window.BYO = {
           "osm": "node/14040960122",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pimento Thai Cuisine",
@@ -34744,11 +35434,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34768,7 +35455,10 @@ window.BYO = {
           "osm": "node/14040960122",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tandoori Den",
@@ -34776,6 +35466,8 @@ window.BYO = {
       "suburb": "Camberwell",
       "address": "261 Camberwell Road, Camberwell VIC 3124",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/688794443",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.831984,
       "lng": 145.057792,
       "cuisine": "Indian",
@@ -34785,11 +35477,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34809,7 +35498,10 @@ window.BYO = {
           "osm": "way/160348143",
           "distanceM": 780
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tao Tao House",
@@ -34817,6 +35509,8 @@ window.BYO = {
       "suburb": "Hawthorn",
       "address": "815 Glenferrie Road, Hawthorn VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/11810606770",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.815208,
       "lng": 145.03649,
       "cuisine": "Chinese",
@@ -34826,11 +35520,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34850,7 +35541,10 @@ window.BYO = {
           "osm": "node/13204106309",
           "distanceM": 480
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Jade Kew",
@@ -34867,11 +35561,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34891,7 +35582,10 @@ window.BYO = {
           "osm": "way/549301433",
           "distanceM": 1150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cloves Fine Indian Restaurant",
@@ -34899,6 +35593,8 @@ window.BYO = {
       "suburb": "Balwyn",
       "address": "1056 Burke Road, Balwyn VIC 3103",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5282956563",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8010435,
       "lng": 145.0626676,
       "cuisine": "Indian",
@@ -34908,11 +35604,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34932,7 +35625,10 @@ window.BYO = {
           "osm": "node/6725457469",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dad Vietnamese Restaurant",
@@ -34949,11 +35645,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -34973,7 +35666,10 @@ window.BYO = {
           "osm": "node/614096330",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bellezza Restaurant",
@@ -34990,11 +35686,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35014,7 +35707,10 @@ window.BYO = {
           "osm": "node/14040960122",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bansho",
@@ -35031,11 +35727,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35055,7 +35748,10 @@ window.BYO = {
           "osm": "node/3477983082",
           "distanceM": 450
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Potluck",
@@ -35072,11 +35768,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35096,7 +35789,10 @@ window.BYO = {
           "osm": "node/6165387606",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chez Olivier",
@@ -35113,11 +35809,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35137,7 +35830,10 @@ window.BYO = {
           "osm": "node/3412142745",
           "distanceM": 210
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "David's Restaurant",
@@ -35145,6 +35841,8 @@ window.BYO = {
       "suburb": "Prahran",
       "address": "4 Cecil Place, Prahran VIC 3181",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4301904989",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.850543,
       "lng": 144.994058,
       "cuisine": "Chinese",
@@ -35154,11 +35852,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35178,7 +35873,10 @@ window.BYO = {
           "osm": "node/614096330",
           "distanceM": 470
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Thai on Chapel",
@@ -35195,11 +35893,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35219,7 +35914,10 @@ window.BYO = {
           "osm": "node/614096330",
           "distanceM": 960
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Yuzen",
@@ -35236,11 +35934,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35260,7 +35955,10 @@ window.BYO = {
           "osm": "node/10774640253",
           "distanceM": 680
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bistro Thierry",
@@ -35277,11 +35975,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35301,7 +35996,10 @@ window.BYO = {
           "osm": "node/12591963759",
           "distanceM": 340
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Giorgios",
@@ -35318,11 +36016,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35342,7 +36037,10 @@ window.BYO = {
           "osm": "node/3477983082",
           "distanceM": 1250
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Romeo's of Toorak",
@@ -35359,11 +36057,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35383,7 +36078,10 @@ window.BYO = {
           "osm": "node/12591963759",
           "distanceM": 770
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Versachi's",
@@ -35400,11 +36098,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35424,7 +36119,10 @@ window.BYO = {
           "osm": "node/3412142745",
           "distanceM": 290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bombay By Night",
@@ -35441,11 +36139,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35465,7 +36160,10 @@ window.BYO = {
           "osm": "node/14003801406",
           "distanceM": 1220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Juicy Dumplings on Chapel",
@@ -35482,11 +36180,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35506,7 +36201,10 @@ window.BYO = {
           "osm": "node/614096330",
           "distanceM": 190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tandoori Cottage",
@@ -35514,6 +36212,8 @@ window.BYO = {
       "suburb": "Malvern East",
       "address": "403 Waverley Road, Malvern East VIC 3145",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/631295294",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.878045,
       "lng": 145.066667,
       "cuisine": "Indian",
@@ -35523,11 +36223,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35547,7 +36244,10 @@ window.BYO = {
           "osm": "way/679381107",
           "distanceM": 1020
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "L'Olivo",
@@ -35564,11 +36264,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35588,7 +36285,10 @@ window.BYO = {
           "osm": "way/679381107",
           "distanceM": 1180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Moti Mahal",
@@ -35605,11 +36305,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35629,7 +36326,10 @@ window.BYO = {
           "osm": "node/3477983082",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "7 Zaab",
@@ -35646,11 +36346,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35670,7 +36367,10 @@ window.BYO = {
           "osm": "node/3412142745",
           "distanceM": 180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sichuan Legacy",
@@ -35687,11 +36387,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35711,7 +36408,10 @@ window.BYO = {
           "osm": "node/3477983082",
           "distanceM": 1280
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pacific Seafood BBQ House",
@@ -35728,11 +36428,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35752,7 +36449,10 @@ window.BYO = {
           "osm": "node/3412142745",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Shiva Indian Cuisine",
@@ -35769,11 +36469,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35793,7 +36490,10 @@ window.BYO = {
           "osm": "node/12591963759",
           "distanceM": 390
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mizu",
@@ -35810,11 +36510,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35834,7 +36531,10 @@ window.BYO = {
           "osm": "node/614096330",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Embers Grill Burgers",
@@ -35842,6 +36542,8 @@ window.BYO = {
       "suburb": "Heathmont",
       "address": "148 Canterbury Road, Heathmont VIC 3135",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1501125658",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.828513,
       "lng": 145.246629,
       "cuisine": "Grill",
@@ -35851,11 +36553,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35875,7 +36574,10 @@ window.BYO = {
           "osm": "way/706500570",
           "distanceM": 1110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Holy Basil Thai",
@@ -35883,6 +36585,8 @@ window.BYO = {
       "suburb": "Croydon",
       "address": "66-68 Maroondah Highway, Croydon VIC 3136",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/9347698505",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.790202,
       "lng": 145.266693,
       "cuisine": "Thai",
@@ -35892,11 +36596,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35916,7 +36617,10 @@ window.BYO = {
           "osm": "way/1012922520",
           "distanceM": 1460
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mandarin Bistro",
@@ -35933,11 +36637,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35950,7 +36651,10 @@ window.BYO = {
           "distanceM": 1130
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mr and Mrs Pizza",
@@ -35967,11 +36671,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -35984,7 +36685,10 @@ window.BYO = {
           "distanceM": 1120
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Lemon Tree",
@@ -36001,11 +36705,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36025,7 +36726,10 @@ window.BYO = {
           "osm": "way/1012922520",
           "distanceM": 200
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chef's Thai",
@@ -36042,11 +36746,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36066,7 +36767,10 @@ window.BYO = {
           "osm": "node/9570071797",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pizza 72",
@@ -36074,6 +36778,8 @@ window.BYO = {
       "suburb": "Heathmont",
       "address": "124 Canterbury Road, Heathmont VIC 3135",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1264378185",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8279739,
       "lng": 145.2470992,
       "cuisine": "Pizza",
@@ -36083,11 +36789,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36107,7 +36810,10 @@ window.BYO = {
           "osm": "way/706500570",
           "distanceM": 1060
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ichikuro",
@@ -36115,6 +36821,8 @@ window.BYO = {
       "suburb": "Blackburn",
       "address": "6/55-65 Railway Road, Blackburn VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/14250648979",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8193479,
       "lng": 145.1526588,
       "cuisine": "Japanese",
@@ -36124,11 +36832,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36148,7 +36853,10 @@ window.BYO = {
           "osm": "node/7350234695",
           "distanceM": 1460
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tandoori Corner",
@@ -36156,6 +36864,8 @@ window.BYO = {
       "suburb": "Wantirna",
       "address": "1308 High Street Road, Wantirna VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1271606434",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.877271,
       "lng": 145.221308,
       "cuisine": "Indian",
@@ -36165,11 +36875,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36182,7 +36889,10 @@ window.BYO = {
           "distanceM": 1780
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pacino's Pizza & Pasta",
@@ -36199,11 +36909,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36223,7 +36930,10 @@ window.BYO = {
           "osm": "node/1539144720",
           "distanceM": 1540
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Chaiyo",
@@ -36231,6 +36941,8 @@ window.BYO = {
       "suburb": "Croydon",
       "address": "16-28 Hewish Road, Croydon VIC 3136",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1503398872",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.796326,
       "lng": 145.28231,
       "cuisine": "Thai",
@@ -36240,11 +36952,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36264,7 +36973,10 @@ window.BYO = {
           "osm": "way/1012922520",
           "distanceM": 80
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fontains Pizza and Restaurant",
@@ -36272,6 +36984,8 @@ window.BYO = {
       "suburb": "Wantirna",
       "address": "8 The Mall, Wantirna VIC 3152",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1152581086",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.848018,
       "lng": 145.231745,
       "cuisine": "Pizza",
@@ -36281,11 +36995,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36298,7 +37009,10 @@ window.BYO = {
           "distanceM": 30
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Poppies On Canterbury",
@@ -36315,11 +37029,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36339,7 +37050,10 @@ window.BYO = {
           "osm": "node/7350234695",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Beef Papa Hotpot",
@@ -36356,11 +37070,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36380,7 +37091,10 @@ window.BYO = {
           "osm": "node/6016882803",
           "distanceM": 140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Taj Agra",
@@ -36388,6 +37102,8 @@ window.BYO = {
       "suburb": "Ringwood",
       "address": "129 Maroondah Highway, Ringwood VIC 3134",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/34406501",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.815957,
       "lng": 145.226614,
       "cuisine": "Indian",
@@ -36397,11 +37113,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36421,7 +37134,10 @@ window.BYO = {
           "osm": "way/706500570",
           "distanceM": 1530
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hot Chilli Thai Restaurant",
@@ -36438,11 +37154,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36462,7 +37175,10 @@ window.BYO = {
           "osm": "way/1012922520",
           "distanceM": 1880
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hills BBQ Noodle Shop",
@@ -36479,11 +37195,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36503,7 +37216,10 @@ window.BYO = {
           "osm": "node/14314310762",
           "distanceM": 160
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Aroy-D Thai Restaurant",
@@ -36511,6 +37227,8 @@ window.BYO = {
       "suburb": "Ringwood",
       "address": "178 Warrandyte Road, Ringwood North VIC 3134",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1500288148",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.795081,
       "lng": 145.235545,
       "cuisine": "Thai",
@@ -36520,11 +37238,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36544,7 +37259,10 @@ window.BYO = {
           "osm": "way/1500288164",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Indochine Vietnamese Cuisine",
@@ -36561,11 +37279,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36585,7 +37300,10 @@ window.BYO = {
           "osm": "node/6016882803",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tien Dat",
@@ -36602,11 +37320,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36626,7 +37341,10 @@ window.BYO = {
           "osm": "node/6016882803",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Casalinga",
@@ -36634,6 +37352,8 @@ window.BYO = {
       "suburb": "Croydon",
       "address": "11 Maroondah Highway, Croydon VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12284771443",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.792863278959,
       "lng": 145.26028633117676,
       "cuisine": "Modern Australian",
@@ -36643,11 +37363,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36667,7 +37384,10 @@ window.BYO = {
           "osm": "way/1012922520",
           "distanceM": 1890
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Marpha",
@@ -36684,11 +37404,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36708,7 +37425,10 @@ window.BYO = {
           "osm": "node/5388308523",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Wanda Catch Fish and Chips",
@@ -36725,11 +37445,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36749,7 +37466,10 @@ window.BYO = {
           "osm": "node/1954089127",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Halong2 Vietnamese Restaurant",
@@ -36766,11 +37486,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36790,7 +37507,10 @@ window.BYO = {
           "osm": "node/6359734504",
           "distanceM": 1560
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Eton",
@@ -36807,11 +37527,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36831,7 +37548,10 @@ window.BYO = {
           "osm": "way/542182650",
           "distanceM": 870
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Joes of Mentone",
@@ -36848,11 +37568,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36872,7 +37589,10 @@ window.BYO = {
           "osm": "node/5388308523",
           "distanceM": 670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mehfil Indian Restaurant",
@@ -36889,11 +37609,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36913,7 +37630,10 @@ window.BYO = {
           "osm": "node/4208899468",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ginseng Modern Asian Cuisine",
@@ -36930,11 +37650,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36954,7 +37671,10 @@ window.BYO = {
           "osm": "node/6359734504",
           "distanceM": 1990
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Indian Burrp",
@@ -36971,11 +37691,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -36995,7 +37712,10 @@ window.BYO = {
           "osm": "node/6226483347",
           "distanceM": 1010
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cinnamon Club VIC",
@@ -37012,11 +37732,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37036,7 +37753,10 @@ window.BYO = {
           "osm": "node/6226483347",
           "distanceM": 1010
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "FRATELLI Frankston",
@@ -37053,11 +37773,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37077,7 +37794,10 @@ window.BYO = {
           "osm": "way/172654062",
           "distanceM": 740
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rosie's Kitchen Pantry",
@@ -37094,11 +37814,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
@@ -37110,7 +37827,10 @@ window.BYO = {
           "osm": "node/11470865990",
           "distanceM": 320
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Kasturi Indian Restaurant",
@@ -37127,11 +37847,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37151,7 +37868,10 @@ window.BYO = {
           "osm": "node/6359734504",
           "distanceM": 1980
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Nam Son",
@@ -37159,6 +37879,8 @@ window.BYO = {
       "suburb": "Springvale",
       "address": "51D Windsor Avenue, Springvale VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5253887819",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.950419,
       "lng": 145.142281,
       "cuisine": "Vietnamese",
@@ -37168,11 +37890,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37192,7 +37911,10 @@ window.BYO = {
           "osm": "node/5187993680",
           "distanceM": 1300
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Today",
@@ -37209,11 +37931,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37233,7 +37952,10 @@ window.BYO = {
           "osm": "node/5389620821",
           "distanceM": 30
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lucky Inn",
@@ -37250,11 +37972,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37274,7 +37993,10 @@ window.BYO = {
           "osm": "node/6359734504",
           "distanceM": 630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Shark Fin Inn",
@@ -37291,11 +38013,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37315,7 +38034,10 @@ window.BYO = {
           "osm": "node/3341490695",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ras Dashen",
@@ -37332,11 +38054,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37356,7 +38075,10 @@ window.BYO = {
           "osm": "way/636860722",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The African Calabash",
@@ -37373,11 +38095,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37397,7 +38116,10 @@ window.BYO = {
           "osm": "way/636860722",
           "distanceM": 20
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "A Day in BKK Williamstown",
@@ -37405,6 +38127,8 @@ window.BYO = {
       "suburb": "Williamstown",
       "address": "145 Nelson Place, Williamstown VIC 3016",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12196421797",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8633569,
       "lng": 144.904479,
       "cuisine": "Thai",
@@ -37414,11 +38138,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37431,7 +38152,10 @@ window.BYO = {
           "distanceM": 1520
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fusion Ceylon",
@@ -37448,11 +38172,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37472,7 +38193,10 @@ window.BYO = {
           "osm": "way/966485049",
           "distanceM": 270
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Spice Yard",
@@ -37480,6 +38204,8 @@ window.BYO = {
       "suburb": "Altona",
       "address": "75 Pier Street, Altona VIC 3018",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/1374096399",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.867869,
       "lng": 144.830172,
       "cuisine": "Indian",
@@ -37489,11 +38215,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37513,7 +38236,10 @@ window.BYO = {
           "osm": "node/7998321426",
           "distanceM": 1450
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hien Vuong",
@@ -37521,6 +38247,8 @@ window.BYO = {
       "suburb": "Footscray",
       "address": "37 Leeds Street, Footscray VIC 3011",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12229199125",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.800837,
       "lng": 144.901205,
       "cuisine": "Vietnamese",
@@ -37530,11 +38258,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37554,7 +38279,10 @@ window.BYO = {
           "osm": "way/636860863",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hanuman Thai Restaurant",
@@ -37562,6 +38290,8 @@ window.BYO = {
       "suburb": "Hoppers Crossing",
       "address": "35 Old Geelong Road, Hoppers Crossing VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/11612809270",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8823528,
       "lng": 144.699872,
       "cuisine": "Thai",
@@ -37571,11 +38301,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37588,7 +38315,10 @@ window.BYO = {
           "distanceM": 50
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Oye Bombay Indian Restaurant",
@@ -37596,6 +38326,8 @@ window.BYO = {
       "suburb": "Altona",
       "address": "23 Harrington Square, Altona VIC 3018",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/9536438065",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.86432611302381,
       "lng": 144.81315782209015,
       "cuisine": "Indian",
@@ -37605,11 +38337,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37629,7 +38358,10 @@ window.BYO = {
           "osm": "node/7998321426",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mishra's Kitchen",
@@ -37646,11 +38378,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37670,7 +38399,10 @@ window.BYO = {
           "osm": "node/14072565215",
           "distanceM": 1330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lion Dance",
@@ -37687,11 +38419,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37704,7 +38433,10 @@ window.BYO = {
           "distanceM": 1130
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Siora Alimenti & Tiramisu",
@@ -37721,11 +38453,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37745,7 +38474,10 @@ window.BYO = {
           "osm": "way/956272292",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pho Hien Saigon",
@@ -37762,11 +38494,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37786,7 +38515,10 @@ window.BYO = {
           "osm": "node/5824763960",
           "distanceM": 140
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Palazzo",
@@ -37803,11 +38535,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37820,7 +38549,10 @@ window.BYO = {
           "distanceM": 1480
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Hoppers Charcoal Chicken",
@@ -37837,11 +38569,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37854,7 +38583,10 @@ window.BYO = {
           "distanceM": 40
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Delhi Nights",
@@ -37871,11 +38603,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37888,7 +38617,10 @@ window.BYO = {
           "distanceM": 20
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Delicious House",
@@ -37896,6 +38628,8 @@ window.BYO = {
       "suburb": "Deer Park",
       "address": "816 Ballarat Road, Deer Park VIC 3023",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/140209360",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.76963984744554,
       "lng": 144.77351872577765,
       "cuisine": "Chinese",
@@ -37905,11 +38639,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37929,7 +38660,10 @@ window.BYO = {
           "osm": "node/11025666637",
           "distanceM": 1790
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dragon Temple",
@@ -37937,6 +38671,8 @@ window.BYO = {
       "suburb": "Altona",
       "address": "25 Somers Parade, Altona VIC 3018",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/857935663",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.870153,
       "lng": 144.811093,
       "cuisine": "Chinese",
@@ -37946,11 +38682,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -37970,7 +38703,10 @@ window.BYO = {
           "osm": "node/9555452474",
           "distanceM": 70
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Slice Girls West",
@@ -37978,6 +38714,8 @@ window.BYO = {
       "suburb": "Footscray",
       "address": "4 Yewers Street, Footscray VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/4017411386",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8019298,
       "lng": 144.9068147,
       "cuisine": "Pizza",
@@ -37987,11 +38725,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38011,7 +38746,10 @@ window.BYO = {
           "osm": "node/4017415220",
           "distanceM": 230
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thuan An Vietnamese Restaurant",
@@ -38028,11 +38766,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38052,7 +38787,10 @@ window.BYO = {
           "osm": "node/5824763960",
           "distanceM": 180
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Monzarella Italian Restaurant",
@@ -38060,6 +38798,8 @@ window.BYO = {
       "suburb": "Williamstown",
       "address": "231 Nelson Place, Williamstown VIC 3016",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/12189566925",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.8615376,
       "lng": 144.9022901,
       "cuisine": "Italian",
@@ -38069,11 +38809,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38086,7 +38823,10 @@ window.BYO = {
           "distanceM": 1270
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dumplings & More",
@@ -38094,6 +38834,8 @@ window.BYO = {
       "suburb": "Footscray",
       "address": "96 Hopkins Street, Footscray VIC 3011",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/239328770",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7999213,
       "lng": 144.9020641,
       "cuisine": "Chinese",
@@ -38103,11 +38845,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38127,7 +38866,10 @@ window.BYO = {
           "osm": "way/636860863",
           "distanceM": 50
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sangam Tandoori",
@@ -38135,6 +38877,8 @@ window.BYO = {
       "suburb": "Williamstown",
       "address": "135 Nelson Place, Williamstown VIC 3016",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/9774418702",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.863548,
       "lng": 144.904778,
       "cuisine": "Indian",
@@ -38144,11 +38888,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38161,7 +38902,10 @@ window.BYO = {
           "distanceM": 1550
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Yim Yam Thai Laos Yarraville",
@@ -38178,11 +38922,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38202,7 +38943,10 @@ window.BYO = {
           "osm": "way/376492617",
           "distanceM": 1220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Aangan",
@@ -38219,11 +38963,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38243,7 +38984,10 @@ window.BYO = {
           "osm": "node/14072565215",
           "distanceM": 1190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Elio Italian Family Bistro",
@@ -38260,11 +39004,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38277,7 +39018,10 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sinq",
@@ -38294,11 +39038,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38318,7 +39059,10 @@ window.BYO = {
           "osm": "node/7921816575",
           "distanceM": 100
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "SandwichWali",
@@ -38335,16 +39079,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Whittlesea Bakehouse",
@@ -38361,16 +39105,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Whang Thai (Whittlesea)",
@@ -38387,16 +39131,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Whittlesea Bowls Club",
@@ -38413,16 +39157,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "VHM Bros",
@@ -38439,16 +39183,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mister Truong's",
@@ -38456,6 +39200,8 @@ window.BYO = {
       "suburb": "Brunswick West",
       "address": "87 Melville Road, Brunswick West VIC 3055",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/294777167",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7620042,
       "lng": 144.9440669,
       "cuisine": "Vietnamese",
@@ -38465,11 +39211,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38489,7 +39232,10 @@ window.BYO = {
           "osm": "way/40619495",
           "distanceM": 40
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Clay Wok",
@@ -38506,16 +39252,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Colombo Foodies Melbourne",
@@ -38532,16 +39278,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "GT ROAD INDIAN FUSION",
@@ -38558,16 +39304,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Mr McCracken",
@@ -38575,6 +39321,8 @@ window.BYO = {
       "suburb": "Essendon Fields",
       "address": "1A Larkin Boulevard, Essendon Fields VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7641921665",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7247353,
       "lng": 144.8928002,
       "cuisine": "Modern Australian",
@@ -38584,11 +39332,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38608,7 +39353,10 @@ window.BYO = {
           "osm": "node/2520946909",
           "distanceM": 1490
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Cirelli&co",
@@ -38625,11 +39373,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38649,7 +39394,10 @@ window.BYO = {
           "osm": "way/40619495",
           "distanceM": 420
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Indian Star",
@@ -38666,11 +39414,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38690,7 +39435,10 @@ window.BYO = {
           "osm": "node/7921816575",
           "distanceM": 1000
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pad Cha Thai",
@@ -38698,6 +39446,8 @@ window.BYO = {
       "suburb": "Preston",
       "address": "319 High Street, Preston VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6017200218",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7424,
       "lng": 145.003041,
       "cuisine": "Thai",
@@ -38707,11 +39457,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38731,7 +39478,10 @@ window.BYO = {
           "osm": "node/6017236261",
           "distanceM": 380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Burrata",
@@ -38748,11 +39498,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38772,7 +39519,10 @@ window.BYO = {
           "osm": "node/9211689525",
           "distanceM": 90
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Botte Pizza Restaurant",
@@ -38780,6 +39530,8 @@ window.BYO = {
       "suburb": "Pascoe Vale",
       "address": "221 Melville Road, Pascoe Vale VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/6968130704",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.739899,
       "lng": 144.945249,
       "cuisine": "Pizza",
@@ -38789,11 +39541,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38813,7 +39562,10 @@ window.BYO = {
           "osm": "node/1733023950",
           "distanceM": 1190
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Karim's Indian Restaurant",
@@ -38830,11 +39582,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38854,7 +39603,10 @@ window.BYO = {
           "osm": "node/14241137408",
           "distanceM": 170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Maharaja Tandoori Cuisine",
@@ -38871,11 +39623,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38895,7 +39644,10 @@ window.BYO = {
           "osm": "node/4959284697",
           "distanceM": 1220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Pantry Melbourne",
@@ -38903,6 +39655,8 @@ window.BYO = {
       "suburb": "Pascoe Vale",
       "address": "104 Kent Road, Pascoe Vale VIC 3044",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/8558723123",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.720044,
       "lng": 144.940881,
       "cuisine": "Cafe",
@@ -38912,11 +39666,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38936,7 +39687,10 @@ window.BYO = {
           "osm": "node/2458004388",
           "distanceM": 700
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Postmistress",
@@ -38944,6 +39698,8 @@ window.BYO = {
       "suburb": "Brunswick West",
       "address": "71 Melville Road, Brunswick West VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/5754874670",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.7638205,
       "lng": 144.9436279,
       "cuisine": "Italian",
@@ -38953,11 +39709,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -38977,7 +39730,10 @@ window.BYO = {
           "osm": "way/40619495",
           "distanceM": 220
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "My Thai On Keilor",
@@ -38994,11 +39750,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -39018,7 +39771,10 @@ window.BYO = {
           "osm": "node/12603522055",
           "distanceM": 1670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fuji Teppanyaki",
@@ -39026,6 +39782,8 @@ window.BYO = {
       "suburb": "Moonee Ponds",
       "address": "545-547 Mount Alexander Road, Moonee Ponds VIC 3039",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/194280478",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.769548,
       "lng": 144.92534,
       "cuisine": "Japanese",
@@ -39035,11 +39793,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -39059,7 +39814,10 @@ window.BYO = {
           "osm": "node/14241137408",
           "distanceM": 290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Central Pizza Craigieburn",
@@ -39076,16 +39834,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sukunda craigieburn",
@@ -39102,16 +39860,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Yim Yam Thai Laos Ascot Vale",
@@ -39119,6 +39877,8 @@ window.BYO = {
       "suburb": "Ascot Vale",
       "address": "415-415A Mount Alexander Road, Ascot Vale VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/7345315319",
+      "addressCheckedAt": "2026-11-12",
       "lat": -37.774107,
       "lng": 144.927286,
       "cuisine": "Thai",
@@ -39128,11 +39888,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -39152,7 +39909,10 @@ window.BYO = {
           "osm": "node/14241137408",
           "distanceM": 800
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "2chooks Panini & Pantry",
@@ -39169,11 +39929,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -39193,7 +39950,10 @@ window.BYO = {
           "osm": "node/2520946909",
           "distanceM": 630
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Aangan - Craigieburn",
@@ -39210,16 +39970,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Nongkhai Thai Restaurant",
@@ -39236,11 +39996,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -39260,7 +40017,10 @@ window.BYO = {
           "osm": "node/1733023950",
           "distanceM": 780
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pazza Pizza",
@@ -39277,11 +40037,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -39301,7 +40058,10 @@ window.BYO = {
           "osm": "node/7921816575",
           "distanceM": 510
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Silk Thai",
@@ -39318,11 +40078,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Melbourne",
       "bottleShops": {
         "chain": {
@@ -39342,7 +40099,10 @@ window.BYO = {
           "osm": "node/6017236261",
           "distanceM": 1380
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Lara Indian Restaurant",
@@ -39359,11 +40119,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39383,7 +40140,10 @@ window.BYO = {
           "osm": "way/266792419",
           "distanceM": 690
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Vista",
@@ -39400,11 +40160,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39424,7 +40181,10 @@ window.BYO = {
           "osm": "way/266728397",
           "distanceM": 510
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Public",
@@ -39441,11 +40201,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39465,7 +40222,10 @@ window.BYO = {
           "osm": "way/266728798",
           "distanceM": 290
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "La Porchetta",
@@ -39482,11 +40242,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39506,7 +40263,10 @@ window.BYO = {
           "osm": "way/266728798",
           "distanceM": 150
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Elephant Tusk",
@@ -39523,11 +40283,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39547,7 +40304,10 @@ window.BYO = {
           "osm": "way/1137745228",
           "distanceM": 60
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Arani Thai Restaurant",
@@ -39564,11 +40324,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39588,7 +40345,10 @@ window.BYO = {
           "osm": "way/266728397",
           "distanceM": 230
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Cave Wood Fired Pizza",
@@ -39605,16 +40365,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Rose Chinese Restaurant",
@@ -39631,11 +40391,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39648,7 +40405,10 @@ window.BYO = {
           "distanceM": 390
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fine Aromas",
@@ -39665,11 +40425,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": null,
@@ -39681,7 +40438,10 @@ window.BYO = {
           "osm": "node/7143596741",
           "distanceM": 120
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Sushi Inn Ramen & Rice",
@@ -39698,11 +40458,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39722,7 +40479,10 @@ window.BYO = {
           "osm": "way/1290444437",
           "distanceM": 320
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "The Bungalow Restaurant",
@@ -39730,6 +40490,8 @@ window.BYO = {
       "suburb": "Drysdale",
       "address": "32 High Street, Drysdale VIC 3222",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/266485067",
+      "addressCheckedAt": "2026-11-12",
       "lat": -38.17456141996744,
       "lng": 144.56852443558196,
       "cuisine": "Modern Australian",
@@ -39739,11 +40501,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39763,7 +40522,10 @@ window.BYO = {
           "osm": "way/1290444437",
           "distanceM": 450
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Shelter Shed",
@@ -39780,16 +40542,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ming Terrace",
@@ -39806,11 +40568,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39830,7 +40589,10 @@ window.BYO = {
           "osm": "node/6988709815",
           "distanceM": 250
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Beach House Barwon Heads",
@@ -39847,16 +40609,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ghien",
@@ -39873,16 +40635,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Spitfire Restaurant & Grill",
@@ -39899,11 +40661,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39916,7 +40675,10 @@ window.BYO = {
           "distanceM": 220
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pompette Portsea",
@@ -39933,16 +40695,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Le Feu",
@@ -39959,11 +40721,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -39983,7 +40742,10 @@ window.BYO = {
           "osm": "way/1063760472",
           "distanceM": 330
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Ruby Modern Thai",
@@ -40000,11 +40762,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40017,7 +40776,10 @@ window.BYO = {
           "distanceM": 430
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Fontalina",
@@ -40034,11 +40796,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": null,
@@ -40050,7 +40809,10 @@ window.BYO = {
           "osm": "node/5075041580",
           "distanceM": 1230
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Pizza D'oh!",
@@ -40067,11 +40829,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40084,7 +40843,10 @@ window.BYO = {
           "distanceM": 60
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Beach House",
@@ -40092,6 +40854,8 @@ window.BYO = {
       "suburb": "Dromana",
       "address": "291-293 Point Nepean Road, Dromana VIC 3936",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/232329103",
+      "addressCheckedAt": "2026-11-12",
       "lat": -38.3338631,
       "lng": 144.9628518,
       "cuisine": "Thai",
@@ -40101,11 +40865,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40118,7 +40879,10 @@ window.BYO = {
           "distanceM": 520
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chipotle Restaurant",
@@ -40135,11 +40899,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40152,7 +40913,10 @@ window.BYO = {
           "distanceM": 390
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Chipotle Mexican Restaurant",
@@ -40169,11 +40933,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40186,7 +40947,10 @@ window.BYO = {
           "distanceM": 390
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Uthong Thai",
@@ -40203,11 +40967,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40227,7 +40988,10 @@ window.BYO = {
           "osm": "way/1550736577",
           "distanceM": 560
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Dava Thai Mornington",
@@ -40244,11 +41008,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40261,7 +41022,10 @@ window.BYO = {
           "distanceM": 1180
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "One Pear Tree Mornington",
@@ -40278,11 +41042,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40295,7 +41056,10 @@ window.BYO = {
           "distanceM": 550
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Baihmon Thai Restaurant",
@@ -40312,16 +41076,16 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Panda Blairgowrie",
@@ -40338,11 +41102,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40355,7 +41116,10 @@ window.BYO = {
           "distanceM": 360
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Makang",
@@ -40372,11 +41136,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40396,7 +41157,10 @@ window.BYO = {
           "osm": "way/1550736577",
           "distanceM": 670
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Indian Mahal",
@@ -40404,6 +41168,8 @@ window.BYO = {
       "suburb": "Baxter",
       "address": "636 Frankston-Flinders Road, Baxter VIC 3911",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/way/158019053",
+      "addressCheckedAt": "2026-11-12",
       "lat": -38.1946168,
       "lng": 145.1484025,
       "cuisine": "Indian",
@@ -40413,11 +41179,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40437,7 +41200,10 @@ window.BYO = {
           "osm": "way/156466356",
           "distanceM": 1170
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Bardo Sorrento",
@@ -40454,11 +41220,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40471,7 +41234,10 @@ window.BYO = {
           "distanceM": 90
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Blue Fin Restaurant",
@@ -40479,6 +41245,8 @@ window.BYO = {
       "suburb": "Blairgowrie",
       "address": "2847 Point Nepean Road, Blairgowrie VIC",
       "addressSource": "osm",
+      "addressSourceUrl": "https://www.openstreetmap.org/node/11583644270",
+      "addressCheckedAt": "2026-11-12",
       "lat": -38.361068376618405,
       "lng": 144.7785134828033,
       "cuisine": "Seafood",
@@ -40488,11 +41256,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40505,7 +41270,10 @@ window.BYO = {
           "distanceM": 70
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Itali.co Sorrento",
@@ -40522,11 +41290,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40539,7 +41304,10 @@ window.BYO = {
           "distanceM": 540
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Thai Rosy",
@@ -40556,11 +41324,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40573,7 +41338,10 @@ window.BYO = {
           "distanceM": 140
         },
         "independent": null
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     },
     {
       "name": "Tulsi",
@@ -40590,11 +41358,8 @@ window.BYO = {
       "priceEstimate": false,
       "corkage": "Unknown",
       "byoConfirmed": false,
-      "dish": "",
       "takeaway": "unknown",
-      "takeawayDetail": "",
       "note": "BYO listed on AGFG; confirm with the venue",
-      "website": "",
       "city": "Vic Coast",
       "bottleShops": {
         "chain": {
@@ -40614,7 +41379,10 @@ window.BYO = {
           "osm": "way/221018902",
           "distanceM": 110
         }
-      }
+      },
+      "dish": "",
+      "takeawayDetail": "",
+      "website": ""
     }
   ],
   "cities": [

@@ -217,7 +217,11 @@
         ? '<p class="addr"><a href="' + esc(view.directions) + '" target="_blank" rel="noopener">' + esc(view.address) + "</a></p>"
         : '<p class="addr">' + esc(view.address) + "</p>")
       : "";
-    var dist = state.area && state.area.near && typeof p._dist === "number" ? '<p class="dist">' + esc(formatDist(p._dist)) + " away</p>" : "";
+    var dist = "";
+    if (state.area && state.area.near && state.coords) {
+      var label = L.distanceLabel(p);
+      if (label) dist = '<p class="dist">' + esc(label) + "</p>";
+    }
     var actions = "";
     if (view.directions) actions += '<a href="' + esc(view.directions) + '" target="_blank" rel="noopener">Directions</a>';
     if (view.website) actions += '<a href="' + esc(view.website) + '" target="_blank" rel="noopener">Website</a>';
@@ -228,12 +232,6 @@
       '<p class="meta">' + esc([p.cuisine, p.suburb].filter(Boolean).join(" · ")) + "</p>" +
       rating + badgeHtml(p) + addr + dist + "</span></button><div class=\"actions\">" + actions + "</div></article>";
   }
-  function formatDist(m) {
-    if (m < 950) return Math.max(10, Math.round(m / 10) * 10) + " m";
-    var km = m / 1000;
-    return (km < 10 ? km.toFixed(1) : String(Math.round(km))) + " km";
-  }
-
   function emptyHtml(list) {
     if (list.length) return "";
     if (L.filtersActive(state.filters) && state.area && !state.area.unrecognised && !state.area.knownEmpty) {

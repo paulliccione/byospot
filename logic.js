@@ -459,7 +459,7 @@
     return /\b(street|st|road|rd|avenue|ave|park|cnr|lane|highway|hwy|parade|pde|drive|dr|place|pl|terrace|tce|crescent|cres|way|boulevard|bvd|esplanade|court|cct)\b/i.test(a);
   }
   function directionsUrl(p) {
-    // Suburb-only records have no re-sourced street address, so Directions stays hidden.
+    // No verified street address. Do not send people to a suburb centre.
     if (p && p.addressSource === "suburb-only") return "";
     var addr = String((p && p.address) || "").trim();
     if (!addressRoutable(addr)) return "";
@@ -596,6 +596,18 @@
     return !!(String(f.q || "").trim() || cuisineSelection(f).length || (f.byo && f.byo !== "All") || (f.corkage && f.corkage !== "All") || Number(f.radius) > 0);
   }
   function defaultSort(area) { return area && area.near ? "distance" : "name"; }
+
+  // Suburb-only venues still sort by their stored pin, but the label must not
+  // look like an exact distance, and it is not a suburb-centre measurement.
+  function distanceLabel(p) {
+    if (!p) return "";
+    if (p.addressSource === "suburb-only") return p.suburb ? "in " + p.suburb : "";
+    if (typeof p._dist !== "number") return "";
+    var m = p._dist;
+    if (m < 950) return Math.max(10, Math.round(m / 10) * 10) + " m away";
+    var km = m / 1000;
+    return (km < 10 ? km.toFixed(1) : String(Math.round(km))) + " km away";
+  }
 
   // Live Google ratings are deliberately off. Place Details needs a server-side
   // API key and billing, and this data set has no place_id values to query.
@@ -794,6 +806,7 @@
     blankFilters: blankFilters,
     filtersActive: filtersActive,
     defaultSort: defaultSort,
+    distanceLabel: distanceLabel,
     filterPlaces: filterPlaces,
     sortLabel: sortLabel,
     projectPins: projectPins,
