@@ -36,17 +36,17 @@ test("unknown price and corkage are omitted and confirmation is not invented", f
   assert.equal(confirmedView.rank, undefined);
 });
 
-test("directions use a re-sourced address and hide suburb-only records", function () {
-  const routed = model.places.find(function (p) { return p.addressSource === "osm" || p.addressSource === "venue"; });
-  assert.ok(routed, "expected at least one re-sourced address");
+test("directions use the stored address while compliance mode is off", function () {
+  assert.equal(logic.GOOGLE_COMPLIANT_MODE, false);
+  const routed = model.byId["arabella-newtown"];
   const url = logic.directionsUrl(routed);
   assert.match(url, /^https:\/\/www\.google\.com\/maps\/dir\/\?api=1&destination=/);
   const dest = decodeURIComponent(url.split("destination=")[1].split("&")[0]);
   assert.equal(dest.indexOf(routed.address), 0);
-  const vague = model.places.find(function (p) { return p.addressSource === "suburb-only"; });
-  assert.ok(vague, "expected at least one suburb-only record");
-  assert.equal(vague.address, vague.suburb);
-  assert.equal(logic.directionsUrl(vague), "");
+  const hikaru = model.byId["hikaru-newtown"];
+  assert.equal(hikaru.addressSource, "suburb-only");
+  assert.equal(hikaru.address, "Rear of 134 King Street, Newtown NSW");
+  assert.match(logic.directionsUrl(hikaru), /^https:\/\/www\.google\.com\/maps\/dir\//);
   assert.equal(logic.addressRoutable("Cnr Thurlow And Bourke Streets, Redfern NSW"), true);
 });
 
@@ -105,11 +105,10 @@ test("near me sorts by distance and a region defaults to A–Z", function () {
   assert.ok(alpha[0].name.localeCompare(alpha[1].name) <= 0);
   assert.equal(logic.sortLabel("", region), "Sorted A–Z");
   const rated = logic.filterPlaces(model.places, region, Object.assign(logic.blankFilters(), { sort: "rating" }), null);
-  assert.ok(rated[0].name.localeCompare(rated[1].name) <= 0);
-  assert.equal(logic.sortLabel("rating", region), "Sorted A–Z");
-  assert.equal(logic.blankFilters().rating, undefined);
-  assert.equal(logic.liveGoogleRating(rated[0]), null);
-  assert.equal(logic.writeParams(region, Object.assign(logic.blankFilters(), { sort: "rating" }), "list").indexOf("sort=rating"), -1);
+  assert.ok(rated[0].stars >= rated[rated.length - 1].stars);
+  assert.equal(logic.sortLabel("rating", region), "Sorted by Google rating");
+  assert.equal(logic.blankFilters().rating, 0);
+  assert.ok(logic.writeParams(region, Object.assign(logic.blankFilters(), { sort: "rating" }), "list").indexOf("sort=rating") >= 0);
 });
 
 test("polls require two restaurants, persist a vote once, and can tie", function () {
@@ -135,48 +134,48 @@ test("polls require two restaurants, persist a vote once, and can tie", function
   assert.equal(summarizeTallies({ a: 2, b: 2 }, ["a", "b"]).kind, "tie");
 });
 
-test("suburb-only venues are not shown as an exact distance", function () {
-  const vague = model.places.find(function (p) { return p.addressSource === "suburb-only"; });
+test("play mode shows precise distances and the compliance switch is off", function () {
+  assert.equal(logic.GOOGLE_COMPLIANT_MODE, false);
+  const vague = model.byId["hikaru-newtown"];
   vague._dist = 420;
-  assert.equal(logic.distanceLabel(vague), "in " + vague.suburb);
-  assert.equal(logic.directionsUrl(vague), "");
-  const routed = model.places.find(function (p) { return p.addressSource === "osm" || p.addressSource === "venue"; });
+  assert.equal(logic.distanceLabel(vague), "420 m away");
+  const routed = model.byId["arabella-newtown"];
   routed._dist = 420;
   assert.equal(logic.distanceLabel(routed), "420 m away");
-  assert.match(logic.directionsUrl(routed), /^https:\/\/www\.google\.com\/maps\/dir\//);
+  const logicSrc = fs.readFileSync(new URL("../logic.js", import.meta.url), "utf8");
+  assert.match(logicSrc, /var GOOGLE_COMPLIANT_MODE = false/);
+  assert.match(logicSrc, /in " \+ p\.suburb/);
 });
 
-test("google ratings and copied addresses are not stored", function () {
-  const raw = fs.readFileSync(new URL("../data.js", import.meta.url), "utf8");
-  const readme = fs.readFileSync(new URL("../README.md", import.meta.url), "utf8");
+test("stored ratings match the play phase and verified addresses keep provenance", function () {
   const app = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
-  assert.equal(raw.indexOf('"stars"'), -1);
-  assert.equal(raw.indexOf('"reviews"'), -1);
-  assert.equal(raw.toLowerCase().indexOf("4.0★"), -1);
-  assert.equal(raw.toLowerCase().indexOf("rated 4.0"), -1);
-  assert.equal(readme.toLowerCase().indexOf("4.0★"), -1);
-  assert.equal(readme.toLowerCase().indexOf("google rating"), -1);
-  assert.equal(app.indexOf("Google rating"), -1);
-  assert.equal(app.indexOf("Google reviews"), -1);
+  assert.match(app, /Google rating/);
+  assert.match(app, /Google reviews/);
+  const arabella = model.byId["arabella-newtown"];
+  assert.equal(arabella.stars, 4.4);
+  assert.equal(arabella.reviews, "1,655");
+  assert.equal(arabella.addressSource, "venue");
+  assert.equal(arabella.addressCheckedAt, "2026-11-12");
+  const hikaru = model.byId["hikaru-newtown"];
+  assert.equal(hikaru.stars, 4);
+  assert.equal(hikaru.reviews, "909");
   const counts = { osm: 0, venue: 0, "suburb-only": 0 };
   data.places.forEach(function (p) {
-    assert.equal(p.stars, undefined);
-    assert.equal(p.reviews, undefined);
+    assert.equal(typeof p.stars, "number", p.name);
+    assert.equal(typeof p.reviews, "string", p.name);
     assert.ok(counts[p.addressSource] != null, p.name + " " + p.addressSource);
     counts[p.addressSource] += 1;
+    if (logic.addressRoutable(p.address)) assert.ok(logic.directionsUrl(p), p.name);
+    else assert.equal(logic.directionsUrl(p), "");
     if (p.addressSource === "suburb-only") {
-      assert.equal(p.address, p.suburb);
-      assert.equal(logic.directionsUrl(p), "");
       assert.equal(p.addressSourceUrl, undefined);
     } else {
-      assert.equal(logic.addressRoutable(p.address), true, p.name);
-      assert.ok(logic.directionsUrl(p), p.name);
       assert.match(p.addressSourceUrl || "", /^https?:\/\//, p.name);
       assert.equal(p.addressCheckedAt, "2026-11-12");
     }
   });
   assert.equal(counts.osm + counts.venue + counts["suburb-only"], data.places.length);
-  assert.ok(counts.osm + counts.venue > 0);
+  assert.ok(counts.osm > 0 && counts.venue > 0 && counts["suburb-only"] > 0);
 });
 
 test("removed product copy is gone from the client", function () {

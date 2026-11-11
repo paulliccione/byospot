@@ -202,12 +202,11 @@
       (cork ? '<span class="cork">' + esc(cork) + "</span>" : "") + "</div>";
   }
   function googleRatingHtml(p) {
-    var live = L.liveGoogleRating(p);
-    if (!live || typeof live.stars !== "number") return "";
-    var count = Number(live.reviewCount);
-    var countHtml = count > 0 ? ' <span class="muted">(' + esc(L.formatNumber(count)) + ")</span>" : "";
-    return '<p class="rating"><span class="star" aria-hidden="true">★</span> ' + esc(live.stars) + countHtml +
-      ' <span class="muted">Google</span></p>';
+    if (L.GOOGLE_COMPLIANT_MODE) return "";
+    var view = L.presentPlace(p);
+    if (typeof p.stars !== "number") return "";
+    return '<p class="rating"><span class="star" aria-hidden="true">★</span> ' + esc(p.stars) +
+      (view.reviews ? ' <span class="muted">(' + esc(L.formatNumber(view.reviews)) + " Google reviews)</span>" : "") + "</p>";
   }
   function cardHtml(p) {
     var view = L.presentPlace(p);
@@ -300,6 +299,7 @@
     if (L.cuisineSelection(f).length) n++;
     if (f.byo && f.byo !== "All") n++;
     if (f.corkage && f.corkage !== "All") n++;
+    if (!L.GOOGLE_COMPLIANT_MODE && Number(f.rating) > 0) n++;
     if (Number(f.radius) > 0) n++;
     if (f.sort && f.sort !== L.defaultSort(state.area)) n++;
     return n;
@@ -473,7 +473,7 @@
     return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="sheet-card detail">' +
       '<div class="sheet-head"><h2 id="detailTitle">' + esc(p.name) + '</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
       "<p class=\"meta\">" + esc([p.cuisine, p.suburb, p.region].filter(Boolean).join(" · ")) + "</p>" +
-      googleRatingHtml(p) +
+      (L.GOOGLE_COMPLIANT_MODE || typeof p.stars !== "number" ? "" : '<p class="rating"><span class="star">★</span> ' + esc(p.stars) + " <span class=\"muted\">(" + esc(L.formatNumber(view.reviews)) + " Google reviews)</span></p>") +
       badgeHtml(p) + (view.address ? "<p class=\"addr\">" + esc(view.address) + "</p>" : "") +
       bits.join("") + shops + '<div class="stack">' + actions + "</div></div></div>";
   }
@@ -502,6 +502,7 @@
     var selectedCuisines = L.cuisineSelection(d);
     var cuisines = [{ v: "All", label: "Any" }].concat((model.families || []).map(function (f) { return { v: f, label: f }; }));
     var sorts = [{ v: "", label: "Default" }, { v: "name", label: "A–Z" }];
+    if (!L.GOOGLE_COMPLIANT_MODE) sorts.push({ v: "rating", label: "Rating" });
     if (state.area && state.area.near && state.coords) sorts.splice(1, 0, { v: "distance", label: "Distance" });
     var radius = "";
     if (state.area && state.area.near && state.coords) {
@@ -522,6 +523,7 @@
         { v: "All", label: "Any" }, { v: "confirmed", label: "BYO confirmed" }, { v: "listed", label: "BYO listed — call to confirm" }
       ]) +
       "<h3>Corkage</h3>" + chips("corkage", [{ v: "All", label: "Any" }, { v: "known", label: "Amount listed" }]) +
+      (L.GOOGLE_COMPLIANT_MODE ? "" : "<h3>Google rating</h3>" + chips("rating", [{ v: "0", label: "Any" }, { v: "4.5", label: "4.5+" }])) +
       radius +
       "<h3>Sort</h3>" + chips("sort", sorts) +
       '<p class="count-line" id="filterCount">' + preview.length + (preview.length === 1 ? " restaurant" : " restaurants") + "</p>" +
@@ -910,7 +912,7 @@
           else picked.push(val);
           state.draft.cuisine = picked;
         }
-      } else if (key === "radius") state.draft[key] = Number(val) || 0;
+      } else if (key === "radius" || key === "rating") state.draft[key] = Number(val) || 0;
       else state.draft[key] = val;
       render();
       return;
