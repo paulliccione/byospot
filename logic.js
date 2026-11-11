@@ -459,6 +459,8 @@
     return /\b(street|st|road|rd|avenue|ave|park|cnr|lane|highway|hwy|parade|pde|drive|dr|place|pl|terrace|tce|crescent|cres|way|boulevard|bvd|esplanade|court|cct)\b/i.test(a);
   }
   function directionsUrl(p) {
+    // Suburb-only records have no re-sourced street address, so Directions stays hidden.
+    if (p && p.addressSource === "suburb-only") return "";
     var addr = String((p && p.address) || "").trim();
     if (!addressRoutable(addr)) return "";
     var url = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(addr);
@@ -477,10 +479,6 @@
     if (digits.length < 8) return "";
     if (digits.charAt(0) === "0") digits = "61" + digits.slice(1);
     return "tel:+" + digits;
-  }
-  function reviewCount(p) {
-    var n = parseInt(String((p && p.reviews) || "").replace(/\D/g, ""), 10);
-    return isNaN(n) ? 0 : n;
   }
   function formatNumber(n) {
     return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -591,13 +589,22 @@
   }
 
   function blankFilters() {
-    return { q: "", cuisine: [], byo: "All", corkage: "All", rating: 0, radius: 0, sort: "" };
+    return { q: "", cuisine: [], byo: "All", corkage: "All", radius: 0, sort: "" };
   }
   function filtersActive(f) {
     if (!f) return false;
-    return !!(String(f.q || "").trim() || cuisineSelection(f).length || (f.byo && f.byo !== "All") || (f.corkage && f.corkage !== "All") || Number(f.rating) > 0 || Number(f.radius) > 0);
+    return !!(String(f.q || "").trim() || cuisineSelection(f).length || (f.byo && f.byo !== "All") || (f.corkage && f.corkage !== "All") || Number(f.radius) > 0);
   }
   function defaultSort(area) { return area && area.near ? "distance" : "name"; }
+
+  // Live Google ratings are deliberately off. Place Details needs a server-side
+  // API key and billing, and this data set has no place_id values to query.
+  // Do not store stars or review counts, and do not put a key in the client.
+  var LIVE_GOOGLE_RATINGS = false;
+  function liveGoogleRating() {
+    if (!LIVE_GOOGLE_RATINGS) return null;
+    return null;
+  }
 
   function filterPlaces(places, area, filters, coords) {
     filters = filters || blankFilters();
@@ -613,7 +620,6 @@
       if (filters.byo === "confirmed" && p.byoConfirmed !== true) continue;
       if (filters.byo === "listed" && p.byoConfirmed !== false) continue;
       if (filters.corkage === "known" && !corkageText(p)) continue;
-      if (Number(filters.rating) > 0 && Number(p.stars) < Number(filters.rating)) continue;
       if (terms.length && !terms.every(function (t) { return p._search.indexOf(t) >= 0; })) continue;
       if (coords && typeof p.lat === "number" && typeof p.lng === "number") {
         p._dist = haversine(coords.lat, coords.lng, p.lat, p.lng);
@@ -622,10 +628,10 @@
       list.push(p);
     }
     var sort = filters.sort || defaultSort(area);
+    if (sort === "rating") sort = defaultSort(area);
     if (sort === "distance" && !(coords && area && area.near)) sort = "name";
     list.sort(function (a, b) {
       if (sort === "distance") return (a._dist || 0) - (b._dist || 0) || a.name.localeCompare(b.name);
-      if (sort === "rating") return (b.stars || 0) - (a.stars || 0) || reviewCount(b) - reviewCount(a) || a.name.localeCompare(b.name);
       return a.name.localeCompare(b.name);
     });
     return list;
@@ -633,8 +639,8 @@
 
   function sortLabel(sort, area) {
     var used = sort || defaultSort(area);
+    if (used === "rating") used = defaultSort(area);
     if (used === "distance" && area && area.near) return "Nearest first";
-    if (used === "rating") return "Sorted by Google rating";
     return "Sorted A–Z";
   }
 
@@ -679,11 +685,10 @@
       cuisine: p.cuisine || "",
       suburb: p.suburb || "",
       region: p.region || "",
-      stars: p.stars,
-      reviews: reviewCount(p),
       byo: byo,
       corkage: corkageText(p),
       address: String(p.address || "").trim(),
+      addressSource: p.addressSource || "",
       directions: directionsUrl(p),
       website: websiteUrl(p),
       phone: phoneHref(p),
@@ -741,9 +746,9 @@
     if (cuisines.length) add("cuisine", cuisines.join(","));
     add("byo", filters.byo || "");
     add("corkage", filters.corkage || "");
-    add("rating", Number(filters.rating) || "");
     add("radius", Number(filters.radius) || "");
     var sort = filters.sort || "";
+    if (sort === "rating") sort = "";
     if (sort && sort !== defaultSort(area)) add("sort", sort);
     return q.join("&");
   }
@@ -755,9 +760,8 @@
     f.cuisine = cuisineSelection({ cuisine: get("cuisine") });
     f.byo = get("byo") || "All";
     f.corkage = get("corkage") || "All";
-    f.rating = Number(get("rating")) || 0;
     f.radius = Number(get("radius")) || 0;
-    f.sort = get("sort") || "";
+    f.sort = get("sort") === "rating" ? "" : (get("sort") || "");
     return f;
   }
 
@@ -780,8 +784,8 @@
     directionsUrl: directionsUrl,
     websiteUrl: websiteUrl,
     phoneHref: phoneHref,
-    reviewCount: reviewCount,
     formatNumber: formatNumber,
+    liveGoogleRating: liveGoogleRating,
     haversine: haversine,
     byoTonightStatus: byoTonightStatus,
     byoDayStatus: byoDayStatus,
