@@ -55,9 +55,13 @@ a { color: var(--burgundy); }
   backdrop-filter: blur(8px);
 }
 .top-home { justify-content: flex-start; }
-body.screen-home { background: #f7f2ea; }
+body.screen-home {
+  background: #FAFAF7;
+  color: #064E50;
+  font-family: Poppins, system-ui, sans-serif;
+}
 body.screen-home .top-home {
-  background: #f7f2ea;
+  background: #FAFAF7;
   backdrop-filter: none;
   padding-left: 20px;
   padding-right: 20px;
@@ -67,15 +71,8 @@ body.screen-home .top-home {
   text-decoration: none; color: #7a1f3d;
   font-weight: 700; font-size: 15px; letter-spacing: .04em; text-transform: uppercase;
 }
-.brand-landing {
-  gap: 9px;
-  color: #7a2942;
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: .12em;
-  line-height: 1;
-}
+.brand-landing { text-transform: none; letter-spacing: 0; }
+.home-logo { display: block; width: auto; height: 36px; max-width: 168px; border-radius: 0; }
 .mark-glass { display: block; flex: none; }
 .brand img { width: 40px; height: 40px; border-radius: 12px; flex: none; display: block; }
 .icon-btn, .icon-spacer {
@@ -108,39 +105,31 @@ body.screen-home .top-home {
   /* 72px keeps the Netlify badge (fixed, bottom-right, ~58px tall) off the
      secondary CTA and the Privacy link. The hero shrinks to absorb it. */
   padding: 4px 0 calc(72px + env(safe-area-inset-bottom));
-  background: #f7f2ea;
+  background: #FAFAF7;
+  font-family: Poppins, system-ui, sans-serif;
 }
-.home-copy { width: 100%; padding: 10px 20px 0; }
+.home-copy { width: 100%; padding: 8px 20px 0; }
 .home h1 {
-  font-family: var(--display);
-  font-weight: 640;
-  font-size: clamp(44px, 12.4vw, 54px);
-  line-height: 1.02;
-  letter-spacing: -0.032em;
-  color: #1a1418;
+  font-family: Poppins, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(36px, 10vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #064E50;
   margin: 0;
 }
 .lede {
-  margin: 12px 0 0;
-  color: #8a827c;
-  font-size: 16.5px;
-  font-weight: 450;
+  margin: 8px 0 0;
+  color: #426768;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1.35;
 }
 .home-hero-wrap {
   position: relative;
   flex: 1 1 auto;
-  min-height: 156px;
-  margin: 12px 0 10px;
-}
-.home-hero-wrap::before {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; top: 0;
-  height: 22px;
-  background: linear-gradient(to bottom, #f7f2ea, rgba(247, 242, 234, 0));
-  pointer-events: none;
-  z-index: 1;
+  min-height: 120px;
+  margin: 10px 0 10px;
 }
 .home-hero {
   position: absolute;
@@ -153,24 +142,25 @@ body.screen-home .top-home {
 }
 .home-actions { width: 100%; display: grid; gap: 12px; padding: 0 18px; }
 .home .btn {
-  min-height: 54px;
-  border-radius: 999px;
-  padding: 14px 18px;
-  font-size: 16.5px;
-  font-weight: 650;
-  letter-spacing: -0.01em;
+  min-height: 52px;
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-family: Poppins, system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
 }
-.home .btn-primary { background: #7a2942; }
-.home .btn-primary:hover { background: #641f35; }
+.home .btn-primary { background: #FF795A; color: #003638; }
+.home .btn-primary:hover { background: #f06848; }
 .home .btn-secondary {
-  background: #fffcf8;
-  color: #7a2942;
-  border-color: #7a2942;
+  background: #C7F1DC;
+  color: #064E50;
+  border-color: transparent;
 }
 .home .site-footer { margin: 0; }
 .home .site-footer a {
-  color: #8a827c;
-  font-size: 13px;
+  color: #426768;
+  font-size: 16px;
   font-weight: 500;
 }
 .privacy-page h2 { font-size: 18px; margin: 20px 0 8px; letter-spacing: -0.02em; }
