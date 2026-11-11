@@ -133,7 +133,7 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12d");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12e");
   assert.equal(sw.indexOf("localities.json"), -1);
   assert.match(sw, /card\.js/);
   const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
