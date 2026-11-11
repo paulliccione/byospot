@@ -210,6 +210,11 @@ body.screen-home .top-home {
   flex: 1; border: 0; background: transparent; min-width: 0;
   font-size: 16px; padding: 12px 0; outline: none;
 }
+.search input[type="search"]::-webkit-search-cancel-button,
+.search input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
 .search input::placeholder { color: #8a8388; }
 .clear {
   width: 36px; height: 36px; border: 0; border-radius: 10px; background: var(--ivory); color: var(--ink);
@@ -236,12 +241,35 @@ body.screen-home .top-home {
 .loc-row.loc-count { grid-template-columns: minmax(0, 1fr) 4.75rem 1.25rem; }
 .loc-row .label {
   font-weight: 680; min-width: 0;
+  overflow: hidden; white-space: normal;
+}
+.loc-row .name, .loc-row .where {
+  display: block; min-width: 0;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.loc-row .where {
+  margin-top: 2px; color: var(--muted); font-size: 12px; font-weight: 650; line-height: 1.3;
 }
 .loc-row .meta, .loc-row .count {
   color: var(--muted); font-size: 13px; font-weight: 650;
   text-align: right; font-variant-numeric: tabular-nums;
   white-space: nowrap; justify-self: end;
+  max-width: 8.75rem; overflow: hidden; text-overflow: ellipsis;
+}
+.closest-lead { margin: 2px 0 12px; color: var(--ink); font-size: 16px; font-weight: 700; }
+body.screen-location { overflow: hidden; height: 100%; }
+body.screen-location #app { min-height: 0; overflow: hidden; }
+body.screen-location .top { flex: none; }
+body.screen-location .screen-loc {
+  flex: 1; min-height: 0; display: flex; flex-direction: column;
+  overflow: hidden; padding-bottom: 0;
+}
+body.screen-location .screen-loc h1,
+body.screen-location #locForm { flex: none; }
+body.screen-location #locList {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
 }
 .loc-row .chev, .chev { color: var(--muted); font-size: 20px; line-height: 1; text-align: center; }
 

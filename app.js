@@ -21,6 +21,8 @@
     browseStack: [],
     locQuery: "",
     locReturn: "results",
+    localitiesReady: false,
+    localitiesFailed: false,
     rows: [],
     showAll: null,
     coords: loadCoords(),
@@ -128,13 +130,18 @@
   function locationListInner() {
     var q = state.locQuery.trim();
     if (q) {
+      ensureLocalities();
       var matches = L.searchLocations(q, model.index);
       state.rows = matches.map(function (m) {
         var row = {
           label: m.name,
-          meta: m.context + (m.count ? "" : " · No BYO listings yet"),
           area: m.area
         };
+        if (m.count) row.meta = m.context;
+        else {
+          row.context = m.context;
+          row.meta = "No listings yet";
+        }
         if (m.kind === "state" && m.count > 0 && m.area && !m.area.knownEmpty) {
           row.drill = { level: "state", state: m.area.state };
           row.area = null;
@@ -143,6 +150,9 @@
       });
       state.showAll = null;
       if (!matches.length) {
+        if (!state.localitiesReady && !state.localitiesFailed) {
+          return '<p class="loc-status" role="status">Checking suburbs…</p>';
+        }
         return '<div class="empty-panel"><h2>We couldn’t find that location</h2>' +
           "<p>Check the spelling, or browse states, regions and suburbs.</p>" +
           '<div class="stack"><button type="button" class="btn btn-secondary" data-action="clear-loc">Browse states, regions and suburbs</button></div></div>';
@@ -162,20 +172,24 @@
       var side = counted
         ? '<span class="count">' + esc(row.count) + "</span>"
         : '<span class="meta">' + esc(row.meta || "") + "</span>";
+      var ariaLabel = row.context ? row.label + ", " + row.context : row.label;
       var aria = counted
-        ? ' aria-label="' + esc(row.label) + ", " + esc(row.count) + (Number(row.count) === 1 ? " restaurant" : " restaurants") + '"'
-        : "";
+        ? ' aria-label="' + esc(ariaLabel) + ", " + esc(row.count) + (Number(row.count) === 1 ? " restaurant" : " restaurants") + '"'
+        : ' aria-label="' + esc(ariaLabel + (row.meta ? ", " + row.meta : "")) + '"';
+      var label = '<span class="label"><span class="name">' + esc(row.label) + "</span>" +
+        (row.context ? '<span class="where">' + esc(row.context) + "</span>" : "") + "</span>";
       return '<button type="button" class="loc-row' + (counted ? " loc-count" : "") + '" data-action="loc-row" data-i="' + i + '"' + aria + '>' +
-        '<span class="label">' + esc(row.label) + "</span>" + side +
+        label + side +
         '<span class="chev" aria-hidden="true">›</span></button>';
     }).join("");
   }
   function locationHtml() {
-    return header(false) + '<main id="main" class="screen"><h1>Choose a location</h1>' +
+    ensureLocalities();
+    return header(false) + '<main id="main" class="screen screen-loc"><h1>Choose a location</h1>' +
       '<form id="locForm" role="search"><label class="search"><span class="sr" style="position:absolute;left:-999px">Search suburb, city or region</span>' +
-      '<input id="locQ" type="search" enterkeyhint="search" placeholder="Search suburb, city or region" autocomplete="off" value="' + esc(state.locQuery) + '">' +
+      '<input id="locQ" type="search" enterkeyhint="search" placeholder="Search suburb, city or region" autocomplete="off" autocapitalize="off" value="' + esc(state.locQuery) + '">' +
       (state.locQuery ? '<button type="button" class="clear" data-action="clear-loc" aria-label="Clear search">×</button>' : "") +
-      "</label></form><div id=\"locList\">" + locationListInner() + "</div>" + footerHtml() + "</main>";
+      "</label></form><div id=\"locList\">" + locationListInner() + footerHtml() + "</div></main>";
   }
 
   function currentList() {
@@ -191,6 +205,9 @@
   function resultsHeading() {
     if (!state.area) return "BYO restaurants";
     if (state.area.near) return "BYO restaurants near you";
+    if (state.area.knownEmpty && typeof state.area.lat === "number" && state.area.label) {
+      return "No BYO restaurants in " + state.area.label + " yet";
+    }
     if (state.area.unrecognised || state.area.knownEmpty) return "Search results";
     return "BYO restaurants in " + state.area.label;
   }
@@ -212,7 +229,8 @@
         ? '<p class="addr"><a href="' + esc(view.directions) + '" target="_blank" rel="noopener">' + esc(view.address) + "</a></p>"
         : '<p class="addr">' + esc(view.address) + "</p>")
       : "";
-    var dist = state.area && state.area.near && typeof p._dist === "number" ? '<p class="dist">' + esc(formatDist(p._dist)) + " away</p>" : "";
+    var showDist = typeof p._dist === "number" && state.area && (state.area.near || typeof state.area.lat === "number");
+    var dist = showDist ? '<p class="dist">' + esc(formatDist(p._dist)) + " away</p>" : "";
     var actions = "";
     if (view.directions) actions += '<a href="' + esc(view.directions) + '" target="_blank" rel="noopener">Directions</a>';
     if (view.website) actions += '<a href="' + esc(view.website) + '" target="_blank" rel="noopener">Website</a>';
@@ -227,6 +245,21 @@
     if (m < 950) return Math.max(10, Math.round(m / 10) * 10) + " m";
     var km = m / 1000;
     return (km < 10 ? km.toFixed(1) : String(Math.round(km))) + " km";
+  }
+
+  function nearestMode() {
+    return !!(state.area && state.area.knownEmpty && typeof state.area.lat === "number" && typeof state.area.lng === "number");
+  }
+  function nearestEmptyHtml() {
+    var area = state.area;
+    var nearest = L.nearestPlaces(model.places, area.lat, area.lng, 5);
+    var browse = "";
+    if (area.regionArea && area.regionArea.label && area.regionArea.label !== area.label) {
+      browse = '<div class="stack"><button type="button" class="btn btn-primary" data-action="browse-region">Browse ' +
+        esc(area.regionArea.label) + "</button></div>";
+    }
+    return '<p class="closest-lead">Here are the closest BYO spots</p>' +
+      '<div class="cards">' + nearest.map(cardHtml).join("") + "</div>" + browse;
   }
 
   function emptyHtml(list) {
@@ -275,19 +308,21 @@
     var list = currentList();
     var shown = list.slice(0, state.limit);
     var nFilters = activeFilterCount(state.filters);
+    var nearEmpty = nearestMode();
     var body;
-    if (!list.length) body = emptyHtml(list);
+    if (nearEmpty) body = nearestEmptyHtml();
+    else if (!list.length) body = emptyHtml(list);
     else {
       body = '<div class="cards">' + shown.map(cardHtml).join("") + "</div>";
       if (list.length > shown.length) body += '<div class="stack" style="margin-top:12px"><button type="button" class="btn btn-ghost" id="showMore" data-action="more">Show more</button></div><div id="moreSentinel"></div>';
       body += planLink();
     }
-    return header(false) + '<main id="main" class="screen"><h1>' + esc(resultsHeading()) + "</h1>" +
-      areaControl() +
-      '<div class="toolbar"><h2>Restaurants</h2><div class="toolbar-actions">' +
+    var toolbar = nearEmpty ? "" : '<div class="toolbar"><h2>Restaurants</h2><div class="toolbar-actions">' +
       '<button type="button" class="btn btn-small btn-ghost" data-action="filters">Filters' + (nFilters ? " · " + nFilters : "") + "</button>" +
-      "</div></div>" +
-      (list.length ? '<p class="sort-note">' + esc(L.sortLabel(state.filters.sort, state.area)) + "</p><p class=\"count-line\">" + list.length + (list.length === 1 ? " restaurant" : " restaurants") + "</p>" : "") +
+      "</div></div>";
+    return header(false) + '<main id="main" class="screen"><h1>' + esc(resultsHeading()) + "</h1>" +
+      areaControl() + toolbar +
+      (!nearEmpty && list.length ? '<p class="sort-note">' + esc(L.sortLabel(state.filters.sort, state.area)) + "</p><p class=\"count-line\">" + list.length + (list.length === 1 ? " restaurant" : " restaurants") + "</p>" : "") +
       body + footerHtml() + "</main>";
   }
 
@@ -581,7 +616,9 @@
     state.keepScroll = false;
     document.body.classList.toggle("modal-open", !!(state.detailId || state.filtersOpen));
     document.body.classList.toggle("screen-home", state.screen === "home");
+    document.body.classList.toggle("screen-location", state.screen === "location");
     $("app").innerHTML = screenHtml() + detailSheet() + filtersSheet();
+    fitLocationViewport();
     var title = "BYOSpot";
     if (state.screen === "home") title = "BYOSpot · Find a BYO restaurant";
     else if (state.screen === "results") title = resultsHeading() + " · BYOSpot";
@@ -883,6 +920,10 @@
       return;
     }
     if (action === "show-all" && state.showAll) { chooseArea(state.showAll.area); return; }
+    if (action === "browse-region" && state.area && state.area.regionArea) {
+      chooseArea(state.area.regionArea);
+      return;
+    }
     if (action === "broaden") {
       var parent = state.area ? L.broadenArea(model.places, state.area) : null;
       if (parent) chooseArea(parent);
@@ -989,6 +1030,7 @@
       if (!clear && state.locQuery) { render(); var again = $("locQ"); if (again) { again.focus(); again.setSelectionRange(again.value.length, again.value.length); } return; }
       if (clear && !state.locQuery) { render(); return; }
       if (list) list.innerHTML = locationListInner();
+      fitLocationViewport();
     }
     if (e.target.id === "filterQ" && state.draft) {
       state.draft.q = e.target.value;
@@ -999,12 +1041,16 @@
       }
     }
   });
-  document.addEventListener("submit", function (e) {
-    if (e.target.id !== "locForm") return;
-    e.preventDefault();
+  function commitLocationQuery() {
     var q = state.locQuery.trim();
     if (!q) return;
     var first = state.rows && state.rows[0];
+    if (!first && !state.localitiesReady && !state.localitiesFailed) {
+      ensureLocalities().then(function () {
+        if (state.screen === "location" && state.locQuery.trim() === q) commitLocationQuery();
+      });
+      return;
+    }
     if (first && first.drill) {
       state.browseStack.push(first.drill);
       state.locQuery = "";
@@ -1016,6 +1062,11 @@
     }
     if (first && first.area) { chooseArea(first.area); return; }
     chooseArea({ unrecognised: true, query: q, label: q });
+  }
+  document.addEventListener("submit", function (e) {
+    if (e.target.id !== "locForm") return;
+    e.preventDefault();
+    commitLocationQuery();
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && (state.detailId || state.filtersOpen)) {
@@ -1030,6 +1081,52 @@
   depth = (history.state && history.state.depth) || 0;
   history.replaceState({ app: 1, depth: depth }, "", location.pathname + location.search + location.hash);
   applyRoute(false);
+
+  function refreshLocList() {
+    var list = $("locList");
+    if (list && state.screen === "location") list.innerHTML = locationListInner();
+  }
+  function ensureLocalities() {
+    if (state.localitiesReady || state.localitiesFailed) return Promise.resolve(state.localitiesReady);
+    if (state.localitiesPromise) return state.localitiesPromise;
+    state.localitiesPromise = fetch("localities.json", { credentials: "same-origin" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("localities");
+        return res.json();
+      })
+      .then(function (data) {
+        var rows = data && data.places;
+        if (!rows || !rows.length) throw new Error("localities");
+        if (!state.baseIndex) state.baseIndex = model.index;
+        model.index = L.attachLocalities(state.baseIndex, rows);
+        state.localitiesReady = true;
+        if (state.screen === "location") refreshLocList();
+        return true;
+      })
+      .catch(function () {
+        state.localitiesPromise = null;
+        state.localitiesFailed = true;
+        if (state.screen === "location") refreshLocList();
+        return false;
+      });
+    return state.localitiesPromise;
+  }
+  function fitLocationViewport() {
+    var app = $("app");
+    if (!app) return;
+    if (state.screen !== "location" || !window.visualViewport) {
+      app.style.height = "";
+      app.style.transform = "";
+      return;
+    }
+    var vv = window.visualViewport;
+    app.style.height = Math.max(0, Math.round(vv.height)) + "px";
+    app.style.transform = vv.offsetTop ? "translateY(" + Math.round(vv.offsetTop) + "px)" : "";
+  }
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", fitLocationViewport);
+    window.visualViewport.addEventListener("scroll", fitLocationViewport);
+  }
 
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
     window.addEventListener("load", function () { navigator.serviceWorker.register("/sw.js").catch(function () {}); });
