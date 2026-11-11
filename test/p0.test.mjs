@@ -36,13 +36,17 @@ test("unknown price and corkage are omitted and confirmation is not invented", f
   assert.equal(confirmedView.rank, undefined);
 });
 
-test("directions use the stored address and hide suburb-only records", function () {
-  const may = model.byId["maydanoz-sydney"];
-  const url = logic.directionsUrl(may);
+test("directions use the stored address while compliance mode is off", function () {
+  assert.equal(logic.GOOGLE_COMPLIANT_MODE, false);
+  const routed = model.byId["arabella-newtown"];
+  const url = logic.directionsUrl(routed);
   assert.match(url, /^https:\/\/www\.google\.com\/maps\/dir\/\?api=1&destination=/);
-  assert.ok(decodeURIComponent(url.split("destination=")[1]).indexOf(may.address) === 0);
-  const vague = model.places.find(function (p) { return p.address === "Chatswood NSW"; });
-  assert.equal(logic.directionsUrl(vague), "");
+  const dest = decodeURIComponent(url.split("destination=")[1].split("&")[0]);
+  assert.equal(dest.indexOf(routed.address), 0);
+  const hikaru = model.byId["hikaru-newtown"];
+  assert.equal(hikaru.addressSource, "suburb-only");
+  assert.equal(hikaru.address, "Rear of 134 King Street, Newtown NSW");
+  assert.match(logic.directionsUrl(hikaru), /^https:\/\/www\.google\.com\/maps\/dir\//);
   assert.equal(logic.addressRoutable("Cnr Thurlow And Bourke Streets, Redfern NSW"), true);
 });
 
@@ -151,6 +155,9 @@ test("near me sorts by distance and a region defaults to A–Z", function () {
   assert.equal(logic.sortLabel("", region), "Sorted A–Z");
   const rated = logic.filterPlaces(model.places, region, Object.assign(logic.blankFilters(), { sort: "rating" }), null);
   assert.ok(rated[0].stars >= rated[rated.length - 1].stars);
+  assert.equal(logic.sortLabel("rating", region), "Sorted by Google rating");
+  assert.equal(logic.blankFilters().rating, 0);
+  assert.ok(logic.writeParams(region, Object.assign(logic.blankFilters(), { sort: "rating" }), "list").indexOf("sort=rating") >= 0);
 });
 
 test("polls require two restaurants, persist a vote once, and can tie", function () {
@@ -174,6 +181,50 @@ test("polls require two restaurants, persist a vote once, and can tie", function
   assert.equal(view.summary.kind, "tie");
   assert.equal(JSON.stringify(view).indexOf("voter-token"), -1);
   assert.equal(summarizeTallies({ a: 2, b: 2 }, ["a", "b"]).kind, "tie");
+});
+
+test("play mode shows precise distances and the compliance switch is off", function () {
+  assert.equal(logic.GOOGLE_COMPLIANT_MODE, false);
+  const vague = model.byId["hikaru-newtown"];
+  vague._dist = 420;
+  assert.equal(logic.distanceLabel(vague), "420 m away");
+  const routed = model.byId["arabella-newtown"];
+  routed._dist = 420;
+  assert.equal(logic.distanceLabel(routed), "420 m away");
+  const logicSrc = fs.readFileSync(new URL("../logic.js", import.meta.url), "utf8");
+  assert.match(logicSrc, /var GOOGLE_COMPLIANT_MODE = false/);
+  assert.match(logicSrc, /in " \+ p\.suburb/);
+});
+
+test("stored ratings match the play phase and verified addresses keep provenance", function () {
+  const app = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
+  assert.match(app, /Google rating/);
+  assert.match(app, /Google reviews/);
+  const arabella = model.byId["arabella-newtown"];
+  assert.equal(arabella.stars, 4.4);
+  assert.equal(arabella.reviews, "1,655");
+  assert.equal(arabella.addressSource, "venue");
+  assert.equal(arabella.addressCheckedAt, "2026-11-12");
+  const hikaru = model.byId["hikaru-newtown"];
+  assert.equal(hikaru.stars, 4);
+  assert.equal(hikaru.reviews, "909");
+  const counts = { osm: 0, venue: 0, "suburb-only": 0 };
+  data.places.forEach(function (p) {
+    assert.equal(typeof p.stars, "number", p.name);
+    assert.equal(typeof p.reviews, "string", p.name);
+    assert.ok(counts[p.addressSource] != null, p.name + " " + p.addressSource);
+    counts[p.addressSource] += 1;
+    if (logic.addressRoutable(p.address)) assert.ok(logic.directionsUrl(p), p.name);
+    else assert.equal(logic.directionsUrl(p), "");
+    if (p.addressSource === "suburb-only") {
+      assert.equal(p.addressSourceUrl, undefined);
+    } else {
+      assert.match(p.addressSourceUrl || "", /^https?:\/\//, p.name);
+      assert.equal(p.addressCheckedAt, "2026-11-12");
+    }
+  });
+  assert.equal(counts.osm + counts.venue + counts["suburb-only"], data.places.length);
+  assert.ok(counts.osm > 0 && counts.venue > 0 && counts["suburb-only"] > 0);
 });
 
 test("removed product copy is gone from the client", function () {

@@ -218,19 +218,24 @@
     return '<div class="byo-row"><span class="badge ' + byo.tone + '">' + esc(byo.label) + "</span>" +
       (cork ? '<span class="cork">' + esc(cork) + "</span>" : "") + "</div>";
   }
+  function googleRatingHtml(p) {
+    if (L.GOOGLE_COMPLIANT_MODE) return "";
+    var view = L.presentPlace(p);
+    if (typeof p.stars !== "number") return "";
+    return '<p class="rating"><span class="star" aria-hidden="true">★</span> ' + esc(p.stars) +
+      (view.reviews ? ' <span class="muted">(' + esc(L.formatNumber(view.reviews)) + " Google reviews)</span>" : "") + "</p>";
+  }
   function cardHtml(p) {
     var view = L.presentPlace(p);
-    var rating = typeof p.stars === "number"
-      ? '<p class="rating"><span class="star" aria-hidden="true">★</span> ' + esc(p.stars) +
-        (view.reviews ? ' <span class="muted">(' + esc(L.formatNumber(view.reviews)) + " Google reviews)</span>" : "") + "</p>"
-      : "";
+    var rating = googleRatingHtml(p);
     var addr = view.address
       ? (view.directions
         ? '<p class="addr"><a href="' + esc(view.directions) + '" target="_blank" rel="noopener">' + esc(view.address) + "</a></p>"
         : '<p class="addr">' + esc(view.address) + "</p>")
       : "";
-    var showDist = typeof p._dist === "number" && state.area && (state.area.near || typeof state.area.lat === "number");
-    var dist = showDist ? '<p class="dist">' + esc(formatDist(p._dist)) + " away</p>" : "";
+    var showDist = typeof p._dist === "number" && state.area && ((state.area.near && state.coords) || typeof state.area.lat === "number");
+    var distLabel = showDist ? L.distanceLabel(p) : "";
+    var dist = distLabel ? '<p class="dist">' + esc(distLabel) + "</p>" : "";
     var actions = "";
     if (view.directions) actions += '<a href="' + esc(view.directions) + '" target="_blank" rel="noopener">Directions</a>';
     if (view.website) actions += '<a href="' + esc(view.website) + '" target="_blank" rel="noopener">Website</a>';
@@ -241,12 +246,6 @@
       '<p class="meta">' + esc([p.cuisine, p.suburb].filter(Boolean).join(" · ")) + "</p>" +
       rating + badgeHtml(p) + addr + dist + "</span></button><div class=\"actions\">" + actions + "</div></article>";
   }
-  function formatDist(m) {
-    if (m < 950) return Math.max(10, Math.round(m / 10) * 10) + " m";
-    var km = m / 1000;
-    return (km < 10 ? km.toFixed(1) : String(Math.round(km))) + " km";
-  }
-
   function nearestMode() {
     return !!(state.area && state.area.knownEmpty && typeof state.area.lat === "number" && typeof state.area.lng === "number");
   }
@@ -332,7 +331,7 @@
     if (L.cuisineSelection(f).length) n++;
     if (f.byo && f.byo !== "All") n++;
     if (f.corkage && f.corkage !== "All") n++;
-    if (Number(f.rating) > 0) n++;
+    if (!L.GOOGLE_COMPLIANT_MODE && Number(f.rating) > 0) n++;
     if (Number(f.radius) > 0) n++;
     if (f.sort && f.sort !== L.defaultSort(state.area)) n++;
     return n;
@@ -506,7 +505,7 @@
     return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="sheet-card detail">' +
       '<div class="sheet-head"><h2 id="detailTitle">' + esc(p.name) + '</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
       "<p class=\"meta\">" + esc([p.cuisine, p.suburb, p.region].filter(Boolean).join(" · ")) + "</p>" +
-      (typeof p.stars === "number" ? '<p class="rating"><span class="star">★</span> ' + esc(p.stars) + " <span class=\"muted\">(" + esc(L.formatNumber(view.reviews)) + " Google reviews)</span></p>" : "") +
+      (L.GOOGLE_COMPLIANT_MODE || typeof p.stars !== "number" ? "" : '<p class="rating"><span class="star">★</span> ' + esc(p.stars) + " <span class=\"muted\">(" + esc(L.formatNumber(view.reviews)) + " Google reviews)</span></p>") +
       badgeHtml(p) + (view.address ? "<p class=\"addr\">" + esc(view.address) + "</p>" : "") +
       bits.join("") + shops + '<div class="stack">' + actions + "</div></div></div>";
   }
@@ -534,7 +533,8 @@
     }
     var selectedCuisines = L.cuisineSelection(d);
     var cuisines = [{ v: "All", label: "Any" }].concat((model.families || []).map(function (f) { return { v: f, label: f }; }));
-    var sorts = [{ v: "", label: "Default" }, { v: "name", label: "A–Z" }, { v: "rating", label: "Rating" }];
+    var sorts = [{ v: "", label: "Default" }, { v: "name", label: "A–Z" }];
+    if (!L.GOOGLE_COMPLIANT_MODE) sorts.push({ v: "rating", label: "Rating" });
     if (state.area && state.area.near && state.coords) sorts.splice(1, 0, { v: "distance", label: "Distance" });
     var radius = "";
     if (state.area && state.area.near && state.coords) {
@@ -555,7 +555,7 @@
         { v: "All", label: "Any" }, { v: "confirmed", label: "BYO confirmed" }, { v: "listed", label: "BYO listed — call to confirm" }
       ]) +
       "<h3>Corkage</h3>" + chips("corkage", [{ v: "All", label: "Any" }, { v: "known", label: "Amount listed" }]) +
-      "<h3>Google rating</h3>" + chips("rating", [{ v: "0", label: "Any" }, { v: "4.5", label: "4.5+" }]) +
+      (L.GOOGLE_COMPLIANT_MODE ? "" : "<h3>Google rating</h3>" + chips("rating", [{ v: "0", label: "Any" }, { v: "4.5", label: "4.5+" }])) +
       radius +
       "<h3>Sort</h3>" + chips("sort", sorts) +
       '<p class="count-line" id="filterCount">' + preview.length + (preview.length === 1 ? " restaurant" : " restaurants") + "</p>" +
@@ -566,7 +566,7 @@
   function privacyHtml() {
     return header(false) + '<main id="main" class="screen privacy-page">' +
       "<h1>Privacy — BYOspot</h1>" +
-      '<p class="sub">Last updated: 25 October 2026</p>' +
+      '<p class="sub">Last updated: 11 November 2026</p>' +
       "<p>BYOspot helps you find BYO restaurants. We keep this simple and don’t sell your personal information.</p>" +
       "<h2>What we collect</h2><ul>" +
       "<li><strong>Location (optional).</strong> If you tap “Find BYO Near Me,” your device may share your approximate location so we can show nearby venues. You can refuse and use “Choose a Location” instead. We don’t keep a live track of where you go.</li>" +
@@ -579,7 +579,7 @@
       "<h2>Sharing</h2>" +
       "<p>We use service providers to host and run the app (for example Netlify and our database). They only get what’s needed to do that job. We don’t sell your personal information. We may share information if the law requires it.</p>" +
       "<h2>Venue data</h2>" +
-      "<p>Restaurant names, addresses, ratings, corkage and BYO notes come from public sources and user reports. Policies change — always confirm with the restaurant.</p>" +
+      "<p>Restaurant names, addresses, corkage and BYO notes come from public sources, including OpenStreetMap for street addresses, and from the venues themselves. Policies change — always confirm with the restaurant.</p>" +
       "<h2>Cookies / local storage</h2>" +
       "<p>We may use cookies or local storage for basic site function (for example remembering a preference). You can clear these in your browser.</p>" +
       "<h2>Overseas storage</h2>" +
@@ -950,7 +950,7 @@
           else picked.push(val);
           state.draft.cuisine = picked;
         }
-      } else if (key === "rating" || key === "radius") state.draft[key] = Number(val) || 0;
+      } else if (key === "radius" || key === "rating") state.draft[key] = Number(val) || 0;
       else state.draft[key] = val;
       render();
       return;
