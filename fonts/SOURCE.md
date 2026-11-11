@@ -1,0 +1,1 @@
+Poppins Regular, Medium and SemiBold and OFL.txt downloaded from https://github.com/google/fonts/tree/main/ofl/poppins on 12 November 2026. Typeface is a proposed implementation match, not identified original mockup typography. Logo artwork is outlined separately.

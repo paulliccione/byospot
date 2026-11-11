@@ -198,8 +198,9 @@ test("play mode shows precise distances and the compliance switch is off", funct
 
 test("stored ratings match the play phase and verified addresses keep provenance", function () {
   const app = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
+  const card = fs.readFileSync(new URL("../card.js", import.meta.url), "utf8");
   assert.match(app, /Google rating/);
-  assert.match(app, /Google reviews/);
+  assert.match(card, /Google reviews/);
   const arabella = model.byId["arabella-newtown"];
   assert.equal(arabella.stars, 4.4);
   assert.equal(arabella.reviews, "1,655");

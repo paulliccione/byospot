@@ -18,7 +18,9 @@ const types = {
   ".png": "image/png",
   ".svg": "image/svg+xml",
   ".woff2": "font/woff2",
-  ".jpg": "image/jpeg"
+  ".ttf": "font/ttf",
+  ".jpg": "image/jpeg",
+  ".webp": "image/webp"
 };
 
 function load() {
