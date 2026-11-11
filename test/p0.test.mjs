@@ -50,6 +50,55 @@ test("directions use the stored address while compliance mode is off", function 
   assert.equal(logic.addressRoutable("Cnr Thurlow And Bourke Streets, Redfern NSW"), true);
 });
 
+test("real NSW and VIC suburbs without listings are not treated as typos", function () {
+  const file = JSON.parse(fs.readFileSync(new URL("../localities.json", import.meta.url), "utf8"));
+  assert.match(file.licence, /CC BY 4.0/);
+  assert.match(file.source, /Australian Bureau of Statistics/);
+  assert.match(file.source, /Suburbs and Localities/);
+  assert.ok(file.places.length > 5000);
+  const index = logic.attachLocalities(model.index, file.places);
+  const gosford = logic.searchLocations("Gosford", index);
+  assert.equal(gosford[0].name, "Gosford");
+  assert.equal(gosford[0].count, 0);
+  assert.equal(gosford[0].area.knownEmpty, true);
+  assert.equal(gosford[0].area.region, "Central Coast");
+  assert.equal(logic.searchLocations("gosford", index)[0].name, "Gosford");
+  assert.equal(logic.searchLocations("GOSFORD", index)[0].name, "Gosford");
+  const nearest = logic.nearestPlaces(model.places, gosford[0].area.lat, gosford[0].area.lng, 5);
+  assert.ok(nearest.length >= 3 && nearest.length <= 5);
+  nearest.forEach(function (place, i) {
+    assert.equal(model.byId[place.id].name, place.name);
+    assert.equal(typeof place._dist, "number");
+    if (i) assert.ok(nearest[i - 1]._dist <= place._dist);
+  });
+  const params = new URLSearchParams(logic.writeParams(gosford[0].area, logic.blankFilters(), "list"));
+  const roundTrip = logic.areaFromParams(params);
+  assert.equal(roundTrip.label, "Gosford");
+  assert.equal(roundTrip.regionArea.label, "Central Coast");
+  assert.equal(roundTrip.regionArea.knownEmpty, true);
+  assert.ok(Math.abs(roundTrip.lat - gosford[0].area.lat) < 0.0002);
+  const newtown = logic.searchLocations("Newtown", index);
+  assert.equal(newtown[0].name, "Newtown");
+  assert.ok(newtown[0].count > 0);
+  const surrey = logic.searchLocations("Surrey Hills", index);
+  assert.ok(surrey.some(function (item) { return item.name === "Surrey Hills" && item.count > 0; }));
+  assert.ok(surrey.some(function (item) { return item.name === "Surry Hills" && item.count > 0; }));
+  const surry = logic.searchLocations("Surry Hills", index);
+  assert.ok(surry.some(function (item) { return item.name === "Surrey Hills" && item.count > 0; }));
+  assert.equal(logic.searchLocations("Xyzzy", index).length, 0);
+  assert.equal(logic.searchLocations("xyzzy", index).length, 0);
+  const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
+  const version = sw.match(/VERSION = "([^"]+)"/)[1];
+  assert.ok(version > "byo-2026-11-11a", version);
+  assert.equal(sw.indexOf("localities.json"), -1);
+  const app = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
+  assert.match(app, /No BYO restaurants in /);
+  assert.match(app, /Here are the closest BYO spots/);
+  assert.match(app, /Browse /);
+  assert.match(app, /We couldn’t find that location/);
+  assert.match(app, /Search suburb, city or region/);
+});
+
 test("location search disambiguates, fuzzy-matches, and separates unknown places", function () {
   const newtown = logic.searchLocations("newtown", model.index);
   assert.ok(newtown.some(function (item) { return item.name === "Newtown" && item.count > 0; }));

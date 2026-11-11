@@ -261,6 +261,133 @@
     return { items: items, cities: cities, stateCounts: stateCounts };
   }
 
+  function numOrNull(v) {
+    if (v == null || v === "") return null;
+    var n = Number(v);
+    return n === n && n !== Infinity && n !== -Infinity ? n : null;
+  }
+
+  // Area opened by "Browse {region}". A covered metro region keeps its city so
+  // the existing results list is used. Anywhere else stays an empty place and
+  // can still offer the nearest real venues.
+  function regionBrowseArea(area) {
+    if (!area || !area.region) return null;
+    var stName = area.stateName || stateName(area.state);
+    if (area.browseCity) {
+      return {
+        state: area.state,
+        stateName: stName,
+        city: area.browseCity,
+        cityLabel: area.browseCity,
+        region: area.region,
+        label: area.region
+      };
+    }
+    var browse = {
+      knownEmpty: true,
+      state: area.state,
+      stateName: stName,
+      label: area.region,
+      region: area.region
+    };
+    if (typeof area.lat === "number") browse.lat = area.lat;
+    if (typeof area.lng === "number") browse.lng = area.lng;
+    return browse;
+  }
+
+  function localityArea(name, state, lat, lng, region, city) {
+    var latN = numOrNull(lat);
+    var lngN = numOrNull(lng);
+    if (latN == null || lngN == null || !STATES[state]) return null;
+    var area = {
+      knownEmpty: true,
+      state: state,
+      stateName: stateName(state),
+      label: name,
+      suburb: name,
+      lat: latN,
+      lng: lngN,
+      region: region || "",
+      browseCity: city || ""
+    };
+    area.regionArea = regionBrowseArea(area);
+    return area;
+  }
+
+  // rows: [name, state, lat, lng, region, city]. Listed suburbs already in the
+  // index are left alone. A known-empty place with the same name picks up
+  // coordinates so it can show nearest venues.
+  function attachLocalities(index, rows) {
+    var items = ((index && index.items) || []).slice();
+    var indexed = {};
+    items.forEach(function (item, i) {
+      var st = (item.area && item.area.state) || "";
+      indexed[fold(item.name) + "|" + st] = i;
+    });
+    var seen = {};
+    var enrichedKeys = {};
+    (rows || []).forEach(function (row) {
+      if (!row || row.length < 4) return;
+      var name = String(row[0] || "").trim();
+      var state = String(row[1] || "").trim();
+      if (!name || !STATES[state]) return;
+      var region = row[4] ? String(row[4]) : "";
+      var city = row[5] ? String(row[5]) : "";
+      var area = localityArea(name, state, row[2], row[3], region, city);
+      if (!area) return;
+      var key = fold(name) + "|" + state;
+      if (Object.prototype.hasOwnProperty.call(indexed, key)) {
+        var at = indexed[key];
+        var existing = items[at];
+        if (existing && existing.knownEmpty && existing.area && typeof existing.area.lat !== "number" && !enrichedKeys[key]) {
+          var enriched = Object.assign({}, existing);
+          enriched.area = Object.assign({}, existing.area, {
+            lat: area.lat,
+            lng: area.lng,
+            region: existing.area.region || area.region,
+            browseCity: existing.area.browseCity || area.browseCity
+          });
+          enriched.area.regionArea = regionBrowseArea(enriched.area);
+          items[at] = enriched;
+          enrichedKeys[key] = 1;
+        }
+        return;
+      }
+      var locKey = key + "|" + area.lat.toFixed(4) + "|" + area.lng.toFixed(4);
+      if (seen[locKey]) return;
+      seen[locKey] = 1;
+      items.push({
+        kind: "locality",
+        name: name,
+        context: (region ? region + ", " : "") + state,
+        count: 0,
+        knownEmpty: true,
+        aliases: [],
+        area: area
+      });
+    });
+    return { items: items, cities: (index && index.cities) || [], stateCounts: (index && index.stateCounts) || {} };
+  }
+
+  function nearestPlaces(places, lat, lng, limit) {
+    var cap = Number(limit) || 5;
+    if (cap < 3) cap = 3;
+    if (cap > 5) cap = 5;
+    if (typeof lat !== "number" || typeof lng !== "number") return [];
+    var scored = [];
+    for (var i = 0; i < places.length; i++) {
+      var p = places[i];
+      if (typeof p.lat !== "number" || typeof p.lng !== "number") continue;
+      scored.push({ p: p, d: haversine(lat, lng, p.lat, p.lng) });
+    }
+    scored.sort(function (a, b) { return a.d - b.d || a.p.name.localeCompare(b.p.name); });
+    return scored.slice(0, cap).map(function (s) {
+      var copy = Object.assign({}, s.p);
+      copy._dist = s.d;
+      return copy;
+    });
+  }
+
   function searchLocations(query, index) {
     var q = fold(query);
     if (!q) return [];
@@ -732,7 +859,23 @@
       return { unrecognised: true, query: query, label: query || "that search" };
     }
     if (get("empty") === "1") {
-      return { knownEmpty: true, state: get("state"), stateName: stateName(get("state")), label: get("label") || "this place" };
+      var latRaw = get("lat");
+      var lngRaw = get("lng");
+      var areaEmpty = {
+        knownEmpty: true,
+        state: get("state"),
+        stateName: stateName(get("state")),
+        label: get("label") || "this place",
+        suburb: get("label") || "",
+        region: get("region"),
+        browseCity: get("bcity")
+      };
+      var latN = numOrNull(latRaw);
+      var lngN = numOrNull(lngRaw);
+      if (latN != null) areaEmpty.lat = latN;
+      if (lngN != null) areaEmpty.lng = lngN;
+      areaEmpty.regionArea = regionBrowseArea(areaEmpty);
+      return areaEmpty;
     }
     var state = get("state");
     if (!state || !STATES[state]) return null;
@@ -759,7 +902,15 @@
     } else if (area.shortlist) add("shortlist", "1");
     else if (area.near) add("near", "1");
     else if (area.unrecognised) { add("unknown", "1"); add("qplace", area.query || area.label || ""); }
-    else if (area.knownEmpty) { add("empty", "1"); add("label", area.label || ""); add("state", area.state || ""); }
+    else if (area.knownEmpty) {
+      add("empty", "1");
+      add("label", area.label || "");
+      add("state", area.state || "");
+      if (typeof area.lat === "number") add("lat", area.lat.toFixed(5));
+      if (typeof area.lng === "number") add("lng", area.lng.toFixed(5));
+      add("region", area.region || "");
+      add("bcity", area.browseCity || "");
+    }
     else {
       add("state", area.state || "");
       add("city", area.city || "");
@@ -799,6 +950,9 @@
     fold: fold,
     prepare: prepare,
     searchLocations: searchLocations,
+    attachLocalities: attachLocalities,
+    nearestPlaces: nearestPlaces,
+    regionBrowseArea: regionBrowseArea,
     browse: browse,
     isStateDump: isStateDump,
     inArea: inArea,
