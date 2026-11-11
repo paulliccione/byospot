@@ -32,7 +32,7 @@
   }
 
   function arrowSvg() {
-    return '<svg class="rcard-arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    return '<svg class="rcard-arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
   function forkSvg() {
@@ -41,6 +41,18 @@
 
   function bagSvg() {
     return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 8h11l-.8 12H7.3L6.5 8zM9 8V6.2A3 3 0 0 1 12 3a3 3 0 0 1 3 3.2V8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  }
+
+  function bottleSvg() {
+    return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M10 2h4v3l1.5 2v13a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2V7L10 5V2zM10 8h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  }
+
+  function calendarSvg() {
+    return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 3v3M17 3v3M4 9h16M6 5h12a2 2 0 0 1 2 2v12H4V7a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+
+  function pinSvg() {
+    return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 21s6-5.1 6-10a6 6 0 1 0-12 0c0 4.9 6 10 6 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="11" r="1.6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
   }
 
   function backSvg() {
@@ -73,12 +85,13 @@
   }
 
   function factsHtml(view) {
-    var html = '<span class="rcard-title"><span class="rcard-name">' + esc(view.name || "Restaurant") + "</span>" + pillHtml(view) + "</span>";
+    var html = '<span class="rcard-name">' + esc(view.name || "Restaurant") + "</span>";
     var meta = metaLine(view);
     if (meta) html += '<span class="rcard-meta">' + esc(meta) + "</span>";
-    if (present(view.corkage)) html += '<span class="rcard-cork">' + esc(corkageLine(view.corkage)) + "</span>";
     var rating = ratingLine(view);
     if (rating) html += '<span class="rcard-rating"><span aria-hidden="true">★</span> ' + esc(rating.replace(/^★\s*/, "")) + "</span>";
+    if (present(view.byoLabel)) html += '<span class="rcard-status">' + pillHtml(view) + "</span>";
+    if (present(view.corkage)) html += '<span class="rcard-cork">' + bottleSvg() + "<span>" + esc(corkageLine(view.corkage)) + "</span></span>";
     return html;
   }
 
@@ -153,9 +166,19 @@
       open = '<div class="rcard-open">' + body + "</div>";
     }
     var actions = cardActions(view);
-    var actionRow = actions.length
-      ? '<div class="rcard-actions">' + actions.map(function (item) { return actionTag(item, "rcard-act"); }).join("") + "</div>"
-      : "";
+    var primary = null;
+    var quiet = [];
+    actions.forEach(function (item) {
+      if (item.primary && !primary) primary = item;
+      else quiet.push(item);
+    });
+    var actionRow = "";
+    if (primary || quiet.length) {
+      actionRow = '<div class="rcard-actions">' +
+        (primary ? actionTag(primary, "rcard-act") : "") +
+        (quiet.length ? '<div class="rcard-quiet">' + quiet.map(function (item) { return actionTag(item, "rcard-act"); }).join("") + "</div>" : "") +
+        "</div>";
+    }
     return '<article class="rcard' + (pressed ? " is-on" : "") + '" data-mode="' + mode + '">' +
       open + addressHtml(view) + actionRow + "</article>";
   }
@@ -183,9 +206,10 @@
     view = view || {};
     var meta = metaLine(view);
     var rating = ratingLine(view);
-    var days = present(view.byoDays) ? view.byoDays : "";
+    var days = present(view.byoDays) ? "BYO days · " + view.byoDays : "";
     var price = present(view.price) ? "Price " + view.price : "";
     var takeaway = present(view.takeaway) ? view.takeaway + (present(view.takeawayDetail) ? " · " + view.takeawayDetail : "") : "";
+    var address = addressHtml(view, "venue-address");
     var links = linkItems(view);
     var primary = null;
     var secondary = [];
@@ -204,18 +228,22 @@
     return '<div class="venue" role="dialog" aria-modal="true" aria-labelledby="detailTitle">' +
       '<div class="venue-page' + (bar ? " has-bar" : "") + '">' +
       '<header class="venue-top"><button type="button" class="venue-back" data-action="close" aria-label="Back">' + backSvg() + "</button>" +
-      '<img class="venue-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="168" height="42">' +
+      '<img class="venue-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37">' +
       '<span class="venue-top-gap" aria-hidden="true"></span></header>' +
+      '<div class="venue-hero" aria-hidden="true">' + forkSvg() +
+      (present(view.cuisine) ? "<span>" + esc(view.cuisine) + "</span>" : "") + "</div>" +
       '<h1 id="detailTitle" class="venue-name">' + esc(view.name || "Restaurant") + "</h1>" +
       (meta ? '<p class="venue-meta">' + esc(meta) + "</p>" : "") +
       (rating ? '<p class="venue-rating"><span aria-hidden="true">★</span> ' + esc(rating.replace(/^★\s*/, "")) + "</p>" : "") +
       (present(view.byoLabel) ? '<p class="venue-status">' + pillHtml(view) + "</p>" : "") +
-      (present(view.corkage) ? '<p class="venue-cork">' + esc(corkageLine(view.corkage)) + "</p>" : "") +
+      '<div class="venue-facts">' +
       factRow(forkSvg(), price) +
+      factRow(bottleSvg(), present(view.corkage) ? corkageLine(view.corkage) : "") +
+      factRow(calendarSvg(), days) +
       factRow(bagSvg(), takeaway) +
-      addressHtml(view, "venue-address") +
+      (address ? '<div class="venue-fact">' + pinSvg() + address + "</div>" : "") +
+      "</div>" +
       (present(view.address) && !present(view.directions) ? '<p class="venue-aside">Directions stay hidden until this record has a full street address.</p>' : "") +
-      (days ? '<p class="venue-days"><span class="venue-k">BYO days</span> ' + esc(days) + "</p>" : "") +
       (present(view.note) ? '<p class="venue-note">' + esc(view.note) + "</p>" : "") +
       shopHtml(view.shops) +
       "</div>" + bar + "</div>";

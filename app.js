@@ -98,7 +98,16 @@
       "</svg><span>BYO SPOT</span>";
   }
 
+  function brandScreen() {
+    return state.screen === "results" || state.screen === "select" || state.screen === "vote" || state.screen === "share" || state.screen === "legacy";
+  }
+  function brandHeader() {
+    return '<header class="top top-brand"><button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>" +
+      '<a class="brand-lockup" href="/" data-action="home"><img src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37"></a>' +
+      '<span class="icon-spacer" aria-hidden="true"></span></header>';
+  }
   function header(home) {
+    if (!home && brandScreen()) return brandHeader();
     var back = home ? "" : '<button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>";
     var brand = home
       ? landingMark()
@@ -584,6 +593,7 @@
     document.body.classList.toggle("modal-open", !!(state.detailId || state.filtersOpen));
     document.body.classList.toggle("screen-home", state.screen === "home");
     document.body.classList.toggle("screen-location", state.screen === "location");
+    document.body.classList.toggle("screen-brand", brandScreen());
     $("app").innerHTML = screenHtml() + detailSheet() + filtersSheet();
     fitLocationViewport();
     var title = "BYOSpot";

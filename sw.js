@@ -1,5 +1,5 @@
 // Bump VERSION whenever you publish an update so phones fetch the new files.
-var VERSION = "byo-2026-11-12e";
+var VERSION = "byo-2026-11-12f";
 var FILES = ["./", "index.html", "style.css", "app.js", "logic.js", "card.js", "data.js", "manifest.webmanifest",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png",
   "icons/icon-maskable-512.png",
