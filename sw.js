@@ -1,10 +1,12 @@
 // Bump VERSION whenever you publish an update so phones fetch the new files.
-var VERSION = "byo-2026-11-12c";
-var FILES = ["./", "index.html", "style.css", "app.js", "logic.js", "data.js", "manifest.webmanifest",
+var VERSION = "byo-2026-11-12d";
+var FILES = ["./", "index.html", "style.css", "app.js", "logic.js", "card.js", "data.js", "manifest.webmanifest",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png",
   "icons/icon-maskable-512.png",
   "images/home-hero.jpg",
-  "fonts/inter-latin.woff2", "fonts/fraunces-latin.woff2"];
+  "fonts/inter-latin.woff2", "fonts/fraunces-latin.woff2",
+  "fonts/Poppins-Regular.ttf", "fonts/Poppins-Medium.ttf", "fonts/Poppins-SemiBold.ttf",
+  "logos/byospot-logo-teal.svg"];
 
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) { return c.addAll(FILES); }).then(function () { return self.skipWaiting(); }));

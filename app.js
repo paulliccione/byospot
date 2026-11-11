@@ -212,39 +212,60 @@
     return "BYO restaurants in " + state.area.label;
   }
 
-  function badgeHtml(p) {
-    var byo = L.byoDayStatus(p);
-    var cork = L.corkageText(p);
-    return '<div class="byo-row"><span class="badge ' + byo.tone + '">' + esc(byo.label) + "</span>" +
-      (cork ? '<span class="cork">' + esc(cork) + "</span>" : "") + "</div>";
+  function shopFacts(p) {
+    var s = p && p.bottleShops;
+    if (!s) return [];
+    function one(b, label) {
+      if (!b || !b.name) return null;
+      var url = "";
+      if (typeof b.lat === "number" && typeof b.lng === "number") {
+        url = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(b.lat + "," + b.lng) + "&travelmode=walking";
+      }
+      var distance = "";
+      if (typeof b.distanceM === "number") {
+        distance = b.distanceM < 1000 ? Math.round(b.distanceM) + " m" : (b.distanceM / 1000).toFixed(1) + " km";
+      }
+      return { label: label, name: String(b.name), distance: distance, url: url };
+    }
+    return [one(s.chain, "Nearest chain"), one(s.independent, "Nearest indie")].filter(Boolean);
   }
-  function googleRatingHtml(p) {
-    if (L.GOOGLE_COMPLIANT_MODE) return "";
-    var view = L.presentPlace(p);
-    if (typeof p.stars !== "number") return "";
-    return '<p class="rating"><span class="star" aria-hidden="true">★</span> ' + esc(p.stars) +
-      (view.reviews ? ' <span class="muted">(' + esc(L.formatNumber(view.reviews)) + " Google reviews)</span>" : "") + "</p>";
+  function cardView(p, fallbackId) {
+    if (!p) return { id: fallbackId || "", name: "Restaurant no longer listed", missing: true };
+    var presented = L.presentPlace(p);
+    var byo = L.byoDayStatus(p);
+    var showDist = typeof p._dist === "number" && state.area && ((state.area.near && state.coords) || typeof state.area.lat === "number");
+    var distance = showDist ? (L.distanceLabel(p) || "") : "";
+    var days = "";
+    if (p.byoDays) days = Array.isArray(p.byoDays) ? p.byoDays.join(", ") : String(p.byoDays);
+    var takeaway = p.takeaway === "yes" ? "Takeaway available" : p.takeaway === "no" ? "Dine-in only" : "";
+    var booking = "";
+    if (p.bookingUrl && /^https?:\/\//i.test(String(p.bookingUrl).trim())) booking = String(p.bookingUrl).trim();
+    var showRating = !L.GOOGLE_COMPLIANT_MODE && typeof presented.stars === "number";
+    return {
+      id: p.id,
+      name: p.name,
+      cuisine: p.cuisine || "",
+      location: p.suburb || p.region || "",
+      distance: distance,
+      byoLabel: byo.label || "",
+      corkage: presented.corkage || "",
+      stars: showRating ? presented.stars : null,
+      reviewsLabel: showRating && presented.reviews ? L.formatNumber(presented.reviews) : "",
+      address: presented.address || "",
+      directions: presented.directions || "",
+      website: presented.website || "",
+      phone: presented.phone || "",
+      price: presented.price || "",
+      takeaway: takeaway,
+      takeawayDetail: takeaway && p.takeawayDetail ? String(p.takeawayDetail) : "",
+      byoDays: days,
+      note: p.note ? String(p.note) : "",
+      bookingUrl: booking,
+      shops: shopFacts(p)
+    };
   }
   function cardHtml(p) {
-    var view = L.presentPlace(p);
-    var rating = googleRatingHtml(p);
-    var addr = view.address
-      ? (view.directions
-        ? '<p class="addr"><a href="' + esc(view.directions) + '" target="_blank" rel="noopener">' + esc(view.address) + "</a></p>"
-        : '<p class="addr">' + esc(view.address) + "</p>")
-      : "";
-    var showDist = typeof p._dist === "number" && state.area && ((state.area.near && state.coords) || typeof state.area.lat === "number");
-    var distLabel = showDist ? L.distanceLabel(p) : "";
-    var dist = distLabel ? '<p class="dist">' + esc(distLabel) + "</p>" : "";
-    var actions = "";
-    if (view.directions) actions += '<a href="' + esc(view.directions) + '" target="_blank" rel="noopener">Directions</a>';
-    if (view.website) actions += '<a href="' + esc(view.website) + '" target="_blank" rel="noopener">Website</a>';
-    if (view.phone) actions += '<a href="' + esc(view.phone) + '">Call</a>';
-    actions += '<button type="button" data-action="details" data-id="' + esc(p.id) + '">More details</button>';
-    return '<article class="card"><button type="button" class="card-hit" data-action="details" data-id="' + esc(p.id) + '">' +
-      '<span class="thumb">' + icon("glass") + "</span><span><h3>" + esc(p.name) + "</h3>" +
-      '<p class="meta">' + esc([p.cuisine, p.suburb].filter(Boolean).join(" · ")) + "</p>" +
-      rating + badgeHtml(p) + addr + dist + "</span></button><div class=\"actions\">" + actions + "</div></article>";
+    return BYOCard.render(cardView(p), { mode: "results" });
   }
   function nearestMode() {
     return !!(state.area && state.area.knownEmpty && typeof state.area.lat === "number" && typeof state.area.lng === "number");
@@ -355,13 +376,7 @@
     var shown = list.slice(0, state.limit || 30);
     var cards = shown.map(function (p) {
       var on = visiblePicks.indexOf(p.id) >= 0;
-      var cork = L.corkageText(p);
-      return '<button type="button" class="check" data-action="toggle" data-id="' + esc(p.id) + '" aria-pressed="' + on + '">' +
-        '<span class="box" aria-hidden="true">' + (on ? "✓" : "") + "</span><span><strong>" + esc(p.name) + "</strong>" +
-        '<span class="fine">' + esc([p.cuisine, p.suburb].filter(Boolean).join(" · ")) + "</span><br>" +
-        '<span class="fine">' + esc(L.byoDayStatus(p).label + (cork ? " · " + cork : "")) + "</span>" +
-        (p.address ? '<br><span class="fine">' + esc(p.address) + "</span>" : "") +
-        "</span></button>";
+      return BYOCard.render(cardView(p), { mode: "pick", pressed: on });
     }).join("");
     var note = state.removedNote ? '<p class="note" role="status">' + esc(state.removedNote) + "</p>" : "";
     var err = state.pollError ? '<p class="loc-status" role="alert">' + esc(state.pollError) + "</p>" : "";
@@ -370,7 +385,7 @@
       areaControl() +
       note + err +
       '<div class="toolbar"><h2>Restaurants</h2><button type="button" class="btn btn-small btn-ghost" data-action="filters">Filters' + (activeFilterCount(state.filters) ? " · " + activeFilterCount(state.filters) : "") + "</button></div>" +
-      (list.length ? cards + (list.length > shown.length ? '<div class="stack"><button type="button" class="btn btn-ghost" data-action="more">Show more</button></div>' : "") : emptyHtml(list)) +
+      (list.length ? '<div class="cards">' + cards + "</div>" + (list.length > shown.length ? '<div class="stack"><button type="button" class="btn btn-ghost" data-action="more">Show more</button></div>' : "") : emptyHtml(list)) +
       '<p class="fine-print">Choose at least two. There’s no three-restaurant limit.</p>' + footerHtml() + "</main>" +
       '<div class="dock"><div class="dock-inner"><div class="dock-meta"><strong>' + visiblePicks.length + " restaurant" + (visiblePicks.length === 1 ? "" : "s") + " selected</strong><span>Minimum 2</span></div>" +
       '<button type="button" class="btn btn-primary" data-action="continue-share" ' + (visiblePicks.length < 2 || state.shareBusy ? "disabled" : "") + ">" +
@@ -419,20 +434,8 @@
     var done = state.voteDone || !!poll.myVote;
     var choices = poll.restaurantIds.map(function (id) {
       var p = model.byId[id];
-      var name = p ? p.name : "Restaurant no longer listed";
-      var bits = [];
-      if (p) {
-        if (p.cuisine) bits.push(p.cuisine);
-        if (p.suburb) bits.push(p.suburb);
-        var cork = L.corkageText(p);
-        bits.push(cork || L.byoPresentation(p).label);
-      }
       var pressed = (state.voteChoice || poll.myVote) === id;
-      if (done) {
-        return '<div class="choice" aria-pressed="' + pressed + '"><span class="radio"></span><span><strong>' + esc(name) + '</strong><br><span class="fine">' + esc(bits.join(" · ")) + "</span></span></div>";
-      }
-      return '<button type="button" class="choice" data-action="pick-vote" data-id="' + esc(id) + '" aria-pressed="' + pressed + '"><span class="radio"></span><span><strong>' +
-        esc(name) + '</strong><br><span class="fine">' + esc(bits.join(" · ")) + "</span></span></button>";
+      return BYOCard.render(cardView(p, id), { mode: "vote", pressed: pressed, interactive: !done });
     }).join("");
     var summary = "";
     if (poll.summary && (done || (poll.total || 0) > 0)) {
@@ -456,7 +459,7 @@
       "<h1>Where should we eat?</h1><p class=\"sub\">Pick your favourite restaurant. No account needed.</p>" +
       (state.voteError ? '<p class="loc-status" role="alert">' + esc(state.voteError) + "</p>" : "") +
       (done ? '<p class="note" role="status">Thanks — your vote’s in.</p>' : "") +
-      choices +
+      '<div class="cards">' + choices + "</div>" +
       (done ? "" : '<button type="button" class="btn btn-primary" data-action="submit-vote" ' + (!state.voteChoice || state.voteBusy ? "disabled" : "") + ">" +
         (state.voteBusy ? "Submitting…" : "Submit my vote") + "</button>") +
       summary +
@@ -482,44 +485,8 @@
 
   function detailSheet() {
     var p = model.byId[state.detailId];
-    if (!p) return "";
-    var view = L.presentPlace(p);
-    var bits = [];
-    if (view.price) bits.push("<p><strong>Price</strong> " + esc(view.price) + (p.priceBasis ? " · " + esc(p.priceBasis) : "") + "</p>");
-    var dish = /^unknown\b/i.test(p.dish || "") ? "" : (p.dish || "");
-    if (dish) bits.push("<p><strong>Known for</strong> " + esc(dish) + "</p>");
-    if (p.note) bits.push("<p>" + esc(p.note) + "</p>");
-    if (p.takeaway === "yes" || p.takeaway === "no") {
-      bits.push("<p><strong>Takeaway</strong> " + (p.takeaway === "yes" ? "Yes" : "Dine-in only") + (p.takeawayDetail ? " · " + esc(p.takeawayDetail) : "") + "</p>");
-    }
-    if (p.byoDays) {
-      var days = Array.isArray(p.byoDays) ? p.byoDays.join(", ") : String(p.byoDays);
-      if (days) bits.push("<p><strong>BYO days</strong> " + esc(days) + "</p>");
-    }
-    if (view.address && !view.directions) bits.push("<p>Directions stay hidden until this record has a full street address.</p>");
-    var shops = shopBlock(p);
-    var actions = "";
-    if (view.directions) actions += '<a class="btn btn-secondary" href="' + esc(view.directions) + '" target="_blank" rel="noopener">Directions</a>';
-    if (view.website) actions += '<a class="btn btn-ghost" href="' + esc(view.website) + '" target="_blank" rel="noopener">Website</a>';
-    if (view.phone) actions += '<a class="btn btn-ghost" href="' + esc(view.phone) + '">Call</a>';
-    return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="sheet-card detail">' +
-      '<div class="sheet-head"><h2 id="detailTitle">' + esc(p.name) + '</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
-      "<p class=\"meta\">" + esc([p.cuisine, p.suburb, p.region].filter(Boolean).join(" · ")) + "</p>" +
-      (L.GOOGLE_COMPLIANT_MODE || typeof p.stars !== "number" ? "" : '<p class="rating"><span class="star">★</span> ' + esc(p.stars) + " <span class=\"muted\">(" + esc(L.formatNumber(view.reviews)) + " Google reviews)</span></p>") +
-      badgeHtml(p) + (view.address ? "<p class=\"addr\">" + esc(view.address) + "</p>" : "") +
-      bits.join("") + shops + '<div class="stack">' + actions + "</div></div></div>";
-  }
-  function shopBlock(p) {
-    var s = p.bottleShops;
-    if (!s) return "";
-    function row(b, label) {
-      if (!b) return "";
-      var url = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(b.lat + "," + b.lng) + "&travelmode=walking";
-      var dist = typeof b.distanceM === "number" ? " · ~" + (b.distanceM < 1000 ? Math.round(b.distanceM) + " m" : (b.distanceM / 1000).toFixed(1) + " km") : "";
-      return '<li><a href="' + url + '" target="_blank" rel="noopener">' + esc(label + ": " + b.name + dist) + "</a></li>";
-    }
-    var html = row(s.chain, "Nearest chain") + row(s.independent, "Nearest indie");
-    return html ? '<p><strong>Bottle shops within 2 km</strong></p><ul class="shops">' + html + "</ul>" : "";
+    if (!p || !window.BYOCard) return "";
+    return BYOCard.renderDetail(cardView(p));
   }
 
   function filtersSheet() {
@@ -628,6 +595,10 @@
     else if (state.screen === "privacy") title = "Privacy · BYOSpot";
     document.title = title;
     if (keep) window.scrollTo(0, y);
+    if (state.detailId) {
+      var back = document.querySelector(".venue-back");
+      if (back && document.activeElement === document.body) back.focus();
+    }
   }
 
   function resultsQuery() {
