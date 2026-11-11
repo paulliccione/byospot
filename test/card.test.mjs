@@ -141,7 +141,8 @@ test("every stored cuisine maps to an illustrative photo", function () {
   assert.match(italian, /src="images\/cuisine\/italian\.webp"/);
   assert.match(italian, /alt="Illustrative photo of Italian food"/);
   assert.match(italian, /loading="lazy"/);
-  assert.match(italian, /Illustrative photo</);
+  assert.match(italian, /Illustrative photo only</);
+  assert.equal(italian.indexOf(">Illustrative photo<"), -1);
   const thai = card.renderDetail({ id: "thai-pothong-newtown", name: "Thai Pothong", cuisine: "Thai" });
   assert.match(thai, /src="images\/cuisine\/thai\.webp"/);
   assert.ok(Object.keys(groups).length >= 8);
@@ -158,7 +159,7 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12g");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12h");
   assert.equal(sw.indexOf("images/cuisine"), -1);
   assert.equal(sw.indexOf("localities.json"), -1);
   assert.match(sw, /card\.js/);

@@ -114,7 +114,7 @@
     var alt = cuisine ? "Illustrative photo of " + cuisine + " food" : "Illustrative photo of food";
     return '<div class="venue-hero">' +
       '<img src="images/cuisine/' + group + '.webp" alt="' + esc(alt) + '" width="800" height="500" loading="lazy" decoding="async">' +
-      '<span class="venue-hero-label">Illustrative photo</span></div>';
+      '<span class="venue-hero-label">Illustrative photo only</span></div>';
   }
 
   function metaLine(view) {

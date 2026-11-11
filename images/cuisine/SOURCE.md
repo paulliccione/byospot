@@ -1,6 +1,6 @@
 # Illustrative cuisine photos
 
-These pictures are general dish photographs for the venue detail header. They are not photos of any BYOspot restaurant, and the screen labels every one “Illustrative photo”.
+These pictures are general dish photographs for the venue detail header. They are not photos of any BYOspot restaurant, and the screen labels every one “Illustrative photo only”.
 
 Each file is CC0 1.0, from Wikimedia Commons. No Google or venue-supplied photos are used.
 
