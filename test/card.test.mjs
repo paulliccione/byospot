@@ -65,6 +65,7 @@ test("results, picker and vote share the card and keep corkage, status, rating a
     assert.equal(html.includes("text-decoration:underline"), false);
     assert.ok(acts(html) <= 3, mode + " actions " + acts(html));
     assert.match(html, /Book a table/);
+    assert.equal(html.includes("venue-hero"), false);
     assert.equal((html.match(/class="thumb"|mark-glass|M14 8h20/g) || []).length, 0);
   });
   const picked = card.render(full, { mode: "pick", pressed: true });
@@ -122,24 +123,43 @@ test("address without directions is text, and a directions link is not underline
   assert.match(css, /\.venue-shop \{[^}]*min-height:\s*44px/);
 });
 
-test("venue detail has no illustrative cuisine photo", function () {
+test("venue detail shows the mint cuisine panel and no photos", function () {
   const italian = card.renderDetail({ id: "la-favola-newtown", name: "La Favola", cuisine: "Italian" });
+  const long = card.renderDetail({ id: "arabella-newtown", name: "Arabella", cuisine: "Middle Eastern (Lebanese)" });
   const bare = card.renderDetail({ id: "x", name: "Plain" });
   const cardHtml = card.render(full, { mode: "results" });
-  [italian, bare, cardHtml].forEach(function (html) {
+  [italian, long, bare, cardHtml].forEach(function (html) {
     assert.equal(html.includes("Illustrative photo"), false);
     assert.equal(html.includes("images/cuisine"), false);
-    assert.equal(html.includes("venue-hero"), false);
   });
+  function hero(html) {
+    const start = html.indexOf('<div class="venue-hero"');
+    assert.ok(start > html.indexOf('class="venue-top"'));
+    assert.ok(start < html.indexOf('class="venue-name"'));
+    return html.slice(start, html.indexOf("</div>", start));
+  }
+  const italianHero = hero(italian);
+  assert.match(italianHero, /aria-hidden="true"/);
+  assert.match(italianHero, /M8 3v6M12 3v6M16 3v6/);
+  assert.match(italianHero, /<span>Italian<\/span>/);
+  const longHero = hero(long);
+  assert.match(longHero, /<span>Middle Eastern \(Lebanese\)<\/span>/);
+  const bareHero = hero(bare);
+  assert.match(bareHero, /M8 3v6M12 3v6M16 3v6/);
+  assert.equal(bareHero.includes("<span"), false);
+  assert.equal(cardHtml.includes("venue-hero"), false);
   assert.match(italian, /La Favola/);
-  assert.match(italian, /Italian/);
   assert.match(italian, /logos\/byospot-logo-teal\.svg/);
   assert.equal((italian.match(/<img\b/g) || []).length, 1);
+  assert.equal((long.match(/<img\b/g) || []).length, 1);
   assert.equal((bare.match(/<img\b/g) || []).length, 1);
   assert.equal((cardHtml.match(/<img\b/g) || []).length, 0);
   assert.equal(card.cuisineGroup, undefined);
   const css = fs.readFileSync(new URL("../style.css", import.meta.url), "utf8");
-  assert.equal(css.includes("venue-hero"), false);
+  assert.match(css, /\.venue-hero \{[^}]*height:\s*156px/);
+  assert.match(css, /\.venue-hero \{[^}]*background:\s*#C7F1DC/);
+  assert.match(css, /\.venue-hero \{[^}]*color:\s*#064E50/);
+  assert.match(css, /\.venue-hero svg \{[^}]*width:\s*44px;\s*height:\s*44px/);
   assert.equal(fs.existsSync(new URL("../images/cuisine", import.meta.url)), false);
 });
 
@@ -154,7 +174,7 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12l");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12m");
   assert.match(sw, /icons\/icon-v2-512\.png/);
   assert.match(sw, /icons\/icon-v2-maskable-512\.png/);
   assert.equal(sw.indexOf("images/cuisine"), -1);
