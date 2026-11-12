@@ -699,36 +699,6 @@ a.rcard-act-primary, a.venue-act-primary {
   place-items: center;
 }
 .venue-logo { display: block; width: auto; max-width: 100%; height: 36px; justify-self: center; }
-.venue-hero {
-  position: relative;
-  margin-top: 4px;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #C7F1DC;
-  aspect-ratio: 16 / 10;
-}
-.venue-hero img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.venue-hero-label {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  max-width: calc(100% - 20px);
-  margin: 0;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(6, 30, 32, .45);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0;
-  white-space: nowrap;
-}
 .venue-name {
   margin: 8px 0 0;
   color: var(--card-teal);
