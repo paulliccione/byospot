@@ -699,6 +699,21 @@ a.rcard-act-primary, a.venue-act-primary {
   place-items: center;
 }
 .venue-logo { display: block; width: auto; max-width: 100%; height: 36px; justify-self: center; }
+.venue-hero {
+  height: 156px;
+  margin-top: 4px;
+  border-radius: 18px;
+  background: #C7F1DC;
+  color: #064E50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.venue-hero svg { width: 44px; height: 44px; }
 .venue-name {
   margin: 8px 0 0;
   color: var(--card-teal);

@@ -230,6 +230,8 @@
       '<header class="venue-top"><button type="button" class="venue-back" data-action="close" aria-label="Back">' + backSvg() + "</button>" +
       '<img class="venue-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37">' +
       '<span class="venue-top-gap" aria-hidden="true"></span></header>' +
+      '<div class="venue-hero" aria-hidden="true">' + forkSvg() +
+      (present(view.cuisine) ? "<span>" + esc(view.cuisine) + "</span>" : "") + "</div>" +
       '<h1 id="detailTitle" class="venue-name">' + esc(view.name || "Restaurant") + "</h1>" +
       (meta ? '<p class="venue-meta">' + esc(meta) + "</p>" : "") +
       (rating ? '<p class="venue-rating"><span aria-hidden="true">★</span> ' + esc(rating.replace(/^★\s*/, "")) + "</p>" : "") +
