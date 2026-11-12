@@ -80,43 +80,6 @@
     return '<span class="rcard-pill ' + cls + '">' + icon + esc(view.byoLabel) + "</span>";
   }
 
-  var CUISINE_GROUPS = [
-    [/pizza|pizzeria/, "pizza"],
-    [/seafood|fish and chips/, "seafood"],
-    [/thai|isaan/, "thai"],
-    [/vietnamese|\bpho\b/, "vietnamese"],
-    [/cafe|brunch|breakfast|bakery/, "cafe"],
-    [/korean/, "korean"],
-    [/japanese|sushi|ramen|izakaya|teppanyaki|yakiniku|\bsoba\b/, "japanese"],
-    [/indian/, "indian"],
-    [/chinese|dim sum|dumpling|shanghainese|sichuan|hunan|\bwok\b|cantonese|peking/, "chinese"],
-    [/lebanese|middle eastern|persian|shawarma|egyptian|afghan|doner|kebab/, "middle-eastern"],
-    [/greek/, "greek"],
-    [/mexican/, "mexican"],
-    [/malaysian/, "malaysian"],
-    [/turkish/, "turkish"],
-    [/african|ethiopian/, "african"],
-    [/modern australian|\baustralian\b/, "modern-australian"],
-    [/italian|ligurian|sicilian/, "italian"]
-  ];
-
-  function cuisineGroup(cuisine) {
-    var s = String(cuisine || "").toLowerCase();
-    for (var i = 0; i < CUISINE_GROUPS.length; i++) {
-      if (s && CUISINE_GROUPS[i][0].test(s)) return CUISINE_GROUPS[i][1];
-    }
-    return "generic";
-  }
-
-  function heroHtml(view) {
-    var group = cuisineGroup(view.cuisine);
-    var cuisine = present(view.cuisine) ? view.cuisine : "";
-    var alt = cuisine ? "Illustrative photo of " + cuisine + " food" : "Illustrative photo of food";
-    return '<div class="venue-hero">' +
-      '<img src="images/cuisine/' + group + '.webp" alt="' + esc(alt) + '" width="800" height="500" loading="lazy" decoding="async">' +
-      '<span class="venue-hero-label">Illustrative photo only</span></div>';
-  }
-
   function metaLine(view) {
     return [view.cuisine, view.location, view.distance].filter(present).join(" · ");
   }
@@ -267,7 +230,6 @@
       '<header class="venue-top"><button type="button" class="venue-back" data-action="close" aria-label="Back">' + backSvg() + "</button>" +
       '<img class="venue-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37">' +
       '<span class="venue-top-gap" aria-hidden="true"></span></header>' +
-      heroHtml(view) +
       '<h1 id="detailTitle" class="venue-name">' + esc(view.name || "Restaurant") + "</h1>" +
       (meta ? '<p class="venue-meta">' + esc(meta) + "</p>" : "") +
       (rating ? '<p class="venue-rating"><span aria-hidden="true">★</span> ' + esc(rating.replace(/^★\s*/, "")) + "</p>" : "") +
@@ -285,5 +247,5 @@
       "</div>" + bar + "</div>";
   }
 
-  return { render: render, renderDetail: renderDetail, cuisineGroup: cuisineGroup };
+  return { render: render, renderDetail: renderDetail };
 });

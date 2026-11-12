@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import vm from "node:vm";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
@@ -123,29 +122,25 @@ test("address without directions is text, and a directions link is not underline
   assert.match(css, /\.venue-shop \{[^}]*min-height:\s*44px/);
 });
 
-test("every stored cuisine maps to an illustrative photo", function () {
-  const sandbox = { window: {} };
-  vm.runInNewContext(fs.readFileSync(new URL("../data.js", import.meta.url), "utf8"), sandbox);
-  const groups = {};
-  sandbox.window.BYO.places.forEach(function (place) {
-    const group = card.cuisineGroup(place.cuisine);
-    groups[group] = (groups[group] || 0) + 1;
-    assert.equal(fs.existsSync(new URL("../images/cuisine/" + group + ".webp", import.meta.url)), true, place.cuisine);
-  });
-  assert.equal(card.cuisineGroup("Northern Thai"), "thai");
-  assert.equal(card.cuisineGroup("Italian"), "italian");
-  assert.equal(card.cuisineGroup("Middle Eastern (Lebanese)"), "middle-eastern");
-  assert.equal(card.cuisineGroup("Restaurant"), "generic");
-  assert.equal(card.cuisineGroup(""), "generic");
+test("venue detail has no illustrative cuisine photo", function () {
   const italian = card.renderDetail({ id: "la-favola-newtown", name: "La Favola", cuisine: "Italian" });
-  assert.match(italian, /src="images\/cuisine\/italian\.webp"/);
-  assert.match(italian, /alt="Illustrative photo of Italian food"/);
-  assert.match(italian, /loading="lazy"/);
-  assert.match(italian, /Illustrative photo only</);
-  assert.equal(italian.indexOf(">Illustrative photo<"), -1);
-  const thai = card.renderDetail({ id: "thai-pothong-newtown", name: "Thai Pothong", cuisine: "Thai" });
-  assert.match(thai, /src="images\/cuisine\/thai\.webp"/);
-  assert.ok(Object.keys(groups).length >= 8);
+  const bare = card.renderDetail({ id: "x", name: "Plain" });
+  const cardHtml = card.render(full, { mode: "results" });
+  [italian, bare, cardHtml].forEach(function (html) {
+    assert.equal(html.includes("Illustrative photo"), false);
+    assert.equal(html.includes("images/cuisine"), false);
+    assert.equal(html.includes("venue-hero"), false);
+  });
+  assert.match(italian, /La Favola/);
+  assert.match(italian, /Italian/);
+  assert.match(italian, /logos\/byospot-logo-teal\.svg/);
+  assert.equal((italian.match(/<img\b/g) || []).length, 1);
+  assert.equal((bare.match(/<img\b/g) || []).length, 1);
+  assert.equal((cardHtml.match(/<img\b/g) || []).length, 0);
+  assert.equal(card.cuisineGroup, undefined);
+  const css = fs.readFileSync(new URL("../style.css", import.meta.url), "utf8");
+  assert.equal(css.includes("venue-hero"), false);
+  assert.equal(fs.existsSync(new URL("../images/cuisine", import.meta.url)), false);
 });
 
 test("app wires every surface through the same component and bumps the cache", function () {
@@ -159,7 +154,7 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12k");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12l");
   assert.match(sw, /icons\/icon-v2-512\.png/);
   assert.match(sw, /icons\/icon-v2-maskable-512\.png/);
   assert.equal(sw.indexOf("images/cuisine"), -1);
