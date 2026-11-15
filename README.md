@@ -2,7 +2,7 @@
 
 Mobile-first PWA for finding BYO restaurants in Sydney, the Blue Mountains, Melbourne and the Victorian coast. The opening screen has two choices: **Find BYO Near Me** and **Choose a Location**. Restaurant records live in `data.js`. Group votes are saved by `netlify/functions/polls.mjs` in the Netlify Blobs store `byospot-polls`. Keys are prefixed with the deploy context, so a deploy preview does not write into production polls.
 
-`index.html`, `style.css`, `app.js`, `logic.js`, `data.js`, `sw.js`, `manifest.webmanifest`, `icons/`, `fonts/` (Inter and Fraunces, OFL). Local preview with the poll API: `node dev-server.mjs`.
+`index.html`, `style.css`, `app.js`, `logic.js`, `data.js`, `sw.js`, `manifest.webmanifest`, `icons/`, `fonts/` (Poppins, OFL). Local preview with the poll API: `node dev-server.mjs`.
 
 ## Updating the data (monthly)
 
