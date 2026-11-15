@@ -244,10 +244,6 @@
   }
   function livePlaceId(p) {
     if (window.BYO_PLACES === "failed" || !mapsApiKey()) return "";
-    if (p && state.detailId && p.id === state.detailId) {
-      var testId = L.previewTestPlaceId(location.hostname, location.search);
-      if (testId) return testId;
-    }
     return L.placeIdOf(p);
   }
   function dropPlaceRatings() {

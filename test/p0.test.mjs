@@ -198,20 +198,6 @@ test("polls require two restaurants, persist a vote once, and can tie", function
   assert.equal(summarizeTallies({ a: 2, b: 2 }, ["a", "b"]).kind, "tie");
 });
 
-test("a preview query can supply a place id and other hosts cannot", function () {
-  const id = "ChIJN1t_tDeuEmsRUsoyG83frY4";
-  const q = "?test_place_id=" + id;
-  assert.equal(logic.previewTestPlaceId("deploy-preview-28--heartfelt-gumdrop-8ea313.netlify.app", q), id);
-  assert.equal(logic.previewTestPlaceId("byospot.com", q), "");
-  assert.equal(logic.previewTestPlaceId("www.byospot.com.au", q), "");
-  assert.equal(logic.previewTestPlaceId("localhost", q), "");
-  assert.equal(logic.previewTestPlaceId("deploy-preview-28--heartfelt-gumdrop-8ea313.netlify.app", ""), "");
-  assert.equal(logic.previewTestPlaceId("deploy-preview-28--heartfelt-gumdrop-8ea313.netlify.app", "?test_place_id=short"), "");
-  const app = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
-  assert.match(app, /previewTestPlaceId/);
-  assert.match(app, /state\.detailId && p\.id === state\.detailId/);
-});
-
 test("distances stay available and the old compliance switch is gone", function () {
   const vague = model.byId["hikaru-newtown"];
   vague._dist = 420;
@@ -220,8 +206,12 @@ test("distances stay available and the old compliance switch is gone", function 
   routed._dist = 420;
   assert.equal(logic.distanceLabel(routed), "420 m away");
   const logicSrc = fs.readFileSync(new URL("../logic.js", import.meta.url), "utf8");
+  const app = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
   assert.equal(logicSrc.indexOf("GOOGLE_COMPLIANT_MODE"), -1);
+  assert.equal(logicSrc.indexOf("test_place_id"), -1);
+  assert.equal(app.indexOf("test_place_id"), -1);
   assert.equal(logic.GOOGLE_COMPLIANT_MODE, undefined);
+  assert.equal(logic.previewTestPlaceId, undefined);
 });
 
 test("stored ratings are gone and only non-Google addresses remain", function () {
