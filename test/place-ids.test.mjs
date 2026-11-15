@@ -6,6 +6,7 @@ import { createRequire } from "node:module";
 import {
   parseLimit,
   targetsMissingPlaceId,
+  filterOnly,
   listPriceUsd,
   classify,
   normaliseName,
@@ -23,13 +24,10 @@ test("every venue missing a place id is selected, and a limit trims the batch", 
   const prepared = logic.prepare(sandbox.window.BYO);
   const ids = prepared.places.map(function (p) { return p.id; });
   const all = targetsMissingPlaceId(sandbox.window.BYO.places, ids, null);
-  assert.equal(all.length, 1044);
-  assert.equal(all[0].id, prepared.places[0].id);
+  assert.equal(all.length, 129);
   assert.equal(targetsMissingPlaceId(sandbox.window.BYO.places, ids, 5).length, 5);
-  const withId = sandbox.window.BYO.places.map(function (p, i) {
-    return i === 0 ? Object.assign({}, p, { place_id: "ChIJalreadySet01" }) : p;
-  });
-  assert.equal(targetsMissingPlaceId(withId, ids, null).length, 1043);
+  const only = filterOnly(all, ["arte-bianca-double-bay", "missing-id"]);
+  assert.deepEqual(only.map(function (item) { return item.id; }), ["arte-bianca-double-bay"]);
 });
 
 function place(id, name, locality) {
@@ -84,7 +82,7 @@ test("partial names and extra hits are check, and no hit is none", function () {
     "Sydney"
   );
   assert.equal(charles.status, "check");
-  assert.equal(charles.placeId, "");
+  assert.equal(charles.placeId, "ChIJcharles00001");
   assert.equal(charles.displayName, "The Charles Brasserie and Bar");
   assert.equal(charles.candidates, 1);
   const menya = classify(
@@ -93,7 +91,7 @@ test("partial names and extra hits are check, and no hit is none", function () {
     "Sydney"
   );
   assert.equal(menya.status, "check");
-  assert.equal(menya.placeId, "");
+  assert.equal(menya.placeId, "ChIJmenya0000001");
   const two = classify(
     [
       place("ChIJmaydanoz0001", "Maydanoz Restaurant Bar", "Sydney"),
@@ -103,7 +101,7 @@ test("partial names and extra hits are check, and no hit is none", function () {
     "Sydney"
   );
   assert.equal(two.status, "check");
-  assert.equal(two.placeId, "");
+  assert.equal(two.placeId, "ChIJmaydanoz0002");
   assert.equal(two.displayName, "Maydanoz");
   assert.equal(two.candidates, 2);
   const none = classify([], "Hikaru", "Newtown");

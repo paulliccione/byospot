@@ -29,6 +29,7 @@
   --write also sets place_id on an exact single match.
 
   Apply a reviewed sheet with no network calls:
+    node research/google-place-ids.mjs --only research/place-id-recheck.txt
     node research/google-place-ids.mjs --apply research/place-id-matches.csv --ids research/place-ids.local.json --skip research/place-id-skip.txt
   A place_id is copied only when the reviewed status is exact or check, the
   venue is not skipped, the googleDisplayName matches the ids file exactly,
@@ -67,6 +68,12 @@ export function targetsMissingPlaceId(records, ids, limit) {
     out.push({ place: records[i], id: ids[i] });
   }
   return limit == null ? out : out.slice(0, limit);
+}
+
+export function filterOnly(targets, onlyIds) {
+  if (!onlyIds) return targets;
+  const want = onlyIds instanceof Set ? onlyIds : new Set(onlyIds);
+  return targets.filter(item => want.has(item.id));
 }
 
 export function listPriceUsd(textCalls, detailCalls) {
@@ -228,7 +235,7 @@ export function classify(candidates, venueName, suburb) {
     status: "check",
     displayName: displayText(best),
     locality: shownLocality(best, suburb),
-    placeId: "",
+    placeId: best.id,
     candidates: list.length
   };
 }
@@ -335,7 +342,10 @@ async function main() {
   const prepared = logic.prepare(sandbox.window.BYO);
   const ids = prepared.places.map(p => p.id);
   const missing = targetsMissingPlaceId(records, ids, null);
-  const batch = limit == null ? missing : missing.slice(0, limit);
+  const onlyPath = argValue("--only");
+  const onlyIds = onlyPath ? parseSkipIds(fs.readFileSync(onlyPath, "utf8")) : null;
+  const scoped = filterOnly(missing, onlyIds);
+  const batch = limit == null ? scoped : scoped.slice(0, limit);
 
   let textCalls = 0;
   const rows = [];

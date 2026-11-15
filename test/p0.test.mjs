@@ -49,7 +49,8 @@ test("directions use a verified street, or a name and suburb search when there i
   assert.equal(logic.presentPlace(hikaru).address, "");
   const hikaruUrl = logic.directionsUrl(hikaru);
   assert.match(hikaruUrl, /^https:\/\/www\.google\.com\/maps\/search\/\?api=1&query=/);
-  assert.equal(decodeURIComponent(hikaruUrl.split("query=")[1]), "Hikaru, Newtown, New South Wales");
+  assert.equal(decodeURIComponent(hikaruUrl.split("query=")[1].split("&")[0]), "Hikaru, Newtown, New South Wales");
+  assert.match(hikaruUrl, /query_place_id=/);
   const withId = Object.assign({}, hikaru, { place_id: "ChIJhikaruTest01" });
   assert.match(logic.directionsUrl(withId), /&query_place_id=ChIJhikaruTest01$/);
   const routedWithId = Object.assign({}, routed, { place_id: "ChIJarabellaTest1" });
@@ -243,7 +244,7 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
   data.places.forEach(function (p) {
     assert.equal(p.stars, undefined, p.name);
     assert.equal(p.reviews, undefined, p.name);
-    assert.equal(p.place_id, undefined, p.name);
+    if (p.place_id) assert.match(p.place_id, /^[A-Za-z0-9_-]{10,}$/, p.name);
     assert.ok(counts[p.addressSource] != null, p.name + " " + p.addressSource);
     counts[p.addressSource] += 1;
     const link = logic.directionsUrl(p);
@@ -274,6 +275,7 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
   assert.equal(model.byId["borrelli-s-italian-restaurant-epping"].address, "3 Bridge St, Epping NSW 2121");
   assert.equal(model.byId["la-botte-pizza-restaurant-pascoe-vale-north-north-west"], undefined);
   assert.equal(model.byId["la-botte-pizza-restaurant-pascoe-vale"].region, "Inner North");
+  assert.equal(data.places.filter(function (p) { return p.place_id; }).length, 915);
   const mon = data.places.find(function (p) { return p.name === "Mon Thai Eatery" && /timeout\.com/.test(p.addressSourceUrl || ""); });
   assert.ok(mon && mon.address);
   const rucira = data.places.find(function (p) { return p.name === "Rucira Foods"; });
