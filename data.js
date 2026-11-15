@@ -3,14 +3,13 @@
   Edit it by hand, or add region files to research/ and run:
       python3 merge_research.py
   Field reference: research/SCHEMA.md
-  Places are not ranked. stars and reviews are the stored Google figures used
-  while GOOGLE_COMPLIANT_MODE in logic.js is false.
+  Places are not ranked. Do not store a Google star rating or a Google review count.
+  A place_id may be stored. The page fetches the rating live and does not keep it.
   addressSource is "osm", "venue", or "suburb-only".
-  osm and venue addresses were re-sourced and keep addressSourceUrl and addressCheckedAt.
-  suburb-only addresses are the original street addresses. The compliance switch
-  hides those, the ratings, and the rating filter until it is turned on.
+  osm and venue addresses were checked against a non-Google source and keep addressSourceUrl and addressCheckedAt.
+  suburb-only records have no street address stored.
   "bottleShops" comes from OpenStreetMap via nearest_bottleshop.py.
-  "pinned": true keeps Viet Eatery pinned in its region. It is not a rating.
+  "pinned": true keeps Viet Eatery pinned in its region.
   "tried" (optional, for later) is not shown in the app yet.
 */
 window.BYO = {
@@ -110,8 +109,6 @@ window.BYO = {
       "lng": 151.196285,
       "cuisine": "Malaysian roti",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "804",
       "price": "$",
       "priceBasis": "Estimate: roti cafe menu, not priced in sources",
       "priceEstimate": true,
@@ -141,20 +138,18 @@ window.BYO = {
           "distanceM": 170
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJH8nOOMivEmsRfTXVKe2deFU"
     },
     {
       "name": "Spice Paradise",
       "region": "CBD",
       "suburb": "Haymarket",
-      "address": "Shop 4/203-209 Thomas Street, Haymarket NSW",
       "addressSource": "suburb-only",
       "lat": -33.88068,
       "lng": 151.204054,
       "cuisine": "Hunan",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "804",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -184,7 +179,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJvX7AFK6vEmsRnTb4yAhny60"
     },
     {
       "name": "Maydanoz",
@@ -198,8 +194,6 @@ window.BYO = {
       "lng": 151.20661,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.7,
-      "reviews": "591",
       "price": "$$$",
       "priceBasis": "Estimate: upmarket Aegean-Turkish restaurant and bar",
       "priceEstimate": true,
@@ -229,7 +223,8 @@ window.BYO = {
           "distanceM": 390
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJozSSoZ-vEmsRAI-pKenD1sM"
     },
     {
       "name": "The Sanderson",
@@ -243,8 +238,6 @@ window.BYO = {
       "lng": 151.2069,
       "cuisine": "Steak and seafood",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "425",
       "price": "$$$$",
       "priceBasis": "BYO set menus from $110 pp",
       "priceEstimate": false,
@@ -277,7 +270,8 @@ window.BYO = {
           "distanceM": 360
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJsfWVuAOvEmsRlIlTGlDNuWI"
     },
     {
       "name": "Lee Ho Fook",
@@ -291,8 +285,6 @@ window.BYO = {
       "lng": 151.208864,
       "cuisine": "Modern Chinese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "256",
       "price": "$$$$",
       "priceBasis": "Estimate: fine-dining Chinese with tasting menus",
       "priceEstimate": true,
@@ -325,7 +317,8 @@ window.BYO = {
           "distanceM": 120
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJCVkf0Z-vEmsRnol6o4-OdYw"
     },
     {
       "name": "Fish At The Rocks",
@@ -339,8 +332,6 @@ window.BYO = {
       "lng": 151.203459,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "1,399",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -370,7 +361,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJzThEkUSuEmsRvGm7CeJ-9V4"
     },
     {
       "name": "The Charles Grand Brasserie",
@@ -384,8 +376,6 @@ window.BYO = {
       "lng": 151.2062,
       "cuisine": "Brasserie",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "1,149",
       "price": "$$$",
       "priceBasis": "Estimate: CBD grand brasserie",
       "priceEstimate": true,
@@ -418,7 +408,8 @@ window.BYO = {
           "distanceM": 240
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJt7IJiGmvEmsRF8UEg8EEtyM"
     },
     {
       "name": "Porkfat",
@@ -432,8 +423,6 @@ window.BYO = {
       "lng": 151.202502,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "919",
       "price": "$$$",
       "priceBasis": "Estimate: refined Thai, reviewers note high prices",
       "priceEstimate": true,
@@ -463,7 +452,8 @@ window.BYO = {
           "distanceM": 460
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJExIofZ6vEmsRlWxsfo7bgcs"
     },
     {
       "name": "Soi 25 Xpress Thai Fusion",
@@ -477,8 +467,6 @@ window.BYO = {
       "lng": 151.1924,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "335",
       "price": "$$",
       "priceBasis": "Estimate: casual Thai",
       "priceEstimate": true,
@@ -508,7 +496,8 @@ window.BYO = {
           "osm": "node/1613899725",
           "distanceM": 330
         }
-      }
+      },
+      "place_id": "ChIJ0d9MWRivEmsRYexHH9oAalw"
     },
     {
       "name": "Ho Jiak Haymarket",
@@ -522,8 +511,6 @@ window.BYO = {
       "lng": 151.203676,
       "cuisine": "Malaysian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "5,712",
       "price": "$$",
       "priceBasis": "Estimate: Malaysian restaurant",
       "priceEstimate": true,
@@ -553,20 +540,18 @@ window.BYO = {
           "distanceM": 420
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJKWuQkCSuEmsRHNk3-wIWksY"
     },
     {
       "name": "Chinta Ria Buddha Love",
       "region": "CBD",
       "suburb": "Haymarket",
-      "address": "14 Nicolle Walk, Haymarket NSW",
       "addressSource": "suburb-only",
       "lat": -33.878327,
       "lng": 151.202501,
       "cuisine": "Malaysian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "709",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -596,20 +581,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJRZ8GozevEmsR1Nr2sbJ7agY"
     },
     {
       "name": "Caysorn Thai",
       "region": "CBD",
       "suburb": "Haymarket",
-      "address": "Level 1, Prince Centre, 8 Quay St, Haymarket NSW 2000",
       "addressSource": "suburb-only",
       "lat": -33.88113,
       "lng": 151.203372,
       "cuisine": "Southern Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "681",
       "price": "$",
       "priceBasis": "Estimate: casual Thai, reviewers praise value",
       "priceEstimate": true,
@@ -639,20 +622,18 @@ window.BYO = {
           "osm": "node/5956222295",
           "distanceM": 490
         }
-      }
+      },
+      "place_id": "ChIJpy1cFCSuEmsRc6ApHMJ6VNc"
     },
     {
       "name": "Lestari Resto",
       "region": "CBD",
       "suburb": "Ultimo",
-      "address": "93/732 Harris St, Ultimo NSW",
       "addressSource": "suburb-only",
       "lat": -33.883553,
       "lng": 151.202244,
       "cuisine": "Indonesian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "463",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -682,7 +663,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJnQehkyauEmsRwEcsQ4LhpbA"
     },
     {
       "name": "Fix Wine Bar + Restaurant",
@@ -696,8 +678,6 @@ window.BYO = {
       "lng": 151.2102,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "303",
       "price": "$$$",
       "priceBasis": "Estimate: CBD wine bar restaurant",
       "priceEstimate": true,
@@ -727,7 +707,8 @@ window.BYO = {
           "distanceM": 190
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJX-Fj4j-uEmsR61Ld5O9bWDE"
     },
     {
       "name": "Chat Thai Haymarket",
@@ -741,8 +722,6 @@ window.BYO = {
       "lng": 151.206377,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "3,534",
       "price": "$",
       "priceBasis": "Estimate: casual Thai",
       "priceEstimate": true,
@@ -772,20 +751,18 @@ window.BYO = {
           "distanceM": 210
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ0U0SOyOuEmsRQjfpMlxhxG8"
     },
     {
       "name": "Wild Sage Barangaroo",
       "region": "CBD",
       "suburb": "Barangaroo",
-      "address": "29-51 Hickson Street, Barangaroo NSW",
       "addressSource": "suburb-only",
       "lat": -33.860569,
       "lng": 151.201522,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "1,850",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -815,7 +792,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJzsqNUSuEmsRU_pdp_pbC-4"
     },
     {
       "name": "Menya Noodle Bar",
@@ -829,8 +807,6 @@ window.BYO = {
       "lng": 151.204603,
       "cuisine": "Japanese ramen",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "1,249",
       "price": "$",
       "priceBasis": "Estimate: ramen bar",
       "priceEstimate": true,
@@ -860,7 +836,8 @@ window.BYO = {
           "osm": "node/4057784096",
           "distanceM": 140
         }
-      }
+      },
+      "place_id": "ChIJe80WzD6uEmsRUS2hx7axTjU"
     },
     {
       "name": "YAYOI World Square",
@@ -874,8 +851,6 @@ window.BYO = {
       "lng": 151.206884,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "565",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -905,7 +880,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJJYaij4CvEmsRHvseGaDRyZw"
     },
     {
       "name": "Tago-an",
@@ -919,8 +895,6 @@ window.BYO = {
       "lng": 151.203573,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "373",
       "price": "$$",
       "priceBasis": "Estimate: small Japanese restaurant",
       "priceEstimate": true,
@@ -950,20 +924,18 @@ window.BYO = {
           "osm": "node/1648303037",
           "distanceM": 370
         }
-      }
+      },
+      "place_id": "ChIJTwqHlkSuEmsR43guLHECmps"
     },
     {
       "name": "The James",
       "region": "CBD",
       "suburb": "Millers Point",
-      "address": "Corner of 89-113 Kent Street, Millers Point NSW",
       "addressSource": "suburb-only",
       "lat": -33.860471,
       "lng": 151.203501,
       "cuisine": "Modern British",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "166",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -993,20 +965,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJR6sXAXyvEmsRvN4wTlazeR4"
     },
     {
       "name": "Taste on the Rocks",
       "region": "CBD",
       "suburb": "Millers Point",
-      "address": "Level 1/33-35 Kent St, Millers Point NSW",
       "addressSource": "suburb-only",
       "lat": -33.858842,
       "lng": 151.203341,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "146",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -1036,7 +1006,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJEx4P6cGvEmsR6Y3PV0fF6Gs"
     },
     {
       "name": "Mamak",
@@ -1050,8 +1021,6 @@ window.BYO = {
       "lng": 151.204204,
       "cuisine": "Malaysian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "6,038",
       "price": "$",
       "priceBasis": "Estimate: hawker-style roti and satay",
       "priceEstimate": true,
@@ -1081,20 +1050,18 @@ window.BYO = {
           "distanceM": 330
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ0b8dqySuEmsRjyQejupL3KA"
     },
     {
       "name": "Auvers Dining - Darling Square",
       "region": "CBD",
       "suburb": "Haymarket",
-      "address": "35 Tumbalong Bvd, Haymarket NSW 2000",
       "addressSource": "suburb-only",
       "lat": -33.87827,
       "lng": 151.202223,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "1,915",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -1124,7 +1091,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJC675jBavEmsR9he9C_O_1Ak"
     },
     {
       "name": "Yok Yor Thai Food Factory",
@@ -1138,8 +1106,6 @@ window.BYO = {
       "lng": 151.208081,
       "cuisine": "Thai and Isaan",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "1,622",
       "price": "$",
       "priceBasis": "Estimate: casual Thai",
       "priceEstimate": true,
@@ -1169,7 +1135,8 @@ window.BYO = {
           "osm": "node/3998849146",
           "distanceM": 260
         }
-      }
+      },
+      "place_id": "ChIJI5336CKuEmsRHTnEjPxAFus"
     },
     {
       "name": "Encasa CBD",
@@ -1183,8 +1150,6 @@ window.BYO = {
       "lng": 151.207147,
       "cuisine": "Spanish",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "1,571",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $75 pp (via MealFinder)",
       "priceEstimate": true,
@@ -1214,7 +1179,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJlfuVKyOuEmsRDQIkArC8-wo"
     },
     {
       "name": "Chinatown Noodle King",
@@ -1228,8 +1194,6 @@ window.BYO = {
       "lng": 151.204378,
       "cuisine": "Chinese noodles",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "1,224",
       "price": "$",
       "priceBasis": "Estimate: reviewers praise value",
       "priceEstimate": true,
@@ -1259,20 +1223,18 @@ window.BYO = {
           "distanceM": 320
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJpXE5oDyuEmsRwKbyrDRPvLU"
     },
     {
       "name": "The Living Room",
       "region": "CBD",
       "suburb": "The Rocks",
-      "address": "Park Hyatt Sydney, 7 Hickson Rd, The Rocks NSW",
       "addressSource": "suburb-only",
       "lat": -33.855614,
       "lng": 151.209974,
       "cuisine": "Australian",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "211",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -1302,20 +1264,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJZW5CnV2uEmsRe5SfaiBNmgo"
     },
     {
       "name": "Kura Kura Japanese Dining",
       "region": "CBD",
       "suburb": "Haymarket",
-      "address": "Level 1, 76 Ultimo Road, Haymarket NSW",
       "addressSource": "suburb-only",
       "lat": -33.880126,
       "lng": 151.204361,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "1,507",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -1345,20 +1305,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW5O0gSSuEmsRoY4EyGUyrNY"
     },
     {
       "name": "Show Neua Thai Street Food",
       "region": "CBD",
       "suburb": "Haymarket",
-      "address": "Shop 2A/710 George Street, Haymarket NSW",
       "addressSource": "suburb-only",
       "lat": -33.878391,
       "lng": 151.205836,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "971",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -1388,20 +1346,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ23eU6QCvEmsRUoZyX05ILMo"
     },
     {
       "name": "PIER Dining",
       "region": "CBD",
       "suburb": "Dawes Point",
-      "address": "11 Hickson Road, Dawes Point NSW",
       "addressSource": "suburb-only",
       "lat": -33.854036,
       "lng": 151.208143,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4,
-      "reviews": "88",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -1431,7 +1387,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJyZeffMqvEmsRuwSUv7W5vXk"
     },
     {
       "name": "Viet Eatery",
@@ -1445,8 +1402,6 @@ window.BYO = {
       "lng": 151.2133,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "388",
       "price": "$",
       "priceBasis": "Mains $17–27",
       "priceEstimate": false,
@@ -1477,7 +1432,8 @@ window.BYO = {
           "osm": "node/5608349141",
           "distanceM": 70
         }
-      }
+      },
+      "place_id": "ChIJd_yv4fSxEmsRvVah2RDYVXA"
     },
     {
       "name": "Thai Baan",
@@ -1491,8 +1447,6 @@ window.BYO = {
       "lng": 151.1992,
       "cuisine": "Isaan Thai",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "353",
       "price": "$",
       "priceBasis": "Mains $16.90–19.90",
       "priceEstimate": false,
@@ -1522,20 +1476,18 @@ window.BYO = {
           "osm": "node/4770686823",
           "distanceM": 720
         }
-      }
+      },
+      "place_id": "ChIJ4_JHCUO7EmsRZ3z9HvL2moE"
     },
     {
       "name": "Pasta Mad",
       "region": "Inner City",
       "suburb": "Alexandria",
-      "address": "71-91 Euston Rd, Alexandria NSW",
       "addressSource": "suburb-only",
       "lat": -33.905812,
       "lng": 151.191829,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.9,
-      "reviews": "330",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -1565,20 +1517,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJeRX_-WCxEmsRFKIxepQAnvg"
     },
     {
       "name": "Ran Proad",
       "region": "Inner City",
       "suburb": "Rosebery",
-      "address": "66 Dalmeny Ave, Rosebery NSW 2018",
       "addressSource": "suburb-only",
       "lat": -33.917375,
       "lng": 151.20768,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "276",
       "price": "$",
       "priceBasis": "Mains $19–24",
       "priceEstimate": false,
@@ -1608,7 +1558,8 @@ window.BYO = {
           "osm": "node/9567276152",
           "distanceM": 690
         }
-      }
+      },
+      "place_id": "ChIJW9aVdfWxEmsRZzDASJNBNZo"
     },
     {
       "name": "Alchemy572",
@@ -1622,8 +1573,6 @@ window.BYO = {
       "lng": 151.213421,
       "cuisine": "Polish",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "3,307",
       "price": "$$",
       "priceBasis": "Mains up to $45",
       "priceEstimate": false,
@@ -1659,14 +1608,11 @@ window.BYO = {
       "name": "Eat Thai Darlinghurst",
       "region": "Inner City",
       "suburb": "Darlinghurst",
-      "address": "358 Victoria Street, Darlinghurst NSW",
       "addressSource": "suburb-only",
       "lat": -33.878073,
       "lng": 151.221552,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "2,643",
       "price": "$",
       "priceBasis": "Google price range $18 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -1696,7 +1642,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJITn2HQ6uEmsRPNY5mZO2nzE"
     },
     {
       "name": "Ezra",
@@ -1710,8 +1657,6 @@ window.BYO = {
       "lng": 151.22388,
       "cuisine": "Eastern Mediterranean",
       "family": "Middle Eastern",
-      "stars": 4.8,
-      "reviews": "~1,480",
       "price": "$$$",
       "priceBasis": "Set menus $73 and $95 pp",
       "priceEstimate": false,
@@ -1741,20 +1686,18 @@ window.BYO = {
           "distanceM": 70
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJdcsDcZCvEmsRvbsnrgNrUGw"
     },
     {
       "name": "Thai Tharee",
       "region": "Inner City",
       "suburb": "Darlinghurst",
-      "address": "245 Victoria St, Darlinghurst NSW 2010",
       "addressSource": "suburb-only",
       "lat": -33.8781,
       "lng": 151.2213,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "562",
       "price": "$",
       "priceBasis": "Estimate: casual Thai",
       "priceEstimate": true,
@@ -1784,7 +1727,8 @@ window.BYO = {
           "osm": "node/9900955418",
           "distanceM": 30
         }
-      }
+      },
+      "place_id": "ChIJi6R35xGuEmsR2dLCHbPI1ec"
     },
     {
       "name": "Bistro Rex",
@@ -1798,8 +1742,6 @@ window.BYO = {
       "lng": 151.225387,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "1,446",
       "price": "$$$",
       "priceBasis": "Estimate: Parisian-style bistro",
       "priceEstimate": true,
@@ -1835,20 +1777,18 @@ window.BYO = {
           "distanceM": 80
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ16MQahuvEmsRnqEQ8r_fxV0"
     },
     {
       "name": "Urban Thai Waterloo",
       "region": "Inner City",
       "suburb": "Waterloo",
-      "address": "3/7 Potter St, Waterloo NSW",
       "addressSource": "suburb-only",
       "lat": -33.9004,
       "lng": 151.20664,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "1,036",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -1878,20 +1818,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJCwB11uexEmsROpmE2zt3iCo"
     },
     {
       "name": "Radio Taco",
       "region": "Inner City",
       "suburb": "Chippendale",
-      "address": "67 Abercrombie Street, Chippendale NSW",
       "addressSource": "suburb-only",
       "lat": -33.886712,
       "lng": 151.198577,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.7,
-      "reviews": "809",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -1921,7 +1859,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ7zSq5i6xEmsR2H1YS6uNfFw"
     },
     {
       "name": "Arthur",
@@ -1935,8 +1874,6 @@ window.BYO = {
       "lng": 151.215445,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "716",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -1966,7 +1903,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ6fJJ3u2vEmsRi-H4S6idSD4"
     },
     {
       "name": "Restaurant Moon",
@@ -1980,8 +1918,6 @@ window.BYO = {
       "lng": 151.222692,
       "cuisine": "Asian fusion",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "711",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -2011,7 +1947,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ8UBCFw6uEmsR916mncS6XBU"
     },
     {
       "name": "Khoi's",
@@ -2025,8 +1962,6 @@ window.BYO = {
       "lng": 151.2126,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "557",
       "price": "$$",
       "priceBasis": "Mains $25–29, banquet $65 pp",
       "priceEstimate": false,
@@ -2056,7 +1991,8 @@ window.BYO = {
           "osm": "node/5608349141",
           "distanceM": 40
         }
-      }
+      },
+      "place_id": "ChIJu7Q2bb2xEmsRL0sTnSJID8U"
     },
     {
       "name": "Mon Thai Eatery",
@@ -2070,8 +2006,6 @@ window.BYO = {
       "lng": 151.2062,
       "cuisine": "Northern Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "308",
       "price": "$$",
       "priceBasis": "About $20–40 pp",
       "priceEstimate": true,
@@ -2101,7 +2035,8 @@ window.BYO = {
           "osm": "node/9218427006",
           "distanceM": 270
         }
-      }
+      },
+      "place_id": "ChIJj0UV3MqxEmsRPBScndGZGG0"
     },
     {
       "name": "Viand",
@@ -2115,8 +2050,6 @@ window.BYO = {
       "lng": 151.216361,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "304",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -2146,7 +2079,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJjS6fszivEmsRXTBUneSItF0"
     },
     {
       "name": "Wilde and Co Cafe",
@@ -2160,8 +2094,6 @@ window.BYO = {
       "lng": 151.215768,
       "cuisine": "Cafe (Australian Brunch With Korean Infl",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "277",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -2191,7 +2123,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ9yn946OvEmsRJsAR_YE4_cg"
     },
     {
       "name": "Kepos Street Kitchen",
@@ -2205,8 +2138,6 @@ window.BYO = {
       "lng": 151.21268,
       "cuisine": "Middle Eastern",
       "family": "Middle Eastern",
-      "stars": 4.6,
-      "reviews": "1,447",
       "price": "$$",
       "priceBasis": "Estimate: all-day cafe-restaurant",
       "priceEstimate": true,
@@ -2236,20 +2167,18 @@ window.BYO = {
           "distanceM": 100
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJt4QoGuexEmsRezxlljKZkew"
     },
     {
       "name": "Zoo Family Restaurant",
       "region": "Inner City",
       "suburb": "Waterloo",
-      "address": "21 Archibald Ave, Waterloo NSW",
       "addressSource": "suburb-only",
       "lat": -33.901658,
       "lng": 151.210294,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,189",
       "price": "$$",
       "priceBasis": "Google price range $30 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -2279,20 +2208,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ33WQgsKxEmsR8rL5JVtnc18"
     },
     {
       "name": "La Panchina",
       "region": "Inner City",
       "suburb": "Surry Hills",
-      "address": "Shop 3/496 Bourke St, Surry Hills NSW 2010",
       "addressSource": "suburb-only",
       "lat": -33.887678,
       "lng": 151.215637,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "775",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -2322,7 +2249,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJgQ2ohB6uEmsR9pgKcSvSfeE"
     },
     {
       "name": "La Coppola",
@@ -2336,8 +2264,6 @@ window.BYO = {
       "lng": 151.201916,
       "cuisine": "Sicilian pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "~595",
       "price": "$$",
       "priceBasis": "Pizzas around $32–33",
       "priceEstimate": false,
@@ -2367,20 +2293,18 @@ window.BYO = {
           "osm": "node/4770686823",
           "distanceM": 380
         }
-      }
+      },
+      "place_id": "ChIJp_C6fdmxEmsRjRBfhF4XElY"
     },
     {
       "name": "Adamo's Pasta",
       "region": "Inner City",
       "suburb": "Rosebery",
-      "address": "723-725 Botany Road, Rosebery NSW",
       "addressSource": "suburb-only",
       "lat": -33.913649,
       "lng": 151.201497,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "410",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -2410,7 +2334,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJCT8rM7qxEmsRrxDZrHNw6XA"
     },
     {
       "name": "Sang by Mabasa",
@@ -2424,8 +2349,6 @@ window.BYO = {
       "lng": 151.216981,
       "cuisine": "Korean",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "391",
       "price": "$$$$",
       "priceBasis": "Feed Me menu $85 pp; $55 pp minimum at dinner",
       "priceEstimate": false,
@@ -2455,7 +2378,8 @@ window.BYO = {
           "distanceM": 420
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJkw4KWYivEmsRH2UuZYRAGMw"
     },
     {
       "name": "ATTENZIONE! Food & Wine",
@@ -2469,8 +2393,6 @@ window.BYO = {
       "lng": 151.200939,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "~339",
       "price": "$$$",
       "priceBasis": "Estimate: wine-led Italian",
       "priceEstimate": true,
@@ -2500,7 +2422,8 @@ window.BYO = {
           "distanceM": 330
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJgX3GyXKxEmsR_a_R62a5dYY"
     },
     {
       "name": "Joe's Table",
@@ -2514,8 +2437,6 @@ window.BYO = {
       "lng": 151.217844,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "298",
       "price": "$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -2545,7 +2466,8 @@ window.BYO = {
           "distanceM": 360
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJCU2_LxGuEmsRyRQXukQSvzs"
     },
     {
       "name": "The Prophet",
@@ -2559,8 +2481,6 @@ window.BYO = {
       "lng": 151.208236,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.6,
-      "reviews": "295",
       "price": "$",
       "priceBasis": "Platter $28",
       "priceEstimate": false,
@@ -2590,7 +2510,8 @@ window.BYO = {
           "osm": "node/5608349141",
           "distanceM": 460
         }
-      }
+      },
+      "place_id": "ChIJMYknkd-xEmsR0Hfg__pQT9I"
     },
     {
       "name": "Grape Garden",
@@ -2604,8 +2525,6 @@ window.BYO = {
       "lng": 151.222967,
       "cuisine": "Beijing Chinese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "~265",
       "price": "$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -2635,20 +2554,18 @@ window.BYO = {
           "distanceM": 100
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ_T4GUOavEmsRwzOUmXlRKGU"
     },
     {
       "name": "Bar Reggio",
       "region": "Inner City",
       "suburb": "Darlinghurst",
-      "address": "135 Crown St, Darlinghurst NSW 2010",
       "addressSource": "suburb-only",
       "lat": -33.875184,
       "lng": 151.21612,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "1,806",
       "price": "$$",
       "priceBasis": "About $30–40 per head (Concrete Playground)",
       "priceEstimate": false,
@@ -2678,7 +2595,8 @@ window.BYO = {
           "osm": "node/6006786865",
           "distanceM": 450
         }
-      }
+      },
+      "place_id": "ChIJS2rfrRauEmsRK_6w6Y3n-7A"
     },
     {
       "name": "Erciyes",
@@ -2692,8 +2610,6 @@ window.BYO = {
       "lng": 151.212956,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "~1,640",
       "price": "$$",
       "priceBasis": "Pides $25–28, banquets $45–65 pp",
       "priceEstimate": false,
@@ -2723,7 +2639,8 @@ window.BYO = {
           "osm": "node/5608349141",
           "distanceM": 70
         }
-      }
+      },
+      "place_id": "ChIJxdflSuCxEmsRGfkp6T0DK2Y"
     },
     {
       "name": "Friggitoria",
@@ -2737,8 +2654,6 @@ window.BYO = {
       "lng": 151.223514,
       "cuisine": "Italian street food and pasta",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "1,453",
       "price": "$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -2768,7 +2683,8 @@ window.BYO = {
           "distanceM": 140
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJoxdJng2uEmsR-FFsebA2YfA"
     },
     {
       "name": "St Jude",
@@ -2782,8 +2698,6 @@ window.BYO = {
       "lng": 151.213829,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "721",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -2813,20 +2727,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfTUWGOGxEmsRdwn4Oz5twtc"
     },
     {
       "name": "Golden Pide",
       "region": "Inner City",
       "suburb": "Surry Hills",
-      "address": "500 Cleveland St, Surry Hills NSW 2010",
       "addressSource": "suburb-only",
       "lat": -33.891683,
       "lng": 151.214646,
       "cuisine": "Doner kebab",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "645",
       "price": "$",
       "priceBasis": "Google price range $12 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -2856,7 +2768,8 @@ window.BYO = {
           "distanceM": 160
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJzXd36uGxEmsR3JEDfpI26xY"
     },
     {
       "name": "Santorini On Oxford",
@@ -2870,8 +2783,6 @@ window.BYO = {
       "lng": 151.217814,
       "cuisine": "Restaurant",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "592",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -2901,20 +2812,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJKYL0dhquEmsRv12Dm_kpyIw"
     },
     {
       "name": "Meet Gerard",
       "region": "Inner City",
       "suburb": "Alexandria",
-      "address": "54 Henderson Road, Alexandria NSW",
       "addressSource": "suburb-only",
       "lat": -33.897514,
       "lng": 151.196869,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "564",
       "price": "$",
       "priceBasis": "Google price range $12 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -2944,20 +2853,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_dXqwM-xEmsRloe3LETDNmk"
     },
     {
       "name": "Macleay St Bistro",
       "region": "Inner City",
       "suburb": "Potts Point",
-      "address": "71A Macleay St, Potts Point NSW 2011",
       "addressSource": "suburb-only",
       "lat": -33.8695,
       "lng": 151.2254,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "449",
       "price": "$$$",
       "priceBasis": "Estimate: classic French bistro",
       "priceEstimate": true,
@@ -2987,7 +2894,8 @@ window.BYO = {
           "distanceM": 210
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJY8mysXOuEmsRn0pT2Yo6mQc"
     },
     {
       "name": "Thai Nesia",
@@ -3001,8 +2909,6 @@ window.BYO = {
       "lng": 151.21841,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "377",
       "price": "$$",
       "priceBasis": "Mains $29–33",
       "priceEstimate": false,
@@ -3032,20 +2938,18 @@ window.BYO = {
           "osm": "node/5886006994",
           "distanceM": 10
         }
-      }
+      },
+      "place_id": "ChIJi0rxeBquEmsR8kZ87qiWv3I"
     },
     {
       "name": "3 Seasons Thai Fusion",
       "region": "Inner City",
       "suburb": "Potts Point",
-      "address": "64a Darlinghurst Rd, Potts Point NSW",
       "addressSource": "suburb-only",
       "lat": -33.874442,
       "lng": 151.223248,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "367",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3075,7 +2979,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-3AZcw2uEmsRjvlUccxsNhQ"
     },
     {
       "name": "Emad's",
@@ -3089,8 +2994,6 @@ window.BYO = {
       "lng": 151.20878,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "324",
       "price": "$$",
       "priceBasis": "Dishes $18–24, set menus $40–55 pp",
       "priceEstimate": false,
@@ -3120,7 +3023,8 @@ window.BYO = {
           "osm": "node/5608349141",
           "distanceM": 410
         }
-      }
+      },
+      "place_id": "ChIJ296t7N-xEmsRDHaRxUsXU2A"
     },
     {
       "name": "Salad Days Potts Point",
@@ -3134,8 +3038,6 @@ window.BYO = {
       "lng": 151.222995,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "95",
       "price": "$",
       "priceBasis": "Google price range $14 - $24 pp (via MealFinder)",
       "priceEstimate": true,
@@ -3165,7 +3067,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJi_nV-0-vEmsR-BXBJYKDyDs"
     },
     {
       "name": "Spice Alley",
@@ -3179,8 +3082,6 @@ window.BYO = {
       "lng": 151.201708,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "5,025",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3210,7 +3111,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJMWdcBCeuEmsRpr9CDsS4-nc"
     },
     {
       "name": "Malabar South Indian Restaurant",
@@ -3224,8 +3126,6 @@ window.BYO = {
       "lng": 151.221997,
       "cuisine": "South Indian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "2,042",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3255,20 +3155,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJcR3F9Q2uEmsRu1cBbuKG-fA"
     },
     {
       "name": "Maggie's Thai",
       "region": "Inner City",
       "suburb": "Erskineville",
-      "address": "75 Erskineville Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.899877,
       "lng": 151.18434,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "257",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3298,7 +3196,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJTGm9jSwEmsRqjbdu0zLzgw"
     },
     {
       "name": "Madame Nhu Crown Street",
@@ -3312,8 +3211,6 @@ window.BYO = {
       "lng": 151.210055,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "148",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -3343,7 +3240,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJUevYpiKuEmsRvyHTrXMrFeU"
     },
     {
       "name": "Bill & Toni Italian Restaurant",
@@ -3357,8 +3255,6 @@ window.BYO = {
       "lng": 151.216044,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "2,415",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -3388,7 +3284,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJLcTmqBauEmsRX_jvWnJiE7M"
     },
     {
       "name": "Otto Ristorante",
@@ -3402,8 +3299,6 @@ window.BYO = {
       "lng": 151.22055,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "1,746",
       "price": "$$$$",
       "priceBasis": "Google price range $60 - $130 pp (via MealFinder)",
       "priceEstimate": true,
@@ -3433,7 +3328,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJRy5QoG2uEmsRPW4aI73acb8"
     },
     {
       "name": "Spice I Am",
@@ -3447,8 +3343,6 @@ window.BYO = {
       "lng": 151.20952,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "940",
       "price": "$$",
       "priceBasis": "Mains $22.50–34.50",
       "priceEstimate": false,
@@ -3478,20 +3372,18 @@ window.BYO = {
           "osm": "node/4021093889",
           "distanceM": 220
         }
-      }
+      },
+      "place_id": "ChIJcaHcryKuEmsR-FuxlzJSgXQ"
     },
     {
       "name": "Slurp Slurp Noodle",
       "region": "Inner City",
       "suburb": "Rosebery",
-      "address": "R1/57 Rothschild Ave, Rosebery NSW",
       "addressSource": "suburb-only",
       "lat": -33.914222,
       "lng": 151.205417,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "454",
       "price": "$",
       "priceBasis": "Google price range $15 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -3521,7 +3413,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVRK_X6mxEmsR--RpGORovDQ"
     },
     {
       "name": "Don't Tell Aunty",
@@ -3535,8 +3428,6 @@ window.BYO = {
       "lng": 151.215996,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "2,147",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $70 pp (via MealFinder)",
       "priceEstimate": true,
@@ -3566,7 +3457,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJHTghOMqvEmsRfm2RZeljCWA"
     },
     {
       "name": "Una's",
@@ -3580,8 +3472,6 @@ window.BYO = {
       "lng": 151.221729,
       "cuisine": "Alpine/European (Hungarian/Austrian)",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "1,823",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3610,20 +3500,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJMeHl_BGuEmsRYdrCLYVqRhA"
     },
     {
       "name": "Phamish",
       "region": "Inner City",
       "suburb": "Darlinghurst",
-      "address": "248 Palmer Street, Darlinghurst NSW 2010",
       "addressSource": "suburb-only",
       "lat": -33.87809,
       "lng": 151.21675,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "338",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3653,7 +3541,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJETskRg6uEmsRyBM_L5Be_gQ"
     },
     {
       "name": "Allspice Thai Kitchen",
@@ -3667,8 +3556,6 @@ window.BYO = {
       "lng": 151.204741,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "193",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3698,20 +3585,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJv4hM9sOxEmsRX5dhbj9DEfM"
     },
     {
       "name": "Photown Alexandria",
       "region": "Inner City",
       "suburb": "Alexandria",
-      "address": "94 McEvoy Street, Alexandria NSW",
       "addressSource": "suburb-only",
       "lat": -33.90166,
       "lng": 151.20007,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "455",
       "price": "$",
       "priceBasis": "Google price range $12 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -3741,7 +3626,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFwDppMixEmsRxYQyv-5GKaE"
     },
     {
       "name": "Seasoning Thai",
@@ -3755,8 +3641,6 @@ window.BYO = {
       "lng": 151.201211,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "305",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3786,20 +3670,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ574-LLqxEmsREAkSeMeO7D8"
     },
     {
       "name": "Little Fu",
       "region": "Inner City",
       "suburb": "Darlinghurst",
-      "address": "66 Mclachlan Avenue, Darlinghurst NSW",
       "addressSource": "suburb-only",
       "lat": -33.876828,
       "lng": 151.221028,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "163",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -3829,7 +3711,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ479X2xGuEmsRy_Y0ydUfvhE"
     },
     {
       "name": "Maya Da Dhaba",
@@ -3843,8 +3726,6 @@ window.BYO = {
       "lng": 151.21392,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "1,983",
       "price": "$$",
       "priceBasis": "Banquet $41.90",
       "priceEstimate": false,
@@ -3874,20 +3755,18 @@ window.BYO = {
           "osm": "node/5608349141",
           "distanceM": 110
         }
-      }
+      },
+      "place_id": "ChIJQdEbuOGxEmsRb5LRMRTNFoo"
     },
     {
       "name": "Fatima's",
       "region": "Inner City",
       "suburb": "Surry Hills",
-      "address": "296 Cleveland St, Surry Hills NSW 2010",
       "addressSource": "suburb-only",
       "lat": -33.89011,
       "lng": 151.2087,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4,
-      "reviews": "1,085",
       "price": "$$",
       "priceBasis": "Banquets from $40",
       "priceEstimate": false,
@@ -3896,7 +3775,7 @@ window.BYO = {
       "dish": "Banquet from $40",
       "takeaway": "yes",
       "takeawayDetail": "Takeaway bar, Uber Eats",
-      "note": "Mixed recent reviews; belly dancers on weekends",
+      "note": "Belly dancers on weekends",
       "website": "https://fatimas.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -3917,20 +3796,18 @@ window.BYO = {
           "osm": "node/5608349141",
           "distanceM": 420
         }
-      }
+      },
+      "place_id": "ChIJawpSk9-xEmsRXWp5IQ5c9gM"
     },
     {
       "name": "Nem Kitchen",
       "region": "Inner City",
       "suburb": "Waterloo",
-      "address": "20A Danks St, Waterloo NSW",
       "addressSource": "suburb-only",
       "lat": -33.9004,
       "lng": 151.20664,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "447",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -3960,20 +3837,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJrYU_p-exEmsRsDC52roUu9A"
     },
     {
       "name": "Kim's Bop Korean Eatery",
       "region": "Inner West",
       "suburb": "Glebe",
-      "address": "Shop 1/325 Glebe Point Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.877431,
       "lng": 151.185515,
       "cuisine": "Korean",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "114",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4003,7 +3878,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJi2PiUQCvEmsRkabdkEafArI"
     },
     {
       "name": "Lil Franky Pizzeria",
@@ -4017,8 +3893,6 @@ window.BYO = {
       "lng": 151.161815,
       "cuisine": "Italian (Pizzeria)",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "1,148",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4048,20 +3922,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJiaTZNFmxEmsRdSmXST6k6gc"
     },
     {
       "name": "Sixpenny",
       "region": "Inner West",
       "suburb": "Stanmore",
-      "address": "83 Percival Road, Stanmore NSW",
       "addressSource": "suburb-only",
       "lat": -33.892589,
       "lng": 151.164897,
       "cuisine": "Australian",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "1,041",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4091,20 +3963,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4_iJ6D2wEmsR61Bxc38rymI"
     },
     {
       "name": "Fanoos Persian restaurant",
       "region": "Inner West",
       "suburb": "Haberfield",
-      "address": "47 Ramsay St, Haberfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.884295,
       "lng": 151.142197,
       "cuisine": "Persian",
       "family": "Middle Eastern",
-      "stars": 4.8,
-      "reviews": "346",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -4134,20 +4004,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ97OQMBCxEmsRo4y7VdJsb-Q"
     },
     {
       "name": "Trattoria Sotto Casa",
       "region": "Inner West",
       "suburb": "Chiswick",
-      "address": "3B/45 Blackwall Point Road, Chiswick NSW",
       "addressSource": "suburb-only",
       "lat": -33.847699,
       "lng": 151.141298,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "325",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4177,20 +4045,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJI1lTE62vEmsRVGALn32iUUw"
     },
     {
       "name": "Divide 8 Stanmore",
       "region": "Inner West",
       "suburb": "Stanmore",
-      "address": "104 Percival Road, Stanmore NSW",
       "addressSource": "suburb-only",
       "lat": -33.892872,
       "lng": 151.164378,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "293",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4220,20 +4086,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJz5orbmCxEmsRQSeDLq3LQPc"
     },
     {
       "name": "olotl",
       "region": "Inner West",
       "suburb": "Newtown",
-      "address": "12 King st, Newtown NSW",
       "addressSource": "suburb-only",
       "lat": -33.892492,
       "lng": 151.187376,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.8,
-      "reviews": "281",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4263,20 +4127,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJo6UzajSvEmsR2SzmNkuo_ew"
     },
     {
       "name": "Sushi Gen",
       "region": "Inner West",
       "suburb": "Glebe",
-      "address": "144a Glebe Point Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.879727,
       "lng": 151.186735,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "197",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4306,7 +4168,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ7aCvliKvEmsRLPKt4E6oGVA"
     },
     {
       "name": "Frankly Nicks Pizzeria",
@@ -4320,8 +4183,6 @@ window.BYO = {
       "lng": 151.132802,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "175",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4351,20 +4212,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJWemcwCO7EmsRDJehpe7HdSY"
     },
     {
       "name": "Yori Japanese Fusion",
       "region": "Inner West",
       "suburb": "Haberfield",
-      "address": "7/191 Ramsay Street, Haberfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.878589,
       "lng": 151.137566,
       "cuisine": "Asian fusion",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "132",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4394,7 +4253,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJ0XUtNi7EmsR9hm5M384Azc"
     },
     {
       "name": "Rucira Foods",
@@ -4408,8 +4268,6 @@ window.BYO = {
       "lng": 151.101292,
       "cuisine": "Nepalese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "32",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4439,7 +4297,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJp8dWF_C7EmsRnDiOayB2MQU"
     },
     {
       "name": "Thai Pothong",
@@ -4453,8 +4312,6 @@ window.BYO = {
       "lng": 151.179762,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "6,073",
       "price": "$$",
       "priceBasis": "Estimate: big Thai restaurant with banquets",
       "priceEstimate": true,
@@ -4484,7 +4341,8 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJa5INSTGwEmsRlBrt1bZVYiQ"
     },
     {
       "name": "La Botte D'Oro Restaurant",
@@ -4498,8 +4356,6 @@ window.BYO = {
       "lng": 151.15031,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "731",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4529,7 +4385,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJf9laZwWwEmsRZzB5ehZ2hAs"
     },
     {
       "name": "Glebe Point Diner",
@@ -4543,8 +4400,6 @@ window.BYO = {
       "lng": 151.183345,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "701",
       "price": "$$$",
       "priceBasis": "Estimate: seasonal bistro",
       "priceEstimate": true,
@@ -4574,20 +4429,18 @@ window.BYO = {
           "distanceM": 130
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJETrmTNKvEmsRzgJ51VxTOmw"
     },
     {
       "name": "Monte Restaurant",
       "region": "Inner West",
       "suburb": "Leichhardt",
-      "address": "1/256 Norton Street, Leichhardt NSW",
       "addressSource": "suburb-only",
       "lat": -33.878227,
       "lng": 151.156196,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "612",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4617,7 +4470,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4c2ytB2wEmsRor7OmGSfrsQ"
     },
     {
       "name": "Pizza Da Noi",
@@ -4631,8 +4485,6 @@ window.BYO = {
       "lng": 151.183552,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "593",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4662,20 +4514,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJS73EZCqwEmsRFwqFUBNORfM"
     },
     {
       "name": "Postino Osteria",
       "region": "Inner West",
       "suburb": "Summer Hill",
-      "address": "2 Moonbie St, Summer Hill NSW 2130",
       "addressSource": "suburb-only",
       "lat": -33.891861,
       "lng": 151.137102,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "530",
       "price": "$$",
       "priceBasis": "Estimate: neighbourhood osteria",
       "priceEstimate": true,
@@ -4704,20 +4554,18 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpR3D2DS7EmsR72C9JNci3gU"
     },
     {
       "name": "Donny's Pizza",
       "region": "Inner West",
       "suburb": "Abbotsford",
-      "address": "547 Great North Road, Abbotsford NSW",
       "addressSource": "suburb-only",
       "lat": -33.848216,
       "lng": 151.127929,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "507",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4747,20 +4595,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoaIKphilEmsRg-GID2G8RYQ"
     },
     {
       "name": "San Pancho Mexican Taqueria",
       "region": "Inner West",
       "suburb": "Marrickville",
-      "address": "3/276-278 Marrickville Road, Marrickville NSW",
       "addressSource": "suburb-only",
       "lat": -33.910893,
       "lng": 151.156872,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.7,
-      "reviews": "362",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4790,7 +4636,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ61GRky2xEmsRoUMxhNY6q-g"
     },
     {
       "name": "Three One Nine",
@@ -4804,8 +4651,6 @@ window.BYO = {
       "lng": 151.089924,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "359",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4835,20 +4680,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ3SrOGyylEmsRhYc4pP_5GOM"
     },
     {
       "name": "Daikoku Teppanyaki Restaurant",
       "region": "Inner West",
       "suburb": "Concord",
-      "address": "88 Majors, Bay Road, Concord NSW",
       "addressSource": "suburb-only",
       "lat": -33.856302,
       "lng": 151.102946,
       "cuisine": "Teppanyaki",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "249",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4878,7 +4721,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJad3Y1PWlEmsRWT7JCYy4v6k"
     },
     {
       "name": "La Favola",
@@ -4892,8 +4736,6 @@ window.BYO = {
       "lng": 151.183127,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "2,474",
       "price": "$$$",
       "priceBasis": "Google price range $30 - $70 pp (via MealFinder)",
       "priceEstimate": true,
@@ -4930,7 +4772,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJLaWaQjKwEmsRZfwfP0D_g6c"
     },
     {
       "name": "Pastizzi Cafe",
@@ -4944,8 +4787,6 @@ window.BYO = {
       "lng": 151.179532,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "2,419",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -4974,7 +4815,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ__8CwUmwEmsR3rcu1WWR9A0"
     },
     {
       "name": "Yia Mas Greek Taverna",
@@ -4988,8 +4830,6 @@ window.BYO = {
       "lng": 151.180942,
       "cuisine": "Restaurant",
       "family": "Middle Eastern",
-      "stars": 4.6,
-      "reviews": "1,383",
       "price": "$$$",
       "priceBasis": "Google price range $40 - $85 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5019,7 +4859,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJr9GUn06wEmsRQwI-R-1L7Rg"
     },
     {
       "name": "Nawaz Flavour of India",
@@ -5033,8 +4874,6 @@ window.BYO = {
       "lng": 151.186802,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,300",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -5064,7 +4903,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJiz3JytSvEmsRy0ALD0A3Tlc"
     },
     {
       "name": "Grappa Ristorante e Bar",
@@ -5078,8 +4918,6 @@ window.BYO = {
       "lng": 151.15642,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "1,264",
       "price": "$$$",
       "priceBasis": "Estimate: traditional Italian restaurant",
       "priceEstimate": true,
@@ -5109,7 +4947,8 @@ window.BYO = {
           "distanceM": 20
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJBfuAC-KvEmsR3JVxJAZQFe8"
     },
     {
       "name": "Little Sicily",
@@ -5123,8 +4962,6 @@ window.BYO = {
       "lng": 151.13834,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "1,135",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5154,7 +4991,8 @@ window.BYO = {
           "distanceM": 110
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJGxhZZA-wEmsRDtE94SNoa2M"
     },
     {
       "name": "Khoi Eatery",
@@ -5168,8 +5006,6 @@ window.BYO = {
       "lng": 151.154218,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "954",
       "price": "$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -5199,7 +5035,8 @@ window.BYO = {
           "distanceM": 30
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ97Wr6SixEmsRXDjUJDXtx18"
     },
     {
       "name": "Filicudi Restaurant",
@@ -5213,8 +5050,6 @@ window.BYO = {
       "lng": 151.132163,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "878",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5244,20 +5079,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ21fkWay6EmsRw4YaaHbCfUQ"
     },
     {
       "name": "Bamiyan Restaurant Five Dock",
       "region": "Inner West",
       "suburb": "Five Dock",
-      "address": "Level 1/147 Great North Road, Five Dock NSW",
       "addressSource": "suburb-only",
       "lat": -33.867936,
       "lng": 151.129603,
       "cuisine": "Afghan",
       "family": "Middle Eastern",
-      "stars": 4.6,
-      "reviews": "807",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5287,7 +5120,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJwRxV-j2lEmsR0TQ7B0viVxU"
     },
     {
       "name": "Kandy Bites by Chef Ceylon",
@@ -5301,8 +5135,6 @@ window.BYO = {
       "lng": 151.192536,
       "cuisine": "Sri Lankan",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "785",
       "price": "$$",
       "priceBasis": "Google price range $20 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5332,7 +5164,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJp6KcguivEmsRrNJKVFQrmzg"
     },
     {
       "name": "Osteria di Russo & Russo",
@@ -5346,8 +5179,6 @@ window.BYO = {
       "lng": 151.171841,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "~720",
       "price": "$$$",
       "priceBasis": "Estimate: modern Italian osteria",
       "priceEstimate": true,
@@ -5377,20 +5208,18 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJc3jHXDiwEmsR5WHChbJsq04"
     },
     {
       "name": "Phamous Kitchen",
       "region": "Inner West",
       "suburb": "Balmain",
-      "address": "233 Darling Street, Balmain NSW",
       "addressSource": "suburb-only",
       "lat": -33.857734,
       "lng": 151.183099,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "326",
       "price": "$$",
       "priceBasis": "Google price range $30 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5420,20 +5249,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJ9ZNbrSvEmsReYXfrMfsTNs"
     },
     {
       "name": "Alo Ban",
       "region": "Inner West",
       "suburb": "Strathfield",
-      "address": "27 The Boulevarde, Strathfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.873392,
       "lng": 151.094046,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "267",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -5463,20 +5290,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJY38IpOy7EmsRia5svcUCrck"
     },
     {
       "name": "SAI JUNCTION Indian Restaurant",
       "region": "Inner West",
       "suburb": "Drummoyne",
-      "address": "196A Lyons Rd, Drummoyne NSW",
       "addressSource": "suburb-only",
       "lat": -33.856516,
       "lng": 151.145906,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "117",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -5506,7 +5331,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJISAy6mivEmsRRcIemldWPig"
     },
     {
       "name": "Cairo Takeaway",
@@ -5520,8 +5346,6 @@ window.BYO = {
       "lng": 151.174895,
       "cuisine": "Egyptian",
       "family": "African",
-      "stars": 4.5,
-      "reviews": "~2,400",
       "price": "$",
       "priceBasis": "Estimate: falafel pitas and mixed plates",
       "priceEstimate": true,
@@ -5551,7 +5375,8 @@ window.BYO = {
           "osm": "node/14038562104",
           "distanceM": 110
         }
-      }
+      },
+      "place_id": "ChIJFfGaLDiwEmsRhPcSYP7EZqc"
     },
     {
       "name": "Golden Lotus Vegan",
@@ -5565,8 +5390,6 @@ window.BYO = {
       "lng": 151.178016,
       "cuisine": "Vegan Vietnamese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "1,595",
       "price": "$",
       "priceBasis": "Estimate: casual vegan Vietnamese",
       "priceEstimate": true,
@@ -5596,20 +5419,18 @@ window.BYO = {
           "distanceM": 190
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJz5aGHTewEmsRULotFbkjWuc"
     },
     {
       "name": "Thai Paragon",
       "region": "Inner West",
       "suburb": "North Strathfield",
-      "address": "Shop G2/24 Bakehouse Quarter, George Street, North Strathfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.863217,
       "lng": 151.088319,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "1,391",
       "price": "$$",
       "priceBasis": "Google price range $22 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5639,7 +5460,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJj5fr-Cu7EmsRFWMCzC6kus4"
     },
     {
       "name": "Delhi 'O' Delhi",
@@ -5653,8 +5475,6 @@ window.BYO = {
       "lng": 151.180935,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "1,133",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5683,7 +5503,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJC_usVDGwEmsRdQauAejn-7o"
     },
     {
       "name": "La Disfida",
@@ -5697,8 +5518,6 @@ window.BYO = {
       "lng": 151.1396,
       "cuisine": "Italian pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "1,065",
       "price": "$$",
       "priceBasis": "Estimate: wood-fired pizza and pasta",
       "priceEstimate": true,
@@ -5733,7 +5552,8 @@ window.BYO = {
           "osm": "node/11816090992",
           "distanceM": 20
         }
-      }
+      },
+      "place_id": "ChIJh7KDD6i6EmsRIDuffAX16hA"
     },
     {
       "name": "Little Turtle",
@@ -5747,8 +5567,6 @@ window.BYO = {
       "lng": 151.17047,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "935",
       "price": "$$",
       "priceBasis": "Google price range $20 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5778,7 +5596,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJCdNCEDyxEmsR_XUA4qIcGtU"
     },
     {
       "name": "Rosso Antico Pizza Bar",
@@ -5792,8 +5611,6 @@ window.BYO = {
       "lng": 151.176325,
       "cuisine": "Italian / Pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "896",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -5823,7 +5640,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJOZLmnTewEmsRYJE4WZV_h2s"
     },
     {
       "name": "Pron Prohm Thai Restaurant",
@@ -5837,8 +5655,6 @@ window.BYO = {
       "lng": 151.091872,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "802",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -5868,20 +5684,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJrzj0CdWkEmsRbP5PgPNdNms"
     },
     {
       "name": "That's Amore",
       "region": "Inner West",
       "suburb": "Haberfield",
-      "address": "103 Ramsay Street, Haberfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.881236,
       "lng": 151.139837,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "590",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -5911,7 +5725,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ82yQpQy7EmsRiNNlSxYhsWQ"
     },
     {
       "name": "Bay Tinh",
@@ -5925,8 +5740,6 @@ window.BYO = {
       "lng": 151.1604,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "487",
       "price": "$$",
       "priceBasis": "Estimate: Vietnamese since 1986",
       "priceEstimate": true,
@@ -5956,7 +5769,8 @@ window.BYO = {
           "distanceM": 110
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJK4cT12awEmsR9JTFszCMvqg"
     },
     {
       "name": "Post Cafe Marrickville",
@@ -5970,8 +5784,6 @@ window.BYO = {
       "lng": 151.157246,
       "cuisine": "Cafe",
       "family": "Latin American",
-      "stars": 4.5,
-      "reviews": "386",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -6001,7 +5813,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ3wgLG2SwEmsRhq3dKgX5FxI"
     },
     {
       "name": "Taste of Himalaya",
@@ -6015,8 +5828,6 @@ window.BYO = {
       "lng": 151.125509,
       "cuisine": "Nepalese and Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "~290",
       "price": "$",
       "priceBasis": "Mains around $16–20",
       "priceEstimate": false,
@@ -6046,20 +5857,18 @@ window.BYO = {
           "distanceM": 160
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJyUf_iNS7EmsRWSSqhAEQK6s"
     },
     {
       "name": "Derrel's",
       "region": "Inner West",
       "suburb": "Camperdown",
-      "address": "89 Parramatta Rd, Camperdown NSW 2050",
       "addressSource": "suburb-only",
       "lat": -33.88694,
       "lng": 151.177229,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "273",
       "price": "$",
       "priceBasis": "Estimate: casual Indian diner",
       "priceEstimate": true,
@@ -6089,20 +5898,18 @@ window.BYO = {
           "distanceM": 520
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJV0VuHYmxEmsRk3kUR9aJI6Y"
     },
     {
       "name": "By George",
       "region": "Inner West",
       "suburb": "Croydon Park",
-      "address": "117 Georges River Road, Croydon Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.895288,
       "lng": 151.107815,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "253",
       "price": "$",
       "priceBasis": "Google price range $12 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6132,20 +5939,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4QzDLYC7EmsRwQVuTznUaik"
     },
     {
       "name": "Yume Sushi",
       "region": "Inner West",
       "suburb": "Drummoyne",
-      "address": "8/52 Lyons Rd, Drummoyne NSW",
       "addressSource": "suburb-only",
       "lat": -33.85142,
       "lng": 151.153793,
       "cuisine": "Sushi",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "251",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6167,20 +5972,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJRxV1iZKvEmsRuqx2PTJmsFs"
     },
     {
       "name": "Asako",
       "region": "Inner West",
       "suburb": "Mortlake",
-      "address": "Shop 4/100 Tennyson Road, Mortlake NSW",
       "addressSource": "suburb-only",
       "lat": -33.83947,
       "lng": 151.106851,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "217",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -6210,7 +6013,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJP6SRoBelEmsRmZteQtSste8"
     },
     {
       "name": "New Shanghai Ashfield",
@@ -6224,8 +6028,6 @@ window.BYO = {
       "lng": 151.124421,
       "cuisine": "Shanghainese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "~2,600",
       "price": "$",
       "priceBasis": "Estimate: dumpling restaurant",
       "priceEstimate": true,
@@ -6254,7 +6056,8 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ__-2IZa6EmsRB-5qmDx47wc"
     },
     {
       "name": "VN Streetfoods",
@@ -6268,8 +6071,6 @@ window.BYO = {
       "lng": 151.154555,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "2,255",
       "price": "$",
       "priceBasis": "Google price range $15 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6299,7 +6100,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJndFTcWOwEmsRiVLdiYuXsSI"
     },
     {
       "name": "Taste of Turkey Newtown",
@@ -6313,8 +6115,6 @@ window.BYO = {
       "lng": 151.174762,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "1,956",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6344,7 +6144,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ_Zh5LziwEmsRHCUJ4Y3Qv9A"
     },
     {
       "name": "Arabella",
@@ -6358,8 +6159,6 @@ window.BYO = {
       "lng": 151.178845,
       "cuisine": "Middle Eastern (Lebanese)",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "1,655",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $75 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6389,7 +6188,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJBaKO2UmwEmsRuJSlu_pzOwg"
     },
     {
       "name": "Two Chaps",
@@ -6403,8 +6203,6 @@ window.BYO = {
       "lng": 151.162027,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "1,625",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -6438,20 +6236,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJeyfMS2iwEmsR-YVhhG0_Pio"
     },
     {
       "name": "KADMUS Lebanese Drummoyne",
       "region": "Inner West",
       "suburb": "Drummoyne",
-      "address": "105 Thompson Street, Drummoyne NSW",
       "addressSource": "suburb-only",
       "lat": -33.85409,
       "lng": 151.150125,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "1,252",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6481,7 +6277,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJm1lTyfKvEmsRrK761WHHu3M"
     },
     {
       "name": "Silvas",
@@ -6495,8 +6292,6 @@ window.BYO = {
       "lng": 151.154066,
       "cuisine": "Portuguese (Charcoal Chicken)",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "1,144",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6526,20 +6321,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ1-GTOm2wEmsRqAulIV7WSu8"
     },
     {
       "name": "Pashas",
       "region": "Inner West",
       "suburb": "Newtown",
-      "address": "490 King Street, Newtown NSW",
       "addressSource": "suburb-only",
       "lat": -33.901642,
       "lng": 151.178933,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "850",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $70 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6569,7 +6362,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJmUJVLzawEmsRF8DVNiSVO8k"
     },
     {
       "name": "Atom Thai Restaurant",
@@ -6583,8 +6377,6 @@ window.BYO = {
       "lng": 151.183972,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "846",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -6613,7 +6405,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJObUKfjKwEmsRZEodhVhoNzw"
     },
     {
       "name": "Rosso Balmain",
@@ -6627,8 +6420,6 @@ window.BYO = {
       "lng": 151.1783,
       "cuisine": "Italian pizza and pasta",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "~755",
       "price": "$$",
       "priceBasis": "Estimate: pizza and pasta bar",
       "priceEstimate": true,
@@ -6658,7 +6449,8 @@ window.BYO = {
           "distanceM": 1260
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJD1z6msmvEmsR7CBGHpvQ4PA"
     },
     {
       "name": "Corinthian Rotisserie Restaurant",
@@ -6672,8 +6464,6 @@ window.BYO = {
       "lng": 151.153786,
       "cuisine": "Greek",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "752",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -6703,20 +6493,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJpTocXGSwEmsRha-VqiYF3yY"
     },
     {
       "name": "Angelo's Cabarita",
       "region": "Inner West",
       "suburb": "Cabarita",
-      "address": "Prince Edward Park, Phillips Street, Cabarita NSW",
       "addressSource": "suburb-only",
       "lat": -33.853033,
       "lng": 151.11847,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "728",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -6746,7 +6534,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJDb00CUelEmsRaPduX8eBYCc"
     },
     {
       "name": "Shenkin Kitchen",
@@ -6760,8 +6549,6 @@ window.BYO = {
       "lng": 151.173528,
       "cuisine": "Brunch",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "694",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -6791,7 +6578,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ1_LJSDiwEmsR7r9WxHOuLwM"
     },
     {
       "name": "Original Europe Grill",
@@ -6805,8 +6593,6 @@ window.BYO = {
       "lng": 151.179139,
       "cuisine": "Balkan grill",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "683",
       "price": "$$",
       "priceBasis": "Estimate: Balkan grill",
       "priceEstimate": true,
@@ -6835,7 +6621,8 @@ window.BYO = {
           "distanceM": 230
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJt0KB2EmwEmsRJ3uXu_WB2co"
     },
     {
       "name": "Ramen Goku",
@@ -6849,8 +6636,6 @@ window.BYO = {
       "lng": 151.1918,
       "cuisine": "Japanese ramen",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "665",
       "price": "$",
       "priceBasis": "Estimate: ramen bar",
       "priceEstimate": true,
@@ -6879,7 +6664,8 @@ window.BYO = {
           "distanceM": 250
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJh6aNFiquEmsRekxPT8CWoG0"
     },
     {
       "name": "Steki Taverna",
@@ -6893,8 +6679,6 @@ window.BYO = {
       "lng": 151.17299,
       "cuisine": "Restaurant",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "497",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -6924,20 +6708,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJUc_vPzKwEmsR1GI6Gjie9fc"
     },
     {
       "name": "Kafeine",
       "region": "Inner West",
       "suburb": "Balmain",
-      "address": "260 Darling Street, Balmain NSW",
       "addressSource": "suburb-only",
       "lat": -33.857972,
       "lng": 151.181971,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "480",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -6967,7 +6749,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJiUHwFrSvEmsREpetkYKQuG8"
     },
     {
       "name": "Plunge 46",
@@ -6981,8 +6764,6 @@ window.BYO = {
       "lng": 151.138261,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "429",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7012,7 +6793,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ19QgiJ-6EmsR_TgJUeQa6AE"
     },
     {
       "name": "Maranellos Veloce Croydon Park",
@@ -7026,8 +6808,6 @@ window.BYO = {
       "lng": 151.107484,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "413",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7057,20 +6837,18 @@ window.BYO = {
           "distanceM": 1740
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJK-g-RvC6EmsRrWVy6OxGfUo"
     },
     {
       "name": "Huong Huong",
       "region": "Inner West",
       "suburb": "Marrickville",
-      "address": "228 Marrickville Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.911784,
       "lng": 151.158711,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "365",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7100,20 +6878,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJrxp2sWawEmsRatAwWdYymB8"
     },
     {
       "name": "Thai-Namic Leichardt",
       "region": "Inner West",
       "suburb": "Leichhardt",
-      "address": "146 Norton Street, Leichhardt NSW",
       "addressSource": "suburb-only",
       "lat": -33.882307,
       "lng": 151.156529,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "312",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7143,20 +6919,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFS09whuwEmsRJD7dJtiEUYM"
     },
     {
       "name": "De Lanna Thai Street Cuisine",
       "region": "Inner West",
       "suburb": "Marrickville",
-      "address": "220 Addison Road, Marrickville NSW",
       "addressSource": "suburb-only",
       "lat": -33.901408,
       "lng": 151.161336,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "286",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7186,20 +6960,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJCwVewGuwEmsRw_1qPqfkCa4"
     },
     {
       "name": "Bangkok Bowl and Brew House",
       "region": "Inner West",
       "suburb": "Enmore",
-      "address": "195 Enmore Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.898894,
       "lng": 151.171613,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "252",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7229,20 +7001,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHx1qab2xEmsRDwTVpEnfSs0"
     },
     {
       "name": "Guk En Bab",
       "region": "Inner West",
       "suburb": "Homebush West",
-      "address": "8/90-95 The Crescent, Homebush West NSW",
       "addressSource": "suburb-only",
       "lat": -33.865375,
       "lng": 151.070741,
       "cuisine": "Korean",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "250",
       "price": "$$",
       "priceBasis": "Google price range $25 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7265,20 +7035,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJN7W8vQu7EmsRA9mfc_nk5Kk"
     },
     {
       "name": "21 Thai",
       "region": "Inner West",
       "suburb": "Rozelle",
-      "address": "572 Darling St, Rozelle NSW",
       "addressSource": "suburb-only",
       "lat": -33.860859,
       "lng": 151.172027,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "240",
       "price": "$$",
       "priceBasis": "Google price range $25 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7308,20 +7076,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJx5oTDMevEmsR7tRSPM95pDk"
     },
     {
       "name": "Marina Lunga",
       "region": "Inner West",
       "suburb": "Balmain",
-      "address": "367 Darling St, Balmain NSW",
       "addressSource": "suburb-only",
       "lat": -33.856439,
       "lng": 151.177813,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "221",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7351,20 +7117,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJZwHjJbevEmsRNfXmp_St7Z8"
     },
     {
       "name": "Flamin Grillz Concord West",
       "region": "Inner West",
       "suburb": "Concord West",
-      "address": "37 Victoria Ave, Concord West NSW",
       "addressSource": "suburb-only",
       "lat": -33.847768,
       "lng": 151.08627,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "220",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7394,20 +7158,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6xCx2xalEmsR4podZ-E7_94"
     },
     {
       "name": "Cappello Ristorante & Pizzeria",
       "region": "Inner West",
       "suburb": "Balmain East",
-      "address": "79 Darling St, Balmain East NSW 2041",
       "addressSource": "suburb-only",
       "lat": -33.8575,
       "lng": 151.1925,
       "cuisine": "Italian pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "187",
       "price": "$$",
       "priceBasis": "Estimate: pizzeria",
       "priceEstimate": true,
@@ -7437,20 +7199,18 @@ window.BYO = {
           "osm": "node/1648303037",
           "distanceM": 1190
         }
-      }
+      },
+      "place_id": "ChIJ684HJkyuEmsRBtSk_XWBGsQ"
     },
     {
       "name": "Eat And Shout Thai",
       "region": "Inner West",
       "suburb": "Stanmore",
-      "address": "117 Percival Rd, Stanmore NSW",
       "addressSource": "suburb-only",
       "lat": -33.893764,
       "lng": 151.164319,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "187",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7480,20 +7240,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJY9_wDz6wEmsR9K-N9zQUSXM"
     },
     {
       "name": "La Saveur",
       "region": "Inner West",
       "suburb": "Balmain",
-      "address": "390 Darling Street, Balmain NSW",
       "addressSource": "suburb-only",
       "lat": -33.856207,
       "lng": 151.175561,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "151",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7523,20 +7281,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJlz0x_cavEmsRM_ZTvWyR6Z8"
     },
     {
       "name": "Vatel Restaurant",
       "region": "Inner West",
       "suburb": "Drummoyne",
-      "address": "188 Lyons Road, Drummoyne NSW",
       "addressSource": "suburb-only",
       "lat": -33.856506,
       "lng": 151.146065,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "131",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7566,7 +7322,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFa5ZdfSvEmsRW6anIbjBk0w"
     },
     {
       "name": "Bar Italia",
@@ -7580,8 +7337,6 @@ window.BYO = {
       "lng": 151.156897,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "~2,900",
       "price": "$",
       "priceBasis": "Estimate: casual trattoria",
       "priceEstimate": true,
@@ -7611,20 +7366,18 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW-779xuwEmsROgt8nzyVY70"
     },
     {
       "name": "Auvers Dining - Rhodes",
       "region": "Inner West",
       "suburb": "Rhodes",
-      "address": "Shop 83, Level 4/1 Rider Blvd, Rhodes NSW",
       "addressSource": "suburb-only",
       "lat": -33.835125,
       "lng": 151.084473,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "1,258",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7647,20 +7400,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJR4otuuSkEmsRV5NNOrixUk0"
     },
     {
       "name": "Jasmin1 Restaurant Leichhardt",
       "region": "Inner West",
       "suburb": "Leichhardt",
-      "address": "116 Marion Street, Leichhardt NSW",
       "addressSource": "suburb-only",
       "lat": -33.884388,
       "lng": 151.151117,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.3,
-      "reviews": "1,173",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7690,7 +7441,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ59ZDWgWwEmsRNUJ1pchVUKI"
     },
     {
       "name": "Emma's Snack Bar",
@@ -7704,8 +7456,6 @@ window.BYO = {
       "lng": 151.170706,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.3,
-      "reviews": "~1,050",
       "price": "$$$",
       "priceBasis": "Banquets $63 pp",
       "priceEstimate": false,
@@ -7713,7 +7463,7 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Dips, fried cauliflower, arak garlic prawns, knafeh",
       "takeaway": "unknown",
-      "note": "Tue to Sat; rating listed as 4.3 to 4.4",
+      "note": "Tue to Sat",
       "website": "https://emmassnackbar.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -7735,7 +7485,8 @@ window.BYO = {
           "distanceM": 350
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJr2iBbDmwEmsRUYU_sSZXUN8"
     },
     {
       "name": "Revolver",
@@ -7749,8 +7500,6 @@ window.BYO = {
       "lng": 151.171803,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "915",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7780,20 +7529,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJz2vXctmvEmsRk-BLs7Ckvt0"
     },
     {
       "name": "Rosso Pomodoro",
       "region": "Inner West",
       "suburb": "Balmain",
-      "address": "Shop 90-91, 20-24 Buchanan Street, Balmain NSW 2041",
       "addressSource": "suburb-only",
       "lat": -33.863184,
       "lng": 151.180221,
       "cuisine": "Italian / Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "764",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7822,7 +7569,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJD1z6msmvEmsR7CBGHpvQ4PA"
     },
     {
       "name": "Mario's Pizzeria",
@@ -7836,8 +7584,6 @@ window.BYO = {
       "lng": 151.116669,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "630",
       "price": "$$",
       "priceBasis": "Google price range $20 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7867,20 +7613,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJWyKSgMC6EmsROQLAasEmw4Q"
     },
     {
       "name": "Kreta Ayer Ashfield",
       "region": "Inner West",
       "suburb": "Ashfield",
-      "address": "339 Liverpool Road, Ashfield NSW 2131",
       "addressSource": "suburb-only",
       "lat": -33.888694,
       "lng": 151.124719,
       "cuisine": "Singaporean",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "581",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -7910,20 +7654,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJtRdH_5W6EmsRCcj2TzZWx5c"
     },
     {
       "name": "The Home Grounds - Five Dock",
       "region": "Inner West",
       "suburb": "Five Dock",
-      "address": "20B Barnstaple Rd, Five Dock NSW",
       "addressSource": "suburb-only",
       "lat": -33.865583,
       "lng": 151.135359,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "573",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7953,20 +7695,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJy5u921ClEmsR9yRAej75Vp4"
     },
     {
       "name": "Jbeil Cuisine Enfield",
       "region": "Inner West",
       "suburb": "Enfield",
-      "address": "shop 1 2/12 Coronation Parade, Enfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.888222,
       "lng": 151.091923,
       "cuisine": "Middle Eastern",
       "family": "Middle Eastern",
-      "stars": 4.3,
-      "reviews": "479",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -7996,7 +7736,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJrzf2HcK7EmsRGKPKzF8iw5A"
     },
     {
       "name": "Surjit's",
@@ -8010,8 +7751,6 @@ window.BYO = {
       "lng": 151.165473,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "384",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8041,20 +7780,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJR9NcVD2wEmsREzZilTRBrGU"
     },
     {
       "name": "Il Grappolo",
       "region": "Inner West",
       "suburb": "Rozelle",
-      "address": "1/41 Terry Street, Rozelle NSW",
       "addressSource": "suburb-only",
       "lat": -33.86087,
       "lng": 151.167281,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "352",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -8084,20 +7821,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJEwGYHMGvEmsRxBNr2rahvI4"
     },
     {
       "name": "Simply the Best Restaurant",
       "region": "Inner West",
       "suburb": "Five Dock",
-      "address": "77 Great North Rd, Five Dock NSW",
       "addressSource": "suburb-only",
       "lat": -33.870036,
       "lng": 151.129007,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "224",
       "price": "$",
       "priceBasis": "Google price range $15 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -8127,7 +7862,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJb9GXXa26EmsRWzaPDQvfUnE"
     },
     {
       "name": "Aberdeen Dining",
@@ -8141,8 +7877,6 @@ window.BYO = {
       "lng": 151.138727,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "158",
       "price": "$$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -8171,20 +7905,18 @@ window.BYO = {
           "distanceM": 70
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ08LCMBW7EmsRc0SioR1tilo"
     },
     {
       "name": "Granatas Canada Bay",
       "region": "Inner West",
       "suburb": "Five Dock",
-      "address": "8 William St, Five Dock NSW",
       "addressSource": "suburb-only",
       "lat": -33.865765,
       "lng": 151.12119,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "140",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8207,20 +7939,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJwQ3GDjqlEmsROeDibPP6Lww"
     },
     {
       "name": "Platform 8",
       "region": "Inner West",
       "suburb": "Breakfast Point",
-      "address": "Shop 8, 6 Cross Street, Breakfast Point NSW",
       "addressSource": "suburb-only",
       "lat": -33.842345,
       "lng": 151.108581,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "60",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8250,20 +7980,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJeRSALBalEmsRUfce907Ce7s"
     },
     {
       "name": "Andiamo Trattoria",
       "region": "Inner West",
       "suburb": "Summer Hill",
-      "address": "108 Smith St, Summer Hill NSW 2130",
       "addressSource": "suburb-only",
       "lat": -33.892149,
       "lng": 151.138541,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "1,313",
       "price": "$$",
       "priceBasis": "Google price range $25 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -8293,7 +8021,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJNRjHKaC6EmsRaR73BqY_WqQ"
     },
     {
       "name": "Abhi's Indian Restaurant",
@@ -8307,8 +8036,6 @@ window.BYO = {
       "lng": 151.092446,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "1,007",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8338,20 +8065,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJz8xJFdWkEmsRQrebTzSXR64"
     },
     {
       "name": "Maenam Lao & Thai",
       "region": "Inner West",
       "suburb": "Strathfield",
-      "address": "31 The Boulevarde, Strathfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.873421,
       "lng": 151.094051,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "849",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8381,20 +8106,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJVWEnNi6EmsRHIsLaVxKWF8"
     },
     {
       "name": "The Hub House Diner",
       "region": "Inner West",
       "suburb": "Dulwich Hill",
-      "address": "410 New Canterbury Rd, Dulwich Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.903329,
       "lng": 151.142902,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "810",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -8424,20 +8147,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJhff4K3iwEmsRr2W2CAxE6Pc"
     },
     {
       "name": "Otto Noorba",
       "region": "Inner West",
       "suburb": "Glebe",
-      "address": "79 Glebe Point Road NSW",
       "addressSource": "suburb-only",
       "lat": -33.882531,
       "lng": 151.190617,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.2,
-      "reviews": "682",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8467,7 +8188,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoWWwTyquEmsRNx6OPeHX_tw"
     },
     {
       "name": "Rasika Indian Restaurant",
@@ -8481,8 +8203,6 @@ window.BYO = {
       "lng": 151.084561,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "534",
       "price": "$",
       "priceBasis": "Google price range $15 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -8504,20 +8224,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJA-jsmy-7EmsRFBecqSy_rI0"
     },
     {
       "name": "Costa Do Sol",
       "region": "Inner West",
       "suburb": "Dulwich Hill",
-      "address": "465 New Canterbury Rd, Dulwich Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.903423,
       "lng": 151.141499,
       "cuisine": "Portuguese",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "320",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8547,20 +8265,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHaWpXW2wEmsRqVGeScKhRmo"
     },
     {
       "name": "Kokoro Japanese Restaurant",
       "region": "Inner West",
       "suburb": "Concord",
-      "address": "84 Majors Bay Road, Concord NSW",
       "addressSource": "suburb-only",
       "lat": -33.85628,
       "lng": 151.103072,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "282",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -8590,7 +8306,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJI5w1ey6lEmsRhubXU0YQY_o"
     },
     {
       "name": "The Pizza Maker",
@@ -8604,8 +8321,6 @@ window.BYO = {
       "lng": 151.151832,
       "cuisine": "Italian (Pizza)",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "278",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8635,20 +8350,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJFRC9jnKwEmsRiqYVqEnT2y8"
     },
     {
       "name": "Ruck Thai Restaurant",
       "region": "Inner West",
       "suburb": "Rozelle",
-      "address": "684 Darling St, Rozelle NSW",
       "addressSource": "suburb-only",
       "lat": -33.864202,
       "lng": 151.169838,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "145",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8678,20 +8391,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJE5NnBMSvEmsRRS2CgzqxHkM"
     },
     {
       "name": "Cinnamon Thai - Abbotsford",
       "region": "Inner West",
       "suburb": "Abbotsford",
-      "address": "557 Great North Road, Abbotsford NSW",
       "addressSource": "suburb-only",
       "lat": -33.847776,
       "lng": 151.127945,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "142",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8721,20 +8432,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-Q-aBGilEmsRhabGqOFAwKc"
     },
     {
       "name": "Wagyu House",
       "region": "Inner West",
       "suburb": "Croydon",
-      "address": "668-670 Parramatta Road, Croydon NSW",
       "addressSource": "suburb-only",
       "lat": -33.871687,
       "lng": 151.122673,
       "cuisine": "Korean barbecue",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "2,183",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $70 pp (via MealFinder)",
       "priceEstimate": true,
@@ -8764,7 +8473,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJp6jTB7S6EmsRbit6jh-1TRs"
     },
     {
       "name": "The Sultan's Table",
@@ -8778,8 +8488,6 @@ window.BYO = {
       "lng": 151.172245,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.1,
-      "reviews": "1,201",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -8809,20 +8517,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJjUAI9TiwEmsRl7cMZWCUimo"
     },
     {
       "name": "Okami Marrickville",
       "region": "Inner West",
       "suburb": "Marrickville",
-      "address": "359 Illawarra Road, Marrickville NSW 2204",
       "addressSource": "suburb-only",
       "lat": -33.913437,
       "lng": 151.153429,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "940",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8852,20 +8558,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJWV5sH_yxEmsRHIzeTV-hKkU"
     },
     {
       "name": "Fourth Fish Rozelle",
       "region": "Inner West",
       "suburb": "Rozelle",
-      "address": "580 Darling Street, Rozelle NSW",
       "addressSource": "suburb-only",
       "lat": -33.861019,
       "lng": 151.171932,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "171",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8895,7 +8599,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ86__7--vEmsR_ZFOQCmxtsA"
     },
     {
       "name": "Ferah Cafe & Restaurant",
@@ -8909,8 +8614,6 @@ window.BYO = {
       "lng": 151.178221,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4,
-      "reviews": "1,149",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8940,20 +8643,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJoV-eNDawEmsRj33qUCBmUZ4"
     },
     {
       "name": "Hikaru",
       "region": "Inner West",
       "suburb": "Newtown",
-      "address": "Rear of 134 King Street, Newtown NSW",
       "addressSource": "suburb-only",
       "lat": -33.893597,
       "lng": 151.183788,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "909",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -8983,7 +8684,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJGdv1fDKwEmsRQC99aRY4XCk"
     },
     {
       "name": "It's Time for Thai",
@@ -8997,8 +8699,6 @@ window.BYO = {
       "lng": 151.181222,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "848",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9027,7 +8727,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ469K1jOwEmsRLquXGd8yfio"
     },
     {
       "name": "Chinese Dumpling Master",
@@ -9041,8 +8742,6 @@ window.BYO = {
       "lng": 151.174556,
       "cuisine": "Chinese (Northern-Style Dumplings)",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "826",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9071,20 +8770,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJd3c9fzewEmsR0UpFZWSl5vE"
     },
     {
       "name": "Casa Bella Pizza",
       "region": "Inner West",
       "suburb": "Concord West",
-      "address": "1/405 Concord Rd, Concord West NSW",
       "addressSource": "suburb-only",
       "lat": -33.839917,
       "lng": 151.088474,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4,
-      "reviews": "362",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9107,7 +8804,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJl1xcet6kEmsR3_C8S1EMMQg"
     },
     {
       "name": "Woodfired In and Out Pizza",
@@ -9121,8 +8819,6 @@ window.BYO = {
       "lng": 151.145824,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4,
-      "reviews": "350",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9152,20 +8848,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJL5xifHmwEmsR5llFFplGWr4"
     },
     {
       "name": "Let's Chon Sydenham",
       "region": "Inner West",
       "suburb": "Sydenham",
-      "address": "7 Gleeson Avenue, Sydenham NSW 2044",
       "addressSource": "suburb-only",
       "lat": -33.915847,
       "lng": 151.166288,
       "cuisine": "Filipino",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "238",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -9195,20 +8889,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJn5hSuZ2xEmsRGXkVmFwIclk"
     },
     {
       "name": "Rurouni",
       "region": "Eastern Suburbs",
       "suburb": "Bondi Junction",
-      "address": "Shop 2A/71/77 Oxford Street, Bondi Junction NSW",
       "addressSource": "suburb-only",
       "lat": -33.891662,
       "lng": 151.245654,
       "cuisine": "Seafood donburi",
       "family": "Other",
-      "stars": 5,
-      "reviews": "81",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9238,20 +8930,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJm9dvLACtEmsRTuE7lokxqA4"
     },
     {
       "name": "Rasa House",
       "region": "Eastern Suburbs",
       "suburb": "Rose Bay",
-      "address": "639B New South Head Rd, Rose Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.872657,
       "lng": 151.259546,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "191",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9281,20 +8971,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJRU7SNuWtEmsRssF2bHQtRrE"
     },
     {
       "name": "Louie",
       "region": "Eastern Suburbs",
       "suburb": "Coogee",
-      "address": "260 Arden St, Coogee NSW 2034",
       "addressSource": "suburb-only",
       "lat": -33.923202,
       "lng": 151.256019,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "671",
       "price": "$$$",
       "priceBasis": "Google price range $45 - $95 pp (via MealFinder)",
       "priceEstimate": true,
@@ -9324,20 +9012,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJeYpTGH2zEmsRnV9MI40WNMI"
     },
     {
       "name": "Civico 47",
       "region": "Eastern Suburbs",
       "suburb": "Paddington",
-      "address": "47 Windsor St, Paddington NSW 2021",
       "addressSource": "suburb-only",
       "lat": -33.884937,
       "lng": 151.232878,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "~600",
       "price": "$$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -9370,20 +9056,18 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJcWLczsKvEmsRIvV1ijTLfVg"
     },
     {
       "name": "Chubby Cheeks",
       "region": "Eastern Suburbs",
       "suburb": "Paddington",
-      "address": "437 Oxford St, Paddington NSW",
       "addressSource": "suburb-only",
       "lat": -33.887808,
       "lng": 151.230895,
       "cuisine": "Southeast Asian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "595",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -9413,7 +9097,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJsfsBa_GvEmsRUuDgJMlP9e4"
     },
     {
       "name": "Bibo Wine Bar",
@@ -9427,8 +9112,6 @@ window.BYO = {
       "lng": 151.241601,
       "cuisine": "Portuguese",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "578",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9458,7 +9141,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJdaTvcuetEmsRWptnNfK1EhQ"
     },
     {
       "name": "Catalina Restaurant",
@@ -9472,8 +9156,6 @@ window.BYO = {
       "lng": 151.262727,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "3,959",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9503,7 +9185,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJNQy2NLetEmsRFDh-uUIyFS4"
     },
     {
       "name": "Flavour of India Edgecliff",
@@ -9517,8 +9200,6 @@ window.BYO = {
       "lng": 151.234751,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "1,414",
       "price": "$$$",
       "priceBasis": "Google price range $40 - $85 pp (via MealFinder)",
       "priceEstimate": true,
@@ -9548,7 +9229,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJNyzny-GtEmsRk4x6tHO2OGc"
     },
     {
       "name": "Mand's Indian Restaurant",
@@ -9562,8 +9244,6 @@ window.BYO = {
       "lng": 151.242251,
       "cuisine": "North Indian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "645",
       "price": "$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -9593,20 +9273,18 @@ window.BYO = {
           "distanceM": 180
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJk9ayKhqyEmsRIuqBcdzQtI0"
     },
     {
       "name": "Mami's",
       "region": "Eastern Suburbs",
       "suburb": "Bondi",
-      "address": "286 Bondi Rd, Bondi NSW 2026",
       "addressSource": "suburb-only",
       "lat": -33.894349,
       "lng": 151.267937,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.7,
-      "reviews": "510",
       "price": "$",
       "priceBasis": "Four tacos $20; everything under $20",
       "priceEstimate": false,
@@ -9636,7 +9314,8 @@ window.BYO = {
           "osm": "node/8676483423",
           "distanceM": 440
         }
-      }
+      },
+      "place_id": "ChIJA0KENgCtEmsRXJFqy6eKqoQ"
     },
     {
       "name": "Porcine",
@@ -9650,8 +9329,6 @@ window.BYO = {
       "lng": 151.227653,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "235",
       "price": "$$$$",
       "priceBasis": "Estimate: hatted French bistro",
       "priceEstimate": true,
@@ -9680,20 +9357,18 @@ window.BYO = {
           "distanceM": 280
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJV68UgKKvEmsRfhRfxmIjAl4"
     },
     {
       "name": "Balance Thai",
       "region": "Eastern Suburbs",
       "suburb": "Bellevue Hill",
-      "address": "27 Bellevue Rd, Bellevue Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.885925,
       "lng": 151.257323,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "37",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -9723,7 +9398,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJq048XACtEmsRbrw2Pcv3jkk"
     },
     {
       "name": "Chiswick",
@@ -9737,8 +9413,6 @@ window.BYO = {
       "lng": 151.240034,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "~1,800",
       "price": "$$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -9772,20 +9446,18 @@ window.BYO = {
           "distanceM": 1000
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJOSjbpeStEmsR7gjJMS8oqWM"
     },
     {
       "name": "Pizza Moncur",
       "region": "Eastern Suburbs",
       "suburb": "Woollahra",
-      "address": "101 Queen St, Woollahra NSW",
       "addressSource": "suburb-only",
       "lat": -33.8865,
       "lng": 151.243761,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "988",
       "price": "$$$$",
       "priceBasis": "Google price range $70 - $120 pp (via MealFinder)",
       "priceEstimate": true,
@@ -9815,7 +9487,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_8wJ9_ytEmsR4GGsgW08q5E"
     },
     {
       "name": "Brown Sugar",
@@ -9829,8 +9502,6 @@ window.BYO = {
       "lng": 151.273186,
       "cuisine": "Modern Mediterranean",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "714",
       "price": "$$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -9860,7 +9531,8 @@ window.BYO = {
           "distanceM": 190
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJtbruIpmtEmsRBV0yrtR7zJI"
     },
     {
       "name": "Cipri Italian",
@@ -9874,8 +9546,6 @@ window.BYO = {
       "lng": 151.231611,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "~280",
       "price": "$$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -9911,7 +9581,8 @@ window.BYO = {
           "distanceM": 530
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJJ6YGrweuEmsRko8l3MXAvco"
     },
     {
       "name": "Pizza Laundry",
@@ -9925,8 +9596,6 @@ window.BYO = {
       "lng": 151.2716,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "220",
       "price": "$$",
       "priceBasis": "Estimate: 14-inch pizzas",
       "priceEstimate": true,
@@ -9956,20 +9625,18 @@ window.BYO = {
           "osm": "node/6796831037",
           "distanceM": 190
         }
-      }
+      },
+      "place_id": "ChIJL2zq6lGtEmsR1QI7Nz6OYnk"
     },
     {
       "name": "Table Manners",
       "region": "Eastern Suburbs",
       "suburb": "Bronte",
-      "address": "56-60 Macpherson St, Bronte NSW 2024",
       "addressSource": "suburb-only",
       "lat": -33.905333,
       "lng": 151.259041,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "~210",
       "price": "$$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -9998,20 +9665,18 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJF9TzCQSzEmsRrcZVZHShwj0"
     },
     {
       "name": "Poke Mix",
       "region": "Eastern Suburbs",
       "suburb": "Rose Bay",
-      "address": "554 Old South Head Rd, Rose Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.872242,
       "lng": 151.274083,
       "cuisine": "Sushi",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "138",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -10041,20 +9706,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBauwAfStEmsRSuA0o4LjeZc"
     },
     {
       "name": "Pinto Thong Thai Restaurant",
       "region": "Eastern Suburbs",
       "suburb": "Clovelly",
-      "address": "327 Clovelly Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.912012,
       "lng": 151.259045,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "116",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -10084,7 +9747,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3_lNnXKyEmsR9m__7O6VV0E"
     },
     {
       "name": "Corner 75",
@@ -10098,8 +9762,6 @@ window.BYO = {
       "lng": 151.248726,
       "cuisine": "Hungarian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "686",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $75 pp (via MealFinder)",
       "priceEstimate": true,
@@ -10129,20 +9791,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJX9r1Tw6yEmsRA_izLGp54ck"
     },
     {
       "name": "Hotel Centennial",
       "region": "Eastern Suburbs",
       "suburb": "Woollahra",
-      "address": "88 Oxford Street, Woollahra NSW 2025",
       "addressSource": "suburb-only",
       "lat": -33.890344,
       "lng": 151.235925,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "609",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -10172,20 +9832,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJbT8sw_2tEmsRpL6dQUL01Ew"
     },
     {
       "name": "Jozo",
       "region": "Eastern Suburbs",
       "suburb": "Paddington",
-      "address": "495 Oxford Street, Paddington NSW",
       "addressSource": "suburb-only",
       "lat": -33.889452,
       "lng": 151.232621,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "496",
       "price": "$$",
       "priceBasis": "Google price range $20 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -10215,7 +9873,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ1cV7TweuEmsRo6e7cCwFh74"
     },
     {
       "name": "Sefa Kitchen",
@@ -10229,8 +9888,6 @@ window.BYO = {
       "lng": 151.268091,
       "cuisine": "Mediterranean",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "472",
       "price": "$$$",
       "priceBasis": "Estimate: share plates",
       "priceEstimate": true,
@@ -10264,7 +9921,8 @@ window.BYO = {
           "distanceM": 460
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJZaIm_I-tEmsRU1qmT__09UE"
     },
     {
       "name": "Vacanza Pizzeria",
@@ -10278,8 +9936,6 @@ window.BYO = {
       "lng": 151.2542,
       "cuisine": "Italian pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "~303",
       "price": "$$",
       "priceBasis": "Set menu $45 pp",
       "priceEstimate": false,
@@ -10308,7 +9964,8 @@ window.BYO = {
           "distanceM": 970
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ39bh9AqyEmsRsRew3nqDSOk"
     },
     {
       "name": "Bondi Trattoria",
@@ -10322,8 +9979,6 @@ window.BYO = {
       "lng": 151.272854,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "2,463",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $75 pp (via MealFinder)",
       "priceEstimate": true,
@@ -10353,20 +10008,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJPY65P5utEmsRoPQY9iTI0AU"
     },
     {
       "name": "Totti’s",
       "region": "Eastern Suburbs",
       "suburb": "Bondi",
-      "address": "283 Bondi Rd, Bondi NSW 2026",
       "addressSource": "suburb-only",
       "lat": -33.894899,
       "lng": 151.26879,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "2,034",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -10396,20 +10049,18 @@ window.BYO = {
           "distanceM": 530
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJFY04IkatEmsRWkTe5CeoRug"
     },
     {
       "name": "Mr Nam",
       "region": "Eastern Suburbs",
       "suburb": "Mascot",
-      "address": "Shop 1, 8 Bourke Street (Cnr John Street), Mascot NSW",
       "addressSource": "suburb-only",
       "lat": -33.923502,
       "lng": 151.186949,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "1,127",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -10439,20 +10090,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJhXux0qqxEmsRRuv5kxFpB5A"
     },
     {
       "name": "Pondok Buyung",
       "region": "Eastern Suburbs",
       "suburb": "Kensington",
-      "address": "140 Anzac Parade, Kensington NSW",
       "addressSource": "suburb-only",
       "lat": -33.907827,
       "lng": 151.223827,
       "cuisine": "Indonesian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "807",
       "price": "$",
       "priceBasis": "Google price range $15 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -10482,20 +10131,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMXv0jvGxEmsRsrIUCunI3oQ"
     },
     {
       "name": "Arte Bianca",
       "region": "Eastern Suburbs",
       "suburb": "Double Bay",
-      "address": "1/1 Kiaora Lane, Double Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.878034,
       "lng": 151.243886,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "794",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -10531,14 +10178,11 @@ window.BYO = {
       "name": "Spaghetteria",
       "region": "Eastern Suburbs",
       "suburb": "Randwick",
-      "address": "76 Clovelly Road, Randwick NSW",
       "addressSource": "suburb-only",
       "lat": -33.908607,
       "lng": 151.247777,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "397",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -10568,20 +10212,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJseENh6uzEmsRxqSwjsOmlFo"
     },
     {
       "name": "Rosebery Martabak",
       "region": "Eastern Suburbs",
       "suburb": "Kingsford",
-      "address": "341A Anzac Parade, Kingsford NSW",
       "addressSource": "suburb-only",
       "lat": -33.923533,
       "lng": 151.226979,
       "cuisine": "Indonesian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "343",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -10611,7 +10253,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ67tVRI-xEmsRjmjCBYFhxX4"
     },
     {
       "name": "Da Lat Restaurant",
@@ -10625,8 +10268,6 @@ window.BYO = {
       "lng": 151.2409,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "308",
       "price": "$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -10656,7 +10297,8 @@ window.BYO = {
           "osm": "node/5872652634",
           "distanceM": 340
         }
-      }
+      },
+      "place_id": "ChIJHbHV6RiyEmsRhSDJXu6zKW4"
     },
     {
       "name": "Pizzavelly Italian Kitchen",
@@ -10670,8 +10312,6 @@ window.BYO = {
       "lng": 151.259613,
       "cuisine": "Italian pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "~300",
       "price": "$$",
       "priceBasis": "Estimate",
       "priceEstimate": true,
@@ -10700,7 +10340,8 @@ window.BYO = {
           "distanceM": 1090
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJZ1sxgHKyEmsR8g2kjhm2FP8"
     },
     {
       "name": "Myoko Sushi Bar",
@@ -10714,8 +10355,6 @@ window.BYO = {
       "lng": 151.2751,
       "cuisine": "Japanese sushi",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "235",
       "price": "$$",
       "priceBasis": "Estimate: sushi train",
       "priceEstimate": true,
@@ -10745,20 +10384,18 @@ window.BYO = {
           "distanceM": 320
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJNRE7xp6tEmsR_qtUbcbyTms"
     },
     {
       "name": "Csalt On The Beach Restaurant",
       "region": "Eastern Suburbs",
       "suburb": "Phillip Bay",
-      "address": "67-69 Yarra Bay Rd, Phillip Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.980487,
       "lng": 151.229492,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "204",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -10780,20 +10417,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYRcgDQ63EmsRXbL8MvXuMSE"
     },
     {
       "name": "Lorraines",
       "region": "Eastern Suburbs",
       "suburb": "Waverley",
-      "address": "203 Bronte Rd, Waverley NSW",
       "addressSource": "suburb-only",
       "lat": -33.90086,
       "lng": 151.253718,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "130",
       "price": "$$$$",
       "priceBasis": "Google price range $50 - $110 pp (via MealFinder)",
       "priceEstimate": true,
@@ -10823,7 +10458,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6RE2TCezEmsRmnENqkN0gwI"
     },
     {
       "name": "Vitaly",
@@ -10837,8 +10473,6 @@ window.BYO = {
       "lng": 151.242423,
       "cuisine": "Northern Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "796",
       "price": "$$",
       "priceBasis": "Google price range $25 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -10868,7 +10502,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJGR5iKhqyEmsR1eNiajvikrE"
     },
     {
       "name": "Bangkok Bites",
@@ -10882,8 +10517,6 @@ window.BYO = {
       "lng": 151.270916,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "~709",
       "price": "$",
       "priceBasis": "Estimate: Thai street food",
       "priceEstimate": true,
@@ -10913,7 +10546,8 @@ window.BYO = {
           "distanceM": 100
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJkbyZj5mtEmsREKxjVSd8cEM"
     },
     {
       "name": "La Sen Restaurant",
@@ -10927,8 +10561,6 @@ window.BYO = {
       "lng": 151.242797,
       "cuisine": "Gluten-free",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "695",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -10958,20 +10590,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJqUtb8iKyEmsRxvukaAFfO4I"
     },
     {
       "name": "The Cook and Baker",
       "region": "Eastern Suburbs",
       "suburb": "Bondi Junction",
-      "address": "37 Oxford St, Bondi Junction NSW 2022",
       "addressSource": "suburb-only",
       "lat": -33.890925,
       "lng": 151.243715,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "366",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11001,20 +10631,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJQap9XvqtEmsRdy0Bltc7z2g"
     },
     {
       "name": "La Piadina",
       "region": "Eastern Suburbs",
       "suburb": "Bondi Beach",
-      "address": "106 Glenayr Ave, Bondi Beach NSW 2026",
       "addressSource": "suburb-only",
       "lat": -33.885965,
       "lng": 151.273435,
       "cuisine": "Lunch",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "321",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11044,20 +10672,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJKd0supitEmsREZ9-7Bb6wBg"
     },
     {
       "name": "Riva Rose Bay",
       "region": "Eastern Suburbs",
       "suburb": "Rose Bay",
-      "address": "594 New South Head Road, Rose Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.870771,
       "lng": 151.254863,
       "cuisine": "Ligurian",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "47",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11087,20 +10713,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJIRvWmOetEmsRA0TLWbPVx1g"
     },
     {
       "name": "Shanghai Washoku Kitchen",
       "region": "Eastern Suburbs",
       "suburb": "Kingsford",
-      "address": "385 Anzac Parade, Kingsford NSW",
       "addressSource": "suburb-only",
       "lat": -33.924642,
       "lng": 151.227706,
       "cuisine": "Asian fusion",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "45",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11130,7 +10754,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJtyEQvKCxEmsRxO_EpN8jZ48"
     },
     {
       "name": "Soul Burger Randwick",
@@ -11144,8 +10769,6 @@ window.BYO = {
       "lng": 151.242795,
       "cuisine": "Hamburger",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "942",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11175,7 +10798,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ5cIY8SKyEmsRMUKOsvk8Zq0"
     },
     {
       "name": "Maranello's",
@@ -11189,8 +10813,6 @@ window.BYO = {
       "lng": 151.238906,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "775",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -11213,7 +10835,8 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJWUDWcNSzEmsR3eQgBIgXQio"
     },
     {
       "name": "Osteria Riva",
@@ -11227,8 +10850,6 @@ window.BYO = {
       "lng": 151.250717,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "572",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $70 pp (via MealFinder)",
       "priceEstimate": true,
@@ -11258,20 +10879,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJnR_YrvatEmsRG69rD8OTg_o"
     },
     {
       "name": "Jewel on the bay",
       "region": "Eastern Suburbs",
       "suburb": "Rose Bay",
-      "address": "639 New South Head Road, Rose Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.872749,
       "lng": 151.259409,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "543",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11301,20 +10920,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJaaEcSritEmsR9Sl8PHKbLc4"
     },
     {
       "name": "Martina Rose Bay",
       "region": "Eastern Suburbs",
       "suburb": "Rose Bay",
-      "address": "51-55 O'Sullivan Rd, Rose Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.872768,
       "lng": 151.25966,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "268",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11344,7 +10961,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJs7LlMACtEmsRYQW1qhlqbu0"
     },
     {
       "name": "Eugene's",
@@ -11358,8 +10976,6 @@ window.BYO = {
       "lng": 151.258856,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "241",
       "price": "$$",
       "priceBasis": "Google price range $20 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -11389,20 +11005,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJs6cs7XSyEmsRmo6DqE1jG1U"
     },
     {
       "name": "Itsumo Sushi",
       "region": "Eastern Suburbs",
       "suburb": "Mascot",
-      "address": "1183 Botany Road, Mascot NSW",
       "addressSource": "suburb-only",
       "lat": -33.931039,
       "lng": 151.194715,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "186",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11432,7 +11046,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFwGimQaxEmsR5yfeNNVLnMU"
     },
     {
       "name": "The Boatshed La Perouse",
@@ -11446,8 +11061,6 @@ window.BYO = {
       "lng": 151.231388,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "3,543",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11469,7 +11082,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJsyFhDLi3EmsRgrTvL2SB27Y"
     },
     {
       "name": "The Little Kitchen",
@@ -11483,8 +11097,6 @@ window.BYO = {
       "lng": 151.256288,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "1,947",
       "price": "$$",
       "priceBasis": "Google price range $25 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -11514,20 +11126,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJS3xmhD-yEmsRkJgssltRaks"
     },
     {
       "name": "Sushi Tengoku",
       "region": "Eastern Suburbs",
       "suburb": "Kensington",
-      "address": "262 Anzac Parade, Kensington NSW 2033",
       "addressSource": "suburb-only",
       "lat": -33.912185,
       "lng": 151.223964,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "672",
       "price": "$$",
       "priceBasis": "Google price range $20 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -11557,7 +11167,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJreUWafKxEmsR6QageGH4ZKE"
     },
     {
       "name": "The Clove Indian Restaurant",
@@ -11571,8 +11182,6 @@ window.BYO = {
       "lng": 151.258668,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "576",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -11602,20 +11211,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJTTeFYWuyEmsRrv4bIKYLBCg"
     },
     {
       "name": "Viet Senses",
       "region": "Eastern Suburbs",
       "suburb": "Bondi Junction",
-      "address": "143 Oxford St, Bondi Junction NSW",
       "addressSource": "suburb-only",
       "lat": -33.892088,
       "lng": 151.247806,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "310",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11645,7 +11252,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJH5Fn4_CtEmsRbTW7TXRGpeA"
     },
     {
       "name": "Gitano Sydney",
@@ -11659,8 +11267,6 @@ window.BYO = {
       "lng": 151.242296,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.1,
-      "reviews": "298",
       "price": "$$$",
       "priceBasis": "Google price range $40 - $80 pp (via MealFinder)",
       "priceEstimate": true,
@@ -11690,7 +11296,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJIQLVv2atEmsR2HmMw25KD70"
     },
     {
       "name": "Spice Thai Cuisine Coogee",
@@ -11704,8 +11311,6 @@ window.BYO = {
       "lng": 151.255439,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "221",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11735,20 +11340,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJwZBYgxWyEmsRzflJYaFCunY"
     },
     {
       "name": "Coconut Spice",
       "region": "Eastern Suburbs",
       "suburb": "Coogee",
-      "address": "4B Neptune St, Coogee NSW 2034",
       "addressSource": "suburb-only",
       "lat": -33.925773,
       "lng": 151.2591,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "221",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11778,7 +11381,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJjShI4UCyEmsRnnS6MvjpMUc"
     },
     {
       "name": "Thai Banyantree Coogee",
@@ -11792,8 +11396,6 @@ window.BYO = {
       "lng": 151.256441,
       "cuisine": "Rice",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "135",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11823,20 +11425,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJvRS-AcizEmsRjicdIjAgGMQ"
     },
     {
       "name": "Botany Cantonese Takeway",
       "region": "Eastern Suburbs",
       "suburb": "Botany",
-      "address": "1108 Botany Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.944189,
       "lng": 151.196072,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "113",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11866,20 +11466,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ8WjarhmxEmsR2XVc_KX6G2M"
     },
     {
       "name": "Beach Burrito Coogee",
       "region": "Eastern Suburbs",
       "suburb": "Coogee",
-      "address": "171 Arden St, Coogee NSW 2034",
       "addressSource": "suburb-only",
       "lat": -33.91851,
       "lng": 151.257511,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4,
-      "reviews": "592",
       "price": "$",
       "priceBasis": "Google price range $15 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -11909,7 +11507,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJZWjJSRWyEmsR9-O8QYkGPUw"
     },
     {
       "name": "Sean's",
@@ -11923,8 +11522,6 @@ window.BYO = {
       "lng": 151.282856,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4,
-      "reviews": "438",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11954,20 +11551,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ2VICnnWtEmsR_1XfGoLH9BQ"
     },
     {
       "name": "Sea Sand Thai",
       "region": "Eastern Suburbs",
       "suburb": "Maroubra",
-      "address": "176 Marine Pde, Maroubra NSW",
       "addressSource": "suburb-only",
       "lat": -33.9495,
       "lng": 151.2437,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "294",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -11997,20 +11592,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJy0HpdcqzEmsRA1MwWfZ3Ers"
     },
     {
       "name": "Sushi Junction",
       "region": "Eastern Suburbs",
       "suburb": "Maroubra",
-      "address": "1/737 Anzac Parade, Maroubra NSW",
       "addressSource": "suburb-only",
       "lat": -33.940837,
       "lng": 151.23842,
       "cuisine": "Restaurant",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "240",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12033,20 +11626,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVabKYNSzEmsRoqjfg5YxPiY"
     },
     {
       "name": "Han's Kitchen",
       "region": "Lower North Shore",
       "suburb": "Naremburn",
-      "address": "292 Willoughby Road, Naremburn NSW",
       "addressSource": "suburb-only",
       "lat": -33.817392,
       "lng": 151.200934,
       "cuisine": "Wok",
       "family": "Other",
-      "stars": 4.9,
-      "reviews": "107",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12076,20 +11667,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJp8H-BWqvEmsRY7A9xCGMt2Q"
     },
     {
       "name": "Haidilao Hotpot Chatswood",
       "region": "Lower North Shore",
       "suburb": "Chatswood",
-      "address": "Unit 607/1 Anderson St, Chatswood NSW 2067",
       "addressSource": "suburb-only",
       "lat": -33.796825,
       "lng": 151.183269,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "5,748",
       "price": "$$$",
       "priceBasis": "Google price range $50 - $90 pp (via MealFinder)",
       "priceEstimate": true,
@@ -12119,7 +11708,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ0UD2N9SoEmsRuqHwn0pCJpg"
     },
     {
       "name": "Grace of India",
@@ -12133,8 +11723,6 @@ window.BYO = {
       "lng": 151.212351,
       "cuisine": "North Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "4,281",
       "price": "$$",
       "priceBasis": "Google price range $40–80 pp",
       "priceEstimate": true,
@@ -12164,20 +11752,18 @@ window.BYO = {
           "distanceM": 20
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJh4CMEYuuEmsRJ_u7Zo2JpUo"
     },
     {
       "name": "Oishi-Billi",
       "region": "Lower North Shore",
       "suburb": "Milsons Point",
-      "address": "135 Blues Point Road, McMahons Point NSW",
       "addressSource": "suburb-only",
       "lat": -33.844277,
       "lng": 151.204526,
       "cuisine": "Modern Australian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "287",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12207,7 +11793,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJjaX7BRuvEmsRyIm5ZMoGEps"
     },
     {
       "name": "El Jefe Restaurant",
@@ -12221,8 +11808,6 @@ window.BYO = {
       "lng": 151.20577,
       "cuisine": "Latin American",
       "family": "Latin American",
-      "stars": 4.8,
-      "reviews": "248",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12252,20 +11837,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJy50sQd2vEmsR4sv0-Kb5gQo"
     },
     {
       "name": "Angora Sydney",
       "region": "Lower North Shore",
       "suburb": "Hunters Hill",
-      "address": "52 Gladesville Rd, Hunters Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.833277,
       "lng": 151.143163,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "211",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -12288,7 +11871,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJS1DBmSivEmsR7O52KkbDaKM"
     },
     {
       "name": "Erin's",
@@ -12302,8 +11886,6 @@ window.BYO = {
       "lng": 151.08475,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "139",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12333,20 +11915,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJTcp9ClKlEmsRZ4556E-sSjg"
     },
     {
       "name": "Kholl",
       "region": "Lower North Shore",
       "suburb": "Cremorne",
-      "address": "8/255 Military Rd, Cremorne NSW 2090",
       "addressSource": "suburb-only",
       "lat": -33.829725,
       "lng": 151.227905,
       "cuisine": "Bistro",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "58",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12376,20 +11956,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJeWaNPiCvEmsRGRO0jquHwqk"
     },
     {
       "name": "Ken-Chan Curry",
       "region": "Lower North Shore",
       "suburb": "Neutral Bay",
-      "address": "4/8 Waters Rd, Neutral Bay NSW 2089",
       "addressSource": "suburb-only",
       "lat": -33.830848,
       "lng": 151.223369,
       "cuisine": "Japanese curry & ramen",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "1,046",
       "price": "$",
       "priceBasis": "Google price range $15–30 pp",
       "priceEstimate": true,
@@ -12419,7 +11997,8 @@ window.BYO = {
           "osm": "node/1916709576",
           "distanceM": 370
         }
-      }
+      },
+      "place_id": "ChIJa8_Ml9evEmsRa9s1bAaFIa4"
     },
     {
       "name": "Rosso Italian",
@@ -12433,8 +12012,6 @@ window.BYO = {
       "lng": 151.126907,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "535",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -12457,7 +12034,8 @@ window.BYO = {
         },
         "independent": null
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJSfjTDuylEmsR7vSEhuxtWpg"
     },
     {
       "name": "Poetica Bar & Grill",
@@ -12471,8 +12049,6 @@ window.BYO = {
       "lng": 151.208197,
       "cuisine": "Steakhouse",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "520",
       "price": "$$$$",
       "priceBasis": "Google price range $60–120 pp",
       "priceEstimate": true,
@@ -12506,20 +12082,18 @@ window.BYO = {
           "distanceM": 90
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJN9d75kGvEmsRX2pEyGE6hoM"
     },
     {
       "name": "Johnny Gio's Pizza Lane Cove",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "4/56-60 Burns Bay Rd, Lane Cove NSW 2066",
       "addressSource": "suburb-only",
       "lat": -33.814642,
       "lng": 151.167445,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "482",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -12549,7 +12123,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ1dkgdQCvEmsR-X-TxwNROew"
     },
     {
       "name": "Le Coq and Fish",
@@ -12563,8 +12138,6 @@ window.BYO = {
       "lng": 151.196663,
       "cuisine": "French bistro",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "350",
       "price": "$$$",
       "priceBasis": "Google price range $55–100 pp",
       "priceEstimate": true,
@@ -12598,7 +12171,8 @@ window.BYO = {
           "distanceM": 80
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJBW2EZWGvEmsR9XcXdROaBbM"
     },
     {
       "name": "Motza Pizza",
@@ -12612,8 +12186,6 @@ window.BYO = {
       "lng": 151.213108,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "245",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12643,20 +12215,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJeQBCB_2pEmsRmkxogK9XtX4"
     },
     {
       "name": "Brasserie@156",
       "region": "Lower North Shore",
       "suburb": "Gladesville",
-      "address": "156 Victoria Road, Gladesville NSW",
       "addressSource": "suburb-only",
       "lat": -33.833195,
       "lng": 151.126727,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "191",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12679,7 +12249,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJiXuJSwClEmsRhErrn_coKyc"
     },
     {
       "name": "Dodici",
@@ -12693,8 +12264,6 @@ window.BYO = {
       "lng": 151.163293,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "104",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12724,7 +12293,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ2xryl5avEmsRR9Snez604Vk"
     },
     {
       "name": "I Love Pho",
@@ -12738,8 +12308,6 @@ window.BYO = {
       "lng": 151.201162,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "2,725",
       "price": "$",
       "priceBasis": "Google price range $18–40 pp",
       "priceEstimate": true,
@@ -12769,20 +12337,18 @@ window.BYO = {
           "distanceM": 230
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJt8XRLuiuEmsRU0CViNBxXAk"
     },
     {
       "name": "Pho luck",
       "region": "Lower North Shore",
       "suburb": "Eastwood",
-      "address": "142 Rowe Street, Eastwood NSW",
       "addressSource": "suburb-only",
       "lat": -33.791749,
       "lng": 151.081718,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,065",
       "price": "$",
       "priceBasis": "Google price range $15 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -12812,7 +12378,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJSziv3jmkEmsRpUSxBV2VQ6Y"
     },
     {
       "name": "Cucinetta",
@@ -12826,8 +12393,6 @@ window.BYO = {
       "lng": 151.169704,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "819",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12849,7 +12414,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ-0iLIqevEmsRROCjhPGZ20A"
     },
     {
       "name": "Annata",
@@ -12863,8 +12429,6 @@ window.BYO = {
       "lng": 151.198262,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "668",
       "price": "$$$$",
       "priceBasis": "Google price range $70–130 pp",
       "priceEstimate": true,
@@ -12897,7 +12461,8 @@ window.BYO = {
           "distanceM": 250
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJA4s6j8KuEmsRELb0VjeEbKI"
     },
     {
       "name": "Nilgiri's",
@@ -12911,8 +12476,6 @@ window.BYO = {
       "lng": 151.228988,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "552",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12942,7 +12505,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJheX0pt2uEmsRe2cQtKa_ids"
     },
     {
       "name": "Mars Pizza",
@@ -12956,8 +12520,6 @@ window.BYO = {
       "lng": 151.104115,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "523",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -12987,20 +12549,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJP1wnmdelEmsRkhRCBP71J84"
     },
     {
       "name": "Lane 198",
       "region": "Lower North Shore",
       "suburb": "Gladesville",
-      "address": "198 Victoria Road, Gladesville NSW",
       "addressSource": "suburb-only",
       "lat": -33.831476,
       "lng": 151.126705,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "500",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -13023,20 +12583,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJy4kEfkylEmsRM0xaWo8VwtA"
     },
     {
       "name": "Fratelli's",
       "region": "Lower North Shore",
       "suburb": "Cremorne",
-      "address": "41 Parraween St, Cremorne NSW",
       "addressSource": "suburb-only",
       "lat": -33.828823,
       "lng": 151.22793,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "447",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -13066,7 +12624,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJkxSDRaGuEmsRGI8wJHIQyo0"
     },
     {
       "name": "Nico",
@@ -13080,8 +12639,6 @@ window.BYO = {
       "lng": 151.209472,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "386",
       "price": "$$$",
       "priceBasis": "Google price range $45–90 pp",
       "priceEstimate": true,
@@ -13117,20 +12674,18 @@ window.BYO = {
           "distanceM": 780
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJjbzsl4-vEmsRFboxz_DFExM"
     },
     {
       "name": "Chiosco by Ormeggio",
       "region": "Lower North Shore",
       "suburb": "Mosman",
-      "address": "The Jetty, D'Albora Marina, Spit Rd, Mosman NSW 2088",
       "addressSource": "suburb-only",
       "lat": -33.805279,
       "lng": 151.24467,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "~376",
       "price": "$$$",
       "priceBasis": "Estimate: waterside trattoria, no menu prices checked",
       "priceEstimate": true,
@@ -13153,7 +12708,8 @@ window.BYO = {
         },
         "independent": null
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJSeJESdirEmsRVftuRzfF0VE"
     },
     {
       "name": "Toshiya",
@@ -13167,8 +12723,6 @@ window.BYO = {
       "lng": 151.228884,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "~312",
       "price": "$$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -13198,20 +12752,18 @@ window.BYO = {
           "distanceM": 60
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJu-mTQaGuEmsR_6JiOy9SE6U"
     },
     {
       "name": "The Wilkes",
       "region": "Lower North Shore",
       "suburb": "Artarmon",
-      "address": "7 Wilkes Avenue, Artarmon NSW",
       "addressSource": "suburb-only",
       "lat": -33.808109,
       "lng": 151.184909,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "306",
       "price": "$",
       "priceBasis": "Google price range $15 - $38 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13241,7 +12793,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ19D2uimvEmsR92wtCh0eeME"
     },
     {
       "name": "Berempah",
@@ -13255,8 +12808,6 @@ window.BYO = {
       "lng": 151.200625,
       "cuisine": "Malaysian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "282",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13286,7 +12837,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJufW-lzGvEmsRZGShrRulByY"
     },
     {
       "name": "Hoo & Tu's Kitchen",
@@ -13300,8 +12852,6 @@ window.BYO = {
       "lng": 151.183977,
       "cuisine": "Malaysian/Taiwanese Hawker (Chinese)",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "271",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13331,7 +12881,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJjSHwskGvEmsRg_o-_rKCuKk"
     },
     {
       "name": "Tew Thai",
@@ -13345,8 +12896,6 @@ window.BYO = {
       "lng": 151.126326,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "240",
       "price": "$$",
       "priceBasis": "Google price range $22 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13369,20 +12918,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG9vBr3elEmsRb7XId4ZsnO8"
     },
     {
       "name": "Pizza Tutti's",
       "region": "Lower North Shore",
       "suburb": "Northbridge",
-      "address": "144 Sailors Bay Road, Northbridge NSW",
       "addressSource": "suburb-only",
       "lat": -33.811293,
       "lng": 151.211769,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "142",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -13412,20 +12959,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3U5forWuEmsR3DOGpc15AhY"
     },
     {
       "name": "Voco Thai Kitchen",
       "region": "Lower North Shore",
       "suburb": "West Ryde",
-      "address": "80a/1-55 W Parade, West Ryde NSW 2114",
       "addressSource": "suburb-only",
       "lat": -33.807185,
       "lng": 151.089487,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "101",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -13455,7 +13000,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJheWfCiilEmsRAFSRYKvTUmQ"
     },
     {
       "name": "Public Dining Room",
@@ -13469,8 +13015,6 @@ window.BYO = {
       "lng": 151.252379,
       "cuisine": "Modern Australian, seafood",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "~1,050",
       "price": "$$$",
       "priceBasis": "Estimate: casual fine dining, no menu prices checked",
       "priceEstimate": true,
@@ -13503,20 +13047,18 @@ window.BYO = {
           "distanceM": 100
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJISxGwg2sEmsR70ZnrgFLFKg"
     },
     {
       "name": "S’more",
       "region": "Lower North Shore",
       "suburb": "Castlecrag",
-      "address": "79 Edinburgh Road, Castlecrag NSW",
       "addressSource": "suburb-only",
       "lat": -33.801683,
       "lng": 151.216418,
       "cuisine": "Asian fusion",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "869",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -13546,7 +13088,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJxdEfm5ypEmsRjiyHOBUBSRw"
     },
     {
       "name": "Bacari",
@@ -13560,8 +13103,6 @@ window.BYO = {
       "lng": 151.213198,
       "cuisine": "Modern Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "822",
       "price": "$$$",
       "priceBasis": "Google price range $45–90 pp",
       "priceEstimate": true,
@@ -13591,7 +13132,8 @@ window.BYO = {
           "distanceM": 190
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJuXlsUAivEmsRfJEymSUyd6A"
     },
     {
       "name": "The Wooden Whisk",
@@ -13605,8 +13147,6 @@ window.BYO = {
       "lng": 151.198643,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "820",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13636,7 +13176,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHYUGy8KuEmsRWEJP-VOOMq0"
     },
     {
       "name": "Garfish Crows Nest",
@@ -13650,8 +13191,6 @@ window.BYO = {
       "lng": 151.202214,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "~681",
       "price": "$$$",
       "priceBasis": "Estimate: seafood restaurant, no menu prices checked",
       "priceEstimate": true,
@@ -13684,20 +13223,18 @@ window.BYO = {
           "distanceM": 150
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJTdqSaMKuEmsR1Km3TIbVSYc"
     },
     {
       "name": "Hecho En Mexico Lane Cove",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "3/2 Rosenthal Ave, Lane Cove NSW",
       "addressSource": "suburb-only",
       "lat": -33.813442,
       "lng": 151.169433,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.5,
-      "reviews": "650",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13727,7 +13264,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3QZWrJ-vEmsRL0kxuD6QWP8"
     },
     {
       "name": "Morgan's Kirribilli",
@@ -13741,8 +13279,6 @@ window.BYO = {
       "lng": 151.213746,
       "cuisine": "Modern Australian / Mediterranean",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "557",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13772,20 +13308,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJAyVqViqvEmsRiM_rLRIqz7k"
     },
     {
       "name": "Stir Crazy Thai Kirribilli",
       "region": "Lower North Shore",
       "suburb": "Kirribilli",
-      "address": "135 Blues Point Road, McMahons Point NSW",
       "addressSource": "suburb-only",
       "lat": -33.844277,
       "lng": 151.204526,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "557",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13815,7 +13349,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJYw-j9YquEmsRc7JUenYp04M"
     },
     {
       "name": "LaanThai",
@@ -13829,8 +13364,6 @@ window.BYO = {
       "lng": 151.089492,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "446",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13860,20 +13393,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJlxC6t1WkEmsR0MbCE3khD4k"
     },
     {
       "name": "Sakana Ya",
       "region": "Lower North Shore",
       "suburb": "Crows Nest",
-      "address": "336 Pacific Hwy, Crows Nest NSW",
       "addressSource": "suburb-only",
       "lat": -33.827085,
       "lng": 151.199727,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "409",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -13903,7 +13434,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ64c-aeiuEmsRDzxb7BcK9zM"
     },
     {
       "name": "Pasture of Kirribilli",
@@ -13917,8 +13449,6 @@ window.BYO = {
       "lng": 151.213501,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "394",
       "price": "$$",
       "priceBasis": "Google price range $25–55 pp",
       "priceEstimate": true,
@@ -13948,20 +13478,18 @@ window.BYO = {
           "distanceM": 220
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJa411TNqvEmsRV-vpinKL5_0"
     },
     {
       "name": "Amici",
       "region": "Lower North Shore",
       "suburb": "Cammeray",
-      "address": "465 Miller St, Cammeray NSW",
       "addressSource": "suburb-only",
       "lat": -33.821788,
       "lng": 151.210786,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "354",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $75 pp (via MealFinder)",
       "priceEstimate": true,
@@ -13991,20 +13519,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJbzNFn7iuEmsREOKo0wXDz5g"
     },
     {
       "name": "Zapparelli's Pizza",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "Lane Cove NSW",
       "addressSource": "suburb-only",
       "lat": -33.814556,
       "lng": 151.169895,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "317",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14034,7 +13560,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJM2Hd_0GvEmsRX6zsn34mkN8"
     },
     {
       "name": "Luck Sushi Japanese Restaurant",
@@ -14048,8 +13575,6 @@ window.BYO = {
       "lng": 151.199625,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "307",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -14079,20 +13604,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJme1YpU23EmsRsxbdImpleaA"
     },
     {
       "name": "Dragon Sushi & Roll",
       "region": "Lower North Shore",
       "suburb": "Hunters Hill",
-      "address": "U1/67 Gladesville Rd, Hunters Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.833987,
       "lng": 151.144542,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "266",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -14115,7 +13638,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJx35eIduvEmsRNGwfTjWUUqA"
     },
     {
       "name": "Ainoya",
@@ -14129,8 +13653,6 @@ window.BYO = {
       "lng": 151.213313,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "249",
       "price": "$$",
       "priceBasis": "Google price range $35–70 pp",
       "priceEstimate": true,
@@ -14167,7 +13689,8 @@ window.BYO = {
           "distanceM": 90
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJcRQUpouuEmsRk82pBKSgMR0"
     },
     {
       "name": "Szechuan Garden Restaurant",
@@ -14181,8 +13704,6 @@ window.BYO = {
       "lng": 151.197595,
       "cuisine": "Sichuan",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "238",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14212,7 +13733,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJZfuWON2uEmsRhnVijaQV5ic"
     },
     {
       "name": "Thaii Restaurant",
@@ -14226,8 +13748,6 @@ window.BYO = {
       "lng": 151.202307,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "236",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14257,7 +13777,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJXVRvHvWvEmsRGqvm02tzp8A"
     },
     {
       "name": "COYA",
@@ -14271,8 +13792,6 @@ window.BYO = {
       "lng": 151.197972,
       "cuisine": "French / Middle Eastern",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "235",
       "price": "$$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -14302,20 +13821,18 @@ window.BYO = {
           "distanceM": 290
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJzbWM5oBVDWsRWSU9R-jyBtk"
     },
     {
       "name": "WaFire Grill",
       "region": "Lower North Shore",
       "suburb": "Neutral Bay",
-      "address": "Shop 1, 24 Young Street, Neutral Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.830014,
       "lng": 151.221223,
       "cuisine": "Middle Eastern",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "230",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14345,7 +13862,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJzcWgIZqvEmsRYwKZTJDWoRY"
     },
     {
       "name": "Korean Samurai",
@@ -14359,8 +13877,6 @@ window.BYO = {
       "lng": 151.227945,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "226",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14390,20 +13906,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJRZoOZKGuEmsRTfxHKBARXmw"
     },
     {
       "name": "Jack & Co Lane Cove",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "203 Burns Bay Rd, Lane Cove NSW",
       "addressSource": "suburb-only",
       "lat": -33.814565,
       "lng": 151.154316,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "190",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14433,20 +13947,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJr2lOMGivEmsRH4hLXoCvPrY"
     },
     {
       "name": "Lane Cove Golf Club",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "180 River Rd, Lane Cove NSW",
       "addressSource": "suburb-only",
       "lat": -33.824443,
       "lng": 151.174823,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "190",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14476,20 +13988,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBbAfBxqvEmsRNmJrJtbiiPE"
     },
     {
       "name": "Le Tran",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "8/50 Burns Bay Rd, Lane Cove NSW",
       "addressSource": "suburb-only",
       "lat": -33.814679,
       "lng": 151.168184,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "117",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14519,20 +14029,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ74oELgCvEmsRZ_kE0BM_DBM"
     },
     {
       "name": "Via Napoli Pizzeria Lane Cove",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "141 Longueville Rd, Lane Cove NSW 2066",
       "addressSource": "suburb-only",
       "lat": -33.815704,
       "lng": 151.169817,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "2,737",
       "price": "$$",
       "priceBasis": "Google price range $25 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -14562,7 +14070,8 @@ window.BYO = {
           "distanceM": 100
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJzW850T2vEmsRnJsUaEcbq_A"
     },
     {
       "name": "Piato",
@@ -14576,8 +14085,6 @@ window.BYO = {
       "lng": 151.204468,
       "cuisine": "Breakfast",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "997",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14607,7 +14114,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJQ8g91fWuEmsRGyALFwP5MYo"
     },
     {
       "name": "Eighty Ate",
@@ -14621,8 +14129,6 @@ window.BYO = {
       "lng": 151.205651,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "826",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -14652,20 +14158,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_2pWx-uuEmsReoDqNJwxn_A"
     },
     {
       "name": "Rengaya Japanese Restaurant",
       "region": "Lower North Shore",
       "suburb": "North Sydney",
-      "address": "73 Miller St (cnr Blue St), North Sydney NSW",
       "addressSource": "suburb-only",
       "lat": -33.840584,
       "lng": 151.206915,
       "cuisine": "Yakiniku",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "820",
       "price": "$$$$",
       "priceBasis": "Google price range $55 - $110 pp (via MealFinder)",
       "priceEstimate": true,
@@ -14695,7 +14199,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoZ1HpfOuEmsRAmdRGh2_ITI"
     },
     {
       "name": "New Yatra",
@@ -14709,8 +14214,6 @@ window.BYO = {
       "lng": 151.086034,
       "cuisine": "North Indian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "385",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14740,20 +14243,18 @@ window.BYO = {
           "distanceM": 1720
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJ3xPY_1alEmsR4PQyk28DOHI"
     },
     {
       "name": "Sugarlane",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "4/2 Rosenthal Ave, Lane Cove NSW 2066",
       "addressSource": "suburb-only",
       "lat": -33.813937,
       "lng": 151.168849,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "341",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -14786,20 +14287,18 @@ window.BYO = {
           "distanceM": 120
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ5W1NQbSvEmsR_MCDtsSqzgM"
     },
     {
       "name": "Epic Kebab House",
       "region": "Lower North Shore",
       "suburb": "St Leonards",
-      "address": "24 Pacific Hwy, St Leonards NSW",
       "addressSource": "suburb-only",
       "lat": -33.823768,
       "lng": 151.1935,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "295",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14829,7 +14328,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJb_yCV_6vEmsReI5lMBehImA"
     },
     {
       "name": "La Botte",
@@ -14843,8 +14343,6 @@ window.BYO = {
       "lng": 151.198909,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "232",
       "price": "$$",
       "priceBasis": "Google price range $30 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -14874,7 +14372,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJzfDoY82uEmsRB2NMWqRooCM"
     },
     {
       "name": "Capo Pizza",
@@ -14888,8 +14387,6 @@ window.BYO = {
       "lng": 151.197069,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "211",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14919,20 +14416,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ1Vi5C-WvEmsRb2bVxmAuxDQ"
     },
     {
       "name": "Don't Miss Out Chinese Cuisine",
       "region": "Lower North Shore",
       "suburb": "Gladesville",
-      "address": "196 Victoria Rd, Gladesville NSW 2111",
       "addressSource": "suburb-only",
       "lat": -33.831563,
       "lng": 151.126598,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "210",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -14955,7 +14450,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJXaRi2cqlEmsR0Py6SQ_7NVo"
     },
     {
       "name": "CJ's French Fondue Restaurant",
@@ -14969,8 +14465,6 @@ window.BYO = {
       "lng": 151.219744,
       "cuisine": "Fondue",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "198",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15000,20 +14494,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW2DR2ZeuEmsR5VPY04dvE4I"
     },
     {
       "name": "Tokuya",
       "region": "Lower North Shore",
       "suburb": "Chatswood",
-      "address": "Chatswood NSW",
       "addressSource": "suburb-only",
       "lat": -33.79607,
       "lng": 151.178047,
       "cuisine": "Restaurant",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "106",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15043,20 +14535,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJhS_EF1CpEmsR2gH2mgeDcs0"
     },
     {
       "name": "Thaitanium",
       "region": "Lower North Shore",
       "suburb": "Naremburn",
-      "address": "294 Willoughby Rd, Naremburn NSW",
       "addressSource": "suburb-only",
       "lat": -33.817341,
       "lng": 151.201012,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "105",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15086,20 +14576,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJS2Q6D8WuEmsRUOs4mdNndyA"
     },
     {
       "name": "Bai Yok",
       "region": "Lower North Shore",
       "suburb": "Castlecrag",
-      "address": "Shop 2A 122 Edinburgh Rd, Castlecrag NSW",
       "addressSource": "suburb-only",
       "lat": -33.80217,
       "lng": 151.215736,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "104",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15129,7 +14617,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJP0sinUmpEmsRZ4I84cLiiWg"
     },
     {
       "name": "Ripples Chowder Bay",
@@ -15143,8 +14632,6 @@ window.BYO = {
       "lng": 151.255135,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "~1,600",
       "price": "$$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -15174,7 +14661,8 @@ window.BYO = {
           "distanceM": 1370
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJUU6E9WysEmsRKdt6W_qH_n4"
     },
     {
       "name": "Loulou Bistro",
@@ -15188,8 +14676,6 @@ window.BYO = {
       "lng": 151.210417,
       "cuisine": "French bistro",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "~1,300",
       "price": "$$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -15223,20 +14709,18 @@ window.BYO = {
           "distanceM": 210
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ-2nhVT-vEmsRnIpRFqTEJt4"
     },
     {
       "name": "Dhakshin South Indian Cuisine",
       "region": "Lower North Shore",
       "suburb": "Crows Nest",
-      "address": "320 Pacific Hwy, Crows Nest NSW 2065",
       "addressSource": "suburb-only",
       "lat": -33.827329,
       "lng": 151.200146,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "805",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15266,7 +14750,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ-VkPaOiuEmsRTIZmJq4v6IY"
     },
     {
       "name": "Malabar",
@@ -15280,8 +14765,6 @@ window.BYO = {
       "lng": 151.199801,
       "cuisine": "South Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "732",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -15310,7 +14793,8 @@ window.BYO = {
           "distanceM": 350
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJyxkaaeiuEmsRulXUw-4ArXY"
     },
     {
       "name": "AJ's Indian Restaurant",
@@ -15324,8 +14808,6 @@ window.BYO = {
       "lng": 151.093785,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "570",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15355,7 +14837,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ1WCeTNOlEmsRk76n0_q1xyk"
     },
     {
       "name": "Jugemu & Shimbashi",
@@ -15369,8 +14852,6 @@ window.BYO = {
       "lng": 151.224153,
       "cuisine": "Japanese (Teppanyaki/Soba)",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "570",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -15400,7 +14881,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJFzFU1ZeuEmsRTDNeRU1fEQw"
     },
     {
       "name": "Patio @ Putney",
@@ -15414,8 +14896,6 @@ window.BYO = {
       "lng": 151.10868,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "555",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15437,20 +14917,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJLcqS0wmlEmsRdVOGIbxFUuw"
     },
     {
       "name": "Rangoon Colonial Club",
       "region": "Lower North Shore",
       "suburb": "Crows Nest",
-      "address": "7/70-76 Alexander St, Crows Nest NSW 2065",
       "addressSource": "suburb-only",
       "lat": -33.826087,
       "lng": 151.202083,
       "cuisine": "Burmese / Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "~510",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -15480,20 +14958,18 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJKcI31umuEmsRswSQoIercjk"
     },
     {
       "name": "Kyushu",
       "region": "Lower North Shore",
       "suburb": "Neutral Bay",
-      "address": "9-11 Grosvenor Street, Neutral Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.829647,
       "lng": 151.220151,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "505",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -15522,20 +14998,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ2TYnab2uEmsR3JKMI90H0zQ"
     },
     {
       "name": "Lab Kitchen West Ryde",
       "region": "Lower North Shore",
       "suburb": "West Ryde",
-      "address": "shop 1/14 Anthony Rd, West Ryde NSW",
       "addressSource": "suburb-only",
       "lat": -33.806137,
       "lng": 151.088167,
       "cuisine": "Brunch",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "489",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15565,20 +15039,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJLz5u502kEmsRMy6GAlHNKek"
     },
     {
       "name": "Sotto on West",
       "region": "Lower North Shore",
       "suburb": "North Sydney",
-      "address": "67 West Street, North Sydney NSW",
       "addressSource": "suburb-only",
       "lat": -33.830649,
       "lng": 151.206068,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "468",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -15608,20 +15080,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6aPfvuuuEmsRFUUA_vHjZC8"
     },
     {
       "name": "Ramen Toriichi",
       "region": "Lower North Shore",
       "suburb": "Neutral Bay",
-      "address": "5&6/2A Waters Roads, Neutral Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.8345,
       "lng": 151.2184,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "462",
       "price": "$",
       "priceBasis": "Google price range $18 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -15651,50 +15121,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
-    },
-    {
-      "name": "Borrelli's",
-      "region": "Lower North Shore",
-      "suburb": "Epping",
-      "address": "3 Bridge St, Epping NSW",
-      "addressSource": "suburb-only",
-      "lat": -33.773904,
-      "lng": 151.081504,
-      "cuisine": "Italian",
-      "family": "European",
-      "stars": 4.3,
-      "reviews": "457",
-      "price": "$$",
-      "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
-      "priceEstimate": true,
-      "corkage": "Unknown",
-      "byoConfirmed": false,
-      "takeaway": "unknown",
-      "note": "BYO listed but not confirmed, so call first",
-      "city": "Sydney",
-      "bottleShops": {
-        "chain": {
-          "name": "Super Cellars",
-          "brand": "Super Cellars",
-          "address": "54A Rawson Street, Epping",
-          "lat": -33.77283,
-          "lng": 151.080982,
-          "osm": "way/318055214",
-          "distanceM": 130
-        },
-        "independent": {
-          "name": "Harry's Liquor",
-          "address": "48 Langston Place",
-          "lat": -33.772657,
-          "lng": 151.082715,
-          "osm": "way/291435041",
-          "distanceM": 180
-        }
-      },
-      "dish": "",
-      "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJk8esoaKuEmsRP7OduUpWNFA"
     },
     {
       "name": "Infuzions Cammeray",
@@ -15708,8 +15136,6 @@ window.BYO = {
       "lng": 151.210416,
       "cuisine": "Asian fusion",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "330",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $75 pp (via MealFinder)",
       "priceEstimate": true,
@@ -15739,7 +15165,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ2SZfqLiuEmsRiWxP4q0Sask"
     },
     {
       "name": "Chedi Thai",
@@ -15753,8 +15180,6 @@ window.BYO = {
       "lng": 151.204612,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "282",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15784,20 +15209,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ36eTmfauEmsRL2DYiOdykfY"
     },
     {
       "name": "Jade Delight Meadowbank",
       "region": "Lower North Shore",
       "suburb": "Meadowbank",
-      "address": "5/11 Bay Dr, Meadowbank NSW 2114",
       "addressSource": "suburb-only",
       "lat": -33.818191,
       "lng": 151.09012,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "152",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -15827,7 +15250,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJn6Ewff-kEmsR7AZCBQbLopg"
     },
     {
       "name": "Verace Pizzeria",
@@ -15841,8 +15265,6 @@ window.BYO = {
       "lng": 151.124182,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "2,055",
       "price": "$$",
       "priceBasis": "Google price range $25 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -15872,7 +15294,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJxfwTtw6mEmsRu3SEMQQrC3U"
     },
     {
       "name": "Mamak - Chatswood",
@@ -15886,8 +15309,6 @@ window.BYO = {
       "lng": 151.18055,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "1,908",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -15917,20 +15338,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJUcvOjNOoEmsRWhCdYgriAxw"
     },
     {
       "name": "Garcon",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "The Canopy, Shop 5/2 Rosenthal Avenue, Lane Cove NSW",
       "addressSource": "suburb-only",
       "lat": -33.813561,
       "lng": 151.169446,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "1,013",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -15960,20 +15379,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJU2z1fW6vEmsRabriVzEZnhY"
     },
     {
       "name": "Mario Brothers Pizza and Pasta",
       "region": "Lower North Shore",
       "suburb": "Crows Nest",
-      "address": "314 Pacific Hwy, Crows Nest NSW",
       "addressSource": "suburb-only",
       "lat": -33.827484,
       "lng": 151.200079,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "406",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16003,20 +15420,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJsT8cQ-iuEmsRUh1pDr4KWgQ"
     },
     {
       "name": "Holy Basil Thai",
       "region": "Lower North Shore",
       "suburb": "Artarmon",
-      "address": "349 Pacific Highway, Artarmon NSW",
       "addressSource": "suburb-only",
       "lat": -33.817138,
       "lng": 151.180445,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "290",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -16046,7 +15461,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJR2aa2iOvEmsRUW0iwB7eXkU"
     },
     {
       "name": "Thai Nine",
@@ -16060,8 +15476,6 @@ window.BYO = {
       "lng": 151.240621,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "138",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16091,20 +15505,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJHTZKtgSsEmsRDvmERxJHCK4"
     },
     {
       "name": "Tran's Restaurant",
       "region": "Lower North Shore",
       "suburb": "Mosman",
-      "address": "523 Military Road, Spit Junction, Mosman NSW",
       "addressSource": "suburb-only",
       "lat": -33.824658,
       "lng": 151.239204,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "127",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16134,20 +15546,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ7wn7vgSsEmsREbqIzfx9wmw"
     },
     {
       "name": "Lusso Kitchen",
       "region": "Lower North Shore",
       "suburb": "Longueville",
-      "address": "243 Longueville Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.823579,
       "lng": 151.171797,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "33",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16177,20 +15587,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG9NK5t2vEmsR86U8kqYQm4I"
     },
     {
       "name": "Hunter Thai Restaurant",
       "region": "Lower North Shore",
       "suburb": "Hunters Hill",
-      "address": "59 Gladesville Rd, Hunters Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.833938,
       "lng": 151.144185,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "1,251",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -16213,20 +15621,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ8ZjkdIWvEmsRn40or-kNC_0"
     },
     {
       "name": "Persian Basement",
       "region": "Lower North Shore",
       "suburb": "Lane Cove",
-      "address": "54 Burns Bay Rd, Lane Cove NSW",
       "addressSource": "suburb-only",
       "lat": -33.814818,
       "lng": 151.168105,
       "cuisine": "Persian",
       "family": "Middle Eastern",
-      "stars": 4.1,
-      "reviews": "860",
       "price": "$$",
       "priceBasis": "Google price range $30 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -16256,20 +15662,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJK1WDij6vEmsRHJh_wHwJWEE"
     },
     {
       "name": "Curry Lovers Epping",
       "region": "Lower North Shore",
       "suburb": "Epping",
-      "address": "Genesis Building, 40/74 Rawson St, Epping NSW",
       "addressSource": "suburb-only",
       "lat": -33.77133,
       "lng": 151.080801,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "820",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -16299,7 +15703,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYTCR55ymEmsRhF0FbaCt-9s"
     },
     {
       "name": "Essence of North India",
@@ -16313,8 +15718,6 @@ window.BYO = {
       "lng": 151.128512,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "731",
       "price": "$$",
       "priceBasis": "Google price range $25 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -16337,20 +15740,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJh88VTfulEmsRHD-IMr-wywI"
     },
     {
       "name": "Sushi Roll - Top Ryde",
       "region": "Lower North Shore",
       "suburb": "Ryde",
-      "address": "Shop 3042, Ground Level Piazza Dining, Top Ryde Shopping Centre, 109-129 Blaxland Road NSW",
       "addressSource": "suburb-only",
       "lat": -33.812215,
       "lng": 151.106221,
       "cuisine": "Conveyor belt sushi",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "513",
       "price": "$",
       "priceBasis": "Google price range $15 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -16380,20 +15781,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJqZCDi6-lEmsRgRfhUvSiZAU"
     },
     {
       "name": "The Hills Middle Eastern",
       "region": "Lower North Shore",
       "suburb": "Hunters Hill",
-      "address": "57a Gladesville Rd, Hunters Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.834023,
       "lng": 151.144043,
       "cuisine": "Middle Eastern",
       "family": "Middle Eastern",
-      "stars": 4.1,
-      "reviews": "306",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -16416,20 +15815,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYeP8STavEmsRxmYuM-y5hQM"
     },
     {
       "name": "Yume Sushi 3 (Gladesville)",
       "region": "Lower North Shore",
       "suburb": "Gladesville",
-      "address": "194 Victoria Road, Gladesville NSW",
       "addressSource": "suburb-only",
       "lat": -33.831657,
       "lng": 151.126587,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "241",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16452,20 +15849,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpyfrOnelEmsRyoz5li1_0AU"
     },
     {
       "name": "Ciao Ciao Woodfired Pizza",
       "region": "Lower North Shore",
       "suburb": "Crows Nest",
-      "address": "7-11 Clarke St, Crows Nest NSW",
       "addressSource": "suburb-only",
       "lat": -33.82566,
       "lng": 151.20026,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4,
-      "reviews": "357",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16495,20 +15890,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ52nuIOiuEmsRUtCkWwkIK2Q"
     },
     {
       "name": "We Thai Cuisine",
       "region": "Lower North Shore",
       "suburb": "Putney",
-      "address": "Shop 5/90 Morrison Road, Putney NSW",
       "addressSource": "suburb-only",
       "lat": -33.827,
       "lng": 151.106,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "153",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16538,20 +15931,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW3zxzgmlEmsRLq01DYKBRa0"
     },
     {
       "name": "Charm Thai Eatery",
       "region": "Upper North Shore",
       "suburb": "Westleigh",
-      "address": "11&12/4-8 Eucalyptus Dr, Westleigh NSW",
       "addressSource": "suburb-only",
       "lat": -33.719608,
       "lng": 151.068789,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "181",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16574,20 +15965,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYTANn4OnEmsRgywIL5lVV9k"
     },
     {
       "name": "On Dough",
       "region": "Upper North Shore",
       "suburb": "Normanhurst",
-      "address": "50 Denman Parade, Normanhurst NSW 2076",
       "addressSource": "suburb-only",
       "lat": -33.721369,
       "lng": 151.09702,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.9,
-      "reviews": "117",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16610,7 +15999,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ2z0NVQunEmsRMt-rNfM7bk0"
     },
     {
       "name": "Young's Gourmet Pizzeria",
@@ -16624,8 +16014,6 @@ window.BYO = {
       "lng": 151.097185,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "427",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16648,7 +16036,8 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJpaUGfq2nEmsRj-jJO1ZriWg"
     },
     {
       "name": "Bonjour Vietnam",
@@ -16662,8 +16051,6 @@ window.BYO = {
       "lng": 151.167945,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "418",
       "price": "$$",
       "priceBasis": "Google price range $20–45 pp",
       "priceEstimate": true,
@@ -16693,7 +16080,8 @@ window.BYO = {
           "distanceM": 1460
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJUWUtX8OpEmsRRhb8XdEhjp4"
     },
     {
       "name": "Zaika Roseville",
@@ -16707,8 +16095,6 @@ window.BYO = {
       "lng": 151.176366,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "265",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16738,7 +16124,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJVQbqKuypEmsRH16IMZZTpek"
     },
     {
       "name": "Meena Thai",
@@ -16752,8 +16139,6 @@ window.BYO = {
       "lng": 151.187625,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "32",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16783,7 +16168,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ_xY2OSupEmsRabRybe3OU5Q"
     },
     {
       "name": "Saveur",
@@ -16797,8 +16183,6 @@ window.BYO = {
       "lng": 151.178944,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "507",
       "price": "$$$$",
       "priceBasis": "Set menus $50–85",
       "priceEstimate": false,
@@ -16835,20 +16219,18 @@ window.BYO = {
           "distanceM": 70
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJlcI4iduoEmsRcpq2nHeswac"
     },
     {
       "name": "Itihaas Indian Restaurant",
       "region": "Upper North Shore",
       "suburb": "Turramurra",
-      "address": "1305 Pacific Hwy, Turramurra NSW",
       "addressSource": "suburb-only",
       "lat": -33.733232,
       "lng": 151.127869,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "438",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16871,20 +16253,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJl-8bPt2nEmsRRBpcqETDFN4"
     },
     {
       "name": "Thaiangle House",
       "region": "Upper North Shore",
       "suburb": "Roseville Chase",
-      "address": "17 Babbage Rd, Roseville Chase NSW",
       "addressSource": "suburb-only",
       "lat": -33.778586,
       "lng": 151.195376,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "191",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16914,20 +16294,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJXzH9exmpEmsR9tx0-KYIkkU"
     },
     {
       "name": "Berowra Chinese Restaurant",
       "region": "Upper North Shore",
       "suburb": "Berowra",
-      "address": "993 Pacific Hwy, Berowra NSW",
       "addressSource": "suburb-only",
       "lat": -33.623478,
       "lng": 151.15159,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "151",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16950,20 +16328,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJnyfAAK5QDWsRC96x0Kbz9Dc"
     },
     {
       "name": "Tony's Woodfire",
       "region": "Upper North Shore",
       "suburb": "Beecroft",
-      "address": "14 Hannah Street, Beecroft NSW",
       "addressSource": "suburb-only",
       "lat": -33.749203,
       "lng": 151.065417,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "98",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -16993,20 +16369,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJh8c7-QanEmsRbN0KIW7ygz4"
     },
     {
       "name": "Twenty74",
       "region": "Upper North Shore",
       "suburb": "North Turramurra",
-      "address": "265 Bobbin Head Rd, North Turramurra NSW",
       "addressSource": "suburb-only",
       "lat": -33.713659,
       "lng": 151.147548,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "52",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17029,7 +16403,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJM3Kp-hypEmsR8LMBbvMUTmg"
     },
     {
       "name": "Café Lyon",
@@ -17043,8 +16418,6 @@ window.BYO = {
       "lng": 151.167791,
       "cuisine": "French bistro",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "689",
       "price": "$$$",
       "priceBasis": "Google price range $55–100 pp",
       "priceEstimate": true,
@@ -17079,20 +16452,18 @@ window.BYO = {
           "distanceM": 1470
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJY9kOSOqoEmsRms8pNZZd2aM"
     },
     {
       "name": "Curry Monitor",
       "region": "Upper North Shore",
       "suburb": "Gordon",
-      "address": "15A St Johns Avenue, Gordon NSW",
       "addressSource": "suburb-only",
       "lat": -33.756236,
       "lng": 151.153373,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "563",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17107,20 +16478,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJGyuJwIioEmsRH9-5lfmnknQ"
     },
     {
       "name": "Pear Thai",
       "region": "Upper North Shore",
       "suburb": "Thornleigh",
-      "address": "18/4 Central Ave, Thornleigh NSW",
       "addressSource": "suburb-only",
       "lat": -33.72968,
       "lng": 151.080891,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "294",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17150,20 +16519,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJM-NpuBynEmsRbPoXyPednyk"
     },
     {
       "name": "Mehfil Indian",
       "region": "Upper North Shore",
       "suburb": "Gordon",
-      "address": "768 Pacific Hwy, Gordon NSW",
       "addressSource": "suburb-only",
       "lat": -33.75613,
       "lng": 151.15286,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "261",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17178,20 +16545,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4ZjHvIioEmsRkdMpjl-YsWw"
     },
     {
       "name": "LongTai Restaurant",
       "region": "Upper North Shore",
       "suburb": "West Pymble",
-      "address": "16 Philip Mall, West Pymble NSW",
       "addressSource": "suburb-only",
       "lat": -33.760949,
       "lng": 151.128737,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "153",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17213,20 +16578,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ8fl4nsOnEmsRIfGayKl0uVI"
     },
     {
       "name": "Pizza 101",
       "region": "Upper North Shore",
       "suburb": "Beecroft",
-      "address": "101 Beecroft Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.750067,
       "lng": 151.065066,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "95",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17256,7 +16619,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJB6C9qcCmEmsRQeBZV6pWULE"
     },
     {
       "name": "Teta's Authentic Lebanese",
@@ -17270,8 +16634,6 @@ window.BYO = {
       "lng": 151.195287,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "776",
       "price": "$$",
       "priceBasis": "Google price range $35–70 pp",
       "priceEstimate": true,
@@ -17304,7 +16666,8 @@ window.BYO = {
           "distanceM": 10
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJRQ_bfRmpEmsRUPts7xwGK-c"
     },
     {
       "name": "Mehmaan Indian Cuisine",
@@ -17318,8 +16681,6 @@ window.BYO = {
       "lng": 151.098598,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "725",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -17341,20 +16702,18 @@ window.BYO = {
           "distanceM": 1060
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJj5BFieenEmsRyhV_P2wNumY"
     },
     {
       "name": "Organica Pizzeria",
       "region": "Upper North Shore",
       "suburb": "West Pymble",
-      "address": "shop 18 Philip Mall Shopping Village, Kendall St, West Pymble NSW",
       "addressSource": "suburb-only",
       "lat": -33.760758,
       "lng": 151.128263,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "114",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17376,20 +16735,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMS-41yemEmsRp4j2dV0gqRk"
     },
     {
       "name": "Makiato",
       "region": "Upper North Shore",
       "suburb": "Lindfield",
-      "address": "370 Pacific Hwy, Lindfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.774439,
       "lng": 151.16772,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "105",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17419,7 +16776,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJDwmxT9qoEmsRYSnAGc7afNk"
     },
     {
       "name": "Jaam-e-Jam",
@@ -17433,8 +16791,6 @@ window.BYO = {
       "lng": 151.098518,
       "cuisine": "Persian",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "1,105",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -17455,7 +16811,8 @@ window.BYO = {
           "distanceM": 1050
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ5W6VUU15tAERv-V25UWEMmQ"
     },
     {
       "name": "Karoo & Co",
@@ -17469,8 +16826,6 @@ window.BYO = {
       "lng": 151.100384,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "~654",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -17492,20 +16847,18 @@ window.BYO = {
         "independent": null
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJx_cuT7-nEmsRygOBi9jKOD8"
     },
     {
       "name": "Hanuman Thai Turramurra",
       "region": "Upper North Shore",
       "suburb": "Turramurra",
-      "address": "4 Eastern Rd, Turramurra NSW",
       "addressSource": "suburb-only",
       "lat": -33.73153,
       "lng": 151.128571,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "651",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17528,20 +16881,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVVzHtMSnEmsRjdEVrR01byg"
     },
     {
       "name": "It's Thai",
       "region": "Upper North Shore",
       "suburb": "Carlingford",
-      "address": "13 Mobbs Lane,, Carlingford NSW",
       "addressSource": "suburb-only",
       "lat": -33.78598,
       "lng": 151.062334,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "234",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -17571,7 +16922,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzycG4BOkEmsRKEQVujQKIz8"
     },
     {
       "name": "Rosso Cavallino St Ives",
@@ -17585,8 +16937,6 @@ window.BYO = {
       "lng": 151.162026,
       "cuisine": "Pizza/Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "212",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17609,20 +16959,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJp-QBwhWoEmsRkrlLXukb1Oc"
     },
     {
       "name": "Bento ya Japanese Cuisine",
       "region": "Upper North Shore",
       "suburb": "Westleigh",
-      "address": "4/8 Eucalyptus Dr, Westleigh NSW",
       "addressSource": "suburb-only",
       "lat": -33.719719,
       "lng": 151.068915,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "97",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17645,7 +16993,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-c9aX5anEmsRW6PvU3QADTI"
     },
     {
       "name": "The Sawmill",
@@ -17659,8 +17008,6 @@ window.BYO = {
       "lng": 151.138431,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "664",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17690,7 +17037,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-3MIwiCmEmsRT1GwhkoY4rI"
     },
     {
       "name": "La Thai",
@@ -17704,8 +17052,6 @@ window.BYO = {
       "lng": 151.082222,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "352",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17728,20 +17074,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJKepAzRCnEmsRvh03Raj3am4"
     },
     {
       "name": "Chargrill Charlie's Beecroft",
       "region": "Upper North Shore",
       "suburb": "Beecroft",
-      "address": "14A Hannah St, Beecroft NSW",
       "addressSource": "suburb-only",
       "lat": -33.749202,
       "lng": 151.065365,
       "cuisine": "Malaysian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "114",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17771,20 +17115,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVyYyY06nEmsR6TIvOSUygbg"
     },
     {
       "name": "Hannah's Beecroft",
       "region": "Upper North Shore",
       "suburb": "Beecroft",
-      "address": "5.107 Beecroft Place, Level 1/18 Hannah St NSW",
       "addressSource": "suburb-only",
       "lat": -33.749221,
       "lng": 151.064839,
       "cuisine": "Malaysian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "114",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17814,7 +17156,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJLeL8zWCnEmsRqe05ZFdjvek"
     },
     {
       "name": "Wok on Fox",
@@ -17828,8 +17171,6 @@ window.BYO = {
       "lng": 151.100462,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "92",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17852,7 +17193,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJP5Bkl2ynEmsRmw8dPV6WgZQ"
     },
     {
       "name": "Blu Eatery",
@@ -17866,8 +17208,6 @@ window.BYO = {
       "lng": 151.100721,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "1,782",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17897,20 +17237,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ1YybE4SnEmsRKj6L4ZV2BFI"
     },
     {
       "name": "Divan Persian Restaurant",
       "region": "Upper North Shore",
       "suburb": "Killara",
-      "address": "552 Pacific Hwy, Killara NSW",
       "addressSource": "suburb-only",
       "lat": -33.769515,
       "lng": 151.159869,
       "cuisine": "Persian",
       "family": "Middle Eastern",
-      "stars": 4.2,
-      "reviews": "1,177",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17933,20 +17271,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJqSz8xLSpEmsR1jKY09-0oXg"
     },
     {
       "name": "Okami - Pennant Hills",
       "region": "Upper North Shore",
       "suburb": "Pennant Hills",
-      "address": "Market Place Shop 12 & 13 Pennant Hills / 4 - 10 Hillcrest Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.737717,
       "lng": 151.071,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "856",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -17976,20 +17312,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJj4naWO2nEmsR_6y0IGOmJik"
     },
     {
       "name": "Got Pho",
       "region": "Upper North Shore",
       "suburb": "Carlingford",
-      "address": "827 Pennant Hills Road, Carlingford NSW",
       "addressSource": "suburb-only",
       "lat": -33.778208,
       "lng": 151.052433,
       "cuisine": "Pho",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "688",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -18012,20 +17346,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJAfqAs3KlEmsRC_3xxTYA99Q"
     },
     {
       "name": "La Zana Ristorante",
       "region": "Upper North Shore",
       "suburb": "Wahroonga",
-      "address": "46 Hampden Avenue, Wahroonga NSW 2076",
       "addressSource": "suburb-only",
       "lat": -33.710986,
       "lng": 151.137299,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "397",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18048,20 +17380,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJn0gSff6nEmsRDiDR-IqWxrc"
     },
     {
       "name": "Maharaja’s On Carmen",
       "region": "Upper North Shore",
       "suburb": "Carlingford",
-      "address": "12 Carmen Drive, Carlingford NSW",
       "addressSource": "suburb-only",
       "lat": -33.760975,
       "lng": 151.04106,
       "cuisine": "Modern Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "355",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -18091,20 +17421,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJqXqenlahEmsR7lSmWdGK01s"
     },
     {
       "name": "Sento Japanese Kitchen",
       "region": "Upper North Shore",
       "suburb": "St Ives",
-      "address": "198 Mona Vale Road, St Ives NSW",
       "addressSource": "suburb-only",
       "lat": -33.730191,
       "lng": 151.160486,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "153",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18127,7 +17455,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG6rMTRSoEmsRcntfAQlQJr8"
     },
     {
       "name": "Fish & Chix - Hornsby",
@@ -18141,8 +17470,6 @@ window.BYO = {
       "lng": 151.101313,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "108",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18172,20 +17499,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJExuFPAOnEmsRkDG-HQ6TOmU"
     },
     {
       "name": "Farina Pizzeria",
       "region": "Upper North Shore",
       "suburb": "North Turramurra",
-      "address": "4-5/1 Normurra Avenue, North Turramurra NSW",
       "addressSource": "suburb-only",
       "lat": -33.713756,
       "lng": 151.148312,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "936",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18208,20 +17533,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJuRo5lQOoEmsRaslO07_XHOY"
     },
     {
       "name": "Choyan",
       "region": "Upper North Shore",
       "suburb": "Gordon",
-      "address": "9 St Johns Avenue, Gordon NSW",
       "addressSource": "suburb-only",
       "lat": -33.75617,
       "lng": 151.153605,
       "cuisine": "Chinese (Cantonese & Pekingese)",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "190",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18236,20 +17559,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYx6rwYioEmsRw_wAly4Nlp0"
     },
     {
       "name": "Thai Riffic Waitara",
       "region": "Upper North Shore",
       "suburb": "Waitara",
-      "address": "1/71 Edgeworth David Ave, Waitara NSW",
       "addressSource": "suburb-only",
       "lat": -33.706672,
       "lng": 151.110145,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "224",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18279,20 +17600,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJWehnlI6nEmsRc9Kf14L77xE"
     },
     {
       "name": "Sizzling Slice",
       "region": "Upper North Shore",
       "suburb": "Turramurra",
-      "address": "shop 4/1307 Pacific Hwy, Turramurra NSW",
       "addressSource": "suburb-only",
       "lat": -33.733223,
       "lng": 151.127796,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4,
-      "reviews": "214",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18315,20 +17634,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW75KpiqnEmsRWpB0r1XxatM"
     },
     {
       "name": "The Love Food Kitchen",
       "region": "Northern Beaches",
       "suburb": "Avalon Beach",
-      "address": "41 Old Barrenjoey Rd, Avalon Beach NSW",
       "addressSource": "suburb-only",
       "lat": -33.636652,
       "lng": 151.328822,
       "cuisine": "Mediterranean",
       "family": "European",
-      "stars": 5,
-      "reviews": "128",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18358,20 +17675,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJo8FNKQCtcmsR3cSp5fqtQds"
     },
     {
       "name": "Fuel By Night",
       "region": "Northern Beaches",
       "suburb": "Brookvale",
-      "address": "676 Pittwater Rd, Brookvale NSW",
       "addressSource": "suburb-only",
       "lat": -33.762898,
       "lng": 151.271954,
       "cuisine": "Middle Eastern",
       "family": "Middle Eastern",
-      "stars": 5,
-      "reviews": "78",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18401,20 +17716,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJR6oOmV2qEmsROh70w4EZ9L4"
     },
     {
       "name": "NERAMITR Thai Cuisine",
       "region": "Northern Beaches",
       "suburb": "Elanora Heights",
-      "address": "shop 3/54/56 Kalang Road, Elanora Heights NSW",
       "addressSource": "suburb-only",
       "lat": -33.696143,
       "lng": 151.280069,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 5,
-      "reviews": "47",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18437,7 +17750,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJd9EnW41VDWsRAJcOsYlszgo"
     },
     {
       "name": "Pocket Pizza Brookvale",
@@ -18451,8 +17765,6 @@ window.BYO = {
       "lng": 151.271431,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.9,
-      "reviews": "625",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -18482,20 +17794,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJhU851AirEmsRM5wCV_F6TfI"
     },
     {
       "name": "Kee Japanese Restaurant",
       "region": "Northern Beaches",
       "suburb": "Allambie Heights",
-      "address": "Shop 16/141 Allambie Rd, Allambie Heights NSW 2100",
       "addressSource": "suburb-only",
       "lat": -33.765585,
       "lng": 151.250435,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "173",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18518,7 +17828,8 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJISQ8EFqrEmsRire-qE1JJYU"
     },
     {
       "name": "Coastal Castile",
@@ -18532,8 +17843,6 @@ window.BYO = {
       "lng": 151.267118,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.9,
-      "reviews": "116",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18563,7 +17872,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJY80JGLKrEmsReupFW8qAbH0"
     },
     {
       "name": "Sri's Indian Eatery",
@@ -18577,8 +17887,6 @@ window.BYO = {
       "lng": 151.297816,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "885",
       "price": "$",
       "priceBasis": "Google price range $20–45 pp",
       "priceEstimate": true,
@@ -18608,7 +17916,8 @@ window.BYO = {
           "osm": "node/7276083120",
           "distanceM": 1330
         }
-      }
+      },
+      "place_id": "ChIJD2LO1BZVDWsR2VsvEHHEGcM"
     },
     {
       "name": "GurTaj Indian Restaurant",
@@ -18622,8 +17931,6 @@ window.BYO = {
       "lng": 151.302579,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "686",
       "price": "$$",
       "priceBasis": "Google price range $25–55 pp",
       "priceEstimate": true,
@@ -18653,20 +17960,18 @@ window.BYO = {
           "osm": "node/7276083120",
           "distanceM": 1150
         }
-      }
+      },
+      "place_id": "ChIJYx4WJ2pVDWsRfJrom3mJEqE"
     },
     {
       "name": "Pizza At Yours",
       "region": "Northern Beaches",
       "suburb": "Fairlight",
-      "address": "140 Sydney Rd, Fairlight NSW 2094",
       "addressSource": "suburb-only",
       "lat": -33.795831,
       "lng": 151.276982,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "360",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18696,20 +18001,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJQ1I6aGKrEmsRugL1pjFUy9M"
     },
     {
       "name": "KUZIRA Japanese Casual Dining",
       "region": "Northern Beaches",
       "suburb": "Balgowlah",
-      "address": "Shop 8/371 Sydney Rd, Balgowlah NSW",
       "addressSource": "suburb-only",
       "lat": -33.794626,
       "lng": 151.264517,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "329",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -18739,20 +18042,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJZ_KiHv2rEmsRE68feNZfiYw"
     },
     {
       "name": "Curry By the Curve",
       "region": "Northern Beaches",
       "suburb": "Avalon Beach",
-      "address": "Shop 3/25 Hudson Parade, Avalon Beach NSW",
       "addressSource": "suburb-only",
       "lat": -33.629443,
       "lng": 151.317013,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "278",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18782,7 +18083,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJF05aUiRTDWsRGw3ueZZOxFk"
     },
     {
       "name": "Bazaar and Bar",
@@ -18796,8 +18098,6 @@ window.BYO = {
       "lng": 151.271873,
       "cuisine": "Modern Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "141",
       "price": "$$$",
       "priceBasis": "Google price range $40–80 pp",
       "priceEstimate": true,
@@ -18830,20 +18130,18 @@ window.BYO = {
           "distanceM": 1190
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ23Yp732rEmsRbF__blbruJw"
     },
     {
       "name": "Clover Indian",
       "region": "Northern Beaches",
       "suburb": "Forestville",
-      "address": "3/14 Starkey Street, Forestville NSW",
       "addressSource": "suburb-only",
       "lat": -33.762387,
       "lng": 151.216186,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "56",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18866,20 +18164,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3SIuIQCpEmsRROLZXOeGZsc"
     },
     {
       "name": "Enishi Sushi",
       "region": "Northern Beaches",
       "suburb": "Elanora Heights",
-      "address": "Shop2, 69 Kalang road, Elanora Heights NSW",
       "addressSource": "suburb-only",
       "lat": -33.695341,
       "lng": 151.280473,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "55",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18902,20 +18198,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJabofixFVDWsRF5KjEuzE18Q"
     },
     {
       "name": "Little Manly Beach Kiosk",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "N Steyne, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.79646,
       "lng": 151.288399,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "6,686",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -18945,20 +18239,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJPcKrUnOrEmsRNZcDt6UHd1c"
     },
     {
       "name": "Jipang",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "Shop 9, 37-39 The Corso, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.797785,
       "lng": 151.286366,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "1,221",
       "price": "$",
       "priceBasis": "Google price range $15–35 pp",
       "priceEstimate": true,
@@ -18988,7 +18280,8 @@ window.BYO = {
           "osm": "node/1965666583",
           "distanceM": 920
         }
-      }
+      },
+      "place_id": "ChIJDQAkMQ-rEmsRyibSl8OqKeE"
     },
     {
       "name": "The Herring Room",
@@ -19002,8 +18295,6 @@ window.BYO = {
       "lng": 151.2857,
       "cuisine": "International / seafood",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "~840",
       "price": "$$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -19033,20 +18324,18 @@ window.BYO = {
           "distanceM": 520
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ8XCPnAarEmsRdtiCDmZBx4s"
     },
     {
       "name": "Bangkok Soul Thai Restaurant",
       "region": "Northern Beaches",
       "suburb": "Manly Vale",
-      "address": "Shop 1/341/343 Condamine St, Manly Vale NSW",
       "addressSource": "suburb-only",
       "lat": -33.783031,
       "lng": 151.267248,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "328",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19076,7 +18365,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJ9xqjbKrEmsRO-UjDpg1_4o"
     },
     {
       "name": "Sushi Izakaya Waka",
@@ -19090,8 +18380,6 @@ window.BYO = {
       "lng": 151.2848,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "266",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -19121,20 +18409,18 @@ window.BYO = {
           "osm": "node/1699218312",
           "distanceM": 200
         }
-      }
+      },
+      "place_id": "ChIJ5ekERwGrEmsRFX53T9k5CR4"
     },
     {
       "name": "Maki2093",
       "region": "Northern Beaches",
       "suburb": "Balgowlah Heights",
-      "address": "124 Beatrice Street, Balgowlah Heights NSW",
       "addressSource": "suburb-only",
       "lat": -33.80099,
       "lng": 151.25752,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "71",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19164,20 +18450,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_Xqld5KrEmsR3pqcr1_KR2E"
     },
     {
       "name": "Moby Dicks Whale Beach",
       "region": "Northern Beaches",
       "suburb": "Whale Beach",
-      "address": "227 Whale Beach Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.611432,
       "lng": 151.32989,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "47",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19199,7 +18483,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ1eQeZEqtcmsRYk7PMwOQ2po"
     },
     {
       "name": "Chez Maurice et Linda",
@@ -19213,8 +18498,6 @@ window.BYO = {
       "lng": 151.266248,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "263",
       "price": "$$$",
       "priceBasis": "Google price range $55–110 pp",
       "priceEstimate": true,
@@ -19244,20 +18527,18 @@ window.BYO = {
           "distanceM": 310
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ2YxCDrurEmsRqdY_W0Gpeo0"
     },
     {
       "name": "Northern Beaches Tadka",
       "region": "Northern Beaches",
       "suburb": "North Narrabeen",
-      "address": "1/1493 Pittwater Road, North Narrabeen NSW",
       "addressSource": "suburb-only",
       "lat": -33.707989,
       "lng": 151.29628,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "238",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -19280,20 +18561,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJAfuwJa9VDWsRovoEkBe7bvo"
     },
     {
       "name": "Wooden Spice",
       "region": "Northern Beaches",
       "suburb": "North Curl Curl",
-      "address": "6a/150 Pitt Road, North Curl Curl NSW",
       "addressSource": "suburb-only",
       "lat": -33.762684,
       "lng": 151.28887,
       "cuisine": "Asian fusion",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "92",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19323,7 +18602,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJK7vDTIyqEmsRuz2-MbxivDE"
     },
     {
       "name": "Garfish Manly",
@@ -19337,8 +18617,6 @@ window.BYO = {
       "lng": 151.28602,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "~1,332",
       "price": "$$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -19367,20 +18645,18 @@ window.BYO = {
           "distanceM": 970
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJC3zySgmrEmsR_WTB3-zV7Ic"
     },
     {
       "name": "Manly Thai Gourmet",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "1/33 S Steyne, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.79762,
       "lng": 151.288278,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "845",
       "price": "$$",
       "priceBasis": "Google price range $15 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -19410,20 +18686,18 @@ window.BYO = {
           "distanceM": 1080
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJzw_HXA-rEmsRX5fpvUcQrjQ"
     },
     {
       "name": "Seachange Cafe",
       "region": "Northern Beaches",
       "suburb": "Dee Why",
-      "address": "3/20 The Strand, Dee Why NSW",
       "addressSource": "suburb-only",
       "lat": -33.753614,
       "lng": 151.296413,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "773",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -19452,20 +18726,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJP9POlJuqEmsRZSo1-tvA7Mw"
     },
     {
       "name": "Phulkari Indian Cuisine",
       "region": "Northern Beaches",
       "suburb": "Balgowlah",
-      "address": "2/318 Sydney Road, Balgowlah NSW",
       "addressSource": "suburb-only",
       "lat": -33.79421,
       "lng": 151.265581,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "640",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19495,7 +18767,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJxRrMoLurEmsROjk-H8uppnI"
     },
     {
       "name": "Livoti's Italian Restaurant",
@@ -19509,8 +18782,6 @@ window.BYO = {
       "lng": 151.284181,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "429",
       "price": "$",
       "priceBasis": "Google price range $20–45 pp",
       "priceEstimate": true,
@@ -19540,20 +18811,18 @@ window.BYO = {
           "distanceM": 900
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJz850WYaqEmsRJAe8b9Gnp0g"
     },
     {
       "name": "Busta",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "10 Pittwater Rd, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.795354,
       "lng": 151.285346,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "403",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -19586,20 +18855,18 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJK9XIet-rEmsRcorhZeD1Hts"
     },
     {
       "name": "Muchacha Mexican Kitchen",
       "region": "Northern Beaches",
       "suburb": "North Curl Curl",
-      "address": "Shop 3/142 Pitt Road, North Curl Curl NSW",
       "addressSource": "suburb-only",
       "lat": -33.762789,
       "lng": 151.289159,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.5,
-      "reviews": "351",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19629,20 +18896,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBXTXto2qEmsRKyFMNFO_IE0"
     },
     {
       "name": "Arun Thai Cuisine",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "Shop 5, 49-53 North Steyne, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.796187,
       "lng": 151.287458,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "290",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19672,20 +18937,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJi5o3BCGrEmsRTeSn7joUCRc"
     },
     {
       "name": "JC's Pizza Elanora",
       "region": "Northern Beaches",
       "suburb": "Elanora Heights",
-      "address": "1/50 Kalang Road, Elanora Heights NSW",
       "addressSource": "suburb-only",
       "lat": -33.69576,
       "lng": 151.279752,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "195",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19708,20 +18971,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ9dMyIlZUDWsRj2wribuExc4"
     },
     {
       "name": "Vietnam Why Not Restaurant",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "Shop 5, 54-68 West Esplanade, Manly NSW",
       "addressSource": "suburb-only",
       "lat": -33.799119,
       "lng": 151.284274,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "188",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19750,20 +19011,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJSenYRIOrEmsR-34hfvoldxg"
     },
     {
       "name": "Bijolias",
       "region": "Northern Beaches",
       "suburb": "Seaforth",
-      "address": "5/538-540 Sydney Rd, Seaforth NSW 2092",
       "addressSource": "suburb-only",
       "lat": -33.796388,
       "lng": 151.251804,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "179",
       "price": "$$",
       "priceBasis": "Google price range $30–60 pp",
       "priceEstimate": true,
@@ -19793,7 +19052,8 @@ window.BYO = {
           "distanceM": 1060
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVxrs7cGrEmsR6LcTVGqw5ZE"
     },
     {
       "name": "Cinnamon Allambie Thai Cuisine",
@@ -19807,8 +19067,6 @@ window.BYO = {
       "lng": 151.250057,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "131",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19831,20 +19089,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJdwinCeyrEmsRM_sHDkyzR_o"
     },
     {
       "name": "Golden Chef Asian Cuisine",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "79 Addison Rd, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.802891,
       "lng": 151.288908,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "63",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19874,20 +19130,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJr0hFyw2rEmsRARecLWMjtDw"
     },
     {
       "name": "de Vita",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "2-8 Darley Road, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.798884,
       "lng": 151.286338,
       "cuisine": "Italian (Neapolitan Pizza)",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "1,035",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -19916,7 +19170,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ0Up_1Q6rEmsRrheIo47GjVI"
     },
     {
       "name": "Pizza Riccardo",
@@ -19930,8 +19185,6 @@ window.BYO = {
       "lng": 151.296864,
       "cuisine": "Italian, pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "603",
       "price": "$",
       "priceBasis": "Google price range $20–45 pp",
       "priceEstimate": true,
@@ -19954,20 +19207,18 @@ window.BYO = {
           "distanceM": 170
         },
         "independent": null
-      }
+      },
+      "place_id": "ChIJARup3BtVDWsRAcuWJ7oeZhU"
     },
     {
       "name": "Freshwater Mexican",
       "region": "Northern Beaches",
       "suburb": "Freshwater",
-      "address": "2&3, 2&3/14 Lawrence St, Freshwater NSW",
       "addressSource": "suburb-only",
       "lat": -33.779152,
       "lng": 151.284618,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.4,
-      "reviews": "504",
       "price": "$$$$",
       "priceBasis": "Google price range $70 - $140 pp (via MealFinder)",
       "priceEstimate": true,
@@ -19997,20 +19248,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJbYLy5gWrEmsR4dJ3VSaftQw"
     },
     {
       "name": "Toro Nero",
       "region": "Northern Beaches",
       "suburb": "Mona Vale",
-      "address": "Shop 2/1767 Pittwater Rd, Mona Vale NSW 2103",
       "addressSource": "suburb-only",
       "lat": -33.676677,
       "lng": 151.303479,
       "cuisine": "Italian, woodfired pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "457",
       "price": "$$",
       "priceBasis": "Google price range $30–65 pp",
       "priceEstimate": true,
@@ -20032,20 +19281,18 @@ window.BYO = {
           "osm": "node/6515057489",
           "distanceM": 140
         }
-      }
+      },
+      "place_id": "ChIJ42EWCJhUDWsRs5s4Rdl9vYE"
     },
     {
       "name": "Deep Sea Food",
       "region": "Northern Beaches",
       "suburb": "Freshwater",
-      "address": "16 Lawrence St, Freshwater NSW",
       "addressSource": "suburb-only",
       "lat": -33.779136,
       "lng": 151.284469,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "282",
       "price": "$",
       "priceBasis": "Google price range $12 - $28 pp (via MealFinder)",
       "priceEstimate": true,
@@ -20075,7 +19322,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJXXnBP_mqEmsRaa1sY6zMCiA"
     },
     {
       "name": "Wockbar Manly",
@@ -20089,8 +19337,6 @@ window.BYO = {
       "lng": 151.285269,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "260",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20120,20 +19366,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJiZOK7JuqEmsRtStuBHf3dk0"
     },
     {
       "name": "Pizza Capanna",
       "region": "Northern Beaches",
       "suburb": "Warriewood",
-      "address": "1D, Ponderosa Parade, Warriewood NSW",
       "addressSource": "suburb-only",
       "lat": -33.796074,
       "lng": 151.287388,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "233",
       "price": "$",
       "priceBasis": "Google price range $18 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -20163,7 +19407,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJr8BoRY5UDWsRkzEtm1nKslM"
     },
     {
       "name": "Sankaku Izakaya",
@@ -20177,8 +19422,6 @@ window.BYO = {
       "lng": 151.321289,
       "cuisine": "Japanese izakaya",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "163",
       "price": "$$",
       "priceBasis": "Google price range $25–55 pp",
       "priceEstimate": true,
@@ -20208,7 +19451,8 @@ window.BYO = {
           "distanceM": 1290
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ0cM72UtTDWsR4hZW6ax_-nA"
     },
     {
       "name": "Fishmongers Manly",
@@ -20222,8 +19466,6 @@ window.BYO = {
       "lng": 151.287271,
       "cuisine": "Seafood (Gourmet Fish And Chips)",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "659",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20253,7 +19495,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJFYDDGA-rEmsRL_TQC1iD3aw"
     },
     {
       "name": "Yok Thai",
@@ -20267,8 +19510,6 @@ window.BYO = {
       "lng": 151.287271,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "355",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20298,7 +19539,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJGcFaEA-rEmsRn6ZYtUGtMpY"
     },
     {
       "name": "Rice and Lake Thai",
@@ -20312,8 +19554,6 @@ window.BYO = {
       "lng": 151.296864,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "312",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -20335,20 +19575,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJN8UN3RtVDWsRfx6Xwj9ZLQ0"
     },
     {
       "name": "Cowboy Thai Dee Why Restaurant",
       "region": "Northern Beaches",
       "suburb": "Dee Why",
-      "address": "Unit 7, 629 Pittwater Road, Dee Why NSW",
       "addressSource": "suburb-only",
       "lat": -33.755827,
       "lng": 151.282814,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "180",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20378,20 +19616,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJmxMeXoiqEmsREgB1Tbxg1LQ"
     },
     {
       "name": "Pound of Pizza",
       "region": "Northern Beaches",
       "suburb": "Killarney Heights",
-      "address": "shop 3/1 Tramore Pl, Killarney Heights NSW",
       "addressSource": "suburb-only",
       "lat": -33.775084,
       "lng": 151.217408,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "120",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20414,20 +19650,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJewe2_8GrEmsRB0ZquAeJ-2U"
     },
     {
       "name": "Delhi Darbar Indian Restaurant",
       "region": "Northern Beaches",
       "suburb": "Allambie Heights",
-      "address": "Shop 2/141 Allambie Rd,, Allambie Heights NSW",
       "addressSource": "suburb-only",
       "lat": -33.765485,
       "lng": 151.250011,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "114",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20450,20 +19684,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJI9GvFjqqEmsRhgAe52uaVeY"
     },
     {
       "name": "Tommy Panini Brookvale",
       "region": "Northern Beaches",
       "suburb": "Brookvale",
-      "address": "4/515 Pittwater Road, Brookvale NSW",
       "addressSource": "suburb-only",
       "lat": -33.762585,
       "lng": 151.271431,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "361",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -20493,20 +19725,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJuV0rZgCvEmsRpweiELwveBg"
     },
     {
       "name": "Chubb's Brookvale",
       "region": "Northern Beaches",
       "suburb": "Brookvale",
-      "address": "79 Winbourne Road, Brookvale NSW",
       "addressSource": "suburb-only",
       "lat": -33.762419,
       "lng": 151.273134,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "361",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -20536,7 +19766,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-y-v35CrEmsRkHnvIEanxgQ"
     },
     {
       "name": "Ashiana Indian Restaurant",
@@ -20550,8 +19781,6 @@ window.BYO = {
       "lng": 151.287392,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "297",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20581,20 +19810,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJCecqXQ-rEmsREFFrtqrjbBs"
     },
     {
       "name": "Forty Beans",
       "region": "Northern Beaches",
       "suburb": "Balgowlah",
-      "address": "2/11 Lower Beach St, Balgowlah NSW",
       "addressSource": "suburb-only",
       "lat": -33.799549,
       "lng": 151.264128,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "202",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -20624,20 +19851,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzSxvv72rEmsRFG0rKLA7Mbw"
     },
     {
       "name": "Chilli Club Thai Kitchen",
       "region": "Northern Beaches",
       "suburb": "Narrabeen",
-      "address": "1354 Pittwater Rd, Narrabeen NSW",
       "addressSource": "suburb-only",
       "lat": -33.713182,
       "lng": 151.29709,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "155",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20660,20 +19885,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpSSp_BtVDWsRpK1tI0-BQro"
     },
     {
       "name": "Kohinoor Indian",
       "region": "Northern Beaches",
       "suburb": "Seaforth",
-      "address": "555 Sydney Rd, Seaforth NSW",
       "addressSource": "suburb-only",
       "lat": -33.79729,
       "lng": 151.25114,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "148",
       "price": "$$",
       "priceBasis": "Google price range $25 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -20703,20 +19926,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJnZL2_sGrEmsRu4lrFVH59oQ"
     },
     {
       "name": "JC's Pizza Harbord",
       "region": "Northern Beaches",
       "suburb": "Freshwater",
-      "address": "33 Bennett St, Freshwater NSW",
       "addressSource": "suburb-only",
       "lat": -33.768442,
       "lng": 151.284208,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "99",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20746,7 +19967,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJq_ZPthqhEmsRS_WMQTa7LW4"
     },
     {
       "name": "Ninja Japanese Restaurant",
@@ -20760,8 +19982,6 @@ window.BYO = {
       "lng": 151.329991,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "77",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20791,20 +20011,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJQWiEYdSscmsRs9ypsMuvfxU"
     },
     {
       "name": "Momo Bar",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "28 Market Ln, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.79759,
       "lng": 151.286419,
       "cuisine": "Nepalese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "849",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20833,7 +20051,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJCwmkFg-rEmsR5Uhwxr2q16w"
     },
     {
       "name": "Pasadena",
@@ -20847,8 +20066,6 @@ window.BYO = {
       "lng": 151.284591,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "743",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20863,20 +20080,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJ-BlkklTDWsRyCbyzE1yaVE"
     },
     {
       "name": "Bistro Manly",
       "region": "Northern Beaches",
       "suburb": "Manly",
-      "address": "55 North Steyne, Manly NSW 2095",
       "addressSource": "suburb-only",
       "lat": -33.795729,
       "lng": 151.287542,
       "cuisine": "Bistro/Modern Australian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "193",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20906,20 +20121,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ5U2Uh3arEmsRhx8oao_bvHo"
     },
     {
       "name": "Cromer Curry House",
       "region": "Northern Beaches",
       "suburb": "Cromer",
-      "address": "59 Carawa Rd, Cromer NSW",
       "addressSource": "suburb-only",
       "lat": -33.74029,
       "lng": 151.276245,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "74",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20949,7 +20162,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVV0w5IBVDWsRo6So3avom9Y"
     },
     {
       "name": "Bluewater Cafe",
@@ -20963,8 +20177,6 @@ window.BYO = {
       "lng": 151.288367,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4,
-      "reviews": "1,333",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -20993,20 +20205,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJOSYFcw-rEmsRQMN0M8wbspI"
     },
     {
       "name": "Thai Khaen Khoon",
       "region": "Northern Beaches",
       "suburb": "Freshwater",
-      "address": "1/12 Lawrence Street, Freshwater NSW",
       "addressSource": "suburb-only",
       "lat": -33.778972,
       "lng": 151.284659,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "228",
       "price": "$$",
       "priceBasis": "Google price range $22 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21036,20 +20246,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJt8rfavmqEmsRLDnfPP5haMQ"
     },
     {
       "name": "Thai Garlic",
       "region": "Northern Beaches",
       "suburb": "Forestville",
-      "address": "45 The Centre, Forestville NSW",
       "addressSource": "suburb-only",
       "lat": -33.762279,
       "lng": 151.214703,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "146",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21072,20 +20280,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJlbMUSJmpEmsRGE0mUUxFf7k"
     },
     {
       "name": "Cairo Bites",
       "region": "St George",
       "suburb": "Kogarah",
-      "address": "Bellee Cloud Kitchen, 9 Phillips Rd, Kogarah NSW",
       "addressSource": "suburb-only",
       "lat": -33.976522,
       "lng": 151.137655,
       "cuisine": "Egyptian",
       "family": "African",
-      "stars": 5,
-      "reviews": "357",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21100,20 +20306,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJjxnL2FO5EmsRW_KMh5b4I50"
     },
     {
       "name": "Knuckles 2 You",
       "region": "St George",
       "suburb": "Earlwood",
-      "address": "10c Morgan St, Earlwood NSW",
       "addressSource": "suburb-only",
       "lat": -33.930054,
       "lng": 151.120636,
       "cuisine": "German",
       "family": "European",
-      "stars": 5,
-      "reviews": "33",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21136,7 +20340,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJj-o6NuW7EmsRiz5WwYPqW6k"
     },
     {
       "name": "Blue Heaven",
@@ -21150,8 +20355,6 @@ window.BYO = {
       "lng": 151.10428,
       "cuisine": "Burmese",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "771",
       "price": "$",
       "priceBasis": "Curries & noodles $16–21.90 (goat curry $21.90, mohinga $17)",
       "priceEstimate": false,
@@ -21181,20 +20384,18 @@ window.BYO = {
           "osm": "node/13432889391",
           "distanceM": 300
         }
-      }
+      },
+      "place_id": "ChIJJSVnWgC5EmsRh--qYR1-GEI"
     },
     {
       "name": "Abu Ali's Est 1983",
       "region": "St George",
       "suburb": "Arncliffe",
-      "address": "12 Kelsey St, Arncliffe NSW",
       "addressSource": "suburb-only",
       "lat": -33.934562,
       "lng": 151.144973,
       "cuisine": "Restaurant",
       "family": "European",
-      "stars": 4.9,
-      "reviews": "53",
       "price": "$",
       "priceBasis": "Google price range $8 - $20 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21224,7 +20425,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ0Y9rMDmxEmsR0XBl6HDMJKs"
     },
     {
       "name": "Thai Thae Rooftop (Westfield Hurstville)",
@@ -21238,8 +20440,6 @@ window.BYO = {
       "lng": 151.10516,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "585",
       "price": "$",
       "priceBasis": "Pad Thai $13.90, massaman $17.90, duck $22.90",
       "priceEstimate": false,
@@ -21269,20 +20469,18 @@ window.BYO = {
           "osm": "node/13432889391",
           "distanceM": 340
         }
-      }
+      },
+      "place_id": "ChIJLWviMba5EmsR7XywlM2_xTU"
     },
     {
       "name": "Jaaks",
       "region": "St George",
       "suburb": "Kyle Bay",
-      "address": "12 Merriman Street, Kyle Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.991111,
       "lng": 151.100273,
       "cuisine": "Greek",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "553",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21305,20 +20503,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJl9i3tVO4EmsRFpBiedVQOrA"
     },
     {
       "name": "Eddie's Lebanese Eatery",
       "region": "St George",
       "suburb": "Mortdale",
-      "address": "35 Morts Road, Mortdale NSW",
       "addressSource": "suburb-only",
       "lat": -33.969418,
       "lng": 151.079005,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.8,
-      "reviews": "449",
       "price": "$$",
       "priceBasis": "Google price range $18 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21348,20 +20544,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ766u1ODxtAERelaE5fMSBec"
     },
     {
       "name": "JHEER HOUSE | Wraps & Skewers",
       "region": "St George",
       "suburb": "Rockdale",
-      "address": "Shop 1/488 Princes Hwy, Rockdale NSW",
       "addressSource": "suburb-only",
       "lat": -33.951903,
       "lng": 151.138377,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "224",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21391,20 +20585,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJORwCpyS7EmsR2MK76llEQNA"
     },
     {
       "name": "Dek Doy Thai Kitchen",
       "region": "St George",
       "suburb": "Kogarah",
-      "address": "56 Railway Pde, Kogarah NSW 2217",
       "addressSource": "suburb-only",
       "lat": -33.96342,
       "lng": 151.13261,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "94",
       "price": "$",
       "priceBasis": "Menu items $3.90–25.85",
       "priceEstimate": false,
@@ -21413,7 +20605,7 @@ window.BYO = {
       "dish": "Crying tiger, boat noodles",
       "takeaway": "yes",
       "takeawayDetail": "Uber Eats, DoorDash",
-      "note": "Daily 11am–3:30pm & 4:30–9:30pm. Only 94 Google reviews",
+      "note": "Daily 11am–3:30pm & 4:30–9:30pm.",
       "website": "https://dekdoythaikitchen.com.au",
       "city": "Sydney",
       "bottleShops": {
@@ -21434,20 +20626,18 @@ window.BYO = {
           "osm": "node/5404620962",
           "distanceM": 1190
         }
-      }
+      },
+      "place_id": "ChIJX3RmRwC5EmsRsoYB21TYmaY"
     },
     {
       "name": "Crown Chickens",
       "region": "St George",
       "suburb": "Hurstville",
-      "address": "34 Ormonde Parade, Hurstville NSW",
       "addressSource": "suburb-only",
       "lat": -33.967906,
       "lng": 151.102182,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "45",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21477,20 +20667,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJkyyXoaO5EmsR_5Ax9_q0ha0"
     },
     {
       "name": "Salwa's Garden",
       "region": "St George",
       "suburb": "Oatley",
-      "address": "32 Oatley Ave, Oatley NSW 2223",
       "addressSource": "suburb-only",
       "lat": -33.9817,
       "lng": 151.08044,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.7,
-      "reviews": "450",
       "price": "$$",
       "priceBasis": "Mains $23.50–39.50",
       "priceEstimate": false,
@@ -21519,20 +20707,18 @@ window.BYO = {
           "distanceM": 1720
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJT3Gbkfi5EmsRxqRDTmxn63A"
     },
     {
       "name": "Benvenuti Cucina Italiana",
       "region": "St George",
       "suburb": "Carlton",
-      "address": "Shop 1/305 Princes Hwy, Carlton NSW",
       "addressSource": "suburb-only",
       "lat": -33.976091,
       "lng": 151.125593,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "343",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21555,20 +20741,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJK67Mysm5EmsR8SzZwsR9pFg"
     },
     {
       "name": "The Cozy Vine",
       "region": "St George",
       "suburb": "Arncliffe",
-      "address": "Unit 19/ 13-15 Wollongong Road, Arncliffe NSW",
       "addressSource": "suburb-only",
       "lat": -33.933095,
       "lng": 151.147225,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "153",
       "price": "$",
       "priceBasis": "Google price range $15 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21598,20 +20782,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJn4Gg68q7EmsRQL8i7fZpNsc"
     },
     {
       "name": "Firehouse Grill",
       "region": "St George",
       "suburb": "Mortdale",
-      "address": "26 Pitt Street, Mortdale NSW",
       "addressSource": "suburb-only",
       "lat": -33.971516,
       "lng": 151.079623,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "568",
       "price": "$$$",
       "priceBasis": "Google price range $40 - $80 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21641,20 +20823,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJeRXwBBu5EmsR5kJ4BbX9r-s"
     },
     {
       "name": "Non Finito Pizzeria Ristorante",
       "region": "St George",
       "suburb": "Mortdale",
-      "address": "16 Pitt St, Mortdale NSW 2223",
       "addressSource": "suburb-only",
       "lat": -33.97138,
       "lng": 151.08007,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "~300",
       "price": "$$",
       "priceBasis": "No published prices found; estimate for pizza/pasta",
       "priceEstimate": true,
@@ -21684,20 +20864,18 @@ window.BYO = {
           "distanceM": 1010
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJP7drHRu5EmsRvCTNCDnhCak"
     },
     {
       "name": "Pizzeria 217",
       "region": "St George",
       "suburb": "Earlwood",
-      "address": "217 Homer St, Earlwood NSW",
       "addressSource": "suburb-only",
       "lat": -33.926895,
       "lng": 151.124539,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "259",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21727,20 +20905,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJhe0TPnK6EmsRwGiKEyswD5A"
     },
     {
       "name": "Napoli Centro Pizzeria",
       "region": "St George",
       "suburb": "Bardwell Park",
-      "address": "10 Hartill-Law Avenue, Bardwell Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.931753,
       "lng": 151.125449,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "574",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -21763,7 +20939,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoyLpqRO6EmsRfr7bD0itWqQ"
     },
     {
       "name": "Melthouse Pizza",
@@ -21777,8 +20954,6 @@ window.BYO = {
       "lng": 151.10113,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "514",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21801,7 +20976,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3wZkoym6EmsRNs4-mOsmB-Y"
     },
     {
       "name": "Sunny Seafood Restaurant",
@@ -21815,8 +20991,6 @@ window.BYO = {
       "lng": 151.080273,
       "cuisine": "Dim sum",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "500",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21846,7 +21020,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJIc8QbTK5EmsRFJDHc-Mrt6c"
     },
     {
       "name": "Thaleia Greek Taverna",
@@ -21860,8 +21035,6 @@ window.BYO = {
       "lng": 151.082235,
       "cuisine": "Restaurant",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "351",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21891,20 +21064,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJiVfZKnC5EmsRx2Ede2jKKXM"
     },
     {
       "name": "Land Thai Kitchen",
       "region": "St George",
       "suburb": "Arncliffe",
-      "address": "Shop 5 A/108 Princes Hwy, Arncliffe NSW",
       "addressSource": "suburb-only",
       "lat": -33.937932,
       "lng": 151.148977,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "253",
       "price": "$$",
       "priceBasis": "Google price range $20 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21934,20 +21105,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJhSTcgxKxEmsRd76xyONZ1LI"
     },
     {
       "name": "Burger World",
       "region": "St George",
       "suburb": "Arncliffe",
-      "address": "1/96 Wollongong Rd, Arncliffe NSW",
       "addressSource": "suburb-only",
       "lat": -33.936724,
       "lng": 151.142359,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "242",
       "price": "$",
       "priceBasis": "Google price range $10 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -21977,20 +21146,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJixwd8aCwEmsRoV0OFtVGTdw"
     },
     {
       "name": "Wok & Roast BBQ Kitchen",
       "region": "St George",
       "suburb": "Carlton",
-      "address": "320 Railway Parade, Carlton NSW",
       "addressSource": "suburb-only",
       "lat": -33.96876,
       "lng": 151.124152,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "211",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22013,7 +21180,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW7E16um5EmsR5pf9qgPeX_w"
     },
     {
       "name": "Pinocchio's Allawah",
@@ -22027,8 +21195,6 @@ window.BYO = {
       "lng": 151.115799,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "159",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22058,20 +21224,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ-_Whdb-5EmsRuMr-Y-Yrz2g"
     },
     {
       "name": "Thai on Sky",
       "region": "St George",
       "suburb": "Mortdale",
-      "address": "46 Morts Rd, Mortdale NSW 2223",
       "addressSource": "suburb-only",
       "lat": -33.96943,
       "lng": 151.07944,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "147",
       "price": "$",
       "priceBasis": "Entrees ~$6; ~$20–40 pp reported",
       "priceEstimate": true,
@@ -22101,7 +21265,8 @@ window.BYO = {
           "distanceM": 790
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMRjNixq5EmsRroMIkQGuhwc"
     },
     {
       "name": "Thai Thae Hurstville",
@@ -22115,8 +21280,6 @@ window.BYO = {
       "lng": 151.10211,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "1,171",
       "price": "$",
       "priceBasis": "Pad Thai $13.90, curries ~$17.90",
       "priceEstimate": false,
@@ -22146,20 +21309,18 @@ window.BYO = {
           "osm": "node/13432889391",
           "distanceM": 90
         }
-      }
+      },
+      "place_id": "ChIJnZXgXaK5EmsRuqaWa29T7zo"
     },
     {
       "name": "The Great Taste Of Greece",
       "region": "St George",
       "suburb": "Kogarah Bay",
-      "address": "57 Park Rd, Kogarah Bay NSW",
       "addressSource": "suburb-only",
       "lat": -33.977633,
       "lng": 151.121668,
       "cuisine": "Greek",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "393",
       "price": "$$",
       "priceBasis": "Google price range $30 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -22182,7 +21343,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ86nugX23EmsRs0QB_muZPDo"
     },
     {
       "name": "Asahi Teppanyaki",
@@ -22196,8 +21358,6 @@ window.BYO = {
       "lng": 151.081806,
       "cuisine": "Teppanyaki",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "336",
       "price": "$$$",
       "priceBasis": "Google price range $40 - $80 pp (via MealFinder)",
       "priceEstimate": true,
@@ -22227,7 +21387,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJM1irxW-5EmsRKItCop354s4"
     },
     {
       "name": "Chez Pascal",
@@ -22241,8 +21402,6 @@ window.BYO = {
       "lng": 151.13082,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "154",
       "price": "$$$",
       "priceBasis": "Mains $28.50–39.50; two-course minimum Fri/Sat",
       "priceEstimate": true,
@@ -22257,20 +21416,18 @@ window.BYO = {
         "chain": null,
         "independent": null
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJoaQmidO5EmsRp-GqhW0nomY"
     },
     {
       "name": "Ramsgate Beach House",
       "region": "St George",
       "suburb": "Ramsgate Beach",
-      "address": "274 The Grand Parade, Ramsgate Beach NSW",
       "addressSource": "suburb-only",
       "lat": -33.985458,
       "lng": 151.147147,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "763",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22285,20 +21442,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJr4Q5Jsu3EmsRbLF4TjjOkNc"
     },
     {
       "name": "Mark's at Oatley",
       "region": "St George",
       "suburb": "Oatley",
-      "address": "Shop 1, 47-67 Mulga Road, Oatley NSW",
       "addressSource": "suburb-only",
       "lat": -33.980555,
       "lng": 151.075903,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "559",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22328,7 +21483,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ09wOf-G4EmsRHWgqD2GB-6s"
     },
     {
       "name": "Tadka Indian Restaurant",
@@ -22342,8 +21498,6 @@ window.BYO = {
       "lng": 151.052112,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "343",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22366,7 +21520,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJtUdXyTW5EmsRuT--6TgH7nc"
     },
     {
       "name": "Tin Thai Restaurant",
@@ -22380,8 +21535,6 @@ window.BYO = {
       "lng": 151.101073,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "323",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -22403,20 +21556,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJl9domCm6EmsRZ_7CM56CUmg"
     },
     {
       "name": "JML DUMPLINGS Wolli Creek",
       "region": "St George",
       "suburb": "Wolli Creek",
-      "address": "2/1 Discovery Point Pl, Wolli Creek NSW",
       "addressSource": "suburb-only",
       "lat": -33.929104,
       "lng": 151.153968,
       "cuisine": "Shanghainese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "226",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22446,20 +21597,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJTx4T_zCxEmsRdpJhhA6GE1E"
     },
     {
       "name": "Chubby Buns Burgers Rockdale",
       "region": "St George",
       "suburb": "Rockdale",
-      "address": "427 Princes Hwy, Rockdale NSW",
       "addressSource": "suburb-only",
       "lat": -33.949838,
       "lng": 151.138704,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "66",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22489,7 +21638,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJxRua_8S5EmsRQTIINYZVsog"
     },
     {
       "name": "Eat Grk",
@@ -22503,8 +21653,6 @@ window.BYO = {
       "lng": 151.081157,
       "cuisine": "Greek",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "1,361",
       "price": "$",
       "priceBasis": "Google price range $15 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -22534,20 +21682,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJwzWdxW-5EmsRA0gN9xSLx1w"
     },
     {
       "name": "Imperial Peking Blakehurst",
       "region": "St George",
       "suburb": "Blakehurst",
-      "address": "979 King Georges Rd, Blakehurst NSW",
       "addressSource": "suburb-only",
       "lat": -33.98794,
       "lng": 151.111177,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "962",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22570,7 +21716,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJTwsIaUu4EmsRMYf-azt0XUY"
     },
     {
       "name": "Cafe Talk",
@@ -22584,8 +21731,6 @@ window.BYO = {
       "lng": 151.132404,
       "cuisine": "Nepalese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "898",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -22615,20 +21760,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJBWHtWuS5EmsRJFmCFmdx844"
     },
     {
       "name": "Jailhouse Rock Pizza & Pasta",
       "region": "St George",
       "suburb": "Brighton-Le-Sands",
-      "address": "115 The Grand Parade, Brighton-Le-Sands NSW",
       "addressSource": "suburb-only",
       "lat": -33.964311,
       "lng": 151.15463,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "593",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22658,7 +21801,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJv5YBV063EmsR4kAz_V-GYHQ"
     },
     {
       "name": "Sammy's Restaurant",
@@ -22672,8 +21816,6 @@ window.BYO = {
       "lng": 151.148888,
       "cuisine": "Lebanese/Mediterranean",
       "family": "Middle Eastern",
-      "stars": 4.2,
-      "reviews": "532",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22703,20 +21845,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJfblZgFC3EmsRlsbzb_HjXl4"
     },
     {
       "name": "Laltin Nepalese Cuisine",
       "region": "St George",
       "suburb": "Rockdale",
-      "address": "456 Princes Hwy, Rockdale NSW",
       "addressSource": "suburb-only",
       "lat": -33.951053,
       "lng": 151.138932,
       "cuisine": "Nepalese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "380",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -22746,20 +21886,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJo-uwCIC7EmsR-qfMTX1v1zM"
     },
     {
       "name": "Lai Wah Chinese Restaurant",
       "region": "St George",
       "suburb": "Sans Souci",
-      "address": "442 Rocky Point Rd, Sans Souci NSW",
       "addressSource": "suburb-only",
       "lat": -33.989414,
       "lng": 151.134164,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "120",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22774,20 +21912,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJa9G-j9O5EmsRc_KNp_uJBF0"
     },
     {
       "name": "Bayblu Seafood Restaurant",
       "region": "St George",
       "suburb": "Blakehurst",
-      "address": "741 Princes Hwy, Blakehurst NSW",
       "addressSource": "suburb-only",
       "lat": -33.998543,
       "lng": 151.115289,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "668",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22810,20 +21946,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJy_Y_3Ee4EmsRMRrowdY0zQ4"
     },
     {
       "name": "Mamma Barone",
       "region": "St George",
       "suburb": "Mortdale",
-      "address": "27A Morts Rd, Mortdale NSW 2223",
       "addressSource": "suburb-only",
       "lat": -33.969663,
       "lng": 151.079165,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "330",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -22853,20 +21987,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJx5ubihq5EmsRCRnyMLzWnrI"
     },
     {
       "name": "Golden Oceans Chinese Seafood Restaurant",
       "region": "St George",
       "suburb": "Beverly Hills",
-      "address": "461 King Georges Rd, Beverly Hills NSW 2209",
       "addressSource": "suburb-only",
       "lat": -33.95118,
       "lng": 151.082056,
       "cuisine": "Chinese Seafood",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "305",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -22896,7 +22028,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYcfQ1G-5EmsR_jc3urDU2Vc"
     },
     {
       "name": "Rokko",
@@ -22910,8 +22043,6 @@ window.BYO = {
       "lng": 151.1,
       "cuisine": "Yakiniku",
       "family": "Other",
-      "stars": 4,
-      "reviews": "475",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22941,20 +22072,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFx3KT6K5EmsR-_iq3e-oqjk"
     },
     {
       "name": "Blue Buddha Thai Kitchen",
       "region": "St George",
       "suburb": "Sans Souci",
-      "address": "8/524 Rocky Point Road, Sans Souci NSW",
       "addressSource": "suburb-only",
       "lat": -33.992962,
       "lng": 151.132103,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "415",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -22969,20 +22098,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpxhc2iy4EmsR25-jfbHx7cw"
     },
     {
       "name": "Queue A Bowl",
       "region": "Sutherland Shire",
       "suburb": "Kirrawee",
-      "address": "Unit G2/13 Putland Cl, Kirrawee NSW",
       "addressSource": "suburb-only",
       "lat": -34.043493,
       "lng": 151.071472,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 5,
-      "reviews": "60",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23012,20 +22139,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4ZBg_qjHEmsRqrrtPaOzGfM"
     },
     {
       "name": "Gymea Pizza",
       "region": "Sutherland Shire",
       "suburb": "Gymea",
-      "address": "1/11 Casaurina rd, Gymea NSW",
       "addressSource": "suburb-only",
       "lat": -34.052013,
       "lng": 151.087783,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.9,
-      "reviews": "415",
       "price": "$",
       "priceBasis": "Google price range $15 - $32 pp (via MealFinder)",
       "priceEstimate": true,
@@ -23047,20 +22172,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJUcqJUw_HEmsRhmEB0vsPgbQ"
     },
     {
       "name": "Ros Niyom Thai Restaurant and Bar",
       "region": "Sutherland Shire",
       "suburb": "Kirrawee",
-      "address": "G10/580 Princes Hwy, Kirrawee NSW 2232",
       "addressSource": "suburb-only",
       "lat": -34.03269,
       "lng": 151.07395,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "321",
       "price": "$$",
       "priceBasis": "Mains ~$22.90",
       "priceEstimate": true,
@@ -23090,20 +22213,18 @@ window.BYO = {
           "osm": "node/5299038871",
           "distanceM": 290
         }
-      }
+      },
+      "place_id": "ChIJH6fbtM3HEmsRlPfyergZiz0"
     },
     {
       "name": "De Palm Kitchen",
       "region": "Sutherland Shire",
       "suburb": "Sylvania",
-      "address": "28 Princes Highway, Sylvania NSW 2224",
       "addressSource": "suburb-only",
       "lat": -34.00712,
       "lng": 151.112073,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "207",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23133,20 +22254,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJP-nkJQC5EmsRP8LudFeHA-A"
     },
     {
       "name": "Fioretti Pizza",
       "region": "Sutherland Shire",
       "suburb": "Bangor",
-      "address": "9/121 Yala Road, Bangor NSW",
       "addressSource": "suburb-only",
       "lat": -34.018164,
       "lng": 151.029397,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.9,
-      "reviews": "53",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23176,20 +22295,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4UyKZP_BEmsRBdUUM36ifUc"
     },
     {
       "name": "ALMO Pizza",
       "region": "Sutherland Shire",
       "suburb": "Engadine",
-      "address": "Shop 2/10 Waratah Rd, Engadine NSW",
       "addressSource": "suburb-only",
       "lat": -34.064486,
       "lng": 151.011821,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "252",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -23219,7 +22336,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJS63-Mm3BEmsR7-jDQoSRaOg"
     },
     {
       "name": "Little Parrot on Oak",
@@ -23233,8 +22351,6 @@ window.BYO = {
       "lng": 151.155066,
       "cuisine": "Australian",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "230",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23264,20 +22380,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJxSN4oG_IEmsR2I_0Gd4Mw2Q"
     },
     {
       "name": "Good Time Indian Restaurant",
       "region": "Sutherland Shire",
       "suburb": "Caringbah",
-      "address": "361 Kingsway, Caringbah NSW",
       "addressSource": "suburb-only",
       "lat": -34.040986,
       "lng": 151.121388,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "218",
       "price": "$$",
       "priceBasis": "Google price range $25 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -23307,20 +22421,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJnQPLHi3HEmsRAiA_lBJjhr0"
     },
     {
       "name": "Hatz Off BBQ",
       "region": "Sutherland Shire",
       "suburb": "Caringbah",
-      "address": "9 Box Road, Caringbah NSW",
       "addressSource": "suburb-only",
       "lat": -34.024133,
       "lng": 151.123755,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "171",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23350,20 +22462,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJiyw51HO5EmsRAtSQzy5nT2I"
     },
     {
       "name": "NOBORI Japanese Restaurant",
       "region": "Sutherland Shire",
       "suburb": "Gymea",
-      "address": "3/56 North West Arm Road, Gymea NSW",
       "addressSource": "suburb-only",
       "lat": -34.043455,
       "lng": 151.078682,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "110",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -23393,20 +22503,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJdYk6agDHEmsRMxrwl7U1fbM"
     },
     {
       "name": "Charlie's Grill",
       "region": "Sutherland Shire",
       "suburb": "Illawong",
-      "address": "G17/273 Fowler Rd, Illawong NSW",
       "addressSource": "suburb-only",
       "lat": -33.997326,
       "lng": 151.042514,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "90",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23429,20 +22537,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJlekIDXK_EmsRDhVNsEiEBLA"
     },
     {
       "name": "The Salty Pearl",
       "region": "Sutherland Shire",
       "suburb": "Bundeena",
-      "address": "32 Brighton St, Bundeena NSW",
       "addressSource": "suburb-only",
       "lat": -34.084801,
       "lng": 151.151653,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "86",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23457,7 +22563,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJexzjRADJEmsRvYZVZQvfoQo"
     },
     {
       "name": "Rocksalt",
@@ -23471,8 +22578,6 @@ window.BYO = {
       "lng": 151.01771,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "1,572",
       "price": "$$$",
       "priceBasis": "Mains ~$45.50; seafood platter for two $189",
       "priceEstimate": false,
@@ -23503,20 +22608,18 @@ window.BYO = {
           "distanceM": 190
         },
         "independent": null
-      }
+      },
+      "place_id": "ChIJL-seMJrAEmsRqC_lF0l4xjQ"
     },
     {
       "name": "Alphabet St",
       "region": "Sutherland Shire",
       "suburb": "Cronulla",
-      "address": "3/49 Gerrale St, Cronulla NSW 2230",
       "addressSource": "suburb-only",
       "lat": -34.05512,
       "lng": 151.15309,
       "cuisine": "Modern Asian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "874",
       "price": "$$$",
       "priceBasis": "Mains $38–44; banquet $99",
       "priceEstimate": false,
@@ -23553,20 +22656,18 @@ window.BYO = {
           "osm": "way/617383022",
           "distanceM": 180
         }
-      }
+      },
+      "place_id": "ChIJk-0SqBHIEmsR85yHhMqFq0k"
     },
     {
       "name": "Surf n Turf illawong",
       "region": "Sutherland Shire",
       "suburb": "Illawong",
-      "address": "67/273a Fowler Road, Illawong NSW",
       "addressSource": "suburb-only",
       "lat": -33.997765,
       "lng": 151.043307,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "334",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23589,20 +22690,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJDbPjVUu_EmsRsIPiinjwAIg"
     },
     {
       "name": "Majestic Indian",
       "region": "Sutherland Shire",
       "suburb": "Sutherland",
-      "address": "Shop 10/570 President Ave, Sutherland NSW 2232",
       "addressSource": "suburb-only",
       "lat": -34.03504,
       "lng": 151.06564,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "244",
       "price": "$$",
       "priceBasis": "Curries ~$27.90",
       "priceEstimate": false,
@@ -23632,7 +22731,8 @@ window.BYO = {
           "osm": "node/12803765952",
           "distanceM": 530
         }
-      }
+      },
+      "place_id": "ChIJF2lMUSzHEmsRl4eBzSjEcgI"
     },
     {
       "name": "Seven Lanterns",
@@ -23646,8 +22746,6 @@ window.BYO = {
       "lng": 151.10612,
       "cuisine": "Korean-Japanese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "223",
       "price": "$$$",
       "priceBasis": "Mains $29–65; chef's menu $115",
       "priceEstimate": false,
@@ -23677,7 +22775,8 @@ window.BYO = {
           "osm": "node/12149163896",
           "distanceM": 1510
         }
-      }
+      },
+      "place_id": "ChIJ31MEARHIEmsRvUufaBnGwQw"
     },
     {
       "name": "Copperpot Indian",
@@ -23691,8 +22790,6 @@ window.BYO = {
       "lng": 151.01771,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "~184",
       "price": "$$",
       "priceBasis": "Butter chicken ~$28.64",
       "priceEstimate": false,
@@ -23714,20 +22811,18 @@ window.BYO = {
           "distanceM": 190
         },
         "independent": null
-      }
+      },
+      "place_id": "ChIJ_ahXKprAEmsRZKB1_8n2evw"
     },
     {
       "name": "Sealevel",
       "region": "Sutherland Shire",
       "suburb": "Cronulla",
-      "address": "2 Kingsway, Cronulla NSW 2230",
       "addressSource": "suburb-only",
       "lat": -34.05009,
       "lng": 151.14851,
       "cuisine": "Modern Australian, seafood",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "1,208",
       "price": "$$$",
       "priceBasis": "Mains $37–42; platter for two $145/$185",
       "priceEstimate": false,
@@ -23757,7 +22852,8 @@ window.BYO = {
           "distanceM": 490
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJOeiBrBHIEmsRwN3vkDCwWbc"
     },
     {
       "name": "Jensens",
@@ -23771,8 +22867,6 @@ window.BYO = {
       "lng": 151.08053,
       "cuisine": "Modern Australian",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "~920",
       "price": "$$$",
       "priceBasis": "Midweek three-course set $59",
       "priceEstimate": true,
@@ -23807,20 +22901,18 @@ window.BYO = {
           "osm": "node/5264065352",
           "distanceM": 1200
         }
-      }
+      },
+      "place_id": "ChIJCY8AGJ24EmsRS1auMmwsCVs"
     },
     {
       "name": "Sylvania Indian Restaurant",
       "region": "Sutherland Shire",
       "suburb": "Sylvania",
-      "address": "8 Princes Highway, Sylvania NSW",
       "addressSource": "suburb-only",
       "lat": -34.006606,
       "lng": 151.112354,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "617",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23850,7 +22942,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJUz2I6UG4EmsRpJHCHMJWPyg"
     },
     {
       "name": "Thai Rim Nam",
@@ -23864,8 +22957,6 @@ window.BYO = {
       "lng": 151.070493,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "282",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23895,20 +22986,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJQYm58L-4EmsRIfRnU4jN5KY"
     },
     {
       "name": "Talotta's Pizzeria",
       "region": "Sutherland Shire",
       "suburb": "Kurnell",
-      "address": "Shop 1, 1-3 Bridges St, Kurnell NSW",
       "addressSource": "suburb-only",
       "lat": -34.011659,
       "lng": 151.20953,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "207",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23931,20 +23020,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ2wFqWPW2EmsRUFxLxN3gAFM"
     },
     {
       "name": "Akita Teppanyaki",
       "region": "Sutherland Shire",
       "suburb": "Sylvania",
-      "address": "1/234 Princes Hwy, Sylvania NSW",
       "addressSource": "suburb-only",
       "lat": -34.012256,
       "lng": 151.094488,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "173",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -23974,7 +23061,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJnwyvvGK4EmsRix1ojFapjmo"
     },
     {
       "name": "Sa-Ne' Thai Cuisine",
@@ -23988,8 +23076,6 @@ window.BYO = {
       "lng": 151.06615,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "150",
       "price": "$",
       "priceBasis": "Mains $19.90–26.90",
       "priceEstimate": false,
@@ -24019,20 +23105,18 @@ window.BYO = {
           "distanceM": 560
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ1VH4IhHHEmsRrWkoX-MPorI"
     },
     {
       "name": "Cornerstone",
       "region": "Sutherland Shire",
       "suburb": "Engadine",
-      "address": "10 Waratah Rd, Engadine NSW",
       "addressSource": "suburb-only",
       "lat": -34.064609,
       "lng": 151.011797,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "115",
       "price": "$",
       "priceBasis": "Google price range $15 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24062,20 +23146,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJDdsXNnPBEmsRnTZmrqL5fqQ"
     },
     {
       "name": "Chiang Mai House",
       "region": "Sutherland Shire",
       "suburb": "Heathcote",
-      "address": "2/9 Oliver St, Heathcote NSW",
       "addressSource": "suburb-only",
       "lat": -34.087298,
       "lng": 151.007114,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "58",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -24098,20 +23180,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3QqxsdbDEmsR0zOX2_JEpCo"
     },
     {
       "name": "Giro Osteria",
       "region": "Sutherland Shire",
       "suburb": "Cronulla",
-      "address": "Shop 3, 1 McDonald St, Cronulla NSW 2230",
       "addressSource": "suburb-only",
       "lat": -34.05274,
       "lng": 151.15494,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "~600",
       "price": "$$",
       "priceBasis": "Pasta $27.90–38",
       "priceEstimate": false,
@@ -24141,20 +23221,18 @@ window.BYO = {
           "distanceM": 190
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMVnkpxHIEmsRe1ZZH2zqfIM"
     },
     {
       "name": "Fior",
       "region": "Sutherland Shire",
       "suburb": "Gymea",
-      "address": "Shop 2, 752–756 Kingsway, Gymea NSW 2227",
       "addressSource": "suburb-only",
       "lat": -34.03271,
       "lng": 151.08614,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "~380",
       "price": "$$$",
       "priceBasis": "Pasta $29–42; mains $38–105",
       "priceEstimate": false,
@@ -24187,20 +23265,18 @@ window.BYO = {
           "distanceM": 1380
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJI_Nu9WDHEmsR9uxwQ8PIs-s"
     },
     {
       "name": "The Local Pantry",
       "region": "Sutherland Shire",
       "suburb": "Engadine",
-      "address": "5/16 Waratah Rd, Engadine NSW",
       "addressSource": "suburb-only",
       "lat": -34.064785,
       "lng": 151.011591,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "343",
       "price": "$$",
       "priceBasis": "Google price range $20 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24230,7 +23306,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJaV4YmHLBEmsRjQGEXTroxQg"
     },
     {
       "name": "Moksha Indian Restaurant",
@@ -24244,8 +23321,6 @@ window.BYO = {
       "lng": 151.066641,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "270",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24275,7 +23350,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJb5iEnaC4EmsRQ_oaSCukvSU"
     },
     {
       "name": "Monkey Thai",
@@ -24289,8 +23365,6 @@ window.BYO = {
       "lng": 151.10878,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "~216",
       "price": "$$",
       "priceBasis": "Salads $28–32; lunch $18–25",
       "priceEstimate": false,
@@ -24320,20 +23394,18 @@ window.BYO = {
           "osm": "node/12149163896",
           "distanceM": 760
         }
-      }
+      },
+      "place_id": "ChIJFRUFwUG4EmsRE2x6XfLzJmQ"
     },
     {
       "name": "Okami Japanese Restaurant",
       "region": "Sutherland Shire",
       "suburb": "Sutherland",
-      "address": "1/10-14 Boyle St, Sutherland NSW",
       "addressSource": "suburb-only",
       "lat": -34.033056,
       "lng": 151.057659,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "349",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24363,20 +23435,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJNdYB4pDHEmsRv97wBKxiNTU"
     },
     {
       "name": "Jbeil Cuisine Kareela",
       "region": "Sutherland Shire",
       "suburb": "Kareela",
-      "address": "1/13 Freya St, Kareela NSW",
       "addressSource": "suburb-only",
       "lat": -34.017532,
       "lng": 151.080787,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "341",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -24406,20 +23476,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJEUux4JC5EmsRvtIVKfHpcAE"
     },
     {
       "name": "Green Shiso",
       "region": "Sutherland Shire",
       "suburb": "Cronulla",
-      "address": "87 Cronulla St, Cronulla NSW 2230",
       "addressSource": "suburb-only",
       "lat": -34.05754,
       "lng": 151.15209,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "333",
       "price": "$",
       "priceBasis": "Salmon teriyaki $26; bentos $17–19",
       "priceEstimate": false,
@@ -24449,20 +23517,18 @@ window.BYO = {
           "osm": "way/617383022",
           "distanceM": 450
         }
-      }
+      },
+      "place_id": "ChIJL_z1CRLIEmsRPPanVxl3Zqo"
     },
     {
       "name": "Jannali Chinese Restaurant",
       "region": "Sutherland Shire",
       "suburb": "Jannali",
-      "address": "2 58/56 Railway Cres, Jannali NSW",
       "addressSource": "suburb-only",
       "lat": -34.015668,
       "lng": 151.064993,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "160",
       "price": "$",
       "priceBasis": "Google price range $12 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24492,20 +23558,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJySO3qKC4EmsRhmC2yYZsi6Q"
     },
     {
       "name": "P&P Kitchen",
       "region": "Sutherland Shire",
       "suburb": "Bundeena",
-      "address": "Shop 2/48 Brighton Street, Bundeena NSW",
       "addressSource": "suburb-only",
       "lat": -34.085165,
       "lng": 151.151355,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "158",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -24520,20 +23584,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJqTrdydjJEmsR989wUzVvw9Q"
     },
     {
       "name": "Chef John's dumplings",
       "region": "Sutherland Shire",
       "suburb": "Kareela",
-      "address": "13 Freya St, Kareela NSW",
       "addressSource": "suburb-only",
       "lat": -34.017834,
       "lng": 151.080344,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "91",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -24563,20 +23625,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJbxBUCF-5EmsR2JxgpRpEFmo"
     },
     {
       "name": "Dose Engadine",
       "region": "Sutherland Shire",
       "suburb": "Engadine",
-      "address": "Shop 2 / 37-39 Cambrai Ave, Engadine NSW",
       "addressSource": "suburb-only",
       "lat": -34.05928,
       "lng": 151.013105,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "31",
       "price": "$",
       "priceBasis": "Google price range $12 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24606,20 +23666,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ69cDGhLBEmsR7wraR6yyV7U"
     },
     {
       "name": "Engadine Foodstop",
       "region": "Sutherland Shire",
       "suburb": "Engadine",
-      "address": "37 Cambrai Ave, Engadine NSW",
       "addressSource": "suburb-only",
       "lat": -34.05928,
       "lng": 151.013105,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "31",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -24649,7 +23707,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJxYi8EBLBEmsRacQrnl-rt1k"
     },
     {
       "name": "Summer Salt",
@@ -24663,8 +23722,6 @@ window.BYO = {
       "lng": 151.158844,
       "cuisine": "Modern Australian (Seafood)",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "1,473",
       "price": "$$$$",
       "priceBasis": "Google price range $60 - $120 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24694,20 +23751,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJs_0oQhnIEmsRPJbNexLc9_8"
     },
     {
       "name": "Kuroneko Ramen Noodle Bar",
       "region": "Sutherland Shire",
       "suburb": "Sutherland",
-      "address": "Unit 4/720 Old Princes Hwy, Sutherland NSW 2232",
       "addressSource": "suburb-only",
       "lat": -34.03007,
       "lng": 151.06052,
       "cuisine": "Japanese ramen",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "1,170",
       "price": "$",
       "priceBasis": "Tonkotsu ramen ~$20",
       "priceEstimate": false,
@@ -24737,7 +23792,8 @@ window.BYO = {
         }
       },
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJA-Lx3kXHEmsRD_mDL1mKqHo"
     },
     {
       "name": "Siam Thai Sutherland",
@@ -24751,8 +23807,6 @@ window.BYO = {
       "lng": 151.06457,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "428",
       "price": "$",
       "priceBasis": "Noodles ~$22.90",
       "priceEstimate": false,
@@ -24781,7 +23835,8 @@ window.BYO = {
           "osm": "node/5299038871",
           "distanceM": 730
         }
-      }
+      },
+      "place_id": "ChIJ9Sm_uke4EmsRI2LOb8oyZPE"
     },
     {
       "name": "Royal Orchard Thai",
@@ -24795,8 +23850,6 @@ window.BYO = {
       "lng": 151.15348,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "199",
       "price": "$$",
       "priceBasis": "No menu prices captured; estimate",
       "priceEstimate": true,
@@ -24826,20 +23879,18 @@ window.BYO = {
           "osm": "way/617383022",
           "distanceM": 80
         }
-      }
+      },
+      "place_id": "ChIJDRhcjRHIEmsRZZ9hZ51SbgI"
     },
     {
       "name": "Yakoo Menai",
       "region": "Sutherland Shire",
       "suburb": "Menai",
-      "address": "5/21 Carter Rd, Menai NSW",
       "addressSource": "suburb-only",
       "lat": -34.016792,
       "lng": 151.012006,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "75",
       "price": "$",
       "priceBasis": "Google price range $18 - $38 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24862,7 +23913,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJuf1vek7BEmsRbJMd56GTgHo"
     },
     {
       "name": "Pippis Cronulla",
@@ -24876,8 +23928,6 @@ window.BYO = {
       "lng": 151.1501,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "727",
       "price": "$$$",
       "priceBasis": "Google price range $50 - $100 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24907,20 +23957,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJCbh3fADJEmsRUOZ4S9Cig2A"
     },
     {
       "name": "La Cucina",
       "region": "Sutherland Shire",
       "suburb": "Gymea",
-      "address": "14 Gymea Bay Road NSW",
       "addressSource": "suburb-only",
       "lat": -34.033571,
       "lng": 151.085703,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "296",
       "price": "$$$",
       "priceBasis": "Google price range $35 - $75 pp (via MealFinder)",
       "priceEstimate": true,
@@ -24950,20 +23998,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJLwJL-3DHEmsRkDl_lyLg7IY"
     },
     {
       "name": "Rosin Court",
       "region": "Sutherland Shire",
       "suburb": "Sutherland",
-      "address": "561 President Ave, Sutherland NSW",
       "addressSource": "suburb-only",
       "lat": -34.033765,
       "lng": 151.058176,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "208",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -24993,20 +24039,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJjYnG9kfHEmsR195CjcV-u60"
     },
     {
       "name": "Bellezza Pizza",
       "region": "Sutherland Shire",
       "suburb": "Menai",
-      "address": "2b/239-243 Allison Cres, Menai NSW",
       "addressSource": "suburb-only",
       "lat": -34.01538,
       "lng": 151.013302,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "191",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25029,20 +24073,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJKRHQypHAEmsRtnfiefcl4pU"
     },
     {
       "name": "Moon's Sushi",
       "region": "Sutherland Shire",
       "suburb": "Menai",
-      "address": "1b/223 Allison Cres, Menai NSW",
       "addressSource": "suburb-only",
       "lat": -34.015383,
       "lng": 151.013296,
       "cuisine": "Sushi",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "245",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25065,7 +24107,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ13ayQ5DAEmsRKX1nfuCEOSc"
     },
     {
       "name": "Benny's Cronulla",
@@ -25079,8 +24122,6 @@ window.BYO = {
       "lng": 151.151003,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "201",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25110,7 +24151,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ4-LYuzbJEmsRfRW9FDYAUZU"
     },
     {
       "name": "Ur Pho",
@@ -25124,8 +24166,6 @@ window.BYO = {
       "lng": 151.152043,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "195",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25155,20 +24195,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJZ5y6dp7JEmsRmriqsXBxWL0"
     },
     {
       "name": "Tasty Tandoori Indian Restaurant",
       "region": "Sutherland Shire",
       "suburb": "Miranda",
-      "address": "1/525 Kingsway, Miranda NSW",
       "addressSource": "suburb-only",
       "lat": -34.034385,
       "lng": 151.103707,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "236",
       "price": "$$",
       "priceBasis": "Google price range $25 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25198,20 +24236,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJz67ucYXHEmsROGujToq7oNA"
     },
     {
       "name": "Vinegar and Brown Paper",
       "region": "Sutherland Shire",
       "suburb": "Bundeena",
-      "address": "46 Brighton St, Bundeena NSW",
       "addressSource": "suburb-only",
       "lat": -34.085227,
       "lng": 151.151599,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4,
-      "reviews": "143",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25226,20 +24262,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_Xxbgn3JEmsRYAlD3YOEb1k"
     },
     {
       "name": "Sum Lam Restaurant",
       "region": "Sutherland Shire",
       "suburb": "Heathcote",
-      "address": "5 Oliver St, Heathcote NSW",
       "addressSource": "suburb-only",
       "lat": -34.087444,
       "lng": 151.007272,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "91",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25262,20 +24296,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJKyFdsdbDEmsRYEWWKh3YD2Q"
     },
     {
       "name": "Chunn Thai Cuisine",
       "region": "Sutherland Shire",
       "suburb": "Menai",
-      "address": "Shop 21 152/194 Allison Cres, Menai NSW",
       "addressSource": "suburb-only",
       "lat": -34.013728,
       "lng": 151.015722,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4,
-      "reviews": "87",
       "price": "$$",
       "priceBasis": "Google price range $20 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25298,20 +24330,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJj7fYdlTBEmsR6F0uPscYVVY"
     },
     {
       "name": "Fahita Pizza",
       "region": "Canterbury-Bankstown",
       "suburb": "Sefton",
-      "address": "95 Carlingford St, Sefton NSW",
       "addressSource": "suburb-only",
       "lat": -33.885015,
       "lng": 151.013276,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "170",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25334,20 +24364,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-Xls7ba9EmsR1lfce55mj64"
     },
     {
       "name": "Pho & Spice",
       "region": "Canterbury-Bankstown",
       "suburb": "Clemton Park",
-      "address": "16/5 Mackinder St, Clemton Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.923004,
       "lng": 151.101926,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "148",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25370,20 +24398,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJUz5vRQC7EmsRMV7bGov-WzQ"
     },
     {
       "name": "Breakfoosh",
       "region": "Canterbury-Bankstown",
       "suburb": "Condell Park",
-      "address": "144 Eldridge Rd, Condell Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.931385,
       "lng": 151.012992,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "135",
       "price": "$",
       "priceBasis": "Google price range $12 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25406,20 +24432,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJbb1ZLq_EmsRClbBFy3DAx8"
     },
     {
       "name": "Cocktails & CO",
       "region": "Canterbury-Bankstown",
       "suburb": "Regents Park",
-      "address": "12 Amy St, Regents Park NSW 2143, Australia",
       "addressSource": "suburb-only",
       "lat": -33.883902,
       "lng": 151.024894,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "452",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25434,7 +24458,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4f7S25K9EmsRbq7gEEi95rc"
     },
     {
       "name": "3 Tomatoes",
@@ -25448,8 +24473,6 @@ window.BYO = {
       "lng": 151.124851,
       "cuisine": "Breakfast",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "398",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25479,20 +24502,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJE0Cnp5G6EmsR_WBLjQhtpbQ"
     },
     {
       "name": "First Street Pantry",
       "region": "Canterbury-Bankstown",
       "suburb": "Ashbury",
-      "address": "66 First St, Ashbury NSW",
       "addressSource": "suburb-only",
       "lat": -33.903095,
       "lng": 151.118972,
       "cuisine": "Breakfast",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "334",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25522,7 +24543,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzbdabIu6EmsRmIf8gikKcAU"
     },
     {
       "name": "Tsipouro Taverna",
@@ -25536,8 +24558,6 @@ window.BYO = {
       "lng": 151.12291,
       "cuisine": "Greek",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "216",
       "price": "$$",
       "priceBasis": "Mezze $12.50–32.50",
       "priceEstimate": false,
@@ -25567,20 +24587,18 @@ window.BYO = {
           "osm": "way/544666782",
           "distanceM": 1660
         }
-      }
+      },
+      "place_id": "ChIJm2-u77e7EmsRe0vSedahDhY"
     },
     {
       "name": "Crazy Nonna",
       "region": "Canterbury-Bankstown",
       "suburb": "Campsie",
-      "address": "Shop 6 60 Charlotte St, Campsie NSW",
       "addressSource": "suburb-only",
       "lat": -33.922905,
       "lng": 151.101941,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "566",
       "price": "$$",
       "priceBasis": "Google price range $25 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25603,7 +24621,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBw5v0BO7EmsRzyY5kcHhTL8"
     },
     {
       "name": "Pikkio Pizzeria Trattoria",
@@ -25617,8 +24636,6 @@ window.BYO = {
       "lng": 150.99383,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "560",
       "price": "$$",
       "priceBasis": "Pizza $24–29; pasta $29–37",
       "priceEstimate": false,
@@ -25632,20 +24649,18 @@ window.BYO = {
       "bottleShops": {
         "chain": null,
         "independent": null
-      }
+      },
+      "place_id": "ChIJCfir_FS-EmsRsZKRX58H6m8"
     },
     {
       "name": "Shack66",
       "region": "Canterbury-Bankstown",
       "suburb": "Villawood",
-      "address": "66 Christina Rd, Villawood NSW",
       "addressSource": "suburb-only",
       "lat": -33.879832,
       "lng": 150.982726,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "325",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25668,20 +24683,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJx1GcsdG9EmsREm0NRNZ2oJM"
     },
     {
       "name": "Belmore Pizza and Manooush",
       "region": "Canterbury-Bankstown",
       "suburb": "Belmore",
-      "address": "403 Burwood Rd, Belmore NSW",
       "addressSource": "suburb-only",
       "lat": -33.918389,
       "lng": 151.089091,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "94",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25704,7 +24717,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJj7QNekG7EmsRyx8RIZ-3bXM"
     },
     {
       "name": "Aces Ocean Foods",
@@ -25718,8 +24732,6 @@ window.BYO = {
       "lng": 151.034676,
       "cuisine": "Hamburger",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "1,175",
       "price": "$$$",
       "priceBasis": "Google price range $30 - $70 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25742,20 +24754,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJVZqf7cW-EmsR91YPw7JxWM8"
     },
     {
       "name": "Pizza Boss Sydney",
       "region": "Canterbury-Bankstown",
       "suburb": "Lakemba",
-      "address": "shop-3/60A The Boulevarde, Lakemba NSW",
       "addressSource": "suburb-only",
       "lat": -33.920292,
       "lng": 151.076122,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "485",
       "price": "$",
       "priceBasis": "Google price range $12 - $28 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25778,20 +24788,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJF3kG0Sq7EmsRhEEUKCG-fXs"
     },
     {
       "name": "Toscanini Italian restaurant",
       "region": "Canterbury-Bankstown",
       "suburb": "Chester Hill",
-      "address": "75-77 Middleton Rd, Chester Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.870441,
       "lng": 150.986074,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "465",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25814,20 +24822,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYwlPY469EmsRYdewSGw3ADM"
     },
     {
       "name": "Ozi Desi",
       "region": "Canterbury-Bankstown",
       "suburb": "Revesby",
-      "address": "4 Blamey St, Revesby NSW",
       "addressSource": "suburb-only",
       "lat": -33.952936,
       "lng": 151.016307,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "468",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -25850,7 +24856,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJTe2UjeW-EmsR5vUoGxJj-98"
     },
     {
       "name": "A Brothers Kebab & Pizza",
@@ -25864,8 +24871,6 @@ window.BYO = {
       "lng": 151.00086,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.4,
-      "reviews": "374",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25888,7 +24893,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJM85eSlO8EmsR-KqS_uDLaPE"
     },
     {
       "name": "Tokyo Table",
@@ -25902,8 +24908,6 @@ window.BYO = {
       "lng": 151.11173,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "344",
       "price": "$",
       "priceBasis": "Dons $24–29",
       "priceEstimate": false,
@@ -25933,20 +24937,18 @@ window.BYO = {
           "distanceM": 890
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-5aiU0O6EmsRUY85nhzm3Sc"
     },
     {
       "name": "Nahm Thai",
       "region": "Canterbury-Bankstown",
       "suburb": "Georges Hall",
-      "address": "Georges Hall NSW",
       "addressSource": "suburb-only",
       "lat": -33.906291,
       "lng": 150.986014,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "332",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25961,20 +24963,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJE08aegu-EmsRuzl3iFxGb3o"
     },
     {
       "name": "Corner Crave",
       "region": "Canterbury-Bankstown",
       "suburb": "Panania",
-      "address": "Unit G02/146 Lambeth St, Panania NSW",
       "addressSource": "suburb-only",
       "lat": -33.965569,
       "lng": 150.996984,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "49",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -25989,20 +24989,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJg2F97pW_EmsRqOZ1fVUwrS0"
     },
     {
       "name": "Se Jong Korean BBQ Buffet",
       "region": "Canterbury-Bankstown",
       "suburb": "Campsie",
-      "address": "196-198 Beamish St, Campsie NSW 2194",
       "addressSource": "suburb-only",
       "lat": -33.911244,
       "lng": 151.103557,
       "cuisine": "Korean",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "1,358",
       "price": "$$",
       "priceBasis": "Google price range $35 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26032,20 +25030,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJE64RHVG6EmsRnGrA4i-G4bU"
     },
     {
       "name": "Me Pho Vietnamese Kogarah",
       "region": "Canterbury-Bankstown",
       "suburb": "Bankstown",
-      "address": "Shop 3/18-20 Greenfield Parade, Bankstown NSW 2067",
       "addressSource": "suburb-only",
       "lat": -33.919753,
       "lng": 151.032408,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "621",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26067,7 +25063,8 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJDWlPATmkEmsR1yFRDbFTbWA"
     },
     {
       "name": "Wally & Ossie's",
@@ -26081,8 +25078,6 @@ window.BYO = {
       "lng": 151.10398,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "468",
       "price": "$$",
       "priceBasis": "Google price range $20 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26112,20 +25107,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJZS0M50-6EmsRwaT78aUn1rY"
     },
     {
       "name": "The Kebab Shop",
       "region": "Canterbury-Bankstown",
       "suburb": "Chester Hill",
-      "address": "20/1 Leicester St, Chester Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.882216,
       "lng": 151.001988,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.3,
-      "reviews": "437",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26148,20 +25141,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJGxR9rKy9EmsRXtTGGx1cLaI"
     },
     {
       "name": "Mina Bay Seafood",
       "region": "Canterbury-Bankstown",
       "suburb": "Bass Hill",
-      "address": "shop 12/13 753 Hume Highway, Bass Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.899428,
       "lng": 150.993471,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "297",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26184,20 +25175,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJc0MYR8m9EmsRjewoOn8xKsg"
     },
     {
       "name": "MAMMA DELLA PIZZA",
       "region": "Canterbury-Bankstown",
       "suburb": "Padstow",
-      "address": "94 CAHORS RD, Padstow NSW",
       "addressSource": "suburb-only",
       "lat": -33.949881,
       "lng": 151.030069,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "211",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26220,20 +25209,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ92fStsa-EmsRccybsUFTKow"
     },
     {
       "name": "The Hanoi",
       "region": "Canterbury-Bankstown",
       "suburb": "Revesby",
-      "address": "24 Selems Pde, Revesby NSW 2212",
       "addressSource": "suburb-only",
       "lat": -33.95101,
       "lng": 151.0149,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "~190",
       "price": "$",
       "priceBasis": "Pho $21–24",
       "priceEstimate": false,
@@ -26262,14 +25249,11 @@ window.BYO = {
       "name": "The Shop at Picnic Point",
       "region": "Canterbury-Bankstown",
       "suburb": "Picnic Point",
-      "address": "2 Doris St, Picnic Point NSW",
       "addressSource": "suburb-only",
       "lat": -33.971016,
       "lng": 151.000391,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "179",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26284,20 +25268,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJveL4gKe_EmsRaOkJyBRDjYo"
     },
     {
       "name": "Spring Garden Restaurant",
       "region": "Canterbury-Bankstown",
       "suburb": "Georges Hall",
-      "address": "107 Denman Rd, Georges Hall NSW",
       "addressSource": "suburb-only",
       "lat": -33.900648,
       "lng": 150.99022,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "143",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26312,20 +25294,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJw39bP8-9EmsRASCDnyzn58c"
     },
     {
       "name": "Milperra Pizza & Pasta",
       "region": "Canterbury-Bankstown",
       "suburb": "Milperra",
-      "address": "9/48 Amiens Ave, Milperra NSW",
       "addressSource": "suburb-only",
       "lat": -33.94091,
       "lng": 150.979622,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "71",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26340,20 +25320,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJnc1Lrke-EmsRnMljyZ5OrhQ"
     },
     {
       "name": "Raw Prawn Fish Market",
       "region": "Canterbury-Bankstown",
       "suburb": "Yagoona",
-      "address": "138 Dutton St, Yagoona NSW 2199",
       "addressSource": "suburb-only",
       "lat": -33.90741,
       "lng": 151.022448,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "64",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26376,20 +25354,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ7WV5bAC9EmsRteYp3wqFMA4"
     },
     {
       "name": "Al Aseel Greenacre",
       "region": "Canterbury-Bankstown",
       "suburb": "Greenacre",
-      "address": "183 Waterloo Rd, Greenacre NSW",
       "addressSource": "suburb-only",
       "lat": -33.906292,
       "lng": 151.057719,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.2,
-      "reviews": "2,738",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26412,20 +25388,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJxcyBC467EmsRtZFgC7_-5Q8"
     },
     {
       "name": "Twin Willows Hotels",
       "region": "Canterbury-Bankstown",
       "suburb": "Bass Hill",
-      "address": "739 Hume Highway, Bass Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.899247,
       "lng": 150.995055,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "561",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26448,20 +25422,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJv7sPX8m9EmsRYyPMupmcsiM"
     },
     {
       "name": "Pasta La Vista",
       "region": "Canterbury-Bankstown",
       "suburb": "Belmore",
-      "address": "401 Burwood Rd, Belmore NSW",
       "addressSource": "suburb-only",
       "lat": -33.918296,
       "lng": 151.089199,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "508",
       "price": "$$",
       "priceBasis": "Google price range $22 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26484,20 +25456,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMVzDBOW7EmsR0lm2FZKJeb8"
     },
     {
       "name": "The Kebab BROTHER'S",
       "region": "Canterbury-Bankstown",
       "suburb": "Punchbowl",
-      "address": "280 The Boulevarde, Punchbowl NSW",
       "addressSource": "suburb-only",
       "lat": -33.925645,
       "lng": 151.055485,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.1,
-      "reviews": "223",
       "price": "$",
       "priceBasis": "Google price range $10 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26520,20 +25490,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJjwVMmfu7EmsRbW_Wr-ER-rU"
     },
     {
       "name": "Daily Garden Chinese Take Away",
       "region": "Canterbury-Bankstown",
       "suburb": "Milperra",
-      "address": "1/120 Ashford Ave, Milperra NSW",
       "addressSource": "suburb-only",
       "lat": -33.938063,
       "lng": 150.989048,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "162",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26548,20 +25516,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJTXNTK0O-EmsR7T60x7laN40"
     },
     {
       "name": "Gebran Lebanese Cuisine",
       "region": "Canterbury-Bankstown",
       "suburb": "Mount Lewis",
-      "address": "175 Wattle Street, Mount Lewis NSW",
       "addressSource": "suburb-only",
       "lat": -33.917711,
       "lng": 151.047378,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4,
-      "reviews": "765",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26584,20 +25550,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ1d3n3ve7EmsRjhiukCRTC0Y"
     },
     {
       "name": "MaZi at Lantern Club",
       "region": "Canterbury-Bankstown",
       "suburb": "Roselands",
-      "address": "Lantern Club, 21 Roselands Ave NSW",
       "addressSource": "suburb-only",
       "lat": -33.935375,
       "lng": 151.070618,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4,
-      "reviews": "701",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26620,20 +25584,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJieGb89-7EmsRtnqZ5GMT6go"
     },
     {
       "name": "Thai Hutt Greenacre",
       "region": "Canterbury-Bankstown",
       "suburb": "Greenacre",
-      "address": "173 Waterloo Rd, Greenacre NSW",
       "addressSource": "suburb-only",
       "lat": -33.906477,
       "lng": 151.057552,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "115",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26656,20 +25618,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJP2wilNa7EmsRtOxCd7Qv_3Q"
     },
     {
       "name": "Shawerma Aldaya'a",
       "region": "Canterbury-Bankstown",
       "suburb": "Punchbowl",
-      "address": "11 Arthur St, Punchbowl NSW",
       "addressSource": "suburb-only",
       "lat": -33.925872,
       "lng": 151.055447,
       "cuisine": "Shawarma",
       "family": "Other",
-      "stars": 4,
-      "reviews": "99",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26692,20 +25652,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJGZCokr-7EmsRuLuIYIQWniI"
     },
     {
       "name": "Mano Manoush",
       "region": "Western Sydney",
       "suburb": "Edensor Park",
-      "address": "207-215 Edensor Road, Edensor Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.872951,
       "lng": 150.878911,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 5,
-      "reviews": "93",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26728,20 +25686,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJ9LQMQCXEmsRHisk8lp7crE"
     },
     {
       "name": "Telopea Take Away",
       "region": "Western Sydney",
       "suburb": "Telopea",
-      "address": "10 Benaud Pl, Telopea NSW",
       "addressSource": "suburb-only",
       "lat": -33.795933,
       "lng": 151.044855,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 5,
-      "reviews": "33",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26771,20 +25727,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJux0p04ejEmsRzh_k8ss1XUc"
     },
     {
       "name": "barcelona restaurant",
       "region": "Western Sydney",
       "suburb": "Fairfield",
-      "address": "31B Smart St, Fairfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.87078,
       "lng": 150.95612,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.9,
-      "reviews": "222",
       "price": "$",
       "priceBasis": "Google price range $10 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26807,20 +25761,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJvwoFcsy9EmsRyjpKXVzS6bk"
     },
     {
       "name": "Zeitoon Grill Restaurant",
       "region": "Western Sydney",
       "suburb": "Guildford",
-      "address": "4/340 Guildford Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.854175,
       "lng": 150.985645,
       "cuisine": "Afghan",
       "family": "Middle Eastern",
-      "stars": 4.9,
-      "reviews": "115",
       "price": "$$",
       "priceBasis": "Google price range $20 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26835,20 +25787,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJhT_G0xK9EmsRu-z-vi-_4Ok"
     },
     {
       "name": "Liverpool Nutrition",
       "region": "Western Sydney",
       "suburb": "Liverpool",
-      "address": "Shop 3/220 George St, Liverpool NSW 2170",
       "addressSource": "suburb-only",
       "lat": -33.922958,
       "lng": 150.925189,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.9,
-      "reviews": "115",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26878,20 +25828,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJgd8IwWmVEmsRhjq9GNs7lCo"
     },
     {
       "name": "MASHAAWEE W BASS",
       "region": "Western Sydney",
       "suburb": "Bossley Park",
-      "address": "65 Mimosa Rd, Bossley Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.857827,
       "lng": 150.89123,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.9,
-      "reviews": "43",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26906,7 +25854,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJeLZUQ2XEmsRugU5kA0lhLY"
     },
     {
       "name": "Asees Indian Restaurant",
@@ -26920,8 +25869,6 @@ window.BYO = {
       "lng": 151.009581,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "2,520",
       "price": "$$",
       "priceBasis": "Google price range $20 - $50 pp (via MealFinder)",
       "priceEstimate": true,
@@ -26951,20 +25898,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJc9Dv4hyjEmsRuf-k_vCGcSI"
     },
     {
       "name": "Il Eok Jo",
       "region": "Western Sydney",
       "suburb": "Lidcombe",
-      "address": "7 Kerrs Rd, Lidcombe NSW",
       "addressSource": "suburb-only",
       "lat": -33.865489,
       "lng": 151.043015,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "577",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -26986,20 +25931,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMUhxXma9EmsRnJfNsx0t6l0"
     },
     {
       "name": "Mithho Nepalese Restaurant",
       "region": "Western Sydney",
       "suburb": "Lidcombe",
-      "address": "Shop 9, 2A Vaughan Street, Lidcombe NSW",
       "addressSource": "suburb-only",
       "lat": -33.865378,
       "lng": 151.042995,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "574",
       "price": "$",
       "priceBasis": "Google price range $15 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -27021,20 +25964,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG0ZKPHy9EmsRyyljRSTf-OM"
     },
     {
       "name": "Sungshim",
       "region": "Western Sydney",
       "suburb": "Lidcombe",
-      "address": "8 Bridge Street, Lidcombe NSW",
       "addressSource": "suburb-only",
       "lat": -33.864475,
       "lng": 151.043338,
       "cuisine": "Korean",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "466",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27056,20 +25997,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJf8wmbbK9EmsRIwh_PiA_dQE"
     },
     {
       "name": "Sushi Sapporo Westmead",
       "region": "Western Sydney",
       "suburb": "Westmead",
-      "address": "Tenancy T10/160 Hawkesbury Rd, Westmead NSW",
       "addressSource": "suburb-only",
       "lat": -33.806733,
       "lng": 150.987803,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "332",
       "price": "$",
       "priceBasis": "Google price range $12 - $28 pp (via MealFinder)",
       "priceEstimate": true,
@@ -27099,7 +26038,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJs1Rn0bCjEmsRYqTyunsg8F0"
     },
     {
       "name": "TJ's Pizza",
@@ -27113,8 +26053,6 @@ window.BYO = {
       "lng": 151.044524,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "219",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27144,20 +26082,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoY8tzfmjEmsRO2Gq2RxeB-E"
     },
     {
       "name": "Ogong",
       "region": "Western Sydney",
       "suburb": "Lidcombe",
-      "address": "50 Joseph St, Lidcombe NSW",
       "addressSource": "suburb-only",
       "lat": -33.866126,
       "lng": 151.043087,
       "cuisine": "Korean barbecue",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "1,403",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27179,20 +26115,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJabH3zjO9EmsRnmMV35VqhDY"
     },
     {
       "name": "Birdies Woodfired Kitchen",
       "region": "Western Sydney",
       "suburb": "Minchinbury",
-      "address": "44 Barossa Drive, Minchinbury NSW",
       "addressSource": "suburb-only",
       "lat": -33.790116,
       "lng": 150.836824,
       "cuisine": "Mediterranean",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "1,358",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27207,20 +26141,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJF065OcyFEmsRcttRRQ0GvU8"
     },
     {
       "name": "La Vita Mediterranean",
       "region": "Western Sydney",
       "suburb": "Edensor Park",
-      "address": "207 Edensor Road, Edensor Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.876189,
       "lng": 150.877006,
       "cuisine": "Mediterranean",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "1,060",
       "price": "$$",
       "priceBasis": "Google price range $25 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -27243,20 +26175,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ33ACwaSWEmsRt66oDQ0JHpg"
     },
     {
       "name": "Meo's Kitchen",
       "region": "Western Sydney",
       "suburb": "Green Valley",
-      "address": "1/180 Green Valley Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.902358,
       "lng": 150.868546,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "355",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27278,7 +26208,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJV0gUeXWVEmsRnYMd3EwxdOQ"
     },
     {
       "name": "Naked Flame Pizzeria",
@@ -27292,8 +26223,6 @@ window.BYO = {
       "lng": 150.70196,
       "cuisine": "Italian pizza",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "305",
       "price": "$",
       "priceBasis": "Pizzas $21–30",
       "priceEstimate": false,
@@ -27323,20 +26252,18 @@ window.BYO = {
           "distanceM": 1760
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJKX1oWGaPEmsR_Ysj78OhDFI"
     },
     {
       "name": "OZ GRILLZ",
       "region": "Western Sydney",
       "suburb": "Colyton",
-      "address": "Shop 7/62 Hewitt St, Colyton NSW",
       "addressSource": "suburb-only",
       "lat": -33.786091,
       "lng": 150.800214,
       "cuisine": "Restaurant",
       "family": "Middle Eastern",
-      "stars": 4.7,
-      "reviews": "278",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27359,20 +26286,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfYud-PKREmsRL3_Eenhgowo"
     },
     {
       "name": "DUROOWA POCHA",
       "region": "Western Sydney",
       "suburb": "Lidcombe",
-      "address": "shop 3/8 Kerrs Rd, Lidcombe NSW",
       "addressSource": "suburb-only",
       "lat": -33.866134,
       "lng": 151.042611,
       "cuisine": "Korean",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "193",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27394,20 +26319,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJh4QPYze9EmsRqMbYA1ADyE4"
     },
     {
       "name": "Tasty Thai",
       "region": "Western Sydney",
       "suburb": "Wetherill Park",
-      "address": "12a/1024 The Horsley Dr, Wetherill Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.85103,
       "lng": 150.90963,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "179",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27422,7 +26345,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpT_x96qXEmsR8NhzleQbJLQ"
     },
     {
       "name": "Windsor Thai",
@@ -27436,8 +26360,6 @@ window.BYO = {
       "lng": 150.823156,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "4,869",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27460,7 +26382,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_ef-dV1iDWsR-zfJD0-_-6w"
     },
     {
       "name": "Dawn House",
@@ -27474,8 +26397,6 @@ window.BYO = {
       "lng": 151.04388,
       "cuisine": "Korean BBQ & hotpot buffet",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "~2,000",
       "price": "$$",
       "priceBasis": "Buffet $40 per adult",
       "priceEstimate": false,
@@ -27498,20 +26419,18 @@ window.BYO = {
         },
         "independent": null
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJc9FuDcajEmsR_wq8Ifs865s"
     },
     {
       "name": "TK Something",
       "region": "Western Sydney",
       "suburb": "Canley Vale",
-      "address": "47-49 Canley Vale Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.88642,
       "lng": 150.946,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "1,976",
       "price": "$$$",
       "priceBasis": "Google price range $40 - $60 pp (via MealFinder)",
       "priceEstimate": true,
@@ -27541,7 +26460,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_ZXnRxeWEmsRb_pkfbGEk_I"
     },
     {
       "name": "Barluck Seafood Restaurant",
@@ -27555,8 +26475,6 @@ window.BYO = {
       "lng": 150.93456,
       "cuisine": "Chinese seafood",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,051",
       "price": "$$$",
       "priceBasis": "Banquets ~$60–95 pp",
       "priceEstimate": true,
@@ -27585,20 +26503,18 @@ window.BYO = {
           "distanceM": 80
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJZ2kFbgyWEmsR8yG8s7NrcII"
     },
     {
       "name": "Ambarsariya Dhaba",
       "region": "Western Sydney",
       "suburb": "Seven Hills",
-      "address": "2 Artillery Cres, Seven Hills NSW",
       "addressSource": "suburb-only",
       "lat": -33.771957,
       "lng": 150.935448,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "831",
       "price": "$",
       "priceBasis": "Google price range $15 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -27621,20 +26537,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJRQkfG3WZEmsRTggKcJOriMA"
     },
     {
       "name": "DJ Vietnamese Pho restaurant",
       "region": "Western Sydney",
       "suburb": "Ingleburn",
-      "address": "7/44 Oxford Rd, Ingleburn NSW",
       "addressSource": "suburb-only",
       "lat": -33.998832,
       "lng": 150.866796,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "790",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27664,7 +26578,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6RPdh3vrEmsRdBM8YraujAo"
     },
     {
       "name": "Kouzina Greco",
@@ -27678,8 +26593,6 @@ window.BYO = {
       "lng": 151.00349,
       "cuisine": "Greek",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "771",
       "price": "$$",
       "priceBasis": "Mains $35–52",
       "priceEstimate": false,
@@ -27709,7 +26622,8 @@ window.BYO = {
           "osm": "node/1611289094",
           "distanceM": 120
         }
-      }
+      },
+      "place_id": "ChIJ2TgPYh6jEmsRT1hRjcKMxvk"
     },
     {
       "name": "PoppiTino",
@@ -27723,8 +26637,6 @@ window.BYO = {
       "lng": 150.734776,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "686",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27754,20 +26666,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJr7b4512PEmsRhS4d-t4QhHk"
     },
     {
       "name": "Mamak Parramatta",
       "region": "Western Sydney",
       "suburb": "North Parramatta",
-      "address": "North Parramatta NSW 2151",
       "addressSource": "suburb-only",
       "lat": -33.790596,
       "lng": 151.00875,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "533",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27797,7 +26707,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ66U9Qa-jEmsRyes0sfEDeog"
     },
     {
       "name": "Sushi Mata",
@@ -27811,8 +26722,6 @@ window.BYO = {
       "lng": 151.0036,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "422",
       "price": "$",
       "priceBasis": "Bentos $25–32",
       "priceEstimate": false,
@@ -27842,7 +26751,8 @@ window.BYO = {
           "osm": "node/1611289094",
           "distanceM": 60
         }
-      }
+      },
+      "place_id": "ChIJqTYaw0ijEmsRFahykDJYtBA"
     },
     {
       "name": "Thai Thae Penrith",
@@ -27856,8 +26766,6 @@ window.BYO = {
       "lng": 150.69088,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "420",
       "price": "$",
       "priceBasis": "Dishes $23.90–29.90",
       "priceEstimate": false,
@@ -27880,7 +26788,8 @@ window.BYO = {
           "distanceM": 20
         },
         "independent": null
-      }
+      },
+      "place_id": "ChIJSzAxjfOFEmsRHdDjCqfPG4o"
     },
     {
       "name": "Viet Soul",
@@ -27894,8 +26803,6 @@ window.BYO = {
       "lng": 150.90651,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "354",
       "price": "$",
       "priceBasis": "Pho $20.90; crispy chicken rice $20",
       "priceEstimate": false,
@@ -27925,20 +26832,18 @@ window.BYO = {
           "distanceM": 810
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJPbuVyy-ZEmsR06CGRFDJN_Q"
     },
     {
       "name": "Rose Niyom Glenmore Park",
       "region": "Western Sydney",
       "suburb": "Glenmore Park",
-      "address": "L04/1-11 Town Terrace, Glenmore Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.787497,
       "lng": 150.669188,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "319",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27953,20 +26858,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJUyqrGJqJEmsRJkZgR6QP9Ls"
     },
     {
       "name": "5 Star Manoosh & Pizza",
       "region": "Western Sydney",
       "suburb": "Ingleburn",
-      "address": "4/19-21 Oxford Rd, Ingleburn NSW",
       "addressSource": "suburb-only",
       "lat": -33.998575,
       "lng": 150.86551,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "108",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -27996,7 +26899,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ0WyigrHrEmsRiNqTsN9SSbw"
     },
     {
       "name": "Viet House Rolls",
@@ -28010,8 +26914,6 @@ window.BYO = {
       "lng": 150.987312,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "97",
       "price": "$",
       "priceBasis": "Google price range $12 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -28041,7 +26943,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJK9YN9QijEmsRjDFEsHQnuoM"
     },
     {
       "name": "Bau Truong Cabramatta",
@@ -28055,8 +26958,6 @@ window.BYO = {
       "lng": 150.936391,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "41",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28085,20 +26986,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ933tUkuXEmsRe4Pox2vPhBI"
     },
     {
       "name": "Ingleburn Nutrition Corner",
       "region": "Western Sydney",
       "suburb": "Ingleburn",
-      "address": "3B Nardoo St, Ingleburn NSW",
       "addressSource": "suburb-only",
       "lat": -33.998522,
       "lng": 150.865492,
       "cuisine": "Health food",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "31",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28128,7 +27027,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJZeb107LrEmsR12fL_rj7v-g"
     },
     {
       "name": "BlackBear BBQ",
@@ -28142,8 +27042,6 @@ window.BYO = {
       "lng": 150.91043,
       "cuisine": "American BBQ",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "1,229",
       "price": "$$",
       "priceBasis": "No menu prices captured; estimate",
       "priceEstimate": true,
@@ -28165,7 +27063,8 @@ window.BYO = {
           "distanceM": 1220
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJcyIzq-GYEmsRgfvIx_Wz9-Y"
     },
     {
       "name": "Twelve Spices",
@@ -28179,8 +27078,6 @@ window.BYO = {
       "lng": 150.91369,
       "cuisine": "Lao & Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "991",
       "price": "$",
       "priceBasis": "Mains $22.50–31.50",
       "priceEstimate": false,
@@ -28201,20 +27098,18 @@ window.BYO = {
           "osm": "node/12174085794",
           "distanceM": 570
         }
-      }
+      },
+      "place_id": "ChIJ85RkZHuWEmsRw835YD8xsI4"
     },
     {
       "name": "Simply Indian Harris Park",
       "region": "Western Sydney",
       "suburb": "Harris Park",
-      "address": "66–68 Wigram St, Harris Park NSW 2150",
       "addressSource": "suburb-only",
       "lat": -33.8218,
       "lng": 151.00876,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "734",
       "price": "$",
       "priceBasis": "Dishes ~$24",
       "priceEstimate": false,
@@ -28244,7 +27139,8 @@ window.BYO = {
           "osm": "node/6669783188",
           "distanceM": 90
         }
-      }
+      },
+      "place_id": "ChIJJbiT-hmjEmsRoVe7FjxN5J0"
     },
     {
       "name": "Peranakan Place",
@@ -28258,8 +27154,6 @@ window.BYO = {
       "lng": 151.039444,
       "cuisine": "Singaporean/Peranakan",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "514",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -28282,20 +27176,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJV9GRo1OjEmsR9dE89aCQvpM"
     },
     {
       "name": "Rydalmere Kebabs",
       "region": "Western Sydney",
       "suburb": "Rydalmere",
-      "address": "382 Victoria Rd, Rydalmere NSW",
       "addressSource": "suburb-only",
       "lat": -33.811824,
       "lng": 151.042137,
       "cuisine": "Restaurant",
       "family": "Middle Eastern",
-      "stars": 4.5,
-      "reviews": "377",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28325,20 +27217,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJAdhFEnyjEmsREvxMdJnJJY8"
     },
     {
       "name": "Tandoori Village",
       "region": "Western Sydney",
       "suburb": "Richmond",
-      "address": "24E Market Street, Richmond NSW",
       "addressSource": "suburb-only",
       "lat": -33.598233,
       "lng": 150.752713,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "341",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28361,20 +27251,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJAaW6LVt9DWsRkLHXaUn1DVU"
     },
     {
       "name": "Lakeside Restaurant",
       "region": "Western Sydney",
       "suburb": "Penrith",
-      "address": "Sydney International Regatta Centre, Gate A, Old Castlereagh Rd, Penrith NSW 2750",
       "addressSource": "suburb-only",
       "lat": -33.723103,
       "lng": 150.671357,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "232",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28389,20 +27277,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJG1JVHpWFEmsRdQDJvlyFtO0"
     },
     {
       "name": "Chinese Hot Pot Noodle",
       "region": "Western Sydney",
       "suburb": "Telopea",
-      "address": "3a Telopea St NSW",
       "addressSource": "suburb-only",
       "lat": -33.793727,
       "lng": 151.040881,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "228",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28432,20 +27318,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ8UnINY-jEmsRuvnNueDUQkQ"
     },
     {
       "name": "Little Neros Pizza & Pasta",
       "region": "Western Sydney",
       "suburb": "Mulgoa",
-      "address": "1 Fairlight Rd, Mulgoa NSW",
       "addressSource": "suburb-only",
       "lat": -33.837282,
       "lng": 150.650329,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "180",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28468,20 +27352,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJrR9mV8KLEmsR26dnE-mdw-Y"
     },
     {
       "name": "Tonight Lidcombe",
       "region": "Western Sydney",
       "suburb": "Lidcombe",
-      "address": "Shop 4/2 Kerrs Rd, Lidcombe NSW",
       "addressSource": "suburb-only",
       "lat": -33.865911,
       "lng": 151.043117,
       "cuisine": "Fusion",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "171",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28503,20 +27385,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHaT9Xn29EmsRZzzvOppLaf4"
     },
     {
       "name": "Mulgoa Take Away",
       "region": "Western Sydney",
       "suburb": "Mulgoa",
-      "address": "11/1216 Mulgoa Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.840178,
       "lng": 150.649255,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "141",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28539,20 +27419,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJybYJe8mIEmsRAIyLXlYxtbs"
     },
     {
       "name": "Restaurant 317",
       "region": "Western Sydney",
       "suburb": "Parramatta",
-      "address": "317 Church St, Parramatta NSW 2150",
       "addressSource": "suburb-only",
       "lat": -33.81144,
       "lng": 151.00387,
       "cuisine": "Italian & Mediterranean",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "3,652",
       "price": "$$",
       "priceBasis": "Mains $33–42",
       "priceEstimate": false,
@@ -28582,7 +27460,8 @@ window.BYO = {
           "osm": "node/1611289094",
           "distanceM": 180
         }
-      }
+      },
+      "place_id": "ChIJm-Qsgh6jEmsRCLEfMPSSm10"
     },
     {
       "name": "Tan Viet Noodle House",
@@ -28596,8 +27475,6 @@ window.BYO = {
       "lng": 150.934137,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "1,771",
       "price": "$",
       "priceBasis": "Google price range $12 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -28627,20 +27504,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJA6QmewyWEmsRbuRDbsUzIhU"
     },
     {
       "name": "Candelori's",
       "region": "Western Sydney",
       "suburb": "Smithfield",
-      "address": "685 The Horsley Drive, Smithfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.853237,
       "lng": 150.939625,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "1,771",
       "price": "$$$$",
       "priceBasis": "Google price range $55 - $110 pp (via MealFinder)",
       "priceEstimate": true,
@@ -28663,20 +27538,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJkwU3qs-XEmsRLd7hHV1V_dc"
     },
     {
       "name": "Luigi's Restaurant",
       "region": "Western Sydney",
       "suburb": "Narellan",
-      "address": "Shop 99, Narellan Town Centre, Cnr Queen & Elyard Streets NSW",
       "addressSource": "suburb-only",
       "lat": -34.043304,
       "lng": 150.736463,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "1,020",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28699,7 +27572,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJa4lGgrDxEmsRVJR9ax6rVyk"
     },
     {
       "name": "Thai Garden House",
@@ -28713,8 +27587,6 @@ window.BYO = {
       "lng": 151.004407,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "804",
       "price": "$$",
       "priceBasis": "Google price range $30 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -28744,20 +27616,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJG4PybAGjEmsRfjFzdazIy_U"
     },
     {
       "name": "Nunzio's Italian",
       "region": "Western Sydney",
       "suburb": "Quakers Hill",
-      "address": "2/216 Farnham Road, Quakers Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.727034,
       "lng": 150.904812,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "525",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -28780,20 +27650,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ47SLIjufEmsR5Jc5UA_1Ix0"
     },
     {
       "name": "Andamiro Sushi",
       "region": "Western Sydney",
       "suburb": "Lidcombe",
-      "address": "28 Joseph St, Lidcombe NSW",
       "addressSource": "suburb-only",
       "lat": -33.864597,
       "lng": 151.043428,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "225",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28815,20 +27683,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJq0I6cHC9EmsRvHjanrZpOOA"
     },
     {
       "name": "Viet Hoa Oyster Bar & Kitchen",
       "region": "Western Sydney",
       "suburb": "Cabramatta",
-      "address": "Shop 29–31 Dutton Plaza, Dutton Ln, Cabramatta NSW 2166",
       "addressSource": "suburb-only",
       "lat": -33.89377,
       "lng": 150.93455,
       "cuisine": "Vietnamese seafood",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "217",
       "price": "$",
       "priceBasis": "Dishes $17–27; Ocean Basket $50",
       "priceEstimate": false,
@@ -28858,20 +27724,18 @@ window.BYO = {
           "distanceM": 70
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJ4mmPgyWEmsRPOdEGXedItA"
     },
     {
       "name": "Mumma Phan",
       "region": "Western Sydney",
       "suburb": "Cabramatta",
-      "address": "183 Hume Hwy, Cabramatta NSW",
       "addressSource": "suburb-only",
       "lat": -33.895714,
       "lng": 150.954394,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "164",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28901,20 +27765,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJAQAkAvi9EmsRLwWZjanC8D4"
     },
     {
       "name": "Pizza Plus 1",
       "region": "Western Sydney",
       "suburb": "Telopea",
-      "address": "53 Adderton Road, Telopea NSW",
       "addressSource": "suburb-only",
       "lat": -33.793994,
       "lng": 151.040796,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "142",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28944,20 +27806,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJWdhfSY-jEmsRklEYElksktg"
     },
     {
       "name": "Taste of Hong Kong",
       "region": "Western Sydney",
       "suburb": "Telopea",
-      "address": "51 Adderton Rd, Telopea NSW",
       "addressSource": "suburb-only",
       "lat": -33.794078,
       "lng": 151.040971,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "125",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -28987,20 +27847,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJdeDY0gujEmsR0lGzs_LkH8A"
     },
     {
       "name": "Cocktail Heaven",
       "region": "Western Sydney",
       "suburb": "Smithfield",
-      "address": "687B The Horsley Dr, Smithfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.853122,
       "lng": 150.939575,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "111",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29023,20 +27881,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3W6Ga4SXEmsR-36Tpb9RAcI"
     },
     {
       "name": "Lansvale Chinese Take Away",
       "region": "Western Sydney",
       "suburb": "Lansvale",
-      "address": "3/204 Hume Hwy, Lansvale NSW",
       "addressSource": "suburb-only",
       "lat": -33.896999,
       "lng": 150.953961,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "77",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29066,20 +27922,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3ZUrmQKWEmsRBQnvrBPOMAs"
     },
     {
       "name": "Itihaas",
       "region": "Western Sydney",
       "suburb": "Parramatta",
-      "address": "325 Church St, Parramatta NSW 2150",
       "addressSource": "suburb-only",
       "lat": -33.81098,
       "lng": 151.00422,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "1,598",
       "price": "$",
       "priceBasis": "Mains $19.90–29",
       "priceEstimate": false,
@@ -29108,20 +27962,18 @@ window.BYO = {
           "distanceM": 240
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJQxkFKByjEmsRPSbTVVkOjIU"
     },
     {
       "name": "Abuali's Kebab",
       "region": "Western Sydney",
       "suburb": "Fairfield",
-      "address": "1/41-47 Spencer St, Fairfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.870645,
       "lng": 150.956155,
       "cuisine": "Middle Eastern",
       "family": "Middle Eastern",
-      "stars": 4.3,
-      "reviews": "1,499",
       "price": "$$",
       "priceBasis": "Google price range $20 - $40 pp (via MealFinder)",
       "priceEstimate": true,
@@ -29144,7 +27996,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJB7dQ2Ia9EmsREC8a1_RkU3k"
     },
     {
       "name": "Pho Pasteur",
@@ -29158,8 +28011,6 @@ window.BYO = {
       "lng": 151.0036,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "1,297",
       "price": "$",
       "priceBasis": "Pho bowls; no exact menu prices captured",
       "priceEstimate": true,
@@ -29189,20 +28040,18 @@ window.BYO = {
           "distanceM": 580
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJRU8GrSGjEmsRWYk13T8hE_A"
     },
     {
       "name": "Hai Au Lang Nuong",
       "region": "Western Sydney",
       "suburb": "Canley Vale",
-      "address": "48 Canley Vale Rd, Canley Vale NSW 2166",
       "addressSource": "suburb-only",
       "lat": -33.88693,
       "lng": 150.94133,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "~1,100",
       "price": "$$",
       "priceBasis": "Dishes $21–44",
       "priceEstimate": false,
@@ -29232,20 +28081,18 @@ window.BYO = {
           "distanceM": 1050
         }
       },
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ9d6GTBeWEmsRzbNiptEYF70"
     },
     {
       "name": "Top Shawarma Smithfield",
       "region": "Western Sydney",
       "suburb": "Smithfield",
-      "address": "686 The Horsley Dr, Smithfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.853577,
       "lng": 150.939403,
       "cuisine": "Shawarma",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "895",
       "price": "$",
       "priceBasis": "Google price range $15 - $32 pp (via MealFinder)",
       "priceEstimate": true,
@@ -29268,20 +28115,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJuQbuCvGXEmsRcgYSWKJc1fE"
     },
     {
       "name": "Thai Emerald",
       "region": "Western Sydney",
       "suburb": "Leppington",
-      "address": "108/5 Emerald Hills Boulevard, Leppington NSW",
       "addressSource": "suburb-only",
       "lat": -33.996052,
       "lng": 150.792497,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "654",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29296,20 +28141,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJX8IgGhntEmsRJpUsdjpqJvs"
     },
     {
       "name": "Hong Kong Chef Oran Park",
       "region": "Western Sydney",
       "suburb": "Oran Park",
-      "address": "Shop 8c/351 Oran Park Dr NSW",
       "addressSource": "suburb-only",
       "lat": -34.000461,
       "lng": 150.740591,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "568",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29324,7 +28167,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJPRoSkuLzEmsRvGqFDlWJXgw"
     },
     {
       "name": "Cucina 105",
@@ -29338,8 +28182,6 @@ window.BYO = {
       "lng": 150.92165,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "522",
       "price": "$$",
       "priceBasis": "Pasta $28–48",
       "priceEstimate": false,
@@ -29369,20 +28211,18 @@ window.BYO = {
           "distanceM": 150
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJk0d_m7mVEmsR0WPECnevMQI"
     },
     {
       "name": "Thai Palate",
       "region": "Western Sydney",
       "suburb": "Sydney Olympic Park",
-      "address": "Shop 8, 5 Australia Ave, Sydney Olympic Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.84756,
       "lng": 151.072819,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "500",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29405,7 +28245,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJCeeqpcmkEmsRq2L9ejoH19k"
     },
     {
       "name": "Aalishaan Indian Cuisine",
@@ -29419,8 +28260,6 @@ window.BYO = {
       "lng": 150.816738,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "469",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29450,20 +28289,18 @@ window.BYO = {
           "distanceM": 1430
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJiyUbKPjuEmsRWQwXWk5nvHQ"
     },
     {
       "name": "Farm Pizza and Kebab House",
       "region": "Western Sydney",
       "suburb": "Warwick Farm",
-      "address": "Shop 3/10 Hume Hwy, Warwick Farm NSW",
       "addressSource": "suburb-only",
       "lat": -33.914394,
       "lng": 150.930201,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "449",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29493,20 +28330,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfx-iBcKVEmsRoSuDibNY100"
     },
     {
       "name": "Green Valley Pizza and Pastry",
       "region": "Western Sydney",
       "suburb": "Green Valley",
-      "address": "shop 18/178 Green Valley Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.902817,
       "lng": 150.868521,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "416",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29528,7 +28363,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJGzD46QyUEmsR_2JnlgRCCdM"
     },
     {
       "name": "Palbok BBQ",
@@ -29542,8 +28378,6 @@ window.BYO = {
       "lng": 151.043314,
       "cuisine": "Korean barbecue",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "409",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29565,20 +28399,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJuZrxCKG8EmsRaV1jpeEDLNI"
     },
     {
       "name": "Avoca Woodfired Pizza",
       "region": "Western Sydney",
       "suburb": "Canley Heights",
-      "address": "Shop 8, 44 Harden St, Canley Heights NSW",
       "addressSource": "suburb-only",
       "lat": -33.878686,
       "lng": 150.916263,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "298",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29600,20 +28432,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_QfEWWaWEmsRpV74x8I0a4c"
     },
     {
       "name": "West Sydney Pizza & Pasta",
       "region": "Western Sydney",
       "suburb": "Minchinbury",
-      "address": "38 Minchin Dr, Minchinbury NSW",
       "addressSource": "suburb-only",
       "lat": -33.787537,
       "lng": 150.832499,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "245",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29628,7 +28458,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJs0qD-XOaEmsRiGFC9mSxp5E"
     },
     {
       "name": "The Pizza Stop",
@@ -29642,8 +28473,6 @@ window.BYO = {
       "lng": 150.719408,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "178",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29673,20 +28502,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ820Hj4GFEmsR62QTwZ642M0"
     },
     {
       "name": "Miruna's Restaurant Pty Ltd",
       "region": "Western Sydney",
       "suburb": "Pendle Hill",
-      "address": "150A Pendle Way, Pendle Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.801524,
       "lng": 150.95561,
       "cuisine": "Sri Lankan",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "177",
       "price": "$",
       "priceBasis": "Google price range $12 - $35 pp (via MealFinder)",
       "priceEstimate": true,
@@ -29716,20 +28543,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJlR5WNZ6iEmsRBsCtWgzsjko"
     },
     {
       "name": "Al Pacino's",
       "region": "Western Sydney",
       "suburb": "Merrylands",
-      "address": "10 E Hilltop Rd, Merrylands NSW",
       "addressSource": "suburb-only",
       "lat": -33.826662,
       "lng": 150.982531,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "148",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29759,20 +28584,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ7b_A5MuiEmsRXtm5xSMBUeU"
     },
     {
       "name": "Frango Glenmore Park",
       "region": "Western Sydney",
       "suburb": "Glenmore Park",
-      "address": "Shop T20/19 Town Terrace, Glenmore Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.789181,
       "lng": 150.668467,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "122",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29787,7 +28610,8 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJeUhgFeJEmsRH1Lq7kP7od0"
     },
     {
       "name": "Eddie Road Lunch Shop",
@@ -29801,8 +28625,6 @@ window.BYO = {
       "lng": 150.816174,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "118",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29825,20 +28647,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJmbC4En6aEmsRAu6uBI3-JxU"
     },
     {
       "name": "Odyssey Gourmet Silverwater",
       "region": "Western Sydney",
       "suburb": "Silverwater",
-      "address": "47 Vore St, Silverwater NSW",
       "addressSource": "suburb-only",
       "lat": -33.833809,
       "lng": 151.046635,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "61",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29861,20 +28681,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpfMimFijEmsR17q2RdVN5LQ"
     },
     {
       "name": "Young Station",
       "region": "Western Sydney",
       "suburb": "Lidcombe",
-      "address": "8 Bridge St, Lidcombe NSW",
       "addressSource": "suburb-only",
       "lat": -33.864481,
       "lng": 151.043326,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.3,
-      "reviews": "42",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29896,7 +28714,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJKbXmmQK9EmsR13mZhvNMQMY"
     },
     {
       "name": "Temasek Restaurant",
@@ -29910,8 +28729,6 @@ window.BYO = {
       "lng": 151.006571,
       "cuisine": "Singaporean",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "2,737",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29941,7 +28758,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJ_Ud7KB-jEmsRB2-wZOe25Ws"
     },
     {
       "name": "Ginger Indian Restaurant",
@@ -29955,8 +28773,6 @@ window.BYO = {
       "lng": 151.008841,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "1,546",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -29986,7 +28802,8 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJWwZbpSOjEmsRs0U7B2ofuys"
     },
     {
       "name": "Happy Inn",
@@ -30000,8 +28817,6 @@ window.BYO = {
       "lng": 150.698638,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "881",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30031,20 +28846,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJtdFnTouFEmsRr6cksbhQEi8"
     },
     {
       "name": "Aquacotta Restaurant",
       "region": "Western Sydney",
       "suburb": "Liverpool",
-      "address": "1/71 Hoxton Park Rd, Liverpool NSW 2170",
       "addressSource": "suburb-only",
       "lat": -33.927507,
       "lng": 150.909065,
       "cuisine": "Dessert",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "822",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -30074,20 +28887,18 @@ window.BYO = {
           "distanceM": 1440
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJNd0z4KyVEmsRr4HFvwijb9Y"
     },
     {
       "name": "Jags Ristorante Newington",
       "region": "Western Sydney",
       "suburb": "Newington",
-      "address": "Shop 11, Newington Market Place, 6 Avenue of Europe NSW",
       "addressSource": "suburb-only",
       "lat": -33.834369,
       "lng": 151.056,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "727",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30110,7 +28921,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBdGeeaOkEmsRQZD1rg1oqF8"
     },
     {
       "name": "Enzo's restaurant",
@@ -30124,8 +28936,6 @@ window.BYO = {
       "lng": 150.961771,
       "cuisine": "Dessert",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "654",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30147,20 +28957,18 @@ window.BYO = {
           "distanceM": 910
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJz26NLwS-EmsR22QVRKYRvsM"
     },
     {
       "name": "Tommy's Kebabs",
       "region": "Western Sydney",
       "suburb": "Smithfield",
-      "address": "3/677  The Horsley Dr, Smithfield, 2164, NSW",
       "addressSource": "suburb-only",
       "lat": -33.853334,
       "lng": 150.940325,
       "cuisine": "Restaurant",
       "family": "Middle Eastern",
-      "stars": 4.2,
-      "reviews": "650",
       "price": "$",
       "priceBasis": "Google price range $10 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -30183,7 +28991,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJOdAEIpO9EmsR9Nu2LXmG8Dc"
     },
     {
       "name": "Tins & Wood",
@@ -30197,8 +29006,6 @@ window.BYO = {
       "lng": 150.698812,
       "cuisine": "Italian/Mediterranean",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "419",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30228,20 +29035,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJqb67DNiFEmsRm2sUF8XTCUY"
     },
     {
       "name": "The Gozleme Co",
       "region": "Western Sydney",
       "suburb": "Wetherill Park",
-      "address": "561-583 Polding St, Wetherill Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.859316,
       "lng": 150.897898,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.2,
-      "reviews": "214",
       "price": "$",
       "priceBasis": "Google price range $10 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -30256,20 +29061,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJS20sVvqWEmsRM0F2uXmtvIc"
     },
     {
       "name": "The Moment Thai Cuisine",
       "region": "Western Sydney",
       "suburb": "North Parramatta",
-      "address": "144B Pennant St, North Parramatta NSW 2151, Australia",
       "addressSource": "suburb-only",
       "lat": -33.808185,
       "lng": 151.018584,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "195",
       "price": "$",
       "priceBasis": "Google price range $15 - $30 pp (via MealFinder)",
       "priceEstimate": true,
@@ -30299,20 +29102,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJw1Gz2w2jEmsRXFV5ipgx2Tg"
     },
     {
       "name": "Finn & Co Emu Plains",
       "region": "Western Sydney",
       "suburb": "Emu Plains",
-      "address": "1 David Road, Emu Plains NSW",
       "addressSource": "suburb-only",
       "lat": -33.744118,
       "lng": 150.662179,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "175",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30342,20 +29143,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJNcSm5NGHEmsRWvUvqcBe--c"
     },
     {
       "name": "Spring Sushi",
       "region": "Western Sydney",
       "suburb": "Bonnyrigg",
-      "address": "Bonnyrigg Plaza, T04/100 Bonnyrigg Ave NSW",
       "addressSource": "suburb-only",
       "lat": -33.886453,
       "lng": 150.888738,
       "cuisine": "Sushi",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "175",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30378,20 +29177,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJE_e4XZ6WEmsRsYxHjmtmw68"
     },
     {
       "name": "Le Wrap",
       "region": "Western Sydney",
       "suburb": "Wetherill Park",
-      "address": "561-583 Polding St, Wetherill Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.859316,
       "lng": 150.897898,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "164",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30406,20 +29203,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJU2QuVvqWEmsReE2FVcM2poE"
     },
     {
       "name": "Hyde Thai restaurant",
       "region": "Western Sydney",
       "suburb": "Campbelltown",
-      "address": "Shop R2/4 Hyde Parade, Campbelltown NSW",
       "addressSource": "suburb-only",
       "lat": -34.074691,
       "lng": 150.80496,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "88",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30449,20 +29244,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVcxCneTvEmsRIIXbRl8Yunc"
     },
     {
       "name": "Enzo's Cucina Bonnyrigg",
       "region": "Western Sydney",
       "suburb": "Bonnyrigg",
-      "address": "Shop 39-40/100 Bonnyrigg Ave NSW",
       "addressSource": "suburb-only",
       "lat": -33.887622,
       "lng": 150.886856,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "648",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30485,20 +29278,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJI9cfohWXEmsRbbfYXouATnE"
     },
     {
       "name": "V Lounge",
       "region": "Western Sydney",
       "suburb": "Canley Heights",
-      "address": "3/239 Canley Vale Road, Canley Heights NSW",
       "addressSource": "suburb-only",
       "lat": -33.883415,
       "lng": 150.924328,
       "cuisine": "Pan-Asian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "628",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30520,20 +29311,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-56Rum6WEmsRsW14Zp2ZUk8"
     },
     {
       "name": "Pho 76",
       "region": "Western Sydney",
       "suburb": "Green Valley",
-      "address": "193 Wilson Road, Green Valley NSW",
       "addressSource": "suburb-only",
       "lat": -33.906692,
       "lng": 150.865835,
       "cuisine": "Pho",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "538",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30555,20 +29344,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJx5x0EHSUEmsRtoi5lWXPiYs"
     },
     {
       "name": "Flipp Burgers | Elara Village",
       "region": "Western Sydney",
       "suburb": "Marsden Park",
-      "address": "T8 Elara Village Shopping Centre, 111 Elara Bvd, Marsden Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.695335,
       "lng": 150.820225,
       "cuisine": "American",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "371",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30591,20 +29378,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJWY_iTeedEmsRTYG0HrK1vpQ"
     },
     {
       "name": "La Salvatore Pizza & Pasta",
       "region": "Western Sydney",
       "suburb": "Narellan",
-      "address": "3b/296 Camden Valley Way, Narellan NSW",
       "addressSource": "suburb-only",
       "lat": -34.041533,
       "lng": 150.732305,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "287",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30627,20 +29412,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJwdrwuLrxEmsR9EoIHH9LWmY"
     },
     {
       "name": "Wah Shing Chinese Restaurant",
       "region": "Western Sydney",
       "suburb": "St Marys",
-      "address": "62 Chapel St, St Marys NSW",
       "addressSource": "suburb-only",
       "lat": -33.766944,
       "lng": 150.774444,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "158",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30670,20 +29453,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJ81S5bGaEmsRfjzceWyKE4k"
     },
     {
       "name": "Tim's Fish & Chips",
       "region": "Western Sydney",
       "suburb": "Smithfield",
-      "address": "52 Dublin St, Smithfield NSW",
       "addressSource": "suburb-only",
       "lat": -33.855024,
       "lng": 150.924377,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "87",
       "price": "$",
       "priceBasis": "Google price range $10 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -30706,20 +29487,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFXBMebOXEmsR61WhvVKtlPI"
     },
     {
       "name": "Hong Kong Village",
       "region": "Western Sydney",
       "suburb": "St Marys",
-      "address": "36 Charles Hackett Dr, St Marys NSW",
       "addressSource": "suburb-only",
       "lat": -33.766689,
       "lng": 150.770081,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "46",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30749,20 +29528,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJgeolA9OaEmsRv8NNE4DPxZo"
     },
     {
       "name": "Jaggi 's Indian Eatery",
       "region": "Western Sydney",
       "suburb": "Seven Hills",
-      "address": "29 - 31 Boomerang Place, Seven Hills NSW",
       "addressSource": "suburb-only",
       "lat": -33.775013,
       "lng": 150.936284,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "1,803",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -30792,20 +29569,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJL1L_24uYEmsRb_s_282O_lE"
     },
     {
       "name": "Thai Rock",
       "region": "Western Sydney",
       "suburb": "Wetherill Park",
-      "address": "Shop CO3, 561/583 Polding St, Wetherill Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.857942,
       "lng": 150.898938,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "672",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -30820,7 +29595,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJh7QBp_uWEmsR_h9eiwcyNSY"
     },
     {
       "name": "Thanh Binh",
@@ -30834,8 +29610,6 @@ window.BYO = {
       "lng": 150.936382,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "535",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30865,7 +29639,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_4XRHQyWEmsRrxuJ_anomAA"
     },
     {
       "name": "Talking Tables",
@@ -30879,8 +29654,6 @@ window.BYO = {
       "lng": 150.693481,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "430",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30903,20 +29676,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJwQz5DfSFEmsRuOTCpfeidH4"
     },
     {
       "name": "Watsup Brothers",
       "region": "Western Sydney",
       "suburb": "Marsden Park",
-      "address": "T5 Elara Village Shopping Centre, 98 Elara Bvd, Marsden Park NSW",
       "addressSource": "suburb-only",
       "lat": -33.695016,
       "lng": 150.819829,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4,
-      "reviews": "396",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30939,7 +29710,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJY1JGJkSdEmsRI8mlP1HkgHM"
     },
     {
       "name": "Red Spoon Thai @ Penrith",
@@ -30953,8 +29725,6 @@ window.BYO = {
       "lng": 150.694255,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4,
-      "reviews": "190",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -30977,20 +29747,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJRXyYF_SFEmsRYFSyNRjtF-4"
     },
     {
       "name": "Country Fried Chicken",
       "region": "Western Sydney",
       "suburb": "Kingswood",
-      "address": "1/228 Great Western Hwy, Kingswood NSW",
       "addressSource": "suburb-only",
       "lat": -33.758565,
       "lng": 150.718143,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4,
-      "reviews": "41",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31020,20 +29788,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJKZXNfoGFEmsRwz_wK0h9T0U"
     },
     {
       "name": "Sacred Platter",
       "region": "Hills & North West",
       "suburb": "Kenthurst",
-      "address": "3/4 Nelson Street, Kenthurst NSW",
       "addressSource": "suburb-only",
       "lat": -33.66089,
       "lng": 151.005801,
       "cuisine": "Modern Indian",
       "family": "Asian",
-      "stars": 5,
-      "reviews": "123",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31055,20 +29821,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ77d1NABfDWsRcNGgHk2_zKk"
     },
     {
       "name": "Ricks Pizzeria e Ristorante",
       "region": "Hills & North West",
       "suburb": "Kellyville Ridge",
-      "address": "8/8 Merriville Rd, Kellyville Ridge NSW",
       "addressSource": "suburb-only",
       "lat": -33.700142,
       "lng": 150.927336,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "459",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31091,20 +29855,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJEXtr0KmfEmsRyJnnwOhLwQU"
     },
     {
       "name": "La Pancita",
       "region": "Hills & North West",
       "suburb": "Dural",
-      "address": "2/506 Old Northern Road, Dural NSW",
       "addressSource": "suburb-only",
       "lat": -33.693765,
       "lng": 151.018993,
       "cuisine": "South American",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "66",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31119,20 +29881,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJywmlxCuhEmsRHwp8fcXoR30"
     },
     {
       "name": "The Idli Project",
       "region": "Hills & North West",
       "suburb": "Parklea",
-      "address": "Entry- 3/601 Sunnyholt Rd, Parklea NSW",
       "addressSource": "suburb-only",
       "lat": -33.722976,
       "lng": 150.932007,
       "cuisine": "South Indian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "1,301",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31155,20 +29915,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfbflTa-fEmsRIuRYL7ebBHE"
     },
     {
       "name": "Ingu",
       "region": "Hills & North West",
       "suburb": "Rouse Hill",
-      "address": "6/322 Annangrove Road, Rouse Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.665855,
       "lng": 150.919024,
       "cuisine": "South Indian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "171",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31183,20 +29941,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJw9d4TB6fEmsRSolP4j5FFEw"
     },
     {
       "name": "Kellyville Chinese Restaurant",
       "region": "Hills & North West",
       "suburb": "Kellyville",
-      "address": "2/33 Windsor Rd, Kellyville NSW",
       "addressSource": "suburb-only",
       "lat": -33.712095,
       "lng": 150.958331,
       "cuisine": "South Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "3,616",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -31226,7 +29982,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJwdoHvWqhEmsRLtwBBbj7n0I"
     },
     {
       "name": "Castle Taj",
@@ -31240,8 +29997,6 @@ window.BYO = {
       "lng": 151.006607,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,439",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31264,20 +30019,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJvW9RgwyhEmsR4KOf5KThvbA"
     },
     {
       "name": "Delhi Heights Indian Restaurant & Function Centre",
       "region": "Hills & North West",
       "suburb": "Dural",
-      "address": "11/829 Old Northern Road, Dural NSW",
       "addressSource": "suburb-only",
       "lat": -33.69515,
       "lng": 151.032796,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,081",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31292,20 +30045,18 @@ window.BYO = {
         "independent": null
       },
       "dish": "",
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJAXlvy7ugEmsRT5YuSYhHYBo"
     },
     {
       "name": "Madame Thai",
       "region": "Hills & North West",
       "suburb": "Castle Hill",
-      "address": "3/33 Terminus St, Castle Hill NSW 2154",
       "addressSource": "suburb-only",
       "lat": -33.7355,
       "lng": 151.0047,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "108",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -31313,7 +30064,7 @@ window.BYO = {
       "byoConfirmed": true,
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
-      "note": "Formerly Castle Thai; only just over 100 reviews",
+      "note": "Formerly Castle Thai",
       "website": "https://www.madamethai.com.au/",
       "city": "Sydney",
       "bottleShops": {
@@ -31328,7 +30079,8 @@ window.BYO = {
         },
         "independent": null
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJvRzRCYqhEmsRSMRPb8FTPw8"
     },
     {
       "name": "Trevi Lakeside",
@@ -31342,8 +30094,6 @@ window.BYO = {
       "lng": 150.964213,
       "cuisine": "Modern Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "950",
       "price": "$$$",
       "priceBasis": "Google price range $45–90 pp",
       "priceEstimate": true,
@@ -31366,20 +30116,18 @@ window.BYO = {
         },
         "independent": null
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJhZiHnuWhEmsRgdM72Sebo_0"
     },
     {
       "name": "The Heritage House",
       "region": "Hills & North West",
       "suburb": "Kenthurst",
-      "address": "70 Kenthurst Road NSW",
       "addressSource": "suburb-only",
       "lat": -33.686266,
       "lng": 151.011069,
       "cuisine": "Australian",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "600",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31394,20 +30142,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJrdGIbmehEmsRc11IKv707JY"
     },
     {
       "name": "Red Galangal",
       "region": "Hills & North West",
       "suburb": "Rouse Hill",
-      "address": "8/40 Panmure St, Rouse Hill NSW 2155",
       "addressSource": "suburb-only",
       "lat": -33.68321,
       "lng": 150.917264,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "599",
       "price": "$",
       "priceBasis": "Google price range $20–45 pp",
       "priceEstimate": true,
@@ -31430,20 +30176,18 @@ window.BYO = {
           "distanceM": 1250
         },
         "independent": null
-      }
+      },
+      "place_id": "ChIJDxQ2uq-fEmsR4UwIE3O3J2c"
     },
     {
       "name": "Chizzos Pizzeria",
       "region": "Hills & North West",
       "suburb": "Galston",
-      "address": "Shop 2/362 Galston Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.652394,
       "lng": 151.04535,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "80",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31466,7 +30210,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJy836Yi1fDWsRSQRNJaJo7yY"
     },
     {
       "name": "Lazeez Kitchen",
@@ -31480,8 +30225,6 @@ window.BYO = {
       "lng": 150.917442,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "936",
       "price": "$$",
       "priceBasis": "Google price range $25–55 pp",
       "priceEstimate": true,
@@ -31504,7 +30247,8 @@ window.BYO = {
         },
         "independent": null
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJUf1zv6-fEmsRVu9UjQqbEf4"
     },
     {
       "name": "Il Lago Italian Restaurant",
@@ -31518,8 +30262,6 @@ window.BYO = {
       "lng": 150.964213,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "839",
       "price": "$$",
       "priceBasis": "Google price range $30–65 pp",
       "priceEstimate": true,
@@ -31542,20 +30284,18 @@ window.BYO = {
         },
         "independent": null
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJIy_-nuWhEmsRh8FKuISxJFs"
     },
     {
       "name": "Thaitory Stanhope",
       "region": "Hills & North West",
       "suburb": "Stanhope Gardens",
-      "address": "Shop 18/2 Sentry Drive, Stanhope Gardens NSW",
       "addressSource": "suburb-only",
       "lat": -33.718312,
       "lng": 150.920123,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "147",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31578,7 +30318,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJXRgXPLifEmsR0S-JgOIuYbc"
     },
     {
       "name": "Il Nido The Nest",
@@ -31592,8 +30333,6 @@ window.BYO = {
       "lng": 151.006748,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "~132",
       "price": "$$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -31616,20 +30355,18 @@ window.BYO = {
         },
         "independent": null
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJDWiQYQuhEmsR1CR7H13cwjY"
     },
     {
       "name": "Village Thai Cuisine",
       "region": "Hills & North West",
       "suburb": "Glenorie",
-      "address": "930 Old Northern Rd, Glenorie NSW",
       "addressSource": "suburb-only",
       "lat": -33.601672,
       "lng": 151.008131,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "114",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31644,20 +30381,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJB2TJk4VeDWsRmNAalMBbNHU"
     },
     {
       "name": "Kashi Indian Restaurant",
       "region": "Hills & North West",
       "suburb": "Annangrove",
-      "address": "233 Annangrove Road NSW",
       "addressSource": "suburb-only",
       "lat": -33.655995,
       "lng": 150.937214,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "1,196",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31672,7 +30407,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzc1jbR1gDWsRJ6I2cD6Lc80"
     },
     {
       "name": "Taste of Tuscany",
@@ -31686,8 +30422,6 @@ window.BYO = {
       "lng": 151.046683,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "482",
       "price": "$$",
       "priceBasis": "Google price range $25–60 pp",
       "priceEstimate": true,
@@ -31710,7 +30444,8 @@ window.BYO = {
           "distanceM": 30
         },
         "independent": null
-      }
+      },
+      "place_id": "ChIJ4RFMcQqkEmsRZpqCNn8mI5g"
     },
     {
       "name": "Borrelli's Italian Restaurant",
@@ -31724,8 +30459,6 @@ window.BYO = {
       "lng": 151.081504,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "457",
       "price": "$$",
       "priceBasis": "Google price range $30–65 pp",
       "priceEstimate": true,
@@ -31755,20 +30488,18 @@ window.BYO = {
           "distanceM": 180
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJHX33Tp2mEmsRnjQsfJ6CnwQ"
     },
     {
       "name": "Hayashi Teppanyaki Restaurant",
       "region": "Hills & North West",
       "suburb": "Castle Hill",
-      "address": "23 Terminus St, Castle Hill NSW",
       "addressSource": "suburb-only",
       "lat": -33.734731,
       "lng": 151.00541,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "358",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31791,20 +30522,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJA72CSwuhEmsRbj2-Hw_4I8U"
     },
     {
       "name": "Golden West Chinese Restaurant",
       "region": "Hills & North West",
       "suburb": "Winston Hills",
-      "address": "Shop 4 & 5, 9-13 Rebecca Parade, Winston Hills NSW",
       "addressSource": "suburb-only",
       "lat": -33.779348,
       "lng": 150.974217,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "203",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31834,20 +30563,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJl_t9NWaiEmsRQqkLoorlYsE"
     },
     {
       "name": "Glenhaven Pizza and Pasta",
       "region": "Hills & North West",
       "suburb": "Glenhaven",
-      "address": "3/78 Glenhaven Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.698228,
       "lng": 151.001244,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "128",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31862,20 +30589,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ3wZUBvagEmsR8jtYTiT57qw"
     },
     {
       "name": "Thai Square Cuisine Galston",
       "region": "Hills & North West",
       "suburb": "Galston",
-      "address": "1/362 Galston Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.652611,
       "lng": 151.04512,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "117",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31898,7 +30623,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJRRjsYi1fDWsRQW8vpz7BcWk"
     },
     {
       "name": "Gati Thai Restaurant",
@@ -31912,8 +30638,6 @@ window.BYO = {
       "lng": 150.972675,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "674",
       "price": "$",
       "priceBasis": "Estimate: no menu prices checked",
       "priceEstimate": true,
@@ -31943,20 +30667,18 @@ window.BYO = {
           "distanceM": 1400
         }
       },
-      "takeawayDetail": ""
+      "takeawayDetail": "",
+      "place_id": "ChIJvYWNPsmhEmsR2iy41VQn5HE"
     },
     {
       "name": "La Carretta",
       "region": "Hills & North West",
       "suburb": "West Pennant Hills",
-      "address": "7/35 Coonara Ave, West Pennant Hills NSW 2125",
       "addressSource": "suburb-only",
       "lat": -33.745061,
       "lng": 151.030777,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "317",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -31986,20 +30708,18 @@ window.BYO = {
           "distanceM": 1890
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJBUEIXdSgEmsRjZwQDm_DF4M"
     },
     {
       "name": "Sushi Mura",
       "region": "Hills & North West",
       "suburb": "Dural",
-      "address": "Shop 19, Dural Mall, 26 - 28 Kenthurst Rd NSW",
       "addressSource": "suburb-only",
       "lat": -33.692927,
       "lng": 151.018655,
       "cuisine": "Sushi",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "50",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -32014,20 +30734,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJkYvrHJSgEmsR51-ofZ5qCdE"
     },
     {
       "name": "Sahara Street Food",
       "region": "Hills & North West",
       "suburb": "The Ponds",
-      "address": "Shop 2 Ponds Shopping Centre, Cnr Ponds Boulevarde & Riverbank Drive, The Ponds NSW",
       "addressSource": "suburb-only",
       "lat": -33.70597,
       "lng": 150.911206,
       "cuisine": "Turkish",
       "family": "Middle Eastern",
-      "stars": 4.1,
-      "reviews": "676",
       "price": "$$",
       "priceBasis": "Google price range $20 - $45 pp (via MealFinder)",
       "priceEstimate": true,
@@ -32050,20 +30768,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoSoonR6fEmsR97EfEs7ldNs"
     },
     {
       "name": "Dural Club",
       "region": "Hills & North West",
       "suburb": "Dural",
-      "address": "662A Old Northern Rd, Dural NSW",
       "addressSource": "suburb-only",
       "lat": -33.676036,
       "lng": 151.025031,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "466",
       "price": "?",
       "priceBasis": "Not priced in our sources yet",
       "priceEstimate": false,
@@ -32078,20 +30794,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ1xabSl5fDWsRsiVFSyTIasc"
     },
     {
       "name": "Orana Take Away",
       "region": "Hills & North West",
       "suburb": "Kellyville",
-      "address": "52 Windsor Rd, Kellyville NSW",
       "addressSource": "suburb-only",
       "lat": -33.712575,
       "lng": 150.957258,
       "cuisine": "Restaurant",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "348",
       "price": "$",
       "priceBasis": "Google price range $10 - $25 pp (via MealFinder)",
       "priceEstimate": true,
@@ -32121,20 +30835,18 @@ window.BYO = {
         }
       },
       "dish": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJR0AVfNehEmsROIsAbKXqXMI"
     },
     {
       "name": "Kebabiya Bella Vista",
       "region": "Hills & North West",
       "suburb": "Bella Vista",
-      "address": "Level 1, 115/20 Lexington Drive, Bella Vista NSW",
       "addressSource": "suburb-only",
       "lat": -33.735445,
       "lng": 150.945666,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "2,798",
       "price": "$$",
       "priceBasis": "Google price range $25 - $55 pp (via MealFinder)",
       "priceEstimate": true,
@@ -32157,7 +30869,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFbXt5VOfEmsRFvB_G55Z87w"
     },
     {
       "name": "Lusso Italian",
@@ -32171,8 +30884,6 @@ window.BYO = {
       "lng": 150.924606,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4,
-      "reviews": "1,046",
       "price": "$$",
       "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
       "priceEstimate": true,
@@ -32195,20 +30906,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ06Sfv6OfEmsRtyVbSkxZM2s"
     },
     {
       "name": "Megalong Restaurant",
       "region": "Blue Mountains",
       "suburb": "Megalong Valley",
-      "address": "3-7 Peach Tree Road, Megalong Valley NSW 2785",
       "addressSource": "suburb-only",
       "lat": -33.7002846,
       "lng": 150.2516901,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 5,
-      "reviews": "163",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32223,7 +30932,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJA4P10VNtEmsRzb7AFU5I-2k"
     },
     {
       "name": "Season Sushi",
@@ -32237,8 +30947,6 @@ window.BYO = {
       "lng": 150.311031,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "1,494",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32268,7 +30976,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJL1CIwZhuEmsR-jstkTCfuCc"
     },
     {
       "name": "Mr Collins of Leura",
@@ -32282,8 +30991,6 @@ window.BYO = {
       "lng": 150.331321,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "224",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32313,20 +31020,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJkZmBs8dvEmsRL__nmXviFgc"
     },
     {
       "name": "Spikes Bistro",
       "region": "Blue Mountains",
       "suburb": "Blackheath",
-      "address": "Brightlands Avenue, Blackheath NSW 2785",
       "addressSource": "suburb-only",
       "lat": -33.6487892,
       "lng": 150.290295,
       "cuisine": "Fusion",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "74",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32348,20 +31053,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJSz1XpI9zEmsRtOaY-d8uBdA"
     },
     {
       "name": "Basil Nut",
       "region": "Blue Mountains",
       "suburb": "Springwood",
-      "address": "Springwood NSW",
       "addressSource": "suburb-only",
       "lat": -33.699,
       "lng": 150.565,
       "cuisine": "Asian fusion restaurant",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "61",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32391,20 +31094,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJiRt-FbB9EmsRWdTGS5mRiIs"
     },
     {
       "name": "Pho Moi",
       "region": "Blue Mountains",
       "suburb": "Katoomba",
-      "address": "Shop 1 39 Waratah Street, Katoomba NSW 2780",
       "addressSource": "suburb-only",
       "lat": -33.7125,
       "lng": 150.311944,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,016",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32434,20 +31135,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_wdZo5huEmsRDfizc1xHIRE"
     },
     {
       "name": "8Things",
       "region": "Blue Mountains",
       "suburb": "Katoomba",
-      "address": "133 Katoomba St, Katoomba NSW 2780",
       "addressSource": "suburb-only",
       "lat": -33.71549,
       "lng": 150.31105,
       "cuisine": "International street food",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "1,303",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32477,20 +31176,18 @@ window.BYO = {
           "distanceM": 270
         }
       },
-      "dish": ""
+      "dish": "",
+      "place_id": "ChIJG7j535huEmsR6oaZeYGFQak"
     },
     {
       "name": "Blaq",
       "region": "Blue Mountains",
       "suburb": "Blackheath",
-      "address": "13-17 Brightlands Avenue, Blackheath NSW 2785",
       "addressSource": "suburb-only",
       "lat": -33.6493701,
       "lng": 150.2872652,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "595",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32512,20 +31209,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJTzQatN1zEmsRSc9uvXYpnh4"
     },
     {
       "name": "Maprang Thai Restaurant",
       "region": "Blue Mountains",
       "suburb": "Lawson",
-      "address": "3/1 Staples Crescent, Lawson NSW 2783",
       "addressSource": "suburb-only",
       "lat": -33.720307,
       "lng": 150.4293345,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "304",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32548,20 +31243,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJZa9WuQ9lEmsRQ7o8cMnzFVA"
     },
     {
       "name": "Thai Silk Restaurant",
       "region": "Blue Mountains",
       "suburb": "Blackheath",
-      "address": "124 Wentworth Street, Blackheath NSW 2785",
       "addressSource": "suburb-only",
       "lat": -33.63518846631376,
       "lng": 150.28605324727346,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "621",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32583,20 +31276,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoRcM-RNyEmsRXTqSPtp26Z0"
     },
     {
       "name": "La Bello Pizzeria",
       "region": "Blue Mountains",
       "suburb": "Faulconbridge",
-      "address": "459 Great Western Hwy, Faulconbridge NSW 2776",
       "addressSource": "suburb-only",
       "lat": -33.6935543,
       "lng": 150.5478129,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "468",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32626,20 +31317,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzQXyUhd9EmsRKZVabYWZKPM"
     },
     {
       "name": "Lawson Chinese",
       "region": "Blue Mountains",
       "suburb": "Lawson",
-      "address": "2 Loftus St, Lawson NSW 2783",
       "addressSource": "suburb-only",
       "lat": -33.7181641,
       "lng": 150.4304099,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "410",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32662,20 +31351,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6zX79xplEmsR-VgwV_W_CTQ"
     },
     {
       "name": "Lawson Pizza & Kebab",
       "region": "Blue Mountains",
       "suburb": "Lawson",
-      "address": "8/292 Great Western Hwy, Lawson NSW 2783",
       "addressSource": "suburb-only",
       "lat": -33.7199982,
       "lng": 150.4293882,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "366",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32698,20 +31385,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJDU4muQ9lEmsRljYRI4mt06Y"
     },
     {
       "name": "Springwood Thai Kitchen",
       "region": "Blue Mountains",
       "suburb": "Springwood",
-      "address": "246 Macquarie Rd, Springwood NSW 2777",
       "addressSource": "suburb-only",
       "lat": -33.6995249,
       "lng": 150.563876,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "262",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32741,20 +31426,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJK4zvz2t9EmsRGqEuyAxOlLE"
     },
     {
       "name": "The Wintergarden",
       "region": "Blue Mountains",
       "suburb": "Medlow Bath",
-      "address": "Hydro Majestic, 52-88 Great Western Highway, Medlow Bath NSW 2780",
       "addressSource": "suburb-only",
       "lat": -33.675891206371105,
       "lng": 150.280796440445,
       "cuisine": "European",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "1,037",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32769,20 +31452,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW-cMwrltEmsRTgkik2REygg"
     },
     {
       "name": "Monte's",
       "region": "Blue Mountains",
       "suburb": "Blaxland",
-      "address": "5/15A Great Western Highway, Blaxland NSW 2774",
       "addressSource": "suburb-only",
       "lat": -33.75764522742005,
       "lng": 150.6127845765476,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "347",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32812,7 +31493,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJo2kTOEKIEmsRq__rJ00ECzI"
     },
     {
       "name": "Skewered Lawson",
@@ -32826,8 +31508,6 @@ window.BYO = {
       "lng": 150.428871,
       "cuisine": "Lebanese",
       "family": "Middle Eastern",
-      "stars": 4.2,
-      "reviews": "164",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32850,20 +31530,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJc0TPGohlEmsRYUa3N3cc9Xc"
     },
     {
       "name": "Springwood Seafood",
       "region": "Blue Mountains",
       "suburb": "Springwood",
-      "address": "264 Macquarie Rd, Springwood NSW 2777",
       "addressSource": "suburb-only",
       "lat": -33.6997133,
       "lng": 150.5636993,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.2,
-      "reviews": "144",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32893,7 +31571,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJtco5yWt9EmsRl1rriF9_His"
     },
     {
       "name": "Amira's Indian Restaurant",
@@ -32907,8 +31586,6 @@ window.BYO = {
       "lng": 150.4523121,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "60",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32931,20 +31608,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJZxBX1NtlEmsRSuvkosM9c1c"
     },
     {
       "name": "Boiler House",
       "region": "Blue Mountains",
       "suburb": "Medlow Bath",
-      "address": "Hydro Majestic, 52-88 Great Western Highway, Medlow Bath NSW 2780",
       "addressSource": "suburb-only",
       "lat": -33.6756245,
       "lng": 150.280794,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "778",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -32959,20 +31634,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW-cMwrltEmsRoxB08kev0bk"
     },
     {
       "name": "Haidilao Hotpot Emporium",
       "region": "Inner Melbourne",
       "suburb": "Melbourne CBD",
-      "address": "Shop 304/287 Lonsdale Street, Melbourne CBD VIC 3000",
       "addressSource": "suburb-only",
       "lat": -37.8123362,
       "lng": 144.9637384,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "5,871",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33002,20 +31675,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ0aVsJDJD1moRfm4PISdfdJY"
     },
     {
       "name": "Upper Middle",
       "region": "Inner Melbourne",
       "suburb": "South Melbourne",
-      "address": "34 Eastern Road, South Melbourne VIC 3205",
       "addressSource": "suburb-only",
       "lat": -37.8323737,
       "lng": 144.9649738,
       "cuisine": "European",
       "family": "European",
-      "stars": 4.9,
-      "reviews": "50",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33045,7 +31716,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ7-rfxIJp1moRpge_3cG8bGU"
     },
     {
       "name": "Al Dente Enoteca",
@@ -33059,8 +31731,6 @@ window.BYO = {
       "lng": 144.974801,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "811",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33090,20 +31760,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYYCx7wND1moRY3QO3Irt8HQ"
     },
     {
       "name": "Little Africa",
       "region": "Inner Melbourne",
       "suburb": "North Melbourne",
-      "address": "358 Victoria Street, North Melbourne VIC 3051",
       "addressSource": "suburb-only",
       "lat": -37.8055545,
       "lng": 144.9543107,
       "cuisine": "African",
       "family": "African",
-      "stars": 4.8,
-      "reviews": "717",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33133,20 +31801,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJETT2xzZd1moR4SHkDmb0V9Q"
     },
     {
       "name": "Perso",
       "region": "Inner Melbourne",
       "suburb": "Melbourne Docklands",
-      "address": "15/60 Siddeley St, Melbourne Docklands VIC 3008",
       "addressSource": "suburb-only",
       "lat": -37.8226789,
       "lng": 144.9525241,
       "cuisine": "Middle Eastern",
       "family": "Middle Eastern",
-      "stars": 4.8,
-      "reviews": "60",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33176,20 +31842,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHzec01Bd1moR6cn4B_DvaDI"
     },
     {
       "name": "D'Elephant Thai Richmond",
       "region": "Inner Melbourne",
       "suburb": "Richmond",
-      "address": "276 Bridge Rd, Richmond VIC 3121",
       "addressSource": "suburb-only",
       "lat": -37.8188664,
       "lng": 145.0001548,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "494",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33219,20 +31883,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJi94DtOZD1moRwiFCyr962Vs"
     },
     {
       "name": "Savanna",
       "region": "Inner Melbourne",
       "suburb": "Collingwood",
-      "address": "7 Johnston Street, Collingwood VIC 3066",
       "addressSource": "suburb-only",
       "lat": -37.799172,
       "lng": 144.98483,
       "cuisine": "African",
       "family": "African",
-      "stars": 4.7,
-      "reviews": "352",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33262,20 +31924,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ0b_Wox9D1moRbMXH5__6MCI"
     },
     {
       "name": "Thai Food Near Me",
       "region": "Inner Melbourne",
       "suburb": "South Melbourne",
-      "address": "195 Clarendon St, South Melbourne VIC 3205",
       "addressSource": "suburb-only",
       "lat": -37.8303019,
       "lng": 144.9595967,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "198",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33305,20 +31965,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJZ2Rrv7pn1moRAJGGk12i_Qc"
     },
     {
       "name": "Indian Star",
       "region": "Inner Melbourne",
       "suburb": "Moonee Ponds",
-      "address": "254 Maribyrnong Road, Moonee Ponds VIC 3039",
       "addressSource": "suburb-only",
       "lat": -37.7703248,
       "lng": 144.9050829,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,966",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33348,20 +32006,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJCWio7k1c1moRniSBFrzYsSA"
     },
     {
       "name": "iCurry",
       "region": "Inner Melbourne",
       "suburb": "St Kilda",
-      "address": "278 - 280 St Kilda Rd, St Kilda VIC 3182",
       "addressSource": "suburb-only",
       "lat": -37.86391219177754,
       "lng": 144.98587646445276,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,297",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33405,8 +32061,6 @@ window.BYO = {
       "lng": 144.968383,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "1,113",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33436,20 +32090,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpx6ZRNZC1moR9uwVZGupXkQ"
     },
     {
       "name": "Fusion Ceylon",
       "region": "Inner Melbourne",
       "suburb": "Werribee",
-      "address": "27 Watton Street, Werribee VIC 3030",
       "addressSource": "suburb-only",
       "lat": -37.900663,
       "lng": 144.663215,
       "cuisine": "Sri Lankan",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "918",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33479,7 +32131,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ8-8VQ6OF1moRCPIJ6KLMPrM"
     },
     {
       "name": "Paris Go Bistro",
@@ -33493,8 +32146,6 @@ window.BYO = {
       "lng": 144.970852,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "468",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33524,7 +32175,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJz3qT3ddC1moR0e5yjftslXE"
     },
     {
       "name": "Nyala African Restaurant",
@@ -33538,8 +32190,6 @@ window.BYO = {
       "lng": 144.97898,
       "cuisine": "African",
       "family": "African",
-      "stars": 4.6,
-      "reviews": "460",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33569,7 +32219,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJyf1q_NtC1moRO6_BN7XWyMI"
     },
     {
       "name": "Maria's Trattoria",
@@ -33583,8 +32234,6 @@ window.BYO = {
       "lng": 144.956418,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "420",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33614,20 +32263,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJN7-E-jNd1moRFIhlAbMd6To"
     },
     {
       "name": "Mum Mum",
       "region": "Inner Melbourne",
       "suburb": "North Melbourne",
-      "address": "67 Flemington Road, North Melbourne VIC 3051",
       "addressSource": "suburb-only",
       "lat": -37.79928464998077,
       "lng": 144.95404540798665,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "285",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33657,20 +32304,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ2290PC5d1moRlh5iYJk-9A0"
     },
     {
       "name": "Huy's Kitchen",
       "region": "Inner Melbourne",
       "suburb": "South Melbourne",
-      "address": "261 Clarendon St, South Melbourne VIC 3205",
       "addressSource": "suburb-only",
       "lat": -37.8319174,
       "lng": 144.9609254,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "280",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33700,20 +32345,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJLfuD7I5n1moRC31KxxgNdj8"
     },
     {
       "name": "Copperwood Restaurant",
       "region": "Inner Melbourne",
       "suburb": "Carlton",
-      "address": "318 Lygon Street, Carlton VIC 3053",
       "addressSource": "suburb-only",
       "lat": -37.799593,
       "lng": 144.967408,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "1,917",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33743,7 +32386,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJs2_xrtZC1moRD45tnsNnPOs"
     },
     {
       "name": "Co Thu Quan",
@@ -33757,8 +32401,6 @@ window.BYO = {
       "lng": 144.9954319,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "873",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33788,7 +32430,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ7QCECPxC1moRjBvjJw3g4gM"
     },
     {
       "name": "The Olive Tree",
@@ -33802,8 +32445,6 @@ window.BYO = {
       "lng": 144.969898,
       "cuisine": "International",
       "family": "Other",
-      "stars": 4.5,
-      "reviews": "588",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33833,7 +32474,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJSfqNLqhC1moRRPbCcrCmZEs"
     },
     {
       "name": "Noi Thai",
@@ -33847,8 +32489,6 @@ window.BYO = {
       "lng": 144.983384,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "367",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33878,20 +32518,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMfNUj5JC1moR79ejTTf1xH4"
     },
     {
       "name": "Handcrafted Pizza and Burger",
       "region": "Inner Melbourne",
       "suburb": "St Kilda",
-      "address": "302 St Kilda Road, St Kilda VIC 3182",
       "addressSource": "suburb-only",
       "lat": -37.8643632,
       "lng": 144.9861612,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "304",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33921,20 +32559,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJdwAnK1Jp1moRfPmySfyG8N0"
     },
     {
       "name": "Three Pandas Dumpling House",
       "region": "Inner Melbourne",
       "suburb": "Parkville",
-      "address": "50 Flemington Rd, Parkville VIC 3052",
       "addressSource": "suburb-only",
       "lat": -37.7944927,
       "lng": 144.9496986,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "284",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -33964,20 +32600,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ0zWW5CVd1moRqNmEn2r2UCw"
     },
     {
       "name": "Orlo",
       "region": "Inner Melbourne",
       "suburb": "Collingwood",
-      "address": "44 Oxford St, Collingwood VIC 3066",
       "addressSource": "suburb-only",
       "lat": -37.8061106,
       "lng": 144.9848272,
       "cuisine": "Mediterranean",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "192",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34007,20 +32641,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJyzofiuRD1moRonh-IpLTlLo"
     },
     {
       "name": "Universal Restaurant",
       "region": "Inner Melbourne",
       "suburb": "Carlton",
-      "address": "139-141 Lygon Street, Carlton VIC 3053",
       "addressSource": "suburb-only",
       "lat": -37.803869,
       "lng": 144.966109,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "8,318",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34050,7 +32682,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJa2v1BNJC1moR_XGbXwcSoAg"
     },
     {
       "name": "La Spaghettata",
@@ -34064,8 +32697,6 @@ window.BYO = {
       "lng": 144.967045,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "3,340",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34095,7 +32726,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG5gufdFC1moR4DDoRmd5L6I"
     },
     {
       "name": "Topolino's",
@@ -34109,8 +32741,6 @@ window.BYO = {
       "lng": 144.9766688,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "2,185",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34140,7 +32770,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJhb7JwG5o1moRSoF2f1VRDPc"
     },
     {
       "name": "Shawcross Pizza",
@@ -34154,8 +32785,6 @@ window.BYO = {
       "lng": 144.97870102331353,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "956",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34185,20 +32814,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJI7ECxCBD1moRoz8XWX6dxYk"
     },
     {
       "name": "Il Carretto Pizza Restaurant",
       "region": "Inner Melbourne",
       "suburb": "Carlton",
-      "address": "479 Nicholson St, Carlton VIC 3053",
       "addressSource": "suburb-only",
       "lat": -37.7866,
       "lng": 144.97693,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "832",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34228,20 +32855,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJGYHeRztD1moRB-vdwSKi4LU"
     },
     {
       "name": "Tora Dumplings",
       "region": "Inner Melbourne",
       "suburb": "Fitzroy",
-      "address": "275 Brunswick Street, Fitzroy VIC 3065",
       "addressSource": "suburb-only",
       "lat": -37.8006067,
       "lng": 144.9780745,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "496",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34271,7 +32896,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJRTMmriBD1moRK8ZKSyxJ8-Q"
     },
     {
       "name": "Il Duca",
@@ -34285,8 +32911,6 @@ window.BYO = {
       "lng": 144.985683,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "331",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34316,20 +32940,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJt4ctMupC1moR7Opig3NrfSg"
     },
     {
       "name": "Hayashi 291",
       "region": "Inner Melbourne",
       "suburb": "Richmond",
-      "address": "291 Bridge Rd, Richmond VIC 3121",
       "addressSource": "suburb-only",
       "lat": -37.823,
       "lng": 144.998,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "288",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34359,7 +32981,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJLdPMLfFC1moR0WNibkyCz7o"
     },
     {
       "name": "Pho Oak Park",
@@ -34373,8 +32996,6 @@ window.BYO = {
       "lng": 144.9224517,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "275",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34404,20 +33025,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJl-JhRPBb1moRHeAZz6huvbs"
     },
     {
       "name": "The Farmacy",
       "region": "Inner Melbourne",
       "suburb": "Parkville",
-      "address": "48 Flemington Rd, Parkville VIC 3052",
       "addressSource": "suburb-only",
       "lat": -37.7949609,
       "lng": 144.9497837,
       "cuisine": "Mediterranean",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "227",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34447,7 +33066,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJRczf8yVd1moR3A-gbWHjBhE"
     },
     {
       "name": "BuuBBub Burmese & Thai",
@@ -34461,8 +33081,6 @@ window.BYO = {
       "lng": 144.9842562,
       "cuisine": "Cafe",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "214",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34492,7 +33110,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ5VQAdB9D1moR_Usf0_8FGIE"
     },
     {
       "name": "Little Buddha",
@@ -34506,8 +33125,6 @@ window.BYO = {
       "lng": 144.964759,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "181",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34537,7 +33154,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJL-tXMgto1moRXUWGIdRDUQk"
     },
     {
       "name": "IL Gambero",
@@ -34551,8 +33169,6 @@ window.BYO = {
       "lng": 144.96675,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "1,513",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34582,7 +33198,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJsZZWVtFC1moRX4Cc8oZA-eY"
     },
     {
       "name": "Thai 29 Restaurant",
@@ -34596,8 +33213,6 @@ window.BYO = {
       "lng": 144.9627976,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "561",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34627,20 +33242,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJR7inbf9n1moRCP0S2ied0eY"
     },
     {
       "name": "Super Bowl Pho & Bun Bo Hue",
       "region": "Inner Melbourne",
       "suburb": "Richmond",
-      "address": "252 Victoria Street, Richmond VIC 3121",
       "addressSource": "suburb-only",
       "lat": -37.81063749984483,
       "lng": 144.99963214847946,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "428",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34670,7 +33283,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJte95AfxC1moRfpRM86nHXAs"
     },
     {
       "name": "iSpicy",
@@ -34684,8 +33298,6 @@ window.BYO = {
       "lng": 144.994312,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "405",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34715,20 +33327,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG8s_S_tC1moRa26925KFc7Q"
     },
     {
       "name": "Bowl Bowl Dumpling",
       "region": "Inner Melbourne",
       "suburb": "Collingwood",
-      "address": "88 Smith Street, Collingwood VIC 3066",
       "addressSource": "suburb-only",
       "lat": -37.80567680489102,
       "lng": 144.9832094686825,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "315",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34764,14 +33374,11 @@ window.BYO = {
       "name": "Bossy Beans",
       "region": "Inner Melbourne",
       "suburb": "Carlton",
-      "address": "160 Rathdowne Street, Carlton VIC 3053",
       "addressSource": "suburb-only",
       "lat": -37.7955382,
       "lng": 144.9711006,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "108",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34807,14 +33414,11 @@ window.BYO = {
       "name": "Babu Ji",
       "region": "Inner Melbourne",
       "suburb": "St Kilda",
-      "address": "The George Building, 4 Grey Street, St Kilda VIC 3182",
       "addressSource": "suburb-only",
       "lat": -37.8598012942923,
       "lng": 144.9777371153442,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "929",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34844,7 +33448,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJz4FrU2lo1moR2aopM4IfUpg"
     },
     {
       "name": "Thanh Ha 2",
@@ -34858,8 +33463,6 @@ window.BYO = {
       "lng": 144.99557,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "853",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34889,20 +33492,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJbW5bXftC1moRD2SRMSWac_4"
     },
     {
       "name": "Jai Ho Indian Richmond",
       "region": "Inner Melbourne",
       "suburb": "Richmond",
-      "address": "205 Swan Street, Richmond VIC 3121",
       "addressSource": "suburb-only",
       "lat": -37.825618,
       "lng": 144.998948,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "725",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34932,20 +33533,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJO0T3vIxC1moRbE6iGTzmsh4"
     },
     {
       "name": "Nine Elephants Thai Restaurant",
       "region": "Inner Melbourne",
       "suburb": "Melbourne Docklands",
-      "address": "Shop 8/737 Bourke Street, Melbourne Docklands VIC 3008",
       "addressSource": "suburb-only",
       "lat": -37.818742880280276,
       "lng": 144.94926810264587,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "599",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -34975,7 +33574,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6Z3hjlpd1moRngM0SRt9DgI"
     },
     {
       "name": "Vinh Ky",
@@ -34989,8 +33589,6 @@ window.BYO = {
       "lng": 144.995366,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "498",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35020,7 +33618,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJAajSXPtC1moRudEzF3pnJaE"
     },
     {
       "name": "East Imperial",
@@ -35034,8 +33633,6 @@ window.BYO = {
       "lng": 144.969952,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "302",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35065,20 +33662,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJadVBBddC1moRQ2acccqSVM0"
     },
     {
       "name": "Gaylord",
       "region": "Inner Melbourne",
       "suburb": "Melbourne CBD",
-      "address": "The Grand Hotel, 33 Spencer Street, Melbourne CBD VIC 3000",
       "addressSource": "suburb-only",
       "lat": -37.812073,
       "lng": 144.965771,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "1,310",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35114,14 +33709,11 @@ window.BYO = {
       "name": "CoDo",
       "region": "Inner Melbourne",
       "suburb": "Richmond",
-      "address": "196 Victoria St, Richmond VIC 3121",
       "addressSource": "suburb-only",
       "lat": -37.810451,
       "lng": 144.997835,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "565",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35151,20 +33743,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ27woiPtC1moRPpd52DwPb9U"
     },
     {
       "name": "Bedi's Restaurant",
       "region": "Inner Melbourne",
       "suburb": "South Melbourne",
-      "address": "118 Park Street, South Melbourne VIC 3205",
       "addressSource": "suburb-only",
       "lat": -37.833464,
       "lng": 144.966885,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "428",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35194,20 +33784,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJocqAHgJo1moRxEtt8ri--q4"
     },
     {
       "name": "Thai Style Restaurant",
       "region": "Inner Melbourne",
       "suburb": "Richmond",
-      "address": "112 Victoria St, Richmond VIC 3121, Australia, Richmond VIC 3121",
       "addressSource": "suburb-only",
       "lat": -37.810206,
       "lng": 144.995285,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "239",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35237,7 +33825,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJS-4kWoxC1moRbq1jn5_MS-g"
     },
     {
       "name": "Masani",
@@ -35251,8 +33840,6 @@ window.BYO = {
       "lng": 144.968564,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "215",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35282,20 +33869,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ0ZRJ8dZC1moRBEDHtt4HFC8"
     },
     {
       "name": "Colourful Yunnan - Carlton",
       "region": "Inner Melbourne",
       "suburb": "Carlton",
-      "address": "680 Swanston Street, Carlton VIC 3053",
       "addressSource": "suburb-only",
       "lat": -37.800608,
       "lng": 144.96424,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "673",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35325,20 +33910,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6UxugbRC1moRfWp2AKYTiXI"
     },
     {
       "name": "The Crane Restaurant",
       "region": "Inner Melbourne",
       "suburb": "Melbourne CBD",
-      "address": "212 Little Bourke Street, Melbourne CBD VIC 3000",
       "addressSource": "suburb-only",
       "lat": -37.812045,
       "lng": 144.966283,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "631",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35368,7 +33951,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJmwbMJcpC1moR3D43zWRA-0A"
     },
     {
       "name": "Mister Truong's",
@@ -35382,8 +33966,6 @@ window.BYO = {
       "lng": 144.9440669,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "139",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35413,20 +33995,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJcTCCfLxc1moR2wtCzemER0Y"
     },
     {
       "name": "Il Villaggio",
       "region": "Inner North",
       "suburb": "Coburg",
-      "address": "99 Gaffney Street, Coburg VIC 3058",
       "addressSource": "suburb-only",
       "lat": -37.7335632,
       "lng": 144.9590723,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "124",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35456,20 +34036,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ69BUymVb1moRJjcgpX05Zcc"
     },
     {
       "name": "Cirelli&co",
       "region": "Inner North",
       "suburb": "Brunswick West",
-      "address": "454 Albion St, Brunswick West VIC 3055",
       "addressSource": "suburb-only",
       "lat": -37.7585353,
       "lng": 144.9426649,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "754",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35499,7 +34077,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJEcbxMaNc1moRVXtlFu2TU5U"
     },
     {
       "name": "Pad Cha Thai",
@@ -35513,8 +34092,6 @@ window.BYO = {
       "lng": 145.003041,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "585",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35544,20 +34121,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW2lQhPdE1moRRHJidzAn9b0"
     },
     {
       "name": "Compass Pizza",
       "region": "Inner North",
       "suburb": "Brunswick",
-      "address": "319 Lygon St, Brunswick VIC 3056",
       "addressSource": "suburb-only",
       "lat": -37.797859,
       "lng": 144.967163,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "578",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35587,20 +34162,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHT-2AFBD1moRsnwHO38Caho"
     },
     {
       "name": "Maharaja Tandoori Cuisine",
       "region": "Inner North",
       "suburb": "Preston",
-      "address": "560 High Street, Preston VIC 3072",
       "addressSource": "suburb-only",
       "lat": -37.732748,
       "lng": 145.005236,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "3,277",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35630,7 +34203,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJXSgcCABF1moRVQMdQrCiB50"
     },
     {
       "name": "The Pantry Melbourne",
@@ -35644,8 +34218,6 @@ window.BYO = {
       "lng": 144.940881,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "1,152",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35675,7 +34247,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJdXi6uqdb1moRqpw1oJICLXE"
     },
     {
       "name": "Postmistress",
@@ -35689,8 +34262,6 @@ window.BYO = {
       "lng": 144.9436279,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "1,116",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35720,7 +34291,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfzZ2Hrxc1moRBwRybBZTZhQ"
     },
     {
       "name": "Tempo",
@@ -35734,8 +34306,6 @@ window.BYO = {
       "lng": 144.9985452,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "1,108",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35765,7 +34335,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoxKlCnxD1moReXKBzMXh-oc"
     },
     {
       "name": "Shinwa Izakaya",
@@ -35779,8 +34350,6 @@ window.BYO = {
       "lng": 144.960705,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "727",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35810,20 +34379,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoWDSVrVc1moR3BJWuMqEnww"
     },
     {
       "name": "Basecamp Northcote",
       "region": "Inner North",
       "suburb": "Northcote",
-      "address": "102 High Street, Northcote VIC 3070",
       "addressSource": "suburb-only",
       "lat": -37.779784,
       "lng": 144.997191,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "267",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35853,7 +34420,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJw93QAXFD1moR2df8z_BDYAY"
     },
     {
       "name": "Inthanon Thai",
@@ -35867,8 +34435,6 @@ window.BYO = {
       "lng": 144.998031,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "140",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35898,20 +34464,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfftFsXtD1moRpLvnRZ2Fzq4"
     },
     {
       "name": "I Carusi",
       "region": "Inner North",
       "suburb": "Brunswick",
-      "address": "46A Holmes Street, Brunswick VIC 3056",
       "addressSource": "suburb-only",
       "lat": -37.759595,
       "lng": 144.974565,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "420",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35941,7 +34505,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJA4cWnKdE1moRdTotVStZQwU"
     },
     {
       "name": "La Botte Pizza Restaurant",
@@ -35955,8 +34520,6 @@ window.BYO = {
       "lng": 144.945249,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "235",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -35986,20 +34549,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJizpymERb1moRVnaxDolxo9A"
     },
     {
       "name": "Narai Thai",
       "region": "Inner North",
       "suburb": "Northcote",
-      "address": "214 St George Road, Northcote VIC 3070",
       "addressSource": "suburb-only",
       "lat": -37.764984,
       "lng": 144.992444,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "193",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36029,20 +34590,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHblmEZ1E1moR-eO94eGpRY8"
     },
     {
       "name": "Silk Thai",
       "region": "Inner North",
       "suburb": "Preston",
-      "address": "495 Plenty Road, Preston VIC 3072",
       "addressSource": "suburb-only",
       "lat": -37.736027,
       "lng": 145.012498,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "172",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36072,20 +34631,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJofGTMlNE1moRCwWwxMtWEa8"
     },
     {
       "name": "Lucky Little Dumplings Coburg",
       "region": "Inner North",
       "suburb": "Coburg",
-      "address": "T101/1 Champ Street, Coburg VIC 3058",
       "addressSource": "suburb-only",
       "lat": -37.736772,
       "lng": 144.9685269,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "708",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36115,20 +34672,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJf8WmsMhF1moRMDc4EIDBSDE"
     },
     {
       "name": "Pot House",
       "region": "Inner East",
       "suburb": "Kew",
-      "address": "162-164 High Street, Kew VIC 3101",
       "addressSource": "suburb-only",
       "lat": -37.807264,
       "lng": 145.030112,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 5,
-      "reviews": "1,143",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36158,20 +34713,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJU2sNnulD1moRAxCL8EBXl1M"
     },
     {
       "name": "Stefan's Charcoal Grill",
       "region": "Inner East",
       "suburb": "Balwyn",
-      "address": "305 Whitehorse Road, Balwyn VIC 3103",
       "addressSource": "suburb-only",
       "lat": -37.81245,
       "lng": 145.079455,
       "cuisine": "International",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "149",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36207,14 +34760,11 @@ window.BYO = {
       "name": "Lina's Restaurant",
       "region": "Inner East",
       "suburb": "Glen Iris",
-      "address": "32 High St, Glen Iris VIC 3146",
       "addressSource": "suburb-only",
       "lat": -37.8619626,
       "lng": 145.0656075,
       "cuisine": "European",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "46",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36244,20 +34794,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJsa0pJ2NB1moRcMuY1vwosLo"
     },
     {
       "name": "Little Thai Princess",
       "region": "Inner East",
       "suburb": "Glen Iris",
-      "address": "285 Burke Road, Glen Iris VIC 3146",
       "addressSource": "suburb-only",
       "lat": -37.853682,
       "lng": 145.052165,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "771",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36287,7 +34835,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHUsKs_lB1moRX17WJD1Zp60"
     },
     {
       "name": "One Thai",
@@ -36301,8 +34850,6 @@ window.BYO = {
       "lng": 145.10242,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "477",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36332,20 +34879,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJjYo-LS1H1moRIXZWfCNy5m4"
     },
     {
       "name": "Mumtaaz Indian Bistro",
       "region": "Inner East",
       "suburb": "Surrey Hills",
-      "address": "492 Whitehorse Road, Surrey Hills VIC 3127",
       "addressSource": "suburb-only",
       "lat": -37.8149934,
       "lng": 145.0975473,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "425",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36375,7 +34920,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJwYJYq9ZB1moRoQS1o_90Sdg"
     },
     {
       "name": "Avatar Indian Cuisine",
@@ -36389,8 +34935,6 @@ window.BYO = {
       "lng": 145.0788433957008,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "404",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36420,20 +34964,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoVd-sT1B1moRzjBIIyJ_570"
     },
     {
       "name": "Franco-Belge",
       "region": "Inner East",
       "suburb": "Hawthorn East",
-      "address": "9 Evans Place, Hawthorn East VIC 3123",
       "addressSource": "suburb-only",
       "lat": -37.83013023729885,
       "lng": 145.05571671104508,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "281",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36463,7 +35005,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJs3vnu99B1moROCM7he4d_nk"
     },
     {
       "name": "Thai Terrace",
@@ -36477,8 +35020,6 @@ window.BYO = {
       "lng": 145.036267,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "111",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36508,20 +35049,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ44JEzuhD1moRu3UaZXj6Ne8"
     },
     {
       "name": "Wing Gourmet Restaurant",
       "region": "Inner East",
       "suburb": "Camberwell",
-      "address": "931 Burke Rd, Camberwell VIC 3124",
       "addressSource": "suburb-only",
       "lat": -37.825483,
       "lng": 145.057599,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "111",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36551,20 +35090,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJo_hRGW1B1moR4IGQxxfao58"
     },
     {
       "name": "Choi's",
       "region": "Inner East",
       "suburb": "Hawthorn",
-      "address": "186 Riversdale Road, Hawthorn VIC 3122",
       "addressSource": "suburb-only",
       "lat": -37.829785,
       "lng": 145.041466,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "1,085",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36594,7 +35131,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHS7wfS9C1moR5Zuat-TMvNM"
     },
     {
       "name": "So Pho So Good",
@@ -36608,8 +35146,6 @@ window.BYO = {
       "lng": 145.065204,
       "cuisine": "Cafe",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "486",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36639,20 +35175,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJIyLh-eNB1moRYr9MbaHTqDI"
     },
     {
       "name": "The Wasabi Place",
       "region": "Inner East",
       "suburb": "Kew",
-      "address": "192 High Street, Kew VIC 3101",
       "addressSource": "suburb-only",
       "lat": -37.806626,
       "lng": 145.031895,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "353",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36682,20 +35216,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJS3NsbMZD1moRCJ8Fq9sJmsg"
     },
     {
       "name": "Firebox Pizza",
       "region": "Inner East",
       "suburb": "Hawthorn",
-      "address": "779 Glenferrie Road, Hawthorn VIC 3122",
       "addressSource": "suburb-only",
       "lat": -37.8169205,
       "lng": 145.0360954,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "339",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36725,20 +35257,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJbYTmlEZD1moRsWnnDV4bxzQ"
     },
     {
       "name": "Eastern Bell",
       "region": "Inner East",
       "suburb": "Balwyn",
-      "address": "399 Belmore Rd, Balwyn VIC 3103",
       "addressSource": "suburb-only",
       "lat": -37.803052,
       "lng": 145.102358,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "284",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36768,20 +35298,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJQ6oAJS1H1moRv0LJQd_NpUk"
     },
     {
       "name": "Deco",
       "region": "Inner East",
       "suburb": "Hawthorn East",
-      "address": "211 Camberwell Rd, Hawthorn East VIC 3123",
       "addressSource": "suburb-only",
       "lat": -37.830412,
       "lng": 145.055947,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "254",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36811,20 +35339,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJI5-ADoRB1moR2U-Hlj-5iM8"
     },
     {
       "name": "Charntra",
       "region": "Inner East",
       "suburb": "Camberwell",
-      "address": "740 Riversdale Road, Camberwell VIC 3124",
       "addressSource": "suburb-only",
       "lat": -37.833778,
       "lng": 145.0767769,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "110",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36854,7 +35380,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJQRkQy6BB1moRLBUQ43IUEpE"
     },
     {
       "name": "Santucci's",
@@ -36868,8 +35395,6 @@ window.BYO = {
       "lng": 145.09403,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "828",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36899,20 +35424,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ2aO90ExA1moRoxjN0W7Zr-s"
     },
     {
       "name": "Aashiana",
       "region": "Inner East",
       "suburb": "Balwyn",
-      "address": "346 Belmore Road, Balwyn VIC 3103",
       "addressSource": "suburb-only",
       "lat": -37.80354,
       "lng": 145.102425,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "653",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36942,20 +35465,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJjYo-LS1H1moRj4ogMXGDLXA"
     },
     {
       "name": "Zen Japanese Restaurant",
       "region": "Inner East",
       "suburb": "Hawthorn",
-      "address": "388 Burwood Road, Hawthorn VIC 3122",
       "addressSource": "suburb-only",
       "lat": -37.822993,
       "lng": 145.037294,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "506",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -36985,20 +35506,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJjZVKETJC1moR73Y-QkQis7E"
     },
     {
       "name": "Blue River Thai",
       "region": "Inner East",
       "suburb": "Canterbury",
-      "address": "239 Canterbury Road, Canterbury VIC 3126",
       "addressSource": "suburb-only",
       "lat": -37.823885,
       "lng": 145.08159,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "145",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37028,20 +35547,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzSZWEBBB1moRbsgJ2jyJi4k"
     },
     {
       "name": "Buoy Pizza",
       "region": "Inner East",
       "suburb": "Kew",
-      "address": "Shop 7/14 Walpole Street, Kew VIC 3101",
       "addressSource": "suburb-only",
       "lat": -37.80581,
       "lng": 145.03176,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "595",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37071,20 +35588,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ21DQY8ZD1moRGbDhRhwt7GE"
     },
     {
       "name": "Ocha",
       "region": "Inner East",
       "suburb": "Hawthorn",
-      "address": "3 Church Street, Hawthorn VIC 3122",
       "addressSource": "suburb-only",
       "lat": -37.813436,
       "lng": 145.023535,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "378",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37114,20 +35629,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJudfiw7RD1moRl-DBjIruhjY"
     },
     {
       "name": "Oushou Japanese",
       "region": "Inner East",
       "suburb": "Hawthorn",
-      "address": "205 Camberwell Road, Hawthorn VIC 3122",
       "addressSource": "suburb-only",
       "lat": -37.830329,
       "lng": 145.055779,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "307",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37157,20 +35670,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzRAkybJB1moRCkxRH8Lq_Z0"
     },
     {
       "name": "Rama Thai",
       "region": "Inner East",
       "suburb": "Camberwell",
-      "address": "495 Burke Rd, Camberwell VIC 3124",
       "addressSource": "suburb-only",
       "lat": -37.8448683,
       "lng": 145.0540237,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "241",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37200,20 +35711,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ5-6HPHpB1moRK9vwj_UtS7Q"
     },
     {
       "name": "Pimento Thai Cuisine",
       "region": "Inner East",
       "suburb": "Glen Iris",
-      "address": "1477 Malvern Rd, Glen Iris VIC 3146",
       "addressSource": "suburb-only",
       "lat": -37.85328495534049,
       "lng": 145.0435028981476,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "152",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37243,7 +35752,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJj38u3ghC1moRzp6iwQX9lHg"
     },
     {
       "name": "Tandoori Den",
@@ -37257,8 +35767,6 @@ window.BYO = {
       "lng": 145.057792,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "687",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37288,7 +35796,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJR3Pz9YRB1moRvrYk083Ut1s"
     },
     {
       "name": "Tao Tao House",
@@ -37302,8 +35811,6 @@ window.BYO = {
       "lng": 145.03649,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "647",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37333,20 +35840,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMfnWwM1D1moRSbZpYZ49HL8"
     },
     {
       "name": "Jade Kew",
       "region": "Inner East",
       "suburb": "Kew",
-      "address": "Shop 10/4 Walpole Street, Kew VIC 3101",
       "addressSource": "suburb-only",
       "lat": -37.80583,
       "lng": 145.031809,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "400",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37376,7 +35881,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJQfAFZMZD1moRe6PYgnSzYnw"
     },
     {
       "name": "Cloves Fine Indian Restaurant",
@@ -37390,8 +35896,6 @@ window.BYO = {
       "lng": 145.0626676,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "208",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37421,20 +35925,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJq7PxC0VB1moRGNatpXTFYZo"
     },
     {
       "name": "Dad Vietnamese Restaurant",
       "region": "Inner South",
       "suburb": "Prahran",
-      "address": "Shop 10/168/180 Commercial Rd, Prahran VIC 3181, Australia, Prahran VIC 3181",
       "addressSource": "suburb-only",
       "lat": -37.8467578,
       "lng": 144.9921237,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "491",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37464,20 +35966,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzc2W6Axp1moRAnWVP7I0xg8"
     },
     {
       "name": "Bellezza Restaurant",
       "region": "Inner South",
       "suburb": "Malvern",
-      "address": "1413 Malvern Road, Malvern VIC 3144",
       "addressSource": "suburb-only",
       "lat": -37.8530206,
       "lng": 145.0413355,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.8,
-      "reviews": "454",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37507,20 +36007,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJybo3KgRC1moRHKxTItG3kIw"
     },
     {
       "name": "Bansho",
       "region": "Inner South",
       "suburb": "Armadale",
-      "address": "960 High St, Armadale VIC 3143",
       "addressSource": "suburb-only",
       "lat": -37.8555403,
       "lng": 145.019872,
       "cuisine": "Bistro",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "219",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37550,20 +36048,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpVoy2ttp1moRmc43laBad_0"
     },
     {
       "name": "Potluck",
       "region": "Inner South",
       "suburb": "Caulfield",
-      "address": "829 Glen Huntly Road, Caulfield VIC 3162",
       "addressSource": "suburb-only",
       "lat": -37.886911,
       "lng": 145.023135,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "191",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37593,20 +36089,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJxZCKeQBp1moRLO6eU65La9w"
     },
     {
       "name": "Chez Olivier",
       "region": "Inner South",
       "suburb": "South Yarra",
-      "address": "268 Toorak Road, South Yarra VIC 3141",
       "addressSource": "suburb-only",
       "lat": -37.8396794124805,
       "lng": 144.9963122331352,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "582",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37636,7 +36130,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJb_hh2yRo1moR4rbmucYGPuQ"
     },
     {
       "name": "David's Restaurant",
@@ -37650,8 +36145,6 @@ window.BYO = {
       "lng": 144.994058,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "873",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37681,20 +36174,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJeWToVyVo1moRASnUDY7LJLY"
     },
     {
       "name": "The Thai on Chapel",
       "region": "Inner South",
       "suburb": "Windsor",
-      "address": "76 Chapel St, Windsor VIC 3181",
       "addressSource": "suburb-only",
       "lat": -37.8551612,
       "lng": 144.9928622,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "536",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37724,20 +36215,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJF98yIDpo1moRg-GKpooWsBk"
     },
     {
       "name": "Yuzen",
       "region": "Inner South",
       "suburb": "Caulfield North",
-      "address": "144B Hawthorn Rd, Caulfield North VIC 3161",
       "addressSource": "suburb-only",
       "lat": -37.8737799,
       "lng": 145.0243824,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "173",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37767,20 +36256,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJsaQd9r5p1moRV4Q0Su6VSgM"
     },
     {
       "name": "Bistro Thierry",
       "region": "Inner South",
       "suburb": "Toorak",
-      "address": "511 Malvern Rd, Toorak VIC 3142",
       "addressSource": "suburb-only",
       "lat": -37.84798,
       "lng": 145.003476,
       "cuisine": "French",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "929",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37810,20 +36297,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ75IpESto1moR3LT22aqyw4U"
     },
     {
       "name": "Giorgios",
       "region": "Inner South",
       "suburb": "Armadale",
-      "address": "1235 High Street, Armadale VIC 3143",
       "addressSource": "suburb-only",
       "lat": -37.856571,
       "lng": 145.0288915,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "855",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37853,20 +36338,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJqV2W8eBp1moRr5rKEsPncZo"
     },
     {
       "name": "Romeo's of Toorak",
       "region": "Inner South",
       "suburb": "Toorak",
-      "address": "450 Toorak Rd, Toorak VIC 3142",
       "addressSource": "suburb-only",
       "lat": -37.841314,
       "lng": 145.009399,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "723",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37896,20 +36379,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJj4FoFXxC1moRpABVNwpEqvA"
     },
     {
       "name": "Versachi's",
       "region": "Inner South",
       "suburb": "South Yarra",
-      "address": "129 Toorak Road, South Yarra VIC 3141",
       "addressSource": "suburb-only",
       "lat": -37.838665,
       "lng": 144.990728,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "585",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37939,20 +36420,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJQUDpsZ1C1moRU2qFNE4dZ78"
     },
     {
       "name": "Bombay By Night",
       "region": "Inner South",
       "suburb": "Caulfield South",
-      "address": "355 North Road, Caulfield South VIC 3162",
       "addressSource": "suburb-only",
       "lat": -37.90230412263506,
       "lng": 145.02840100000003,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "326",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -37982,20 +36461,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJteIhIW1p1moRkaDND8MPW2M"
     },
     {
       "name": "Juicy Dumplings on Chapel",
       "region": "Inner South",
       "suburb": "Prahran",
-      "address": "340 Chapel Street, Prahran VIC 3181",
       "addressSource": "suburb-only",
       "lat": -37.847131,
       "lng": 144.994275,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "315",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38025,7 +36502,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJD1GGVy9o1moR_0n6xSExW5U"
     },
     {
       "name": "Tandoori Cottage",
@@ -38039,8 +36517,6 @@ window.BYO = {
       "lng": 145.066667,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "220",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38070,20 +36546,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJQ3o4zRNq1moR6HwOe4Ojzmw"
     },
     {
       "name": "L'Olivo",
       "region": "Inner South",
       "suburb": "Malvern East",
-      "address": "171 Waverley Road, Malvern East VIC 3145",
       "addressSource": "suburb-only",
       "lat": -37.876082,
       "lng": 145.050392,
       "cuisine": "Mediterranean",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "570",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38113,20 +36587,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJv-dzPh5q1moRtJ-IR0MuB-U"
     },
     {
       "name": "Moti Mahal",
       "region": "Inner South",
       "suburb": "Malvern",
-      "address": "71 Glenferrie Road, Malvern VIC 3144",
       "addressSource": "suburb-only",
       "lat": -37.858508,
       "lng": 145.029214,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "405",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38156,20 +36628,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4R8LM-dp1moRzyOazugeEqc"
     },
     {
       "name": "7 Zaab",
       "region": "Inner South",
       "suburb": "South Yarra",
-      "address": "Shop 1B Yarra Lane, 7 Yarra Street, South Yarra VIC 3141",
       "addressSource": "suburb-only",
       "lat": -37.8378101,
       "lng": 144.9928993,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "177",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38199,20 +36669,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfdMGT1xD1moRNkKCEce-q80"
     },
     {
       "name": "Sichuan Legacy",
       "region": "Inner South",
       "suburb": "Malvern",
-      "address": "259 Glenferrie Rd, Malvern VIC 3144",
       "addressSource": "suburb-only",
       "lat": -37.8576132,
       "lng": 145.0289831,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "133",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38242,20 +36710,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJp2BthSVp1moRz8lKPedzehc"
     },
     {
       "name": "Pacific Seafood BBQ House",
       "region": "Inner South",
       "suburb": "South Yarra",
-      "address": "Shop 1, 210 Toorak Rd, South Yarra VIC 3141",
       "addressSource": "suburb-only",
       "lat": -37.8394091047613,
       "lng": 144.99409586191177,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "1,025",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38285,20 +36751,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfdJB1ZxC1moRL09Y_pAwjp8"
     },
     {
       "name": "Shiva Indian Cuisine",
       "region": "Inner South",
       "suburb": "Prahran",
-      "address": "530 Malvern Road, Prahran VIC 3181",
       "addressSource": "suburb-only",
       "lat": -37.8482921,
       "lng": 145.0040479,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "273",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38328,20 +36792,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJQ_01PCto1moRc6Pn3g6kw38"
     },
     {
       "name": "Mizu",
       "region": "Inner South",
       "suburb": "Prahran",
-      "address": "95 Greville St, Prahran VIC 3181",
       "addressSource": "suburb-only",
       "lat": -37.84930692776673,
       "lng": 144.9897050857544,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "253",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38371,7 +36833,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJyZsUxyRo1moRwFMwGUoeg7c"
     },
     {
       "name": "Embers Grill Burgers",
@@ -38385,8 +36848,6 @@ window.BYO = {
       "lng": 145.246629,
       "cuisine": "Grill",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "648",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38416,7 +36877,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ-bhe6-U71moRSwMw7yKx4e4"
     },
     {
       "name": "Holy Basil Thai",
@@ -38430,8 +36892,6 @@ window.BYO = {
       "lng": 145.266693,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "466",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38461,20 +36921,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfyWiSHw61moRUj5_Es-kXB8"
     },
     {
       "name": "Mandarin Bistro",
       "region": "Outer East",
       "suburb": "Vermont South",
-      "address": "18 Boronia Rd, Vermont South VIC 3133",
       "addressSource": "suburb-only",
       "lat": -37.8369513,
       "lng": 145.1958141,
       "cuisine": "Bistro",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "315",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38497,20 +36955,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ26RF-Hc_1moR0jYA2TT0Z5E"
     },
     {
       "name": "Mr and Mrs Pizza",
       "region": "Outer East",
       "suburb": "Vermont South",
-      "address": "1/16 Boronia Road, Vermont South VIC 3133",
       "addressSource": "suburb-only",
       "lat": -37.8369205,
       "lng": 145.1957163,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "1,130",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38533,20 +36989,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJpWnGk1I_1moRVLGxTkuy0Ro"
     },
     {
       "name": "Thai Lemon Tree",
       "region": "Outer East",
       "suburb": "Croydon",
-      "address": "1 Devon St, Croydon VIC 3136",
       "addressSource": "suburb-only",
       "lat": -37.7977778,
       "lng": 145.2802778,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "343",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38576,20 +37030,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJSwOKWYU61moRuIiZpfBBR_I"
     },
     {
       "name": "Chef's Thai",
       "region": "Outer East",
       "suburb": "Mitcham",
-      "address": "590 Mitcham Road, Mitcham VIC 3132",
       "addressSource": "suburb-only",
       "lat": -37.8280762,
       "lng": 145.1944393,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "546",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38619,7 +37071,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJDb7AtjE51moRvnSl72zAxpc"
     },
     {
       "name": "Pizza 72",
@@ -38633,8 +37086,6 @@ window.BYO = {
       "lng": 145.2470992,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "282",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38664,7 +37115,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ__8brBo_1moRIeZPPAsLHJg"
     },
     {
       "name": "Ichikuro",
@@ -38678,8 +37130,6 @@ window.BYO = {
       "lng": 145.1526588,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "267",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38709,7 +37159,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJsT7vLfI51moRPC_SG2WqMLA"
     },
     {
       "name": "Tandoori Corner",
@@ -38723,8 +37174,6 @@ window.BYO = {
       "lng": 145.221308,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "92",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38747,20 +37196,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJcYtaRIE-1moRCc9KBJqBHgI"
     },
     {
       "name": "Pacino's Pizza & Pasta",
       "region": "Outer East",
       "suburb": "Doncaster",
-      "address": "708 Doncaster Road, Doncaster VIC 3108",
       "addressSource": "suburb-only",
       "lat": -37.7875492,
       "lng": 145.1319018,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "743",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38790,7 +37237,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJA3E1gmRH1moRNz3TLpxG2hw"
     },
     {
       "name": "Thai Chaiyo",
@@ -38804,8 +37252,6 @@ window.BYO = {
       "lng": 145.28231,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "444",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38835,7 +37281,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ04xd2po61moRVooDKxKFkiA"
     },
     {
       "name": "Fontains Pizza and Restaurant",
@@ -38849,8 +37296,6 @@ window.BYO = {
       "lng": 145.231745,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "173",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38873,20 +37318,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFXYpTAc81moRrEi1zDvf6Fw"
     },
     {
       "name": "Poppies On Canterbury",
       "region": "Outer East",
       "suburb": "Blackburn",
-      "address": "102A Canterbury Rd, Blackburn South, Blackburn VIC 3130",
       "addressSource": "suburb-only",
       "lat": -37.831809,
       "lng": 145.146134,
       "cuisine": "International",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "108",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38916,20 +37359,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJoz5FcFs_1moRtHZ2BEUedvE"
     },
     {
       "name": "Beef Papa Hotpot",
       "region": "Outer East",
       "suburb": "Box Hill",
-      "address": "20 Rutland Road, Box Hill VIC 3128",
       "addressSource": "suburb-only",
       "lat": -37.8200148,
       "lng": 145.1246941,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "289",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -38959,7 +37400,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJXXPfcbBA1moRXazmEsFKYyM"
     },
     {
       "name": "Taj Agra",
@@ -38973,8 +37415,6 @@ window.BYO = {
       "lng": 145.226614,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "361",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39004,20 +37444,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJd2FU29c71moRLt-fdE3yi0Y"
     },
     {
       "name": "Hot Chilli Thai Restaurant",
       "region": "Outer East",
       "suburb": "Croydon",
-      "address": "17 Maroondah Hwy, Croydon VIC 3136",
       "addressSource": "suburb-only",
       "lat": -37.79263247787561,
       "lng": 145.26051486508175,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "195",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39047,20 +37485,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzSfqamU61moRyOQzpyN_XHU"
     },
     {
       "name": "Hills BBQ Noodle Shop",
       "region": "Outer East",
       "suburb": "Box Hill",
-      "address": "586 Station Street, Box Hill VIC 3128",
       "addressSource": "suburb-only",
       "lat": -37.819239,
       "lng": 145.123802,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "116",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39090,7 +37526,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJX8EfIABB1moRV9w12Ydr4RY"
     },
     {
       "name": "Aroy-D Thai Restaurant",
@@ -39104,8 +37541,6 @@ window.BYO = {
       "lng": 145.235545,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "138",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39135,20 +37570,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJLVOjGCM61moR_pqv7g3ynKY"
     },
     {
       "name": "Indochine Vietnamese Cuisine",
       "region": "Outer East",
       "suburb": "Box Hill",
-      "address": "51 Carrington Rd, Box Hill VIC 3128",
       "addressSource": "suburb-only",
       "lat": -37.820231,
       "lng": 145.121016,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "873",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39178,20 +37611,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJa3_rHbpA1moRsrmsDJYczyI"
     },
     {
       "name": "Tien Dat",
       "region": "Outer East",
       "suburb": "Box Hill",
-      "address": "3 Carrington Rd, Box Hill VIC 3128",
       "addressSource": "suburb-only",
       "lat": -37.820463,
       "lng": 145.122901,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "848",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39221,7 +37652,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBYUccbpA1moR3sDGsu2_JqQ"
     },
     {
       "name": "Casalinga",
@@ -39235,8 +37667,6 @@ window.BYO = {
       "lng": 145.26028633117676,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4,
-      "reviews": "402",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39266,20 +37696,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJE7iWa2U61moR7D96FqOehYw"
     },
     {
       "name": "Marpha",
       "region": "Outer South-East",
       "suburb": "Mentone",
-      "address": "107 Mentone Parade, Mentone VIC 3194",
       "addressSource": "suburb-only",
       "lat": -37.983522,
       "lng": 145.064653,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "406",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39309,20 +37737,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJo7c_v85t1moRchAUdMaAEYk"
     },
     {
       "name": "Wanda Catch Fish and Chips",
       "region": "Outer South-East",
       "suburb": "Mulgrave",
-      "address": "40 Wanda St, Mulgrave VIC 3170",
       "addressSource": "suburb-only",
       "lat": -37.923301,
       "lng": 145.166199,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "306",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39352,20 +37778,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJw3Kc4RMV1moRl30q_5OVP2s"
     },
     {
       "name": "Halong2 Vietnamese Restaurant",
       "region": "Outer South-East",
       "suburb": "Frankston",
-      "address": "481 Nepean Hwy, Frankston VIC 3199",
       "addressSource": "suburb-only",
       "lat": -38.1447926,
       "lng": 145.1207933,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "246",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39395,20 +37819,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ_5MM2AZ11moRHSD6osoUNG4"
     },
     {
       "name": "Eton",
       "region": "Outer South-East",
       "suburb": "Clayton",
-      "address": "1459A Centre Road, Clayton VIC 3168",
       "addressSource": "suburb-only",
       "lat": -37.9294699,
       "lng": 145.1284228,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "529",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39438,20 +37860,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJL8kaRv5r1moRxqIXsdRnNFc"
     },
     {
       "name": "Joes of Mentone",
       "region": "Outer South-East",
       "suburb": "Mentone",
-      "address": "72 Beach Rd, Mentone VIC 3194",
       "addressSource": "suburb-only",
       "lat": -37.9887485,
       "lng": 145.0602465,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "402",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39481,20 +37901,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJK1CFNNtt1moRkYDeOT1D3_I"
     },
     {
       "name": "Mehfil Indian Restaurant",
       "region": "Outer South-East",
       "suburb": "Keysborough",
-      "address": "291 Corrigan Road, Keysborough VIC 3173",
       "addressSource": "suburb-only",
       "lat": -37.981093934813885,
       "lng": 145.16567277790986,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "652",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39524,20 +37942,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJgwrGLmQT1moRuBArLjpeLxU"
     },
     {
       "name": "Ginseng Modern Asian Cuisine",
       "region": "Outer South-East",
       "suburb": "Frankston",
-      "address": "430 Nepean Hwy, Frankston VIC 3199, Frankston VIC 3199",
       "addressSource": "suburb-only",
       "lat": -38.1407899,
       "lng": 145.1218282,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "549",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39567,20 +37983,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4dZF7tt01moR0S1uaSfYZv0"
     },
     {
       "name": "Indian Burrp",
       "region": "Outer South-East",
       "suburb": "Cheltenham",
-      "address": "Shop 6/1291-1293 Nepean Highway, Cheltenham VIC 3192",
       "addressSource": "suburb-only",
       "lat": -37.964994722978304,
       "lng": 145.05772344047546,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "962",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39610,20 +38024,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJX5UMoCVs1moRpcmMYYxm96A"
     },
     {
       "name": "Cinnamon Club VIC",
       "region": "Outer South-East",
       "suburb": "Cheltenham",
-      "address": "1291-1293 Nepean Hwy, Cheltenham VIC 3192",
       "addressSource": "suburb-only",
       "lat": -37.965051,
       "lng": 145.057856,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "758",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39653,20 +38065,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJX5UMoCVs1moRFgalvMdPaBI"
     },
     {
       "name": "FRATELLI Frankston",
       "region": "Outer South-East",
       "suburb": "Frankston",
-      "address": "227 Cranbourne Rd, Frankston VIC 3199",
       "addressSource": "suburb-only",
       "lat": -38.151809,
       "lng": 145.151989,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "1,866",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39696,20 +38106,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJUWu9giYL1moRjXCjHBd0HBw"
     },
     {
       "name": "Rosie's Kitchen Pantry",
       "region": "Outer South-East",
       "suburb": "Frankston",
-      "address": "6 Culcairn Dr, Frankston VIC 3199",
       "addressSource": "suburb-only",
       "lat": -38.166355,
       "lng": 145.136357,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "1,005",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39731,20 +38139,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJVJZwDR11moRcRWpzB69Abw"
     },
     {
       "name": "Kasturi Indian Restaurant",
       "region": "Outer South-East",
       "suburb": "Frankston",
-      "address": "5/20A Beach Street, Frankston VIC 3199",
       "addressSource": "suburb-only",
       "lat": -38.140788,
       "lng": 145.123874,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "495",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39774,7 +38180,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ63_sTNp01moRFjC5tsEpm_s"
     },
     {
       "name": "Nam Son",
@@ -39788,8 +38195,6 @@ window.BYO = {
       "lng": 145.142281,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "235",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39819,20 +38224,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG-Yre7gU1moRzPp8e-qpcXQ"
     },
     {
       "name": "Thai Today",
       "region": "Outer South-East",
       "suburb": "Mentone",
-      "address": "104 Nepean Highway, Mentone VIC 3194",
       "addressSource": "suburb-only",
       "lat": -37.981194,
       "lng": 145.069661,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "129",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39862,20 +38265,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBXZe68pt1moRE-lTlKpmGX4"
     },
     {
       "name": "Lucky Inn",
       "region": "Outer South-East",
       "suburb": "Frankston",
-      "address": "43B Foot St, Frankston VIC 3199",
       "addressSource": "suburb-only",
       "lat": -38.157719,
       "lng": 145.13093,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "124",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39905,20 +38306,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJX28hFC511moRjEwGNMx1wec"
     },
     {
       "name": "Shark Fin Inn",
       "region": "Outer South-East",
       "suburb": "Keysborough",
-      "address": "328 Cheltenham Rd, Keysborough VIC 3173",
       "addressSource": "suburb-only",
       "lat": -37.99457,
       "lng": 145.173562,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "1,833",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39948,20 +38347,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVcAjznIT1moR4tXeT5wuRoE"
     },
     {
       "name": "Ras Dashen",
       "region": "West",
       "suburb": "Footscray",
-      "address": "247 Nicholson Street, Footscray VIC 3011",
       "addressSource": "suburb-only",
       "lat": -37.801178,
       "lng": 144.899662,
       "cuisine": "African",
       "family": "African",
-      "stars": 4.8,
-      "reviews": "690",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -39991,20 +38388,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJxu87o1d1moRPhc2DZ8GoKI"
     },
     {
       "name": "The African Calabash",
       "region": "West",
       "suburb": "Footscray",
-      "address": "143 Nicholson Street, Footscray VIC 3011",
       "addressSource": "suburb-only",
       "lat": -37.8016021,
       "lng": 144.8993592,
       "cuisine": "African",
       "family": "African",
-      "stars": 4.7,
-      "reviews": "246",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40034,7 +38429,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG42y0ttd1moRDMPxeMluNN8"
     },
     {
       "name": "A Day in BKK Williamstown",
@@ -40048,8 +38444,6 @@ window.BYO = {
       "lng": 144.904479,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "218",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40072,20 +38466,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzeteEHxn1moRGm0roQrr06Q"
     },
     {
       "name": "Fusion Ceylon",
       "region": "West",
       "suburb": "Werribee",
-      "address": "27 Watton Street, Werribee VIC 3030",
       "addressSource": "suburb-only",
       "lat": -37.900663,
       "lng": 144.663215,
       "cuisine": "Sri Lankan",
       "family": "Other",
-      "stars": 4.6,
-      "reviews": "918",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40115,7 +38507,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ8-8VQ6OF1moRCPIJ6KLMPrM"
     },
     {
       "name": "The Spice Yard",
@@ -40129,8 +38522,6 @@ window.BYO = {
       "lng": 144.830172,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "347",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40160,7 +38551,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJjezl3tJj1moRmZbJRn4FoUY"
     },
     {
       "name": "Hien Vuong",
@@ -40174,8 +38566,6 @@ window.BYO = {
       "lng": 144.901205,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "344",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40205,7 +38595,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJOx-d_ZFd1moRq6zcIXmj01A"
     },
     {
       "name": "Hanuman Thai Restaurant",
@@ -40219,8 +38610,6 @@ window.BYO = {
       "lng": 144.699872,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "617",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40243,7 +38632,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJNdxrurSJ1moRH3bUoaYM7GI"
     },
     {
       "name": "Oye Bombay Indian Restaurant",
@@ -40257,8 +38647,6 @@ window.BYO = {
       "lng": 144.81315782209015,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "611",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40288,20 +38676,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBwDUUjti1moRAnwsu_Td7eE"
     },
     {
       "name": "Mishra's Kitchen",
       "region": "West",
       "suburb": "Yarraville",
-      "address": "18 Wembley Avenue, Yarraville VIC 3013",
       "addressSource": "suburb-only",
       "lat": -37.819882,
       "lng": 144.873764,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "379",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40331,20 +38717,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJy71_WjVn1moRk0RhFmYAmTE"
     },
     {
       "name": "Lion Dance",
       "region": "West",
       "suburb": "Williamstown",
-      "address": "5 Ferguson Street, Williamstown VIC 3016",
       "addressSource": "suburb-only",
       "lat": -37.85953,
       "lng": 144.901273,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "290",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40367,20 +38751,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJBXxt1-5m1moR5oAxR8WvyEs"
     },
     {
       "name": "Siora Alimenti & Tiramisu",
       "region": "West",
       "suburb": "Seddon",
-      "address": "78 Charles Street, Seddon VIC 3011",
       "addressSource": "suburb-only",
       "lat": -37.806409,
       "lng": 144.89118,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.5,
-      "reviews": "54",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40410,20 +38792,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJm6xhNedd1moRb6m_kboF5kc"
     },
     {
       "name": "Pho Hien Saigon",
       "region": "West",
       "suburb": "Sunshine",
-      "address": "3/284 Hampshire Road, Sunshine VIC 3020",
       "addressSource": "suburb-only",
       "lat": -37.78471930786795,
       "lng": 144.83234874966809,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "786",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40453,20 +38833,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJOaGoUype1moRbC4kSV4lKg8"
     },
     {
       "name": "Palazzo",
       "region": "West",
       "suburb": "Maribyrnong",
-      "address": "27 Wests rd, Maribyrnong VIC 3032",
       "addressSource": "suburb-only",
       "lat": -37.773599,
       "lng": 144.881188,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "644",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40489,20 +38867,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJY0_b-dBd1moRkhOxnzuPFIs"
     },
     {
       "name": "Hoppers Charcoal Chicken",
       "region": "West",
       "suburb": "Hoppers Crossing",
-      "address": "33 Old Geelong Rd, Hoppers Crossing VIC 3029",
       "addressSource": "suburb-only",
       "lat": -37.8824186,
       "lng": 144.6999578,
       "cuisine": "Burger",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "294",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40525,20 +38901,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJG8sCn62I1moRuyxsDviFENE"
     },
     {
       "name": "Delhi Nights",
       "region": "West",
       "suburb": "Hoppers Crossing",
-      "address": "13 Old Geelong Road, Hoppers Crossing VIC 3029",
       "addressSource": "suburb-only",
       "lat": -37.88295,
       "lng": 144.699712,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "1,188",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40561,7 +38935,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJB1FID62I1moRmRMbdVrnNqU"
     },
     {
       "name": "Delicious House",
@@ -40575,8 +38950,6 @@ window.BYO = {
       "lng": 144.77351872577765,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "600",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40606,7 +38979,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJnSP5b7KK1moRiNSMRKm5v8U"
     },
     {
       "name": "Dragon Temple",
@@ -40620,8 +38994,6 @@ window.BYO = {
       "lng": 144.811093,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "240",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40651,7 +39023,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYQtK5z5i1moR1uII1obrAuM"
     },
     {
       "name": "Slice Girls West",
@@ -40665,8 +39038,6 @@ window.BYO = {
       "lng": 144.9068147,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "119",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40696,20 +39067,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJtzidpJpd1moRkB6NvBljz64"
     },
     {
       "name": "Thuan An Vietnamese Restaurant",
       "region": "West",
       "suburb": "Sunshine",
-      "address": "253 Hampshire Road, Sunshine VIC 3020",
       "addressSource": "suburb-only",
       "lat": -37.7843849,
       "lng": 144.8320522,
       "cuisine": "Asian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "1,377",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40739,7 +39108,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJeW3fVCpe1moRmA_nPAF207g"
     },
     {
       "name": "Monzarella Italian Restaurant",
@@ -40753,8 +39123,6 @@ window.BYO = {
       "lng": 144.9022901,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "1,226",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40777,7 +39145,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJGdI9me5m1moRFY9pK-lmI3I"
     },
     {
       "name": "Dumplings & More",
@@ -40791,8 +39160,6 @@ window.BYO = {
       "lng": 144.9020641,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "426",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40822,7 +39189,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6WzDv5Fd1moR5teVs1mqzS0"
     },
     {
       "name": "Sangam Tandoori",
@@ -40836,8 +39204,6 @@ window.BYO = {
       "lng": 144.904778,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "326",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40860,20 +39226,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfQ0q0u1m1moRil8ebmHAkGg"
     },
     {
       "name": "Yim Yam Thai Laos Yarraville",
       "region": "West",
       "suburb": "Yarraville",
-      "address": "40 Ballarat St, Yarraville VIC 3013",
       "addressSource": "suburb-only",
       "lat": -37.817575,
       "lng": 144.890618,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "435",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40903,20 +39267,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJMe1dbkNn1moRmHw_x0OFhmQ"
     },
     {
       "name": "Aangan",
       "region": "West",
       "suburb": "Footscray",
-      "address": "559 Barkly Street, Footscray VIC 3011",
       "addressSource": "suburb-only",
       "lat": -37.797493,
       "lng": 144.876713,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "4,421",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40946,20 +39308,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJeX8Sm_5d1moRUSk9Kd_V7_w"
     },
     {
       "name": "Elio Italian Family Bistro",
       "region": "West",
       "suburb": "Hoppers Crossing",
-      "address": "39 Old Geelong Rd, Hoppers Crossing VIC 3029",
       "addressSource": "suburb-only",
       "lat": -37.8822219,
       "lng": 144.6999149,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4,
-      "reviews": "432",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -40982,20 +39342,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ693eda2I1moR3si1XgPQ-Mc"
     },
     {
       "name": "Sinq",
       "region": "North / North-West",
       "suburb": "Ascot Vale",
-      "address": "113 Maribyrnong Road, Ascot Vale VIC 3032",
       "addressSource": "suburb-only",
       "lat": -37.7717649,
       "lng": 144.9153138,
       "cuisine": "African",
       "family": "African",
-      "stars": 4.9,
-      "reviews": "183",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41025,20 +39383,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJmzbfZtBd1moRekROijAq9UI"
     },
     {
       "name": "SandwichWali",
       "region": "North / North-West",
       "suburb": "Craigieburn",
-      "address": "12 Walters Street, Craigieburn VIC 3064",
       "addressSource": "suburb-only",
       "lat": -37.5992638,
       "lng": 144.9433746,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "70",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41053,20 +39409,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJU8pQbiRT1moRfkQ4-9JGbqw"
     },
     {
       "name": "Whittlesea Bakehouse",
       "region": "North / North-West",
       "suburb": "Whittlesea",
-      "address": "34 Church Street, Whittlesea VIC 3757",
       "addressSource": "suburb-only",
       "lat": -37.5128407,
       "lng": 145.1183132,
       "cuisine": "Bakery",
       "family": "Other",
-      "stars": 4.9,
-      "reviews": "47",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41081,20 +39435,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJFSHO3uC112oRqmqeIRLX6c0"
     },
     {
       "name": "Whang Thai (Whittlesea)",
       "region": "North / North-West",
       "suburb": "Whittlesea",
-      "address": "24 Church St, Whittlesea VIC 3757",
       "addressSource": "suburb-only",
       "lat": -37.5130984,
       "lng": 145.1180977,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.9,
-      "reviews": "47",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41115,14 +39467,11 @@ window.BYO = {
       "name": "Whittlesea Bowls Club",
       "region": "North / North-West",
       "suburb": "Whittlesea",
-      "address": "101 Church St, Whittlesea VIC 3757",
       "addressSource": "suburb-only",
       "lat": -37.5093796,
       "lng": 145.1179398,
       "cuisine": "Pub Food",
       "family": "Other",
-      "stars": 4.9,
-      "reviews": "47",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41137,20 +39486,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJAVAb1eG112oRfSctvnjEWA4"
     },
     {
       "name": "VHM Bros",
       "region": "North / North-West",
       "suburb": "Craigieburn",
-      "address": "Shop C19/340 Craigieburn Road, Craigieburn VIC 3064",
       "addressSource": "suburb-only",
       "lat": -37.599003,
       "lng": 144.939308,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "1,035",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41165,7 +39512,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJm0pCtHNR1moR_S2d1jkbszU"
     },
     {
       "name": "Mister Truong's",
@@ -41179,8 +39527,6 @@ window.BYO = {
       "lng": 144.9440669,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "139",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41210,20 +39556,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJcTCCfLxc1moR2wtCzemER0Y"
     },
     {
       "name": "Clay Wok",
       "region": "North / North-West",
       "suburb": "Whittlesea",
-      "address": "36 Church St, Whittlesea VIC 3757",
       "addressSource": "suburb-only",
       "lat": -37.5127857,
       "lng": 145.1182179,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "122",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41238,20 +39582,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ6WIiaIq112oR4VDElPAe5Pc"
     },
     {
       "name": "Colombo Foodies Melbourne",
       "region": "North / North-West",
       "suburb": "Craigieburn",
-      "address": "22/10 Craigieburn Rd, Craigieburn VIC 3064",
       "addressSource": "suburb-only",
       "lat": -37.5985708,
       "lng": 144.9407831,
       "cuisine": "Sri Lankan",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "50",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41266,20 +39608,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJLVsTbxpT1moRJjgnrndgK5U"
     },
     {
       "name": "GT ROAD INDIAN FUSION",
       "region": "North / North-West",
       "suburb": "Craigieburn",
-      "address": "12 Walters St, Craigieburn VIC 3064",
       "addressSource": "suburb-only",
       "lat": -37.5993918,
       "lng": 144.9434821,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "45",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41294,7 +39634,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJITLXFh9T1moRNgdZBStuqjk"
     },
     {
       "name": "Mr McCracken",
@@ -41308,8 +39649,6 @@ window.BYO = {
       "lng": 144.8928002,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "1,357",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41339,20 +39678,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJn71f8fJb1moRqgpTcoCXx7Q"
     },
     {
       "name": "Cirelli&co",
       "region": "North / North-West",
       "suburb": "Brunswick West",
-      "address": "454 Albion St, Brunswick West VIC 3055",
       "addressSource": "suburb-only",
       "lat": -37.7585353,
       "lng": 144.9426649,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.7,
-      "reviews": "754",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41382,20 +39719,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJEcbxMaNc1moRVXtlFu2TU5U"
     },
     {
       "name": "Indian Star",
       "region": "North / North-West",
       "suburb": "Moonee Ponds",
-      "address": "254 Maribyrnong Road, Moonee Ponds VIC 3039",
       "addressSource": "suburb-only",
       "lat": -37.7703248,
       "lng": 144.9050829,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,966",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41425,7 +39760,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJCWio7k1c1moRniSBFrzYsSA"
     },
     {
       "name": "Pad Cha Thai",
@@ -41439,8 +39775,6 @@ window.BYO = {
       "lng": 145.003041,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "585",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41470,20 +39804,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJW2lQhPdE1moRRHJidzAn9b0"
     },
     {
       "name": "La Burrata",
       "region": "North / North-West",
       "suburb": "Moonee Ponds",
-      "address": "12 Hinkins Street, Moonee Ponds VIC 3039",
       "addressSource": "suburb-only",
       "lat": -37.7668831,
       "lng": 144.9607489,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "318",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41513,65 +39845,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
-    },
-    {
-      "name": "La Botte Pizza Restaurant",
-      "region": "North / North-West",
-      "suburb": "Pascoe Vale",
-      "address": "221 Melville Road, Pascoe Vale VIC",
-      "addressSource": "osm",
-      "addressSourceUrl": "https://www.openstreetmap.org/node/6968130704",
-      "addressCheckedAt": "2026-11-12",
-      "lat": -37.739899,
-      "lng": 144.945249,
-      "cuisine": "Pizza",
-      "family": "European",
-      "stars": 4.6,
-      "reviews": "296",
-      "price": "?",
-      "priceBasis": "Price not checked yet",
-      "priceEstimate": false,
-      "corkage": "Unknown",
-      "byoConfirmed": false,
-      "takeaway": "unknown",
-      "note": "BYO listed on AGFG; confirm with the venue",
-      "city": "Melbourne",
-      "bottleShops": {
-        "chain": {
-          "name": "Liquorland",
-          "brand": "Liquorland",
-          "address": "180 Gaffney Street",
-          "lat": -37.731789,
-          "lng": 144.9502,
-          "osm": "node/11679114222",
-          "distanceM": 1000
-        },
-        "independent": {
-          "name": "Bottle shop",
-          "address": "",
-          "lat": -37.747583,
-          "lng": 144.935874,
-          "osm": "node/1733023950",
-          "distanceM": 1190
-        }
-      },
-      "dish": "",
-      "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJzdBkjxxd1moRwzM82mu3jOY"
     },
     {
       "name": "Karim's Indian Restaurant",
       "region": "North / North-West",
       "suburb": "Moonee Ponds",
-      "address": "17a Hall St, Moonee Ponds VIC 3039",
       "addressSource": "suburb-only",
       "lat": -37.766251580956215,
       "lng": 144.92293417453766,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "220",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41601,20 +39886,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJTDtHfRc1moR2L-VmKm0Tbw"
     },
     {
       "name": "Maharaja Tandoori Cuisine",
       "region": "North / North-West",
       "suburb": "Preston",
-      "address": "560 High Street, Preston VIC 3072",
       "addressSource": "suburb-only",
       "lat": -37.732748,
       "lng": 145.005236,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "3,277",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41644,7 +39927,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJXSgcCABF1moRVQMdQrCiB50"
     },
     {
       "name": "The Pantry Melbourne",
@@ -41658,8 +39942,6 @@ window.BYO = {
       "lng": 144.940881,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "1,152",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41689,7 +39971,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJdXi6uqdb1moRqpw1oJICLXE"
     },
     {
       "name": "Postmistress",
@@ -41703,8 +39986,6 @@ window.BYO = {
       "lng": 144.9436279,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "1,116",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41734,20 +40015,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJfzZ2Hrxc1moRBwRybBZTZhQ"
     },
     {
       "name": "My Thai On Keilor",
       "region": "North / North-West",
       "suburb": "Essendon",
-      "address": "327 Keilor Rd, Essendon VIC 3040",
       "addressSource": "suburb-only",
       "lat": -37.7306079,
       "lng": 144.9006313,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "228",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41777,7 +40056,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJC6MYrQxc1moR9jZI1QtW5jM"
     },
     {
       "name": "Fuji Teppanyaki",
@@ -41791,8 +40071,6 @@ window.BYO = {
       "lng": 144.92534,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "375",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41822,20 +40100,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJc8J2__Bc1moR7pkptNqdAfI"
     },
     {
       "name": "Central Pizza Craigieburn",
       "region": "North / North-West",
       "suburb": "Craigieburn",
-      "address": "22/10 Craigieburn Rd, Craigieburn VIC 3064",
       "addressSource": "suburb-only",
       "lat": -37.5985708,
       "lng": 144.9407831,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "250",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41850,20 +40126,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJqT8Juq9T1moRSXRJWomxPCg"
     },
     {
       "name": "Sukunda craigieburn",
       "region": "North / North-West",
       "suburb": "Craigieburn",
-      "address": "12 Walters St, Craigieburn VIC 3064",
       "addressSource": "suburb-only",
       "lat": -37.5995056,
       "lng": 144.9434305,
       "cuisine": "Nepalese",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "250",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41878,7 +40152,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJYV2UzkJT1moRpbU4TTZIGd4"
     },
     {
       "name": "Yim Yam Thai Laos Ascot Vale",
@@ -41892,8 +40167,6 @@ window.BYO = {
       "lng": 144.927286,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "204",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41923,20 +40196,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJHYt3ivZc1moRDt8oN7FE61g"
     },
     {
       "name": "2chooks Panini & Pantry",
       "region": "North / North-West",
       "suburb": "Airport West",
-      "address": "77 McNamara Ave, Airport West VIC 3042",
       "addressSource": "suburb-only",
       "lat": -37.724583,
       "lng": 144.8812341,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "1,005",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41966,20 +40237,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJacvsDABb1moRPJ3yihRxKmQ"
     },
     {
       "name": "Aangan - Craigieburn",
       "region": "North / North-West",
       "suburb": "Craigieburn",
-      "address": "41/10 Craigieburn Rd, Craigieburn VIC 3064",
       "addressSource": "suburb-only",
       "lat": -37.5978398,
       "lng": 144.9415999,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "444",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -41994,20 +40263,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJNeo0dQBT1moRx8qiWTLk3FE"
     },
     {
       "name": "Nongkhai Thai Restaurant",
       "region": "North / North-West",
       "suburb": "Essendon",
-      "address": "356 Pascoe Vale Road, Essendon VIC 3040",
       "addressSource": "suburb-only",
       "lat": -37.743823,
       "lng": 144.928329,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "291",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42037,20 +40304,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJPSSgtGJb1moRzn3oWTRJZoo"
     },
     {
       "name": "Pazza Pizza",
       "region": "North / North-West",
       "suburb": "Ascot Vale",
-      "address": "122 Union Rd, Ascot Vale VIC 3032",
       "addressSource": "suburb-only",
       "lat": -37.775941,
       "lng": 144.915797,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.1,
-      "reviews": "216",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42080,20 +40345,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJvVpzDVVc1moRjskgfOPy1q8"
     },
     {
       "name": "Silk Thai",
       "region": "North / North-West",
       "suburb": "Preston",
-      "address": "495 Plenty Road, Preston VIC 3072",
       "addressSource": "suburb-only",
       "lat": -37.736027,
       "lng": 145.012498,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "172",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42123,20 +40386,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJofGTMlNE1moRCwWwxMtWEa8"
     },
     {
       "name": "Lara Indian Restaurant",
       "region": "Geelong",
       "suburb": "Lara",
-      "address": "Shop 1/2 33 McClelland Avenue, Lara VIC 3212",
       "addressSource": "suburb-only",
       "lat": -38.02416944216861,
       "lng": 144.41556101730953,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "1,978",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42166,20 +40427,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJbziJfrcY1GoRjeOQWc4sa7A"
     },
     {
       "name": "La Vista",
       "region": "Geelong",
       "suburb": "Geelong",
-      "address": "120 Brougham St,, Geelong VIC 3220",
       "addressSource": "suburb-only",
       "lat": -38.146915,
       "lng": 144.366277,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "134",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42215,14 +40474,11 @@ window.BYO = {
       "name": "Public",
       "region": "Geelong",
       "suburb": "Geelong",
-      "address": "49 Little Malop St, Geelong VIC 3220",
       "addressSource": "suburb-only",
       "lat": -38.1470693,
       "lng": 144.3565893,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "3,700",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42252,20 +40508,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJc-NaPwMU1GoRU8jmBKF7Oyc"
     },
     {
       "name": "La Porchetta",
       "region": "Geelong",
       "suburb": "Geelong",
-      "address": "29-31 Malop St, Geelong VIC 3220",
       "addressSource": "suburb-only",
       "lat": -38.146708,
       "lng": 144.359797,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "1,502",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42295,20 +40549,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ27JjAh0U1GoRWcYG0U_91bE"
     },
     {
       "name": "The Elephant Tusk",
       "region": "Geelong",
       "suburb": "Belmont",
-      "address": "4 Belmont Square, Belmont VIC 3216",
       "addressSource": "suburb-only",
       "lat": -38.174288766149246,
       "lng": 144.34249877929688,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "100",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42338,20 +40590,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJn-HJ6oET1GoRoNu9YPcfIgY"
     },
     {
       "name": "Arani Thai Restaurant",
       "region": "Geelong",
       "suburb": "Geelong",
-      "address": "136 Malop Street, Geelong VIC 3220",
       "addressSource": "suburb-only",
       "lat": -38.148279,
       "lng": 144.363516,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.1,
-      "reviews": "193",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42381,20 +40631,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJaaS4hh4U1GoROhW_A6YVHk8"
     },
     {
       "name": "The Cave Wood Fired Pizza",
       "region": "Surf Coast",
       "suburb": "Jan Juc",
-      "address": "18-20 Princes Terrace, Jan Juc VIC 3228",
       "addressSource": "suburb-only",
       "lat": -38.349569,
       "lng": 144.299246,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "536",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42409,20 +40657,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ1f9_y35l1GoR8vYiQARGpjw"
     },
     {
       "name": "Rose Chinese Restaurant",
       "region": "Surf Coast",
       "suburb": "Anglesea",
-      "address": "3/103 Great Ocean Rd, Anglesea VIC 3230",
       "addressSource": "suburb-only",
       "lat": -38.407536,
       "lng": 144.185745,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "189",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42445,20 +40691,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJIQHv2Dh81GoRrMsOzljkHNE"
     },
     {
       "name": "Fine Aromas",
       "region": "Bellarine Peninsula",
       "suburb": "Portarlington",
-      "address": "84 Newcombe Street, Portarlington VIC 3223",
       "addressSource": "suburb-only",
       "lat": -38.1152876,
       "lng": 144.6533901,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.8,
-      "reviews": "2,691",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42480,20 +40724,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJWUBe9d8u1GoRM4Z4kPhgavg"
     },
     {
       "name": "Sushi Inn Ramen & Rice",
       "region": "Bellarine Peninsula",
       "suburb": "Drysdale",
-      "address": "16 High St, Drysdale VIC 3222",
       "addressSource": "suburb-only",
       "lat": -38.1734168,
       "lng": 144.5699642,
       "cuisine": "Japanese",
       "family": "Asian",
-      "stars": 4.7,
-      "reviews": "51",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42523,7 +40765,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJH1JURQA71GoRz33VAS6wXOM"
     },
     {
       "name": "The Bungalow Restaurant",
@@ -42537,8 +40780,6 @@ window.BYO = {
       "lng": 144.56852443558196,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "541",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42568,20 +40809,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJu5qOMvw61GoRP2Ec6RB8VBk"
     },
     {
       "name": "Shelter Shed",
       "region": "Bellarine Peninsula",
       "suburb": "Queenscliff",
-      "address": "25 Hesse Street, Queenscliff VIC 3225",
       "addressSource": "suburb-only",
       "lat": -38.2662655,
       "lng": 144.6620119,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.4,
-      "reviews": "365",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42596,20 +40835,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ7_nNDd021GoR-BdSL84n17Q"
     },
     {
       "name": "Ming Terrace",
       "region": "Bellarine Peninsula",
       "suburb": "Ocean Grove",
-      "address": "62 The Terrace, Ocean Grove VIC 3226",
       "addressSource": "suburb-only",
       "lat": -38.266096,
       "lng": 144.521366,
       "cuisine": "Chinese",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "364",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42639,20 +40876,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJkU451Kw41GoR0Bouk1HAXog"
     },
     {
       "name": "Beach House Barwon Heads",
       "region": "Bellarine Peninsula",
       "suburb": "Barwon Heads",
-      "address": "48 Hitchcock Avenue, Barwon Heads VIC 3227",
       "addressSource": "suburb-only",
       "lat": -38.2818473,
       "lng": 144.491887,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4,
-      "reviews": "564",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42667,20 +40902,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ4_-6IZNA1GoRDAECbwd84zY"
     },
     {
       "name": "Ghien",
       "region": "Mornington Peninsula",
       "suburb": "Hastings",
-      "address": "1/105 High St, Hastings VIC 3915",
       "addressSource": "suburb-only",
       "lat": -38.3079923,
       "lng": 145.1885129,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.8,
-      "reviews": "467",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42695,20 +40928,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJjWFIkJHn1WoRTBxDuboFptk"
     },
     {
       "name": "Spitfire Restaurant & Grill",
       "region": "Mornington Peninsula",
       "suburb": "Rosebud",
-      "address": "1181 Point Nepean Road, Rosebud VIC 3939",
       "addressSource": "suburb-only",
       "lat": -38.35734143633429,
       "lng": 144.89970410056378,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "1,336",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42731,20 +40962,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJCyD_FhLJ1WoRTK8yCZnzXk4"
     },
     {
       "name": "Pompette Portsea",
       "region": "Mornington Peninsula",
       "suburb": "Portsea",
-      "address": "Unit 2/3760 Point Nepean Road, Portsea VIC 3944",
       "addressSource": "suburb-only",
       "lat": -38.3199021,
       "lng": 144.7141487,
       "cuisine": "Bistro",
       "family": "Other",
-      "stars": 4.7,
-      "reviews": "65",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42759,20 +40988,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJEZi0jdk11GoRrSZBmDYbDx8"
     },
     {
       "name": "Le Feu",
       "region": "Mornington Peninsula",
       "suburb": "Mornington",
-      "address": "10 Blake Street, Mornington VIC 3931",
       "addressSource": "suburb-only",
       "lat": -38.1057094,
       "lng": 145.1261382,
       "cuisine": "Vietnamese",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "1,561",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42808,14 +41035,11 @@ window.BYO = {
       "name": "Ruby Modern Thai",
       "region": "Mornington Peninsula",
       "suburb": "Rye",
-      "address": "2407 Point Nepean Hwy, Rye VIC 3941",
       "addressSource": "suburb-only",
       "lat": -38.3708857,
       "lng": 144.8248398,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.6,
-      "reviews": "984",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42838,20 +41062,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJIfzopYXK1WoRZ8zE8iEKVvA"
     },
     {
       "name": "Fontalina",
       "region": "Mornington Peninsula",
       "suburb": "Balnarring",
-      "address": "Shop 8, Russell Street Tulum Village, Balnarring VIC 3926",
       "addressSource": "suburb-only",
       "lat": -38.3730254,
       "lng": 145.1240741,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "411",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42873,20 +41095,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ52y7CGPC1WoR2r0RnyOd6sU"
     },
     {
       "name": "Pizza D'oh!",
       "region": "Mornington Peninsula",
       "suburb": "Blairgowrie",
-      "address": "2845 Point Nepean Rd, Blairgowrie VIC 3942",
       "addressSource": "suburb-only",
       "lat": -38.361197,
       "lng": 144.778549,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4.6,
-      "reviews": "232",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42909,7 +41129,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJA0wXYVY11GoRFcm0wB3t520"
     },
     {
       "name": "Thai Beach House",
@@ -42923,8 +41144,6 @@ window.BYO = {
       "lng": 144.9628518,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.5,
-      "reviews": "311",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42947,20 +41166,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJqZ1Nu_jF1WoR2NOwcf4l_XE"
     },
     {
       "name": "Chipotle Restaurant",
       "region": "Mornington Peninsula",
       "suburb": "Rye",
-      "address": "2305 Pt Nepean Road, Rye VIC 3941",
       "addressSource": "suburb-only",
       "lat": -38.3709018,
       "lng": 144.825277,
       "cuisine": "Mexican",
       "family": "Latin American",
-      "stars": 4.4,
-      "reviews": "808",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -42983,20 +41200,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJDTVfPIbK1WoRzXPrDMXNDBE"
     },
     {
       "name": "Chipotle Mexican Restaurant",
       "region": "Mornington Peninsula",
       "suburb": "Rye",
-      "address": "2305 Pt Nepean Road RYE, Melbourne, VIC, Australia, Victoria, Rye VIC 3941",
       "addressSource": "suburb-only",
       "lat": -38.3708675,
       "lng": 144.8252774,
       "cuisine": "Austrian",
       "family": "Latin American",
-      "stars": 4.4,
-      "reviews": "808",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43019,20 +41234,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJDTVfPIbK1WoRzXPrDMXNDBE"
     },
     {
       "name": "Uthong Thai",
       "region": "Mornington Peninsula",
       "suburb": "Mornington",
-      "address": "Shop 6/216 Main St, Mornington VIC 3931",
       "addressSource": "suburb-only",
       "lat": -38.2222946,
       "lng": 145.0403552,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "177",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43062,20 +41275,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJGZdkSFDZ1WoRJckP6qD3Frk"
     },
     {
       "name": "Dava Thai Mornington",
       "region": "Mornington Peninsula",
       "suburb": "Mornington",
-      "address": "35 Dava Drive, Mornington VIC 3931",
       "addressSource": "suburb-only",
       "lat": -38.240264,
       "lng": 145.032063,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "160",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43098,20 +41309,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJgeHER-nb1WoRD0BAVwYZ-DA"
     },
     {
       "name": "One Pear Tree Mornington",
       "region": "Mornington Peninsula",
       "suburb": "Mornington",
-      "address": "13/83 Watt Rd, Mornington VIC 3931, Mornington VIC 3931",
       "addressSource": "suburb-only",
       "lat": -38.23195,
       "lng": 145.0574917,
       "cuisine": "Cafe",
       "family": "Other",
-      "stars": 4.4,
-      "reviews": "160",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43140,14 +41349,11 @@ window.BYO = {
       "name": "Baihmon Thai Restaurant",
       "region": "Mornington Peninsula",
       "suburb": "Flinders",
-      "address": "Shop 8, 33 Cook St, Flinders VIC 3929",
       "addressSource": "suburb-only",
       "lat": -38.474491,
       "lng": 145.018487,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.4,
-      "reviews": "62",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43162,20 +41368,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJuQEcDeW41WoR0orfyUTFxi0"
     },
     {
       "name": "Panda Blairgowrie",
       "region": "Mornington Peninsula",
       "suburb": "Blairgowrie",
-      "address": "2871 Point Nepean Rd, Blairgowrie VIC 3942",
       "addressSource": "suburb-only",
       "lat": -38.3603468,
       "lng": 144.775301,
       "cuisine": "Modern Australian",
       "family": "European",
-      "stars": 4.3,
-      "reviews": "732",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43198,20 +41402,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJKUsAH3M11GoRzi29gZbif-0"
     },
     {
       "name": "Thai Makang",
       "region": "Mornington Peninsula",
       "suburb": "Mornington",
-      "address": "Shop 10, Vale St, Mornington VIC 3931",
       "addressSource": "suburb-only",
       "lat": -38.222552,
       "lng": 145.04232,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4.3,
-      "reviews": "194",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43241,7 +41443,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJJ1ffTVDZ1WoRXvLE-Q_OUSs"
     },
     {
       "name": "Indian Mahal",
@@ -43255,8 +41458,6 @@ window.BYO = {
       "lng": 145.1484025,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4.2,
-      "reviews": "784",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43286,20 +41487,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJe9J6KAPg1WoRItNEMyTq7is"
     },
     {
       "name": "Bardo Sorrento",
       "region": "Mornington Peninsula",
       "suburb": "Sorrento",
-      "address": "154 Ocean Beach Rd, Sorrento VIC 3943",
       "addressSource": "suburb-only",
       "lat": -38.339618,
       "lng": 144.7370038,
       "cuisine": "Pizza",
       "family": "European",
-      "stars": 4.2,
-      "reviews": "437",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43322,7 +41521,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ8WVcaFQ11GoRM0FlAPacfaw"
     },
     {
       "name": "Blue Fin Restaurant",
@@ -43336,8 +41536,6 @@ window.BYO = {
       "lng": 144.7785134828033,
       "cuisine": "Seafood",
       "family": "Other",
-      "stars": 4.1,
-      "reviews": "291",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43360,20 +41558,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJVdqBiWs11GoRqPgRAKJIouo"
     },
     {
       "name": "Itali.co Sorrento",
       "region": "Mornington Peninsula",
       "suburb": "Sorrento",
-      "address": "1 The Esplanade Sorrento VIC 3943, Sorrento VIC 3943",
       "addressSource": "suburb-only",
       "lat": -38.344308,
       "lng": 144.738458,
       "cuisine": "Italian",
       "family": "European",
-      "stars": 4,
-      "reviews": "1,530",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43396,20 +41592,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ53kHY3Y11GoRKY4750snafE"
     },
     {
       "name": "Thai Rosy",
       "region": "Mornington Peninsula",
       "suburb": "Rosebud West",
-      "address": "1659 Point Nepean Rd, Rosebud West VIC 3940",
       "addressSource": "suburb-only",
       "lat": -38.3638931,
       "lng": 144.8753468,
       "cuisine": "Thai",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "419",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43432,20 +41626,18 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJ1ZlV0YDJ1WoRx1AxG7N_jF0"
     },
     {
       "name": "Tulsi",
       "region": "Mornington Peninsula",
       "suburb": "Somerville",
-      "address": "74 Station St, Somerville VIC 3912",
       "addressSource": "suburb-only",
       "lat": -38.224988,
       "lng": 145.175029,
       "cuisine": "Indian",
       "family": "Asian",
-      "stars": 4,
-      "reviews": "179",
       "price": "?",
       "priceBasis": "Price not checked yet",
       "priceEstimate": false,
@@ -43475,7 +41667,8 @@ window.BYO = {
       },
       "dish": "",
       "takeawayDetail": "",
-      "website": ""
+      "website": "",
+      "place_id": "ChIJdZQ_tE7g1WoRZqLZ5tyQyVI"
     }
   ],
   "cities": [

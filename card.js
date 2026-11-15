@@ -3,7 +3,9 @@
    BYOCard.render(view, options) — options.mode is "results", "pick" or "vote".
    BYOCard.renderDetail(view) — the restaurant screen.
    Pass only facts the record actually has. Empty strings and nulls are omitted.
-   Do not fetch data or fill in a missing price, corkage, rating or address. */
+   A placeId on the detail screen renders Google's place rating element.
+   List cards never show a rating. Do not invent a number, and do not
+   render written review text. */
 (function (root, factory) {
   var api = factory();
   if (typeof module === "object" && module.exports) module.exports = api;
@@ -65,12 +67,13 @@
     return "Corkage · " + text;
   }
 
-  function ratingLine(view) {
-    if (typeof view.stars !== "number") return "";
-    var line = "★ " + view.stars;
-    if (present(view.reviewsLabel)) line += " · " + view.reviewsLabel + " Google reviews";
-    else line += " · Google";
-    return line;
+  function googleRatingHtml(placeId) {
+    if (!present(placeId)) return "";
+    return '<gmp-place-details-compact class="google-rating" orientation="horizontal" truncation-preferred>' +
+      '<gmp-place-details-place-request place="' + esc(placeId) + '"></gmp-place-details-place-request>' +
+      '<gmp-place-rating></gmp-place-rating>' +
+      '<gmp-place-attribution light-scheme-color="gray" dark-scheme-color="white"></gmp-place-attribution>' +
+      '</gmp-place-details-compact>';
   }
 
   function pillHtml(view) {
@@ -88,8 +91,6 @@
     var html = '<span class="rcard-name">' + esc(view.name || "Restaurant") + "</span>";
     var meta = metaLine(view);
     if (meta) html += '<span class="rcard-meta">' + esc(meta) + "</span>";
-    var rating = ratingLine(view);
-    if (rating) html += '<span class="rcard-rating"><span aria-hidden="true">★</span> ' + esc(rating.replace(/^★\s*/, "")) + "</span>";
     if (present(view.byoLabel)) html += '<span class="rcard-status">' + pillHtml(view) + "</span>";
     if (present(view.corkage)) html += '<span class="rcard-cork">' + bottleSvg() + "<span>" + esc(corkageLine(view.corkage)) + "</span></span>";
     return html;
@@ -205,7 +206,7 @@
   function renderDetail(view) {
     view = view || {};
     var meta = metaLine(view);
-    var rating = ratingLine(view);
+    var rating = googleRatingHtml(view.placeId);
     var days = present(view.byoDays) ? "BYO days · " + view.byoDays : "";
     var price = present(view.price) ? "Price " + view.price : "";
     var takeaway = present(view.takeaway) ? view.takeaway + (present(view.takeawayDetail) ? " · " + view.takeawayDetail : "") : "";
@@ -234,7 +235,7 @@
       (present(view.cuisine) ? "<span>" + esc(view.cuisine) + "</span>" : "") + "</div>" +
       '<h1 id="detailTitle" class="venue-name">' + esc(view.name || "Restaurant") + "</h1>" +
       (meta ? '<p class="venue-meta">' + esc(meta) + "</p>" : "") +
-      (rating ? '<p class="venue-rating"><span aria-hidden="true">★</span> ' + esc(rating.replace(/^★\s*/, "")) + "</p>" : "") +
+      rating +
       (present(view.byoLabel) ? '<p class="venue-status">' + pillHtml(view) + "</p>" : "") +
       '<div class="venue-facts">' +
       factRow(forkSvg(), price) +

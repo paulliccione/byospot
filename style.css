@@ -724,6 +724,14 @@ a.rcard-act-primary, a.venue-act-primary {
 }
 .venue-meta { margin-top: 8px; }
 .venue-rating { margin-top: 8px; font-weight: 500; }
+gmp-place-details-compact.google-rating {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 8px;
+  border: none;
+  background: transparent;
+}
 .venue-status { margin: 12px 0 0; }
 .venue-status .rcard-pill { padding: 8px 14px; }
 .venue-cork { margin-top: 12px; }

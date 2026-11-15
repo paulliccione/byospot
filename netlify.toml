@@ -1,5 +1,6 @@
 [build]
   publish = "."
+  command = "node scripts/write-maps-config.mjs"
   functions = "netlify/functions"
 
 [functions]
