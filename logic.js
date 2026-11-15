@@ -143,6 +143,11 @@
     return id;
   }
 
+  function centrePoint(bucket) {
+    if (!bucket || !bucket.n) return {};
+    return { lat: bucket.sumLat / bucket.n, lng: bucket.sumLng / bucket.n };
+  }
+
   function buildIndex(places, cities) {
     var cityById = {};
     cities.forEach(function (c) { cityById[c.id] = c; });
@@ -151,6 +156,7 @@
     var cityCounts = {};
     var regionCounts = {};
     var suburbKeys = {};
+    var regionPts = {};
 
     places.forEach(function (p) {
       var st = stateOfCity(p.city);
@@ -160,8 +166,17 @@
       var rkey = st + "|" + p.city + "|" + p.region;
       regionCounts[rkey] = (regionCounts[rkey] || 0) + 1;
       var skey = rkey + "|" + p.suburb;
-      if (!suburbKeys[skey]) suburbKeys[skey] = { state: st, city: p.city, region: p.region, suburb: p.suburb, count: 0 };
+      if (!suburbKeys[skey]) suburbKeys[skey] = { state: st, city: p.city, region: p.region, suburb: p.suburb, count: 0, sumLat: 0, sumLng: 0, n: 0 };
       suburbKeys[skey].count++;
+      if (typeof p.lat === "number" && typeof p.lng === "number") {
+        suburbKeys[skey].sumLat += p.lat;
+        suburbKeys[skey].sumLng += p.lng;
+        suburbKeys[skey].n++;
+        if (!regionPts[rkey]) regionPts[rkey] = { sumLat: 0, sumLng: 0, n: 0 };
+        regionPts[rkey].sumLat += p.lat;
+        regionPts[rkey].sumLng += p.lng;
+        regionPts[rkey].n++;
+      }
     });
 
     Object.keys(STATES).forEach(function (id) {
@@ -202,14 +217,14 @@
           context: (c.label || c.id) + ", " + st,
           count: regionCounts[st + "|" + c.id + "|" + region] || 0,
           aliases: aliasesR,
-          area: {
+          area: Object.assign({
             state: st,
             stateName: STATES[st],
             city: c.id,
             cityLabel: c.label || c.id,
             region: region,
             label: region
-          }
+          }, centrePoint(regionPts[st + "|" + c.id + "|" + region]))
         });
       });
     });
@@ -227,7 +242,7 @@
         context: context,
         count: s.count,
         aliases: [],
-        area: {
+        area: Object.assign({
           state: s.state,
           stateName: STATES[s.state],
           city: s.city,
@@ -235,7 +250,7 @@
           region: s.region,
           suburb: s.suburb,
           label: s.suburb
-        }
+        }, centrePoint(s))
       });
     });
 
@@ -339,17 +354,20 @@
       if (Object.prototype.hasOwnProperty.call(indexed, key)) {
         var at = indexed[key];
         var existing = items[at];
-        if (existing && existing.knownEmpty && existing.area && typeof existing.area.lat !== "number" && !enrichedKeys[key]) {
-          var enriched = Object.assign({}, existing);
-          enriched.area = Object.assign({}, existing.area, {
-            lat: area.lat,
-            lng: area.lng,
-            region: existing.area.region || area.region,
-            browseCity: existing.area.browseCity || area.browseCity
-          });
-          enriched.area.regionArea = regionBrowseArea(enriched.area);
-          items[at] = enriched;
-          enrichedKeys[key] = 1;
+        if (existing && existing.area && typeof area.lat === "number" && !enrichedKeys[key]) {
+          var takeCentre = existing.kind === "suburb" || typeof existing.area.lat !== "number";
+          if (takeCentre) {
+            var enriched = Object.assign({}, existing);
+            enriched.area = Object.assign({}, existing.area, {
+              lat: area.lat,
+              lng: area.lng,
+              region: existing.area.region || area.region,
+              browseCity: existing.area.browseCity || area.browseCity
+            });
+            if (enriched.knownEmpty || enriched.area.knownEmpty) enriched.area.regionArea = regionBrowseArea(enriched.area);
+            items[at] = enriched;
+            enrichedKeys[key] = 1;
+          }
         }
         return;
       }
@@ -768,14 +786,28 @@
     if (!f) return false;
     return !!(String(f.q || "").trim() || cuisineSelection(f).length || (f.byo && f.byo !== "All") || (f.corkage && f.corkage !== "All") || Number(f.radius) > 0);
   }
-  function defaultSort(area) { return area && area.near ? "distance" : "name"; }
+  function defaultSort(area) { return area && area.near ? "near" : "az"; }
+
+  function canonicalSort(sort, area) {
+    if (sort === "near" || sort === "distance") return "near";
+    if (sort === "az" || sort === "name") return "az";
+    return defaultSort(area);
+  }
 
   function distanceLabel(p) {
     if (!p || typeof p._dist !== "number") return "";
     var m = p._dist;
-    if (m < 950) return Math.max(10, Math.round(m / 10) * 10) + " m away";
-    var km = m / 1000;
-    return (km < 10 ? km.toFixed(1) : String(Math.round(km))) + " km away";
+    var num = m < 950 ? Math.max(10, Math.round(m / 10) * 10) + " m" : ((m / 1000) < 10 ? (m / 1000).toFixed(1) : String(Math.round(m / 1000))) + " km";
+    if (p._distFrom) return num + " from " + p._distFrom + " centre";
+    return num + " away";
+  }
+
+  function measureOrigin(area, coords) {
+    if (coords && typeof coords.lat === "number" && typeof coords.lng === "number") return { lat: coords.lat, lng: coords.lng, centre: "" };
+    if (area && typeof area.lat === "number" && typeof area.lng === "number") {
+      return { lat: area.lat, lng: area.lng, centre: area.suburb || area.label || "" };
+    }
+    return null;
   }
 
   function filterPlaces(places, area, filters, coords) {
@@ -784,7 +816,13 @@
     var terms = q ? q.split(" ") : [];
     var radiusM = Number(filters.radius) > 0 ? Number(filters.radius) * 1000 : 0;
     var cuisines = cuisineSelection(filters);
+    var origin = measureOrigin(area, coords);
+    var sort = canonicalSort(filters.sort, area);
     var list = [];
+    for (var c = 0; c < places.length; c++) {
+      places[c]._dist = undefined;
+      places[c]._distFrom = "";
+    }
     for (var i = 0; i < places.length; i++) {
       var p = places[i];
       if (!inArea(p, area)) continue;
@@ -793,27 +831,52 @@
       if (filters.byo === "listed" && p.byoConfirmed !== false) continue;
       if (filters.corkage === "known" && !corkageText(p)) continue;
       if (terms.length && !terms.every(function (t) { return p._search.indexOf(t) >= 0; })) continue;
-      if (coords && typeof p.lat === "number" && typeof p.lng === "number") {
-        p._dist = haversine(coords.lat, coords.lng, p.lat, p.lng);
-        if (radiusM && p._dist > radiusM) continue;
+      var dist = null;
+      if (origin && typeof p.lat === "number" && typeof p.lng === "number") dist = haversine(origin.lat, origin.lng, p.lat, p.lng);
+      if (area && area.near && coords && radiusM && dist != null && dist > radiusM) continue;
+      if (sort === "near" && dist != null) {
+        p._dist = dist;
+        if (origin.centre) p._distFrom = origin.centre;
       }
       list.push(p);
     }
-    var sort = filters.sort || defaultSort(area);
-    if (sort === "rating") sort = defaultSort(area);
-    if (sort === "distance" && !(coords && area && area.near)) sort = "name";
     list.sort(function (a, b) {
-      if (sort === "distance") return (a._dist || 0) - (b._dist || 0) || a.name.localeCompare(b.name);
+      if (sort === "near") {
+        var am = typeof a._dist === "number" ? 0 : 1;
+        var bm = typeof b._dist === "number" ? 0 : 1;
+        if (am !== bm) return am - bm;
+        if (am === 0 && a._dist !== b._dist) return a._dist - b._dist;
+      }
       return a.name.localeCompare(b.name);
     });
     return list;
   }
 
   function sortLabel(sort, area) {
-    var used = sort || defaultSort(area);
-    if (used === "rating") used = defaultSort(area);
-    if (used === "distance" && area && area.near) return "Nearest first";
-    return "Sorted A–Z";
+    return canonicalSort(sort, area) === "near" ? "Nearest first" : "Sorted A–Z";
+  }
+
+  function withCentre(area, index) {
+    if (!area || typeof area.lat === "number") return area;
+    var items = (index && index.items) || [];
+    for (var i = 0; i < items.length; i++) {
+      var a = items[i].area;
+      if (!a || typeof a.lat !== "number") continue;
+      var sameState = a.state === area.state;
+      var sameCity = !area.city || a.city === area.city;
+      if (area.suburb) {
+        if (sameState && sameCity && a.suburb === area.suburb && (!area.region || a.region === area.region)) {
+          area.lat = a.lat;
+          area.lng = a.lng;
+          return area;
+        }
+      } else if (area.region && !a.suburb && a.region === area.region && sameState && sameCity) {
+        area.lat = a.lat;
+        area.lng = a.lng;
+        return area;
+      }
+    }
+    return area;
   }
 
   function projectPins(list) {
@@ -947,9 +1010,8 @@
     add("byo", filters.byo || "");
     add("corkage", filters.corkage || "");
     add("radius", Number(filters.radius) || "");
-    var sort = filters.sort || "";
-    if (sort === "rating") sort = "";
-    if (sort && sort !== defaultSort(area)) add("sort", sort);
+    var sort = canonicalSort(filters.sort, area);
+    if (filters.sort && sort !== defaultSort(area)) add("sort", sort);
     return q.join("&");
   }
 
@@ -961,7 +1023,8 @@
     f.byo = get("byo") || "All";
     f.corkage = get("corkage") || "All";
     f.radius = Number(get("radius")) || 0;
-    f.sort = get("sort") === "rating" ? "" : (get("sort") || "");
+    var rawSort = get("sort");
+    f.sort = rawSort === "near" || rawSort === "distance" ? "near" : rawSort === "az" || rawSort === "name" ? "az" : "";
     return f;
   }
 
@@ -1005,6 +1068,7 @@
     projectPins: projectPins,
     presentPlace: presentPlace,
     areaFromParams: areaFromParams,
+    withCentre: withCentre,
     writeParams: writeParams,
     filtersFromParams: filtersFromParams,
     stateName: stateName

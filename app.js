@@ -207,7 +207,7 @@
       narrowed.radius = 0;
       return L.filterPlaces(picked, { near: true }, narrowed, null);
     }
-    var coords = state.area && state.area.near ? state.coords : null;
+    var coords = state.coords && typeof state.coords.lat === "number" ? state.coords : null;
     return L.filterPlaces(model.places, state.area, state.filters, coords);
   }
   function resultsHeading() {
@@ -277,8 +277,7 @@
     if (!p) return { id: fallbackId || "", name: "Restaurant no longer listed", missing: true };
     var presented = L.presentPlace(p);
     var byo = L.byoDayStatus(p);
-    var showDist = typeof p._dist === "number" && state.area && ((state.area.near && state.coords) || typeof state.area.lat === "number");
-    var distance = showDist ? (L.distanceLabel(p) || "") : "";
+    var distance = typeof p._dist === "number" ? (L.distanceLabel(p) || "") : "";
     var days = "";
     if (p.byoDays) days = Array.isArray(p.byoDays) ? p.byoDays.join(", ") : String(p.byoDays);
     var takeaway = p.takeaway === "yes" ? "Takeaway available" : p.takeaway === "no" ? "Dine-in only" : "";
@@ -363,17 +362,13 @@
   }
 
   function sortChoices() {
-    var choices = [];
-    if (state.area && state.area.near && state.coords) choices.push({ v: "distance", label: "Nearest first" });
-    choices.push({ v: "name", label: "A–Z" });
-    return choices;
+    return [{ v: "near", label: "Nearest first" }, { v: "az", label: "A–Z" }];
   }
   function activeSortValue() {
-    var sort = state.filters.sort || (state.area && state.area.near && state.coords ? "distance" : "name");
-    if (sort === "rating" || (sort === "distance" && !(state.area && state.area.near && state.coords))) sort = "name";
+    var sort = state.filters.sort === "near" || state.filters.sort === "az" ? state.filters.sort : L.defaultSort(state.area);
     var choices = sortChoices();
     for (var i = 0; i < choices.length; i++) if (choices[i].v === sort) return sort;
-    return choices.length ? choices[0].v : "name";
+    return choices.length ? choices[0].v : "az";
   }
   function sortControl() {
     var current = activeSortValue();
@@ -437,7 +432,7 @@
     if (f.byo && f.byo !== "All") n++;
     if (f.corkage && f.corkage !== "All") n++;
     if (Number(f.radius) > 0) n++;
-    if (f.sort && f.sort !== L.defaultSort(state.area)) n++;
+    if ((f.sort === "near" || f.sort === "az") && f.sort !== L.defaultSort(state.area)) n++;
     return n;
   }
 
@@ -583,15 +578,15 @@
     }
     var selectedCuisines = L.cuisineSelection(d);
     var cuisines = [{ v: "All", label: "Any" }].concat((model.families || []).map(function (f) { return { v: f, label: f }; }));
-    var sorts = [{ v: "", label: "Default" }, { v: "name", label: "A–Z" }];
-    if (state.area && state.area.near && state.coords) sorts.splice(1, 0, { v: "distance", label: "Distance" });
+    var sortNow = d.sort === "near" || d.sort === "az" ? d.sort : L.defaultSort(state.area);
+    var sorts = [{ v: "near", label: "Nearest first" }, { v: "az", label: "A–Z" }];
     var radius = "";
     if (state.area && state.area.near && state.coords) {
       radius = "<h3>Search radius</h3>" + chips("radius", [
         { v: "0", label: "Any" }, { v: "5", label: "5 km" }, { v: "10", label: "10 km" }, { v: "25", label: "25 km" }, { v: "50", label: "50 km" }
       ]);
     }
-    var preview = L.filterPlaces(model.places, state.area, d, state.area && state.area.near ? state.coords : null);
+    var preview = L.filterPlaces(model.places, state.area, d, state.coords && typeof state.coords.lat === "number" ? state.coords : null);
     return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="filterTitle"><div class="sheet-card">' +
       '<div class="sheet-head"><h2 id="filterTitle">Filters</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
       '<label class="field"><span>Restaurant name</span><input id="filterQ" type="search" value="' + esc(d.q || "") + '" placeholder="Name or dish"></label>' +
@@ -605,7 +600,9 @@
       ]) +
       "<h3>Corkage</h3>" + chips("corkage", [{ v: "All", label: "Any" }, { v: "known", label: "Amount listed" }]) +
       radius +
-      "<h3>Sort</h3>" + chips("sort", sorts) +
+      "<h3>Sort</h3>" + '<div class="chips" role="group">' + sorts.map(function (o) {
+        return '<button type="button" class="chip" data-action="draft" data-key="sort" data-v="' + esc(o.v) + '" aria-pressed="' + (sortNow === o.v) + '">' + esc(o.label) + "</button>";
+      }).join("") + "</div>" +
       '<p class="count-line" id="filterCount">' + preview.length + (preview.length === 1 ? " restaurant" : " restaurants") + "</p>" +
       '<div class="stack"><button type="button" class="btn btn-primary" data-action="apply-filters">Show restaurants</button>' +
       '<button type="button" class="btn btn-ghost" data-action="reset-filters">Clear filters</button></div></div></div>';
@@ -711,7 +708,7 @@
       state.browseStack = browseState && L.STATES[browseState] ? [{ level: "state", state: browseState }] : [];
     }
     if (route.screen === "results" || route.screen === "select") {
-      state.area = L.areaFromParams(route.params) || state.area;
+      state.area = L.withCentre(L.areaFromParams(route.params), model.index) || state.area;
       state.filters = L.filtersFromParams(route.params);
       state.view = "list";
       if (!state.area) { state.screen = "home"; }
@@ -745,7 +742,7 @@
       if (!venuePlace) state.screen = "home";
       else {
         state.screen = "results";
-        state.area = L.venueArea(venuePlace);
+        state.area = L.withCentre(L.venueArea(venuePlace), model.index);
         state.filters = L.filtersFromParams(route.params);
         state.view = "list";
         state.detailId = venuePlace.id;
@@ -810,9 +807,8 @@
     }
     var ret = state.locReturn || "results";
     try { ret = sessionStorage.getItem("byospot-loc-return") || ret; } catch (e) {}
-    if (!area.near && state.filters.sort === "distance") state.filters.sort = "";
     if (ret === "select") {
-      var next = L.filterPlaces(model.places, area, state.filters, area.near ? state.coords : null);
+      var next = L.filterPlaces(model.places, area, state.filters, state.coords && typeof state.coords.lat === "number" ? state.coords : null);
       var keep = {};
       next.forEach(function (p) { keep[p.id] = 1; });
       var removed = state.picks.filter(function (id) { return !keep[id]; });
@@ -852,7 +848,7 @@
       state.geoError = "";
       saveCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
       state.area = { near: true, label: "Near you" };
-      state.filters.sort = "distance";
+      state.filters.sort = "near";
       state.view = "list";
       state.limit = 24;
       go("/results?" + L.writeParams(state.area, state.filters, "list"));
@@ -1047,7 +1043,7 @@
       return;
     }
     if (action === "reset-filters") {
-      var sort = state.area && state.area.near ? "distance" : "";
+      var sort = L.defaultSort(state.area);
       state.filters = L.blankFilters();
       state.filters.sort = sort;
       state.draft = Object.assign(L.blankFilters(), state.filters);
@@ -1114,8 +1110,7 @@
   document.addEventListener("change", function (e) {
     if (e.target.id !== "resultSort") return;
     var value = e.target.value;
-    if (value !== "distance" && value !== "name") return;
-    if (value === "distance" && !(state.area && state.area.near && state.coords)) return;
+    if (value !== "near" && value !== "az") return;
     state.filters.sort = value;
     state.limit = 24;
     if (state.screen === "results") syncUrl();
@@ -1136,7 +1131,7 @@
       state.draft.q = e.target.value;
       var count = $("filterCount");
       if (count) {
-        var preview = L.filterPlaces(model.places, state.area, state.draft, state.area && state.area.near ? state.coords : null);
+        var preview = L.filterPlaces(model.places, state.area, state.draft, state.coords && typeof state.coords.lat === "number" ? state.coords : null);
         count.textContent = preview.length + (preview.length === 1 ? " restaurant" : " restaurants");
       }
     }
