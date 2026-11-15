@@ -700,7 +700,12 @@
     }
     if (route.screen === "legacy") state.legacyIds = route.ids;
     if (route.screen === "venue") {
-      var venuePlace = model.byId[route.id];
+      var requestedId = route.id;
+      var canonicalId = L.resolveVenueId(requestedId);
+      if (canonicalId !== requestedId) {
+        history.replaceState({ app: 1, depth: depth }, "", "/venue/" + canonicalId + (location.search || ""));
+      }
+      var venuePlace = model.byId[canonicalId];
       if (!venuePlace) state.screen = "home";
       else {
         state.screen = "results";

@@ -14772,46 +14772,6 @@ window.BYO = {
       "website": ""
     },
     {
-      "name": "Borrelli's",
-      "region": "Lower North Shore",
-      "suburb": "Epping",
-      "addressSource": "suburb-only",
-      "lat": -33.773904,
-      "lng": 151.081504,
-      "cuisine": "Italian",
-      "family": "European",
-      "price": "$$",
-      "priceBasis": "Google price range $30 - $65 pp (via MealFinder)",
-      "priceEstimate": true,
-      "corkage": "Unknown",
-      "byoConfirmed": false,
-      "takeaway": "unknown",
-      "note": "BYO listed but not confirmed, so call first",
-      "city": "Sydney",
-      "bottleShops": {
-        "chain": {
-          "name": "Super Cellars",
-          "brand": "Super Cellars",
-          "address": "54A Rawson Street, Epping",
-          "lat": -33.77283,
-          "lng": 151.080982,
-          "osm": "way/318055214",
-          "distanceM": 130
-        },
-        "independent": {
-          "name": "Harry's Liquor",
-          "address": "48 Langston Place",
-          "lat": -33.772657,
-          "lng": 151.082715,
-          "osm": "way/291435041",
-          "distanceM": 180
-        }
-      },
-      "dish": "",
-      "takeawayDetail": "",
-      "website": ""
-    },
-    {
       "name": "Infuzions Cammeray",
       "region": "Lower North Shore",
       "suburb": "Cammeray",
@@ -38897,49 +38857,6 @@ window.BYO = {
           "lng": 144.961741,
           "osm": "node/9211689525",
           "distanceM": 90
-        }
-      },
-      "dish": "",
-      "takeawayDetail": "",
-      "website": ""
-    },
-    {
-      "name": "La Botte Pizza Restaurant",
-      "region": "North / North-West",
-      "suburb": "Pascoe Vale",
-      "address": "221 Melville Road, Pascoe Vale VIC",
-      "addressSource": "osm",
-      "addressSourceUrl": "https://www.openstreetmap.org/node/6968130704",
-      "addressCheckedAt": "2026-11-12",
-      "lat": -37.739899,
-      "lng": 144.945249,
-      "cuisine": "Pizza",
-      "family": "European",
-      "price": "?",
-      "priceBasis": "Price not checked yet",
-      "priceEstimate": false,
-      "corkage": "Unknown",
-      "byoConfirmed": false,
-      "takeaway": "unknown",
-      "note": "BYO listed on AGFG; confirm with the venue",
-      "city": "Melbourne",
-      "bottleShops": {
-        "chain": {
-          "name": "Liquorland",
-          "brand": "Liquorland",
-          "address": "180 Gaffney Street",
-          "lat": -37.731789,
-          "lng": 144.9502,
-          "osm": "node/11679114222",
-          "distanceM": 1000
-        },
-        "independent": {
-          "name": "Bottle shop",
-          "address": "",
-          "lat": -37.747583,
-          "lng": 144.935874,
-          "osm": "node/1733023950",
-          "distanceM": 1190
         }
       },
       "dish": "",

@@ -620,6 +620,13 @@
     var code = CITY_STATE[(p && p.city) || ""] || "";
     return STATES[code] || "";
   }
+  var VENUE_REDIRECTS = {
+    "borrelli-s-epping": "borrelli-s-italian-restaurant-epping",
+    "la-botte-pizza-restaurant-pascoe-vale-north-north-west": "la-botte-pizza-restaurant-pascoe-vale"
+  };
+  function resolveVenueId(id) {
+    return VENUE_REDIRECTS[id] || id;
+  }
   function venueArea(p) {
     var code = CITY_STATE[(p && p.city) || ""] || "";
     return {
@@ -988,6 +995,7 @@
     addressRoutable: addressRoutable,
     directionsUrl: directionsUrl,
     venueArea: venueArea,
+    resolveVenueId: resolveVenueId,
     websiteUrl: websiteUrl,
     phoneHref: phoneHref,
     verifiedAddress: verifiedAddress,

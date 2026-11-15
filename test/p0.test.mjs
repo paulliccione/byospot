@@ -261,13 +261,19 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
       if (logic.addressRoutable(p.address)) assert.ok(logic.directionsUrl(p), p.name);
     }
   });
-  assert.equal(counts.osm, 186);
+  assert.equal(counts.osm, 185);
   assert.equal(counts.venue, 197);
-  assert.equal(counts["suburb-only"], 663);
+  assert.equal(counts["suburb-only"], 662);
   const links = data.places.map(function (p) { return logic.directionsUrl(p); });
-  assert.equal(links.filter(Boolean).length, 1046);
-  assert.equal(links.filter(function (u) { return u.indexOf("/maps/dir/") >= 0; }).length, 383);
-  assert.equal(links.filter(function (u) { return u.indexOf("/maps/search/") >= 0; }).length, 663);
+  assert.equal(links.filter(Boolean).length, 1044);
+  assert.equal(links.filter(function (u) { return u.indexOf("/maps/dir/") >= 0; }).length, 382);
+  assert.equal(links.filter(function (u) { return u.indexOf("/maps/search/") >= 0; }).length, 662);
+  assert.equal(logic.resolveVenueId("borrelli-s-epping"), "borrelli-s-italian-restaurant-epping");
+  assert.equal(logic.resolveVenueId("la-botte-pizza-restaurant-pascoe-vale-north-north-west"), "la-botte-pizza-restaurant-pascoe-vale");
+  assert.equal(model.byId["borrelli-s-epping"], undefined);
+  assert.equal(model.byId["borrelli-s-italian-restaurant-epping"].address, "3 Bridge St, Epping NSW 2121");
+  assert.equal(model.byId["la-botte-pizza-restaurant-pascoe-vale-north-north-west"], undefined);
+  assert.equal(model.byId["la-botte-pizza-restaurant-pascoe-vale"].region, "Inner North");
   const mon = data.places.find(function (p) { return p.name === "Mon Thai Eatery" && /timeout\.com/.test(p.addressSourceUrl || ""); });
   assert.ok(mon && mon.address);
   const rucira = data.places.find(function (p) { return p.name === "Rucira Foods"; });
