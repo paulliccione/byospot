@@ -607,6 +607,14 @@
     var id = String((p && p.place_id) || "").trim();
     return /^[A-Za-z0-9_-]{10,}$/.test(id) ? id : "";
   }
+  // Preview-only override. Production hostnames never honour test_place_id.
+  function previewTestPlaceId(hostname, search) {
+    var host = String(hostname || "");
+    if (host.indexOf("deploy-preview-") !== 0) return "";
+    var params = (search && typeof search.get === "function") ? search : new URLSearchParams(String(search || "").replace(/^\?/, ""));
+    var id = String(params.get("test_place_id") || "").trim();
+    return /^[A-Za-z0-9_-]{10,}$/.test(id) ? id : "";
+  }
 
   function venueStateName(p) {
     var code = CITY_STATE[(p && p.city) || ""] || "";
@@ -984,6 +992,7 @@
     phoneHref: phoneHref,
     verifiedAddress: verifiedAddress,
     placeIdOf: placeIdOf,
+    previewTestPlaceId: previewTestPlaceId,
     haversine: haversine,
     byoTonightStatus: byoTonightStatus,
     byoDayStatus: byoDayStatus,

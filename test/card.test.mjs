@@ -191,7 +191,7 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-15a2");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-15a3");
   assert.match(sw, /icons\/icon-v2-512\.png/);
   assert.match(sw, /icons\/icon-v2-maskable-512\.png/);
   assert.equal(sw.indexOf("images/cuisine"), -1);
