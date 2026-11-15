@@ -1,44 +1,68 @@
 /*
-  Attach a Google place_id to unresolved BYOspot venues. Does not store a
-  Google address.
+  Attach a Google place_id to every BYOspot venue that does not have one.
+  Does not store a Google formatted address.
 
   Google Maps Platform caching rules (checked 12 Nov 2026):
   https://developers.google.com/maps/documentation/places/web-service/policies
-  Place IDs may be stored indefinitely. Formatted addresses and other Places
-  content must not be cached or copied into our data. Latitude and longitude
-  from Places may be cached for 30 days only, so this script does not write
-  them. If a Google address is ever shown in the app, it has to be fetched at
-  view time and carry a Google Maps attribution. This script does neither.
+  Place IDs may be stored indefinitely. Formatted addresses must not be copied
+  into our data. This script requests displayName and addressComponents so it
+  can check the suburb, and it never writes formattedAddress.
 
-  Pricing (Places API New, same date):
+  Pricing (Places API New):
   https://developers.google.com/maps/billing-and-pricing/pricing
-  The field mask below is Text Search Pro (and Place Details Pro when a
-  place_id already exists). Text Search Pro is $32 per 1,000 requests after
-  5,000 free calls a month. Place Details Pro is $17 per 1,000 after 5,000
-  free calls a month. Do not add phone, website, written review fields, or opening hours to
-  the mask: those move the call onto an Enterprise SKU.
+  displayName makes the call Text Search Pro: $32 per 1,000 after 5,000 free
+  calls a month. Do not add phone, website, written review fields, or opening
+  hours. Those move the call onto an Enterprise SKU.
+
+  The key is GOOGLE_MAPS_API_KEY, a server key restricted to Places API (New).
+  The referrer-restricted browser key in Netlify will be rejected. Never
+  commit the key.
 
   Usage:
     GOOGLE_MAPS_API_KEY=... node research/google-place-ids.mjs
+    GOOGLE_MAPS_API_KEY=... node research/google-place-ids.mjs --limit 5
     GOOGLE_MAPS_API_KEY=... node research/google-place-ids.mjs --write
 
-  The key is read from the environment only. Never commit it.
-  Default is a dry run. --write sets place_id on a single clear match
-  and does not write a street address.
+  Default is a dry run: it makes the Text Search calls and writes
+  research/place-id-matches.csv only. It does not change data.js.
+  --write also sets place_id on an exact single match.
 */
 import fs from "fs";
+import path from "path";
 import vm from "vm";
+import { createRequire } from "module";
+import { fileURLToPath } from "url";
 
-const KEY = process.env.GOOGLE_MAPS_API_KEY || "";
-const WRITE = process.argv.includes("--write");
-const CSV = new URL("./unresolved-addresses.csv", import.meta.url);
+const require = createRequire(import.meta.url);
+const logic = require("../logic.js");
+
 const DATA = new URL("../data.js", import.meta.url);
-const MASK = "places.id,places.displayName,places.formattedAddress,places.addressComponents";
-const DETAIL_MASK = "id,displayName,formattedAddress,addressComponents";
+const REVIEW = new URL("./place-id-matches.csv", import.meta.url);
+const MASK = "places.id,places.displayName,places.addressComponents";
 
-if (!KEY) {
-  console.error("Set GOOGLE_MAPS_API_KEY in the environment. No key is stored in the repo.");
-  process.exit(1);
+export function parseLimit(argv) {
+  const args = argv || [];
+  let raw = "";
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === "--limit") raw = args[i + 1] || "";
+    else if (args[i].startsWith("--limit=")) raw = args[i].slice("--limit=".length);
+  }
+  if (!raw) return null;
+  if (!/^[1-9]\d*$/.test(raw)) throw new Error("--limit needs a positive integer");
+  return Number(raw);
+}
+
+export function targetsMissingPlaceId(records, ids, limit) {
+  const out = [];
+  for (let i = 0; i < records.length; i++) {
+    if (records[i].place_id) continue;
+    out.push({ place: records[i], id: ids[i] });
+  }
+  return limit == null ? out : out.slice(0, limit);
+}
+
+export function listPriceUsd(textCalls, detailCalls) {
+  return Number(((textCalls * 32 + detailCalls * 17) / 1000).toFixed(2));
 }
 
 function fold(s) {
@@ -55,51 +79,78 @@ function nameOk(displayName, venueName) {
   const hit = toks.filter(t => f.includes(t));
   return hit.length >= Math.min(2, toks.length) && hit.length / toks.length >= 0.6;
 }
-function suburbOf(components) {
+export function localityNames(components) {
   const want = new Set(["locality", "sublocality", "sublocality_level_1", "postal_town", "neighborhood"]);
   const names = [];
   for (const c of components || []) {
     if ((c.types || []).some(t => want.has(t))) names.push(c.longText || c.shortText || "");
   }
-  return names;
+  return names.filter(Boolean);
 }
 function suburbOk(components, suburb) {
   const s = fold(suburb);
-  return suburbOf(components).some(n => fold(n) === s || fold(n).includes(s));
-}
-function parseCsv(text) {
-  const rows = [];
-  let row = [], cell = "", q = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (q) {
-      if (ch === '"') {
-        if (text[i + 1] === '"') { cell += '"'; i++; }
-        else q = false;
-      } else cell += ch;
-    } else if (ch === '"') q = true;
-    else if (ch === ",") { row.push(cell); cell = ""; }
-    else if (ch === "\n") { row.push(cell); rows.push(row); row = []; cell = ""; }
-    else if (ch !== "\r") cell += ch;
-  }
-  if (cell.length || row.length) { row.push(cell); rows.push(row); }
-  const head = rows.shift() || [];
-  return rows.filter(r => r.length && r.some(Boolean)).map(r => {
-    const o = {};
-    head.forEach((h, i) => { o[h] = r[i] || ""; });
-    return o;
-  });
+  return localityNames(components).some(n => fold(n) === s || fold(n).includes(s));
 }
 function stateOf(city) {
   return city === "Melbourne" || city === "Vic Coast" ? "VIC" : "NSW";
 }
+function searchQuery(place) {
+  const street = (place.addressSource === "osm" || place.addressSource === "venue") && place.address ? place.address : "";
+  return [place.name, street, place.suburb, stateOf(place.city), "Australia"].filter(Boolean).join(" ");
+}
+function displayText(place) {
+  return (place && place.displayName && place.displayName.text) || "";
+}
 
-async function textSearch(query) {
+export function classify(candidates, venueName, suburb) {
+  const hits = (candidates || []).filter(c => c && c.id && nameOk(displayText(c), venueName) && suburbOk(c.addressComponents, suburb));
+  if (hits.length === 1) {
+    return {
+      status: "exact",
+      displayName: displayText(hits[0]),
+      locality: localityNames(hits[0].addressComponents).join(" | "),
+      placeId: hits[0].id
+    };
+  }
+  if (hits.length > 1) {
+    return {
+      status: "ambiguous",
+      displayName: hits.map(displayText).join(" | "),
+      locality: hits.map(h => localityNames(h.addressComponents).join(" | ")).join(" | "),
+      placeId: ""
+    };
+  }
+  return { status: "none", displayName: "", locality: "", placeId: "" };
+}
+
+export function csvEscape(value) {
+  const text = String(value == null ? "" : value);
+  if (/[",\n\r]/.test(text)) return '"' + text.replace(/"/g, '""') + '"';
+  return text;
+}
+
+export function reviewCsv(rows) {
+  const header = ["venueId", "name", "suburb", "googleDisplayName", "googleLocality", "status"];
+  const lines = [header.join(",")];
+  for (const row of rows) {
+    lines.push([
+      row.venueId,
+      row.name,
+      row.suburb,
+      row.googleDisplayName,
+      row.googleLocality,
+      row.status
+    ].map(csvEscape).join(","));
+  }
+  return lines.join("\n") + "\n";
+}
+
+async function textSearch(key, query) {
   const res = await fetch("https://places.googleapis.com/v1/places:searchText", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Goog-Api-Key": KEY,
+      "X-Goog-Api-Key": key,
       "X-Goog-FieldMask": MASK
     },
     body: JSON.stringify({ textQuery: query, regionCode: "AU", pageSize: 5 })
@@ -108,64 +159,75 @@ async function textSearch(query) {
   const data = await res.json();
   return data.places || [];
 }
-async function placeDetails(placeId) {
-  const res = await fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId), {
-    headers: { "X-Goog-Api-Key": KEY, "X-Goog-FieldMask": DETAIL_MASK }
-  });
-  if (!res.ok) throw new Error("Place Details " + res.status);
-  return res.json();
-}
 
-const unresolved = parseCsv(fs.readFileSync(CSV, "utf8"));
-const sandbox = { window: {} };
-vm.runInNewContext(fs.readFileSync(DATA, "utf8"), sandbox);
-const places = sandbox.window.BYO.places;
-const byName = new Map();
-places.forEach((p, i) => byName.set(fold(p.name) + "|" + fold(p.suburb), i));
+async function main() {
+  const key = process.env.GOOGLE_MAPS_API_KEY || "";
+  const write = process.argv.includes("--write");
+  let limit = null;
+  try { limit = parseLimit(process.argv); }
+  catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+  if (!key) {
+    console.error("Set GOOGLE_MAPS_API_KEY in the environment. No key is stored in the repo.");
+    process.exit(1);
+  }
 
-let textCalls = 0;
-let detailCalls = 0;
-let linked = 0;
-const review = [];
+  const sandbox = { window: {} };
+  vm.runInNewContext(fs.readFileSync(DATA, "utf8"), sandbox);
+  const records = sandbox.window.BYO.places;
+  const prepared = logic.prepare(sandbox.window.BYO);
+  const ids = prepared.places.map(p => p.id);
+  const missing = targetsMissingPlaceId(records, ids, null);
+  const batch = limit == null ? missing : missing.slice(0, limit);
 
-for (const row of unresolved) {
-  const idx = byName.get(fold(row.name) + "|" + fold(row.suburb));
-  const place = idx == null ? null : places[idx];
-  if (!place || place.addressSource !== "suburb-only") continue;
-  const state = stateOf(place.city);
-  let candidates = [];
-  if (place.place_id) {
-    detailCalls++;
-    const one = await placeDetails(place.place_id);
-    candidates = [one];
-  } else {
+  let textCalls = 0;
+  const rows = [];
+  let exact = 0;
+  let ambiguous = 0;
+  let none = 0;
+  for (const item of batch) {
     textCalls++;
-    candidates = await textSearch(place.name + " " + place.suburb + " " + state + " Australia");
+    const candidates = await textSearch(key, searchQuery(item.place));
+    const match = classify(candidates, item.place.name, item.place.suburb);
+    if (match.status === "exact") exact++;
+    else if (match.status === "ambiguous") ambiguous++;
+    else none++;
+    if (write && match.status === "exact") item.place.place_id = match.placeId;
+    rows.push({
+      venueId: item.id,
+      name: item.place.name,
+      suburb: item.place.suburb,
+      googleDisplayName: match.displayName,
+      googleLocality: match.locality,
+      status: match.status
+    });
+    await new Promise(r => setTimeout(r, 150));
   }
-  const hits = candidates.filter(c => nameOk((c.displayName && c.displayName.text) || "", place.name) && suburbOk(c.addressComponents, place.suburb));
-  if (hits.length === 1 && hits[0].id) {
-    linked++;
-    if (WRITE) place.place_id = hits[0].id;
-    // formattedAddress was used only to validate. It is not stored.
-  } else {
-    review.push({ name: place.name, suburb: place.suburb, hits: hits.length });
+
+  fs.writeFileSync(REVIEW, reviewCsv(rows));
+  if (write) {
+    const header = fs.readFileSync(DATA, "utf8").split("window.BYO = ")[0];
+    fs.writeFileSync(DATA, header + "window.BYO = " + JSON.stringify(sandbox.window.BYO, null, 2) + ";\n");
   }
-  await new Promise(r => setTimeout(r, 150));
+
+  console.log(JSON.stringify({
+    venues: records.length,
+    venuesMissingPlaceId: missing.length,
+    considered: batch.length,
+    textSearchProRequests: textCalls,
+    placeDetailsProRequests: 0,
+    exact,
+    ambiguous,
+    none,
+    placeIdsWritten: write ? exact : 0,
+    listPriceUsdIfFreeCapAlreadyUsed: listPriceUsd(textCalls, 0),
+    reviewFile: "research/place-id-matches.csv",
+    note: "Text Search Pro includes 5,000 free requests a month, then $32 per 1,000. A full run of every venue missing a place_id is one request each. Under an unused cap this run is $0. The review file stores a locality name, not a formatted address. Dry run does not change data.js.",
+    wrote: write
+  }, null, 2));
 }
 
-if (WRITE) {
-  const header = fs.readFileSync(DATA, "utf8").split("window.BYO = ")[0];
-  fs.writeFileSync(DATA, header + "window.BYO = " + JSON.stringify(sandbox.window.BYO, null, 2) + ";\n");
-}
-
-const listPrice = (textCalls * 32 + detailCalls * 17) / 1000;
-console.log(JSON.stringify({
-  unresolved: unresolved.length,
-  textSearchProRequests: textCalls,
-  placeDetailsProRequests: detailCalls,
-  placeIdsLinked: linked,
-  needsManualReview: review.length,
-  listPriceUsdIfFreeCapAlreadyUsed: Number(listPrice.toFixed(2)),
-  note: "Text Search Pro includes 5,000 free requests a month, then $32 per 1,000. Place Details Pro includes 5,000 free requests a month, then $17 per 1,000. Under an unused cap this run is $0. Formatted addresses were not written.",
-  wrote: WRITE
-}, null, 2));
+const invoked = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (invoked) main();
