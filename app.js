@@ -246,20 +246,34 @@
     if (window.BYO_PLACES === "failed" || !mapsApiKey()) return "";
     return L.placeIdOf(p);
   }
+  function dropPlaceRatings() {
+    var nodes = document.querySelectorAll("gmp-place-details-compact.google-rating");
+    for (var i = 0; i < nodes.length; i++) {
+      if (nodes[i].parentNode) nodes[i].parentNode.removeChild(nodes[i]);
+    }
+  }
+  function ensurePlacesKit() {
+    if (!mapsApiKey() || window.BYO_PLACES === "failed") return;
+    if (window.BYOMaps && window.BYOMaps.load) { window.BYOMaps.load(); return; }
+    if (document.querySelector("script[data-byo-maps]")) return;
+    var s = document.createElement("script");
+    s.src = "maps.js";
+    s.async = true;
+    s.setAttribute("data-byo-maps", "1");
+    s.onload = function () { if (window.BYOMaps && window.BYOMaps.load) window.BYOMaps.load(); };
+    s.onerror = function () { window.BYO_PLACES = "failed"; dropPlaceRatings(); };
+    document.head.appendChild(s);
+  }
   function bindPlaceRatings() {
     var nodes = document.querySelectorAll("gmp-place-details-compact.google-rating");
-    var i;
-    if (!mapsApiKey() || window.BYO_PLACES === "failed") {
-      for (i = 0; i < nodes.length; i++) {
-        if (nodes[i].parentNode) nodes[i].parentNode.removeChild(nodes[i]);
-      }
-      return;
-    }
-    for (i = 0; i < nodes.length; i++) {
+    if (!nodes.length) return;
+    if (!mapsApiKey() || window.BYO_PLACES === "failed") { dropPlaceRatings(); return; }
+    for (var i = 0; i < nodes.length; i++) {
       nodes[i].addEventListener("gmp-requesterror", function () {
         if (this.parentNode) this.parentNode.removeChild(this);
       });
     }
+    ensurePlacesKit();
   }
   function cardView(p, fallbackId) {
     if (!p) return { id: fallbackId || "", name: "Restaurant no longer listed", missing: true };
@@ -681,6 +695,17 @@
       if (!state.poll) loadPoll(route.token, route.screen);
     }
     if (route.screen === "legacy") state.legacyIds = route.ids;
+    if (route.screen === "venue") {
+      var venuePlace = model.byId[route.id];
+      if (!venuePlace) state.screen = "home";
+      else {
+        state.screen = "results";
+        state.area = L.venueArea(venuePlace);
+        state.filters = L.filtersFromParams(route.params);
+        state.view = "list";
+        state.detailId = venuePlace.id;
+      }
+    }
     if (route.screen === "home") state.geoError = state.geoError;
     render();
     if (scroll) window.scrollTo(0, 0);
@@ -703,6 +728,8 @@
     if (path === "/privacy") return { screen: "privacy", params: params };
     if (path === "/select") return { screen: "select", params: params };
     if (path === "/results") return { screen: "results", params: params };
+    var venue = path.match(/^\/venue\/([A-Za-z0-9_-]+)$/);
+    if (venue) return { screen: "venue", id: venue[1], params: params };
     return { screen: "home", params: params };
   }
 
@@ -897,7 +924,16 @@
       return;
     }
     if (action === "privacy") { e.preventDefault(); go("/privacy"); return; }
-    if (action === "close") { state.detailId = ""; state.filtersOpen = false; state.keepScroll = true; render(); return; }
+    if (action === "close") {
+      state.detailId = "";
+      state.filtersOpen = false;
+      state.keepScroll = true;
+      if (/^\/venue\//.test(location.pathname) && state.area) {
+        history.replaceState({ app: 1, depth: depth }, "", "/results?" + L.writeParams(state.area, state.filters, "list"));
+      }
+      render();
+      return;
+    }
     if (action === "near") { requestNear(); return; }
     if (action === "choose-location") {
       openLocation(state.screen === "select" ? "select" : "results");

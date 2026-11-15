@@ -36,7 +36,7 @@ test("unknown price and corkage are omitted and confirmation is not invented", f
   assert.equal(confirmedView.rank, undefined);
 });
 
-test("directions use a non-Google street address and skip an unverified one", function () {
+test("directions use a verified street, or a name and suburb search when there is none", function () {
   const routed = model.byId["arabella-newtown"];
   const url = logic.directionsUrl(routed);
   assert.match(url, /^https:\/\/www\.google\.com\/maps\/dir\/\?api=1&destination=/);
@@ -46,8 +46,15 @@ test("directions use a non-Google street address and skip an unverified one", fu
   const hikaru = model.byId["hikaru-newtown"];
   assert.equal(hikaru.addressSource, "suburb-only");
   assert.equal(hikaru.address, undefined);
-  assert.equal(logic.directionsUrl(hikaru), "");
   assert.equal(logic.presentPlace(hikaru).address, "");
+  const hikaruUrl = logic.directionsUrl(hikaru);
+  assert.match(hikaruUrl, /^https:\/\/www\.google\.com\/maps\/search\/\?api=1&query=/);
+  assert.equal(decodeURIComponent(hikaruUrl.split("query=")[1]), "Hikaru, Newtown, New South Wales");
+  const withId = Object.assign({}, hikaru, { place_id: "ChIJhikaruTest01" });
+  assert.match(logic.directionsUrl(withId), /&query_place_id=ChIJhikaruTest01$/);
+  const routedWithId = Object.assign({}, routed, { place_id: "ChIJarabellaTest1" });
+  assert.match(logic.directionsUrl(routedWithId), /\/maps\/dir\/\?api=1&destination=/);
+  assert.match(logic.directionsUrl(routedWithId), /destination_place_id=ChIJarabellaTest1/);
   assert.equal(logic.addressRoutable("Cnr Thurlow And Bourke Streets, Redfern NSW"), true);
 });
 
@@ -225,10 +232,13 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
     assert.equal(p.place_id, undefined, p.name);
     assert.ok(counts[p.addressSource] != null, p.name + " " + p.addressSource);
     counts[p.addressSource] += 1;
+    const link = logic.directionsUrl(p);
+    assert.ok(link, p.name);
     if (p.addressSource === "suburb-only") {
       assert.equal(p.address, undefined, p.name);
       assert.equal(p.addressSourceUrl, undefined);
-      assert.equal(logic.directionsUrl(p), "");
+      assert.match(link, /\/maps\/search\/\?api=1&query=/, p.name);
+      assert.equal(link.indexOf(p.suburb) === -1 || decodeURIComponent(link).indexOf(p.suburb) >= 0, true);
     } else {
       assert.match(p.addressSourceUrl || "", /^https?:\/\//, p.name);
       assert.equal(/google|goo\.gl|googleapis|gstatic/i.test(p.addressSourceUrl), false, p.name);
@@ -240,6 +250,10 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
   assert.equal(counts.osm, 186);
   assert.equal(counts.venue, 197);
   assert.equal(counts["suburb-only"], 663);
+  const links = data.places.map(function (p) { return logic.directionsUrl(p); });
+  assert.equal(links.filter(Boolean).length, 1046);
+  assert.equal(links.filter(function (u) { return u.indexOf("/maps/dir/") >= 0; }).length, 383);
+  assert.equal(links.filter(function (u) { return u.indexOf("/maps/search/") >= 0; }).length, 663);
   const mon = data.places.find(function (p) { return p.name === "Mon Thai Eatery" && /timeout\.com/.test(p.addressSourceUrl || ""); });
   assert.ok(mon && mon.address);
   const rucira = data.places.find(function (p) { return p.name === "Rucira Foods"; });
@@ -252,8 +266,9 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
   assert.match(cfg, /"googleMapsApiKey":""/);
   assert.equal(cfg.indexOf("AIza"), -1);
   const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
-  assert.ok(html.indexOf("config.js") < html.indexOf("maps.js"));
-  assert.ok(html.indexOf("maps.js") < html.indexOf("app.js"));
+  assert.equal(html.indexOf("maps.js"), -1);
+  assert.match(app, /data-byo-maps/);
+  assert.match(app, /\\\/venue\\\//);
 });
 
 test("removed product copy is gone from the client", function () {

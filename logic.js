@@ -608,13 +608,36 @@
     return /^[A-Za-z0-9_-]{10,}$/.test(id) ? id : "";
   }
 
+  function venueStateName(p) {
+    var code = CITY_STATE[(p && p.city) || ""] || "";
+    return STATES[code] || "";
+  }
+  function venueArea(p) {
+    var code = CITY_STATE[(p && p.city) || ""] || "";
+    return {
+      state: code,
+      stateName: STATES[code] || "",
+      city: (p && p.city) || "",
+      cityLabel: (p && p.city) || "",
+      region: (p && p.region) || "",
+      suburb: (p && p.suburb) || "",
+      label: (p && (p.suburb || p.region || p.city || p.name)) || ""
+    };
+  }
   function directionsUrl(p) {
-    var addr = verifiedAddress(p);
-    if (!addressRoutable(addr)) return "";
-    var url = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(addr);
+    if (!p) return "";
     var pid = placeIdOf(p);
-    if (pid) url += "&destination_place_id=" + encodeURIComponent(pid);
-    return url;
+    var addr = verifiedAddress(p);
+    if (addressRoutable(addr)) {
+      var url = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(addr);
+      if (pid) url += "&destination_place_id=" + encodeURIComponent(pid);
+      return url;
+    }
+    var parts = [p.name, p.suburb, venueStateName(p)].map(function (s) { return String(s || "").trim(); }).filter(Boolean);
+    if (!parts.length) return "";
+    var search = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(parts.join(", "));
+    if (pid) search += "&query_place_id=" + encodeURIComponent(pid);
+    return search;
   }
   function websiteUrl(p) {
     var u = String((p && p.website) || "").trim();
@@ -956,6 +979,7 @@
     byoPresentation: byoPresentation,
     addressRoutable: addressRoutable,
     directionsUrl: directionsUrl,
+    venueArea: venueArea,
     websiteUrl: websiteUrl,
     phoneHref: phoneHref,
     verifiedAddress: verifiedAddress,

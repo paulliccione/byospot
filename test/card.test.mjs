@@ -59,7 +59,7 @@ test("one card hides missing facts and never invents them", function () {
   assert.equal(html.includes("M14 8h20"), false);
 });
 
-test("results, picker and vote share the card and keep corkage, status, rating and address", function () {
+test("results, picker and vote share the card and keep corkage, status and address", function () {
   ["results", "pick", "vote"].forEach(function (mode) {
     const html = card.render(full, { mode: mode, pressed: mode !== "results" });
     assert.match(html, new RegExp('data-mode="' + mode + '"'));
@@ -67,12 +67,9 @@ test("results, picker and vote share the card and keep corkage, status, rating a
     assert.match(html, /BYO Sun–Thu/);
     assert.match(html, /is-days/);
     assert.match(html, /Corkage · \$18 \(wine\)/);
-    assert.match(html, /<gmp-place-rating><\/gmp-place-rating>/);
-    assert.match(html, /<gmp-place-attribution light-scheme-color="gray" dark-scheme-color="white"><\/gmp-place-attribution>/);
+    assert.equal(html.includes("gmp-place-rating"), false);
+    assert.equal(html.includes("gmp-place-attribution"), false);
     assert.equal(html.includes("gmp-place-reviews"), false);
-    assert.equal(html.includes("gmp-place-review-summary"), false);
-    assert.equal(html.includes("gmp-place-summary"), false);
-    assert.equal(html.includes("gmp-place-all-content"), false);
     assert.match(html, /170 King Street, Newtown NSW/);
     assert.match(html, /Italian · Newtown · 650 m away/);
     assert.match(html, /class="rcard-address"/);
@@ -117,6 +114,7 @@ test("detail collapses empty rows and shows booking only when a url exists", fun
   assert.match(rich, /gmp-place-attribution/);
   assert.equal(rich.includes("gmp-place-reviews"), false);
   assert.equal(rich.includes("gmp-place-review-summary"), false);
+  assert.equal(rich.includes("gmp-place-summary"), false);
   assert.equal(rich.includes("4.6"), false);
   assert.match(rich, /170 King Street/);
   assert.match(rich, /class="venue-address"/);
@@ -193,7 +191,7 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-15a");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-15a2");
   assert.match(sw, /icons\/icon-v2-512\.png/);
   assert.match(sw, /icons\/icon-v2-maskable-512\.png/);
   assert.equal(sw.indexOf("images/cuisine"), -1);

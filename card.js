@@ -3,8 +3,9 @@
    BYOCard.render(view, options) — options.mode is "results", "pick" or "vote".
    BYOCard.renderDetail(view) — the restaurant screen.
    Pass only facts the record actually has. Empty strings and nulls are omitted.
-   A placeId renders Google's place rating element. Do not invent a number,
-   and do not render written review text. */
+   A placeId on the detail screen renders Google's place rating element.
+   List cards never show a rating. Do not invent a number, and do not
+   render written review text. */
 (function (root, factory) {
   var api = factory();
   if (typeof module === "object" && module.exports) module.exports = api;
@@ -180,7 +181,7 @@
         "</div>";
     }
     return '<article class="rcard' + (pressed ? " is-on" : "") + '" data-mode="' + mode + '">' +
-      open + googleRatingHtml(view.placeId) + addressHtml(view) + actionRow + "</article>";
+      open + addressHtml(view) + actionRow + "</article>";
   }
 
   function factRow(icon, text) {
