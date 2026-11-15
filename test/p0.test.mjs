@@ -36,17 +36,18 @@ test("unknown price and corkage are omitted and confirmation is not invented", f
   assert.equal(confirmedView.rank, undefined);
 });
 
-test("directions use the stored address while compliance mode is off", function () {
-  assert.equal(logic.GOOGLE_COMPLIANT_MODE, false);
+test("directions use a non-Google street address and skip an unverified one", function () {
   const routed = model.byId["arabella-newtown"];
   const url = logic.directionsUrl(routed);
   assert.match(url, /^https:\/\/www\.google\.com\/maps\/dir\/\?api=1&destination=/);
   const dest = decodeURIComponent(url.split("destination=")[1].split("&")[0]);
   assert.equal(dest.indexOf(routed.address), 0);
+  assert.match(routed.addressSourceUrl, /^https?:\/\/www\.arabella\.com\.au/);
   const hikaru = model.byId["hikaru-newtown"];
   assert.equal(hikaru.addressSource, "suburb-only");
-  assert.equal(hikaru.address, "Rear of 134 King Street, Newtown NSW");
-  assert.match(logic.directionsUrl(hikaru), /^https:\/\/www\.google\.com\/maps\/dir\//);
+  assert.equal(hikaru.address, undefined);
+  assert.equal(logic.directionsUrl(hikaru), "");
+  assert.equal(logic.presentPlace(hikaru).address, "");
   assert.equal(logic.addressRoutable("Cnr Thurlow And Bourke Streets, Redfern NSW"), true);
 });
 
@@ -154,10 +155,16 @@ test("near me sorts by distance and a region defaults to A–Z", function () {
   assert.ok(alpha[0].name.localeCompare(alpha[1].name) <= 0);
   assert.equal(logic.sortLabel("", region), "Sorted A–Z");
   const rated = logic.filterPlaces(model.places, region, Object.assign(logic.blankFilters(), { sort: "rating" }), null);
-  assert.ok(rated[0].stars >= rated[rated.length - 1].stars);
-  assert.equal(logic.sortLabel("rating", region), "Sorted by Google rating");
-  assert.equal(logic.blankFilters().rating, 0);
-  assert.ok(logic.writeParams(region, Object.assign(logic.blankFilters(), { sort: "rating" }), "list").indexOf("sort=rating") >= 0);
+  assert.ok(rated[0].name.localeCompare(rated[1].name) <= 0);
+  assert.equal(rated[0].name, alpha[0].name);
+  assert.equal(logic.sortLabel("rating", region), "Sorted A–Z");
+  assert.equal(logic.blankFilters().rating, undefined);
+  const params = logic.writeParams(region, Object.assign(logic.blankFilters(), { sort: "rating", rating: 4.5 }), "list");
+  assert.equal(params.indexOf("sort=rating"), -1);
+  assert.equal(params.indexOf("rating="), -1);
+  const fromUrl = logic.filtersFromParams(new URLSearchParams("sort=rating&rating=4.5"));
+  assert.equal(fromUrl.sort, "");
+  assert.equal(fromUrl.rating, undefined);
 });
 
 test("polls require two restaurants, persist a vote once, and can tie", function () {
@@ -183,8 +190,7 @@ test("polls require two restaurants, persist a vote once, and can tie", function
   assert.equal(summarizeTallies({ a: 2, b: 2 }, ["a", "b"]).kind, "tie");
 });
 
-test("play mode shows precise distances and the compliance switch is off", function () {
-  assert.equal(logic.GOOGLE_COMPLIANT_MODE, false);
+test("distances stay available and the old compliance switch is gone", function () {
   const vague = model.byId["hikaru-newtown"];
   vague._dist = 420;
   assert.equal(logic.distanceLabel(vague), "420 m away");
@@ -192,40 +198,62 @@ test("play mode shows precise distances and the compliance switch is off", funct
   routed._dist = 420;
   assert.equal(logic.distanceLabel(routed), "420 m away");
   const logicSrc = fs.readFileSync(new URL("../logic.js", import.meta.url), "utf8");
-  assert.match(logicSrc, /var GOOGLE_COMPLIANT_MODE = false/);
-  assert.match(logicSrc, /in " \+ p\.suburb/);
+  assert.equal(logicSrc.indexOf("GOOGLE_COMPLIANT_MODE"), -1);
+  assert.equal(logic.GOOGLE_COMPLIANT_MODE, undefined);
 });
 
-test("stored ratings match the play phase and verified addresses keep provenance", function () {
+test("stored ratings are gone and only non-Google addresses remain", function () {
   const app = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
   const card = fs.readFileSync(new URL("../card.js", import.meta.url), "utf8");
-  assert.match(app, /Google rating/);
-  assert.match(card, /Google reviews/);
+  assert.equal(app.indexOf("GOOGLE_COMPLIANT_MODE"), -1);
+  assert.match(card, /gmp-place-rating/);
+  assert.match(card, /gmp-place-attribution/);
+  assert.equal(card.indexOf("gmp-place-reviews"), -1);
+  assert.equal(card.indexOf("gmp-place-review-summary"), -1);
   const arabella = model.byId["arabella-newtown"];
-  assert.equal(arabella.stars, 4.4);
-  assert.equal(arabella.reviews, "1,655");
+  assert.equal(arabella.stars, undefined);
+  assert.equal(arabella.reviews, undefined);
   assert.equal(arabella.addressSource, "venue");
   assert.equal(arabella.addressCheckedAt, "2026-11-12");
   const hikaru = model.byId["hikaru-newtown"];
-  assert.equal(hikaru.stars, 4);
-  assert.equal(hikaru.reviews, "909");
+  assert.equal(hikaru.stars, undefined);
+  assert.equal(hikaru.reviews, undefined);
   const counts = { osm: 0, venue: 0, "suburb-only": 0 };
   data.places.forEach(function (p) {
-    assert.equal(typeof p.stars, "number", p.name);
-    assert.equal(typeof p.reviews, "string", p.name);
+    assert.equal(p.stars, undefined, p.name);
+    assert.equal(p.reviews, undefined, p.name);
+    assert.equal(p.place_id, undefined, p.name);
     assert.ok(counts[p.addressSource] != null, p.name + " " + p.addressSource);
     counts[p.addressSource] += 1;
-    if (logic.addressRoutable(p.address)) assert.ok(logic.directionsUrl(p), p.name);
-    else assert.equal(logic.directionsUrl(p), "");
     if (p.addressSource === "suburb-only") {
+      assert.equal(p.address, undefined, p.name);
       assert.equal(p.addressSourceUrl, undefined);
+      assert.equal(logic.directionsUrl(p), "");
     } else {
       assert.match(p.addressSourceUrl || "", /^https?:\/\//, p.name);
+      assert.equal(/google|goo\.gl|googleapis|gstatic/i.test(p.addressSourceUrl), false, p.name);
       assert.equal(p.addressCheckedAt, "2026-11-12");
+      assert.ok(p.address, p.name);
+      if (logic.addressRoutable(p.address)) assert.ok(logic.directionsUrl(p), p.name);
     }
   });
-  assert.equal(counts.osm + counts.venue + counts["suburb-only"], data.places.length);
-  assert.ok(counts.osm > 0 && counts.venue > 0 && counts["suburb-only"] > 0);
+  assert.equal(counts.osm, 186);
+  assert.equal(counts.venue, 197);
+  assert.equal(counts["suburb-only"], 663);
+  const mon = data.places.find(function (p) { return p.name === "Mon Thai Eatery" && /timeout\.com/.test(p.addressSourceUrl || ""); });
+  assert.ok(mon && mon.address);
+  const rucira = data.places.find(function (p) { return p.name === "Rucira Foods"; });
+  assert.match(rucira.addressSourceUrl, /yumbojumbo\.com\.au/);
+  const hoo = data.places.find(function (p) { return p.name === "Hoo & Tu's Kitchen"; });
+  assert.match(hoo.addressSourceUrl, /yumbojumbo\.com\.au/);
+  const sankaku = data.places.find(function (p) { return p.name === "Sankaku Izakaya"; });
+  assert.match(sankaku.addressSourceUrl, /wixsite\.com/);
+  const cfg = fs.readFileSync(new URL("../config.js", import.meta.url), "utf8");
+  assert.match(cfg, /"googleMapsApiKey":""/);
+  assert.equal(cfg.indexOf("AIza"), -1);
+  const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  assert.ok(html.indexOf("config.js") < html.indexOf("maps.js"));
+  assert.ok(html.indexOf("maps.js") < html.indexOf("app.js"));
 });
 
 test("removed product copy is gone from the client", function () {

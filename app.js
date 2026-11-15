@@ -237,6 +237,30 @@
     }
     return [one(s.chain, "Nearest chain"), one(s.independent, "Nearest indie")].filter(Boolean);
   }
+  function mapsApiKey() {
+    var cfg = window.BYO_CONFIG || {};
+    var key = String(cfg.googleMapsApiKey || "").trim();
+    return /^[A-Za-z0-9_-]{20,}$/.test(key) ? key : "";
+  }
+  function livePlaceId(p) {
+    if (window.BYO_PLACES === "failed" || !mapsApiKey()) return "";
+    return L.placeIdOf(p);
+  }
+  function bindPlaceRatings() {
+    var nodes = document.querySelectorAll("gmp-place-details-compact.google-rating");
+    var i;
+    if (!mapsApiKey() || window.BYO_PLACES === "failed") {
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].parentNode) nodes[i].parentNode.removeChild(nodes[i]);
+      }
+      return;
+    }
+    for (i = 0; i < nodes.length; i++) {
+      nodes[i].addEventListener("gmp-requesterror", function () {
+        if (this.parentNode) this.parentNode.removeChild(this);
+      });
+    }
+  }
   function cardView(p, fallbackId) {
     if (!p) return { id: fallbackId || "", name: "Restaurant no longer listed", missing: true };
     var presented = L.presentPlace(p);
@@ -248,7 +272,6 @@
     var takeaway = p.takeaway === "yes" ? "Takeaway available" : p.takeaway === "no" ? "Dine-in only" : "";
     var booking = "";
     if (p.bookingUrl && /^https?:\/\//i.test(String(p.bookingUrl).trim())) booking = String(p.bookingUrl).trim();
-    var showRating = !L.GOOGLE_COMPLIANT_MODE && typeof presented.stars === "number";
     return {
       id: p.id,
       name: p.name,
@@ -257,8 +280,7 @@
       distance: distance,
       byoLabel: byo.label || "",
       corkage: presented.corkage || "",
-      stars: showRating ? presented.stars : null,
-      reviewsLabel: showRating && presented.reviews ? L.formatNumber(presented.reviews) : "",
+      placeId: livePlaceId(p),
       address: presented.address || "",
       directions: presented.directions || "",
       website: presented.website || "",
@@ -360,7 +382,6 @@
     if (L.cuisineSelection(f).length) n++;
     if (f.byo && f.byo !== "All") n++;
     if (f.corkage && f.corkage !== "All") n++;
-    if (!L.GOOGLE_COMPLIANT_MODE && Number(f.rating) > 0) n++;
     if (Number(f.radius) > 0) n++;
     if (f.sort && f.sort !== L.defaultSort(state.area)) n++;
     return n;
@@ -509,7 +530,6 @@
     var selectedCuisines = L.cuisineSelection(d);
     var cuisines = [{ v: "All", label: "Any" }].concat((model.families || []).map(function (f) { return { v: f, label: f }; }));
     var sorts = [{ v: "", label: "Default" }, { v: "name", label: "A–Z" }];
-    if (!L.GOOGLE_COMPLIANT_MODE) sorts.push({ v: "rating", label: "Rating" });
     if (state.area && state.area.near && state.coords) sorts.splice(1, 0, { v: "distance", label: "Distance" });
     var radius = "";
     if (state.area && state.area.near && state.coords) {
@@ -530,7 +550,6 @@
         { v: "All", label: "Any" }, { v: "confirmed", label: "BYO confirmed" }, { v: "listed", label: "BYO listed — call to confirm" }
       ]) +
       "<h3>Corkage</h3>" + chips("corkage", [{ v: "All", label: "Any" }, { v: "known", label: "Amount listed" }]) +
-      (L.GOOGLE_COMPLIANT_MODE ? "" : "<h3>Google rating</h3>" + chips("rating", [{ v: "0", label: "Any" }, { v: "4.5", label: "4.5+" }])) +
       radius +
       "<h3>Sort</h3>" + chips("sort", sorts) +
       '<p class="count-line" id="filterCount">' + preview.length + (preview.length === 1 ? " restaurant" : " restaurants") + "</p>" +
@@ -594,6 +613,7 @@
     document.body.classList.toggle("screen-location", state.screen === "location");
     document.body.classList.toggle("screen-brand", brandScreen());
     $("app").innerHTML = screenHtml() + detailSheet() + filtersSheet();
+    bindPlaceRatings();
     fitLocationViewport();
     var title = "BYOSpot";
     if (state.screen === "home") title = "BYOSpot · Find a BYO restaurant";
@@ -930,7 +950,7 @@
           else picked.push(val);
           state.draft.cuisine = picked;
         }
-      } else if (key === "radius" || key === "rating") state.draft[key] = Number(val) || 0;
+      } else if (key === "radius") state.draft[key] = Number(val) || 0;
       else state.draft[key] = val;
       render();
       return;

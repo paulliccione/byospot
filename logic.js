@@ -585,22 +585,34 @@
     if (/\d/.test(a)) return true;
     return /\b(street|st|road|rd|avenue|ave|park|cnr|lane|highway|hwy|parade|pde|drive|dr|place|pl|terrace|tce|crescent|cres|way|boulevard|bvd|esplanade|court|cct)\b/i.test(a);
   }
-  // Play/testing phase. Paul accepts the Google-terms risk for now and will
-  // pay for the Places API when the site is promoted.
-  // Set this to true to hide stored stars and review counts, the Google rating
-  // filter and Rating sort, and any street address that was not re-sourced.
-  // Unverified venues then show the suburb only, with no Directions and
-  // "in {Suburb}" instead of a precise distance. Verified osm/venue addresses
-  // stay, with addressSourceUrl and addressCheckedAt.
-  var GOOGLE_COMPLIANT_MODE = false;
+  // Street addresses stay only when addressSourceUrl is a non-Google source.
+  function hostOf(url) {
+    var m = String(url || "").match(/^https?:\/\/([^/?#]+)/i);
+    return m ? m[1].toLowerCase().replace(/\.$/, "") : "";
+  }
+  function googleHost(host) {
+    host = String(host || "");
+    if (host === "goo.gl" || host === "maps.app.goo.gl" || host === "g.page" || host === "www.google.com") return true;
+    if (/(^|\.)googleapis\.com$|(^|\.)gstatic\.com$|(^|\.)googleusercontent\.com$|(^|\.)goo\.gl$/.test(host)) return true;
+    return /(^|\.)google\.(com|co\.[a-z]{2}|[a-z]{2})$/.test(host) || /(^|\.)google\.com\.[a-z]{2}$/.test(host);
+  }
+  function verifiedAddress(p) {
+    if (!p || (p.addressSource !== "osm" && p.addressSource !== "venue")) return "";
+    var host = hostOf(p.addressSourceUrl);
+    if (!host || googleHost(host)) return "";
+    if (p.addressSource === "osm" && host !== "openstreetmap.org" && host !== "www.openstreetmap.org") return "";
+    return String(p.address || "").trim();
+  }
+  function placeIdOf(p) {
+    var id = String((p && p.place_id) || "").trim();
+    return /^[A-Za-z0-9_-]{10,}$/.test(id) ? id : "";
+  }
 
   function directionsUrl(p) {
-    // Compliant mode must not send people to an unverified or suburb-centre point.
-    if (GOOGLE_COMPLIANT_MODE && p && p.addressSource === "suburb-only") return "";
-    var addr = String((p && p.address) || "").trim();
+    var addr = verifiedAddress(p);
     if (!addressRoutable(addr)) return "";
     var url = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(addr);
-    var pid = p.googlePlaceId || p.google_place_id || p.placeId || "";
+    var pid = placeIdOf(p);
     if (pid) url += "&destination_place_id=" + encodeURIComponent(pid);
     return url;
   }
@@ -616,14 +628,6 @@
     if (digits.charAt(0) === "0") digits = "61" + digits.slice(1);
     return "tel:+" + digits;
   }
-  function reviewCount(p) {
-    var n = parseInt(String((p && p.reviews) || "").replace(/\D/g, ""), 10);
-    return isNaN(n) ? 0 : n;
-  }
-  function formatNumber(n) {
-    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
   function haversine(a, b, c, d) {
     var R = 6371000, t = Math.PI / 180, p1 = a * t, p2 = c * t, dp = (c - a) * t, dl = (d - b) * t;
     var h = Math.sin(dp / 2) * Math.sin(dp / 2) + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) * Math.sin(dl / 2);
@@ -729,21 +733,16 @@
   }
 
   function blankFilters() {
-    return { q: "", cuisine: [], byo: "All", corkage: "All", rating: 0, radius: 0, sort: "" };
+    return { q: "", cuisine: [], byo: "All", corkage: "All", radius: 0, sort: "" };
   }
   function filtersActive(f) {
     if (!f) return false;
-    var ratingOn = !GOOGLE_COMPLIANT_MODE && Number(f.rating) > 0;
-    return !!(String(f.q || "").trim() || cuisineSelection(f).length || (f.byo && f.byo !== "All") || (f.corkage && f.corkage !== "All") || ratingOn || Number(f.radius) > 0);
+    return !!(String(f.q || "").trim() || cuisineSelection(f).length || (f.byo && f.byo !== "All") || (f.corkage && f.corkage !== "All") || Number(f.radius) > 0);
   }
   function defaultSort(area) { return area && area.near ? "distance" : "name"; }
 
-  // Compliant mode labels an unverified venue as "in {Suburb}". Play mode
-  // shows the same precise distance as live main. Never a suburb-centre point.
   function distanceLabel(p) {
-    if (!p) return "";
-    if (GOOGLE_COMPLIANT_MODE && p.addressSource === "suburb-only") return p.suburb ? "in " + p.suburb : "";
-    if (typeof p._dist !== "number") return "";
+    if (!p || typeof p._dist !== "number") return "";
     var m = p._dist;
     if (m < 950) return Math.max(10, Math.round(m / 10) * 10) + " m away";
     var km = m / 1000;
@@ -764,7 +763,6 @@
       if (filters.byo === "confirmed" && p.byoConfirmed !== true) continue;
       if (filters.byo === "listed" && p.byoConfirmed !== false) continue;
       if (filters.corkage === "known" && !corkageText(p)) continue;
-      if (!GOOGLE_COMPLIANT_MODE && Number(filters.rating) > 0 && Number(p.stars) < Number(filters.rating)) continue;
       if (terms.length && !terms.every(function (t) { return p._search.indexOf(t) >= 0; })) continue;
       if (coords && typeof p.lat === "number" && typeof p.lng === "number") {
         p._dist = haversine(coords.lat, coords.lng, p.lat, p.lng);
@@ -773,11 +771,10 @@
       list.push(p);
     }
     var sort = filters.sort || defaultSort(area);
-    if (sort === "rating" && GOOGLE_COMPLIANT_MODE) sort = defaultSort(area);
+    if (sort === "rating") sort = defaultSort(area);
     if (sort === "distance" && !(coords && area && area.near)) sort = "name";
     list.sort(function (a, b) {
       if (sort === "distance") return (a._dist || 0) - (b._dist || 0) || a.name.localeCompare(b.name);
-      if (sort === "rating") return (b.stars || 0) - (a.stars || 0) || reviewCount(b) - reviewCount(a) || a.name.localeCompare(b.name);
       return a.name.localeCompare(b.name);
     });
     return list;
@@ -785,9 +782,8 @@
 
   function sortLabel(sort, area) {
     var used = sort || defaultSort(area);
-    if (used === "rating" && GOOGLE_COMPLIANT_MODE) used = defaultSort(area);
+    if (used === "rating") used = defaultSort(area);
     if (used === "distance" && area && area.near) return "Nearest first";
-    if (used === "rating") return "Sorted by Google rating";
     return "Sorted A–Z";
   }
 
@@ -825,8 +821,7 @@
   }
 
   function displayAddress(p) {
-    if (GOOGLE_COMPLIANT_MODE && p && p.addressSource === "suburb-only") return String(p.suburb || "").trim();
-    return String((p && p.address) || "").trim();
+    return verifiedAddress(p);
   }
   function presentPlace(p) {
     var byo = byoPresentation(p);
@@ -836,8 +831,7 @@
       cuisine: p.cuisine || "",
       suburb: p.suburb || "",
       region: p.region || "",
-      stars: GOOGLE_COMPLIANT_MODE ? undefined : p.stars,
-      reviews: GOOGLE_COMPLIANT_MODE ? 0 : reviewCount(p),
+      placeId: placeIdOf(p),
       byo: byo,
       corkage: corkageText(p),
       address: displayAddress(p),
@@ -923,10 +917,9 @@
     if (cuisines.length) add("cuisine", cuisines.join(","));
     add("byo", filters.byo || "");
     add("corkage", filters.corkage || "");
-    if (!GOOGLE_COMPLIANT_MODE) add("rating", Number(filters.rating) || "");
     add("radius", Number(filters.radius) || "");
     var sort = filters.sort || "";
-    if (GOOGLE_COMPLIANT_MODE && sort === "rating") sort = "";
+    if (sort === "rating") sort = "";
     if (sort && sort !== defaultSort(area)) add("sort", sort);
     return q.join("&");
   }
@@ -938,9 +931,8 @@
     f.cuisine = cuisineSelection({ cuisine: get("cuisine") });
     f.byo = get("byo") || "All";
     f.corkage = get("corkage") || "All";
-    f.rating = GOOGLE_COMPLIANT_MODE ? 0 : (Number(get("rating")) || 0);
     f.radius = Number(get("radius")) || 0;
-    f.sort = (GOOGLE_COMPLIANT_MODE && get("sort") === "rating") ? "" : (get("sort") || "");
+    f.sort = get("sort") === "rating" ? "" : (get("sort") || "");
     return f;
   }
 
@@ -966,9 +958,8 @@
     directionsUrl: directionsUrl,
     websiteUrl: websiteUrl,
     phoneHref: phoneHref,
-    formatNumber: formatNumber,
-    reviewCount: reviewCount,
-    GOOGLE_COMPLIANT_MODE: GOOGLE_COMPLIANT_MODE,
+    verifiedAddress: verifiedAddress,
+    placeIdOf: placeIdOf,
     haversine: haversine,
     byoTonightStatus: byoTonightStatus,
     byoDayStatus: byoDayStatus,

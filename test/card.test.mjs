@@ -18,8 +18,7 @@ const full = {
   distance: "650 m away",
   byoLabel: "BYO Sun–Thu",
   corkage: "$18 (wine)",
-  stars: 4.6,
-  reviewsLabel: "2,474",
+  placeId: "ChIJtestPlaceId0001",
   address: "170 King Street, Newtown NSW",
   directions: "https://www.google.com/maps/dir/?api=1&destination=170%20King",
   website: "http://www.favola.com.au",
@@ -32,6 +31,17 @@ const full = {
   bookingUrl: "https://example.com/book",
   shops: [{ label: "Nearest chain", name: "Shop", distance: "400 m", url: "https://www.google.com/maps/dir/?api=1&destination=1,2" }]
 };
+
+test("a card never prints a stored rating and omits the widget without a place id", function () {
+  const stored = card.render({ id: "a", name: "A", stars: 4.6, reviewsLabel: "2,474", byoLabel: "BYO confirmed" }, { mode: "results" });
+  assert.equal(stored.includes("4.6"), false);
+  assert.equal(stored.includes("2,474"), false);
+  assert.equal(stored.includes("gmp-place-rating"), false);
+  assert.equal(stored.includes("gmp-place-reviews"), false);
+  const detail = card.renderDetail({ id: "a", name: "A", stars: 4.2, reviewsLabel: "10" });
+  assert.equal(detail.includes("4.2"), false);
+  assert.equal(detail.includes("gmp-place-rating"), false);
+});
 
 test("one card hides missing facts and never invents them", function () {
   const html = card.render({ id: "only", name: "Only Name", byoLabel: "Call to confirm" }, { mode: "results" });
@@ -57,7 +67,12 @@ test("results, picker and vote share the card and keep corkage, status, rating a
     assert.match(html, /BYO Sun–Thu/);
     assert.match(html, /is-days/);
     assert.match(html, /Corkage · \$18 \(wine\)/);
-    assert.match(html, /4\.6 · 2,474 Google reviews/);
+    assert.match(html, /<gmp-place-rating><\/gmp-place-rating>/);
+    assert.match(html, /<gmp-place-attribution light-scheme-color="gray" dark-scheme-color="white"><\/gmp-place-attribution>/);
+    assert.equal(html.includes("gmp-place-reviews"), false);
+    assert.equal(html.includes("gmp-place-review-summary"), false);
+    assert.equal(html.includes("gmp-place-summary"), false);
+    assert.equal(html.includes("gmp-place-all-content"), false);
     assert.match(html, /170 King Street, Newtown NSW/);
     assert.match(html, /Italian · Newtown · 650 m away/);
     assert.match(html, /class="rcard-address"/);
@@ -98,7 +113,11 @@ test("detail collapses empty rows and shows booking only when a url exists", fun
   assert.equal(bare.includes("venue-bar"), false);
   const rich = card.renderDetail(full);
   assert.match(rich, /Corkage · \$18 \(wine\)/);
-  assert.match(rich, /4\.6 · 2,474 Google reviews/);
+  assert.match(rich, /<gmp-place-rating><\/gmp-place-rating>/);
+  assert.match(rich, /gmp-place-attribution/);
+  assert.equal(rich.includes("gmp-place-reviews"), false);
+  assert.equal(rich.includes("gmp-place-review-summary"), false);
+  assert.equal(rich.includes("4.6"), false);
   assert.match(rich, /170 King Street/);
   assert.match(rich, /class="venue-address"/);
   assert.match(rich, /Book a table/);
@@ -174,7 +193,7 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-12m");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-15a");
   assert.match(sw, /icons\/icon-v2-512\.png/);
   assert.match(sw, /icons\/icon-v2-maskable-512\.png/);
   assert.equal(sw.indexOf("images/cuisine"), -1);

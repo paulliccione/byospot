@@ -15,7 +15,7 @@
   The field mask below is Text Search Pro (and Place Details Pro when a
   place_id already exists). Text Search Pro is $32 per 1,000 requests after
   5,000 free calls a month. Place Details Pro is $17 per 1,000 after 5,000
-  free calls a month. Do not add phone, website, reviews, or opening hours to
+  free calls a month. Do not add phone, website, written review fields, or opening hours to
   the mask: those move the call onto an Enterprise SKU.
 
   Usage:
@@ -23,8 +23,8 @@
     GOOGLE_MAPS_API_KEY=... node research/google-place-ids.mjs --write
 
   The key is read from the environment only. Never commit it.
-  Default is a dry run. --write sets googlePlaceId on a single clear match
-  and leaves the street address as the suburb.
+  Default is a dry run. --write sets place_id on a single clear match
+  and does not write a street address.
 */
 import fs from "fs";
 import vm from "vm";
@@ -134,9 +134,9 @@ for (const row of unresolved) {
   if (!place || place.addressSource !== "suburb-only") continue;
   const state = stateOf(place.city);
   let candidates = [];
-  if (place.googlePlaceId) {
+  if (place.place_id) {
     detailCalls++;
-    const one = await placeDetails(place.googlePlaceId);
+    const one = await placeDetails(place.place_id);
     candidates = [one];
   } else {
     textCalls++;
@@ -145,7 +145,7 @@ for (const row of unresolved) {
   const hits = candidates.filter(c => nameOk((c.displayName && c.displayName.text) || "", place.name) && suburbOk(c.addressComponents, place.suburb));
   if (hits.length === 1 && hits[0].id) {
     linked++;
-    if (WRITE) place.googlePlaceId = hits[0].id;
+    if (WRITE) place.place_id = hits[0].id;
     // formattedAddress was used only to validate. It is not stored.
   } else {
     review.push({ name: place.name, suburb: place.suburb, hits: hits.length });
