@@ -65,19 +65,15 @@ export function listPriceUsd(textCalls, detailCalls) {
   return Number(((textCalls * 32 + detailCalls * 17) / 1000).toFixed(2));
 }
 
-function fold(s) {
-  return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
-}
-function tokens(name) {
-  const stop = new Set("the a an and of restaurant cafe bar kitchen eatery pty ltd".split(" "));
-  return fold(name).split(" ").filter(t => t && !stop.has(t) && t.length > 2);
-}
-function nameOk(displayName, venueName) {
-  const toks = tokens(venueName);
-  const f = fold(displayName);
-  if (!toks.length) return f.includes(fold(venueName));
-  const hit = toks.filter(t => f.includes(t));
-  return hit.length >= Math.min(2, toks.length) && hit.length / toks.length >= 0.6;
+export function normaliseName(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9\s]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 export function localityNames(components) {
   const want = new Set(["locality", "sublocality", "sublocality_level_1", "postal_town", "neighborhood"]);
@@ -87,9 +83,28 @@ export function localityNames(components) {
   }
   return names.filter(Boolean);
 }
-function suburbOk(components, suburb) {
-  const s = fold(suburb);
-  return localityNames(components).some(n => fold(n) === s || fold(n).includes(s));
+function localityEquals(components, suburb) {
+  const want = normaliseName(suburb);
+  if (!want) return false;
+  return localityNames(components).some(n => normaliseName(n) === want);
+}
+function nameRelation(venueName, googleName) {
+  const ours = normaliseName(venueName);
+  const theirs = normaliseName(googleName);
+  if (!ours || !theirs) return "other";
+  if (ours === theirs) return "equal";
+  if (ours.includes(theirs) || theirs.includes(ours)) return "contains";
+  return "other";
+}
+function isExactCandidate(candidate, venueName, suburb) {
+  return nameRelation(venueName, displayText(candidate)) !== "other" && localityEquals(candidate.addressComponents, suburb);
+}
+function candidateScore(candidate, venueName, suburb) {
+  const relation = nameRelation(venueName, displayText(candidate));
+  let score = localityEquals(candidate.addressComponents, suburb) ? 100 : 0;
+  if (relation === "equal") score += 20;
+  else if (relation === "contains") score += 10;
+  return score;
 }
 function stateOf(city) {
   return city === "Melbourne" || city === "Vic Coast" ? "VIC" : "NSW";
@@ -102,25 +117,36 @@ function displayText(place) {
   return (place && place.displayName && place.displayName.text) || "";
 }
 
+function shownLocality(candidate, suburb) {
+  const names = localityNames(candidate.addressComponents);
+  const want = normaliseName(suburb);
+  const matched = names.find(n => normaliseName(n) === want);
+  return matched || names.join(" | ");
+}
+
 export function classify(candidates, venueName, suburb) {
-  const hits = (candidates || []).filter(c => c && c.id && nameOk(displayText(c), venueName) && suburbOk(c.addressComponents, suburb));
-  if (hits.length === 1) {
+  const list = (candidates || []).filter(c => c && c.id);
+  if (!list.length) {
+    return { status: "none", displayName: "", locality: "", placeId: "", candidates: 0 };
+  }
+  const exact = list.filter(c => isExactCandidate(c, venueName, suburb));
+  if (exact.length === 1) {
     return {
       status: "exact",
-      displayName: displayText(hits[0]),
-      locality: localityNames(hits[0].addressComponents).join(" | "),
-      placeId: hits[0].id
+      displayName: displayText(exact[0]),
+      locality: shownLocality(exact[0], suburb),
+      placeId: exact[0].id,
+      candidates: list.length
     };
   }
-  if (hits.length > 1) {
-    return {
-      status: "ambiguous",
-      displayName: hits.map(displayText).join(" | "),
-      locality: hits.map(h => localityNames(h.addressComponents).join(" | ")).join(" | "),
-      placeId: ""
-    };
-  }
-  return { status: "none", displayName: "", locality: "", placeId: "" };
+  const best = list.slice().sort((a, b) => candidateScore(b, venueName, suburb) - candidateScore(a, venueName, suburb))[0];
+  return {
+    status: "check",
+    displayName: displayText(best),
+    locality: shownLocality(best, suburb),
+    placeId: "",
+    candidates: list.length
+  };
 }
 
 export function csvEscape(value) {
@@ -130,7 +156,7 @@ export function csvEscape(value) {
 }
 
 export function reviewCsv(rows) {
-  const header = ["venueId", "name", "suburb", "googleDisplayName", "googleLocality", "status"];
+  const header = ["venueId", "name", "suburb", "googleDisplayName", "googleLocality", "status", "candidates"];
   const lines = [header.join(",")];
   for (const row of rows) {
     lines.push([
@@ -139,7 +165,8 @@ export function reviewCsv(rows) {
       row.suburb,
       row.googleDisplayName,
       row.googleLocality,
-      row.status
+      row.status,
+      row.candidates
     ].map(csvEscape).join(","));
   }
   return lines.join("\n") + "\n";
@@ -185,14 +212,14 @@ async function main() {
   let textCalls = 0;
   const rows = [];
   let exact = 0;
-  let ambiguous = 0;
+  let check = 0;
   let none = 0;
   for (const item of batch) {
     textCalls++;
     const candidates = await textSearch(key, searchQuery(item.place));
     const match = classify(candidates, item.place.name, item.place.suburb);
     if (match.status === "exact") exact++;
-    else if (match.status === "ambiguous") ambiguous++;
+    else if (match.status === "check") check++;
     else none++;
     if (write && match.status === "exact") item.place.place_id = match.placeId;
     rows.push({
@@ -201,7 +228,8 @@ async function main() {
       suburb: item.place.suburb,
       googleDisplayName: match.displayName,
       googleLocality: match.locality,
-      status: match.status
+      status: match.status,
+      candidates: match.candidates
     });
     await new Promise(r => setTimeout(r, 150));
   }
@@ -219,7 +247,7 @@ async function main() {
     textSearchProRequests: textCalls,
     placeDetailsProRequests: 0,
     exact,
-    ambiguous,
+    check,
     none,
     placeIdsWritten: write ? exact : 0,
     listPriceUsdIfFreeCapAlreadyUsed: listPriceUsd(textCalls, 0),

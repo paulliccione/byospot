@@ -8,6 +8,7 @@ import {
   targetsMissingPlaceId,
   listPriceUsd,
   classify,
+  normaliseName,
   reviewCsv
 } from "../research/google-place-ids.mjs";
 
@@ -29,33 +30,88 @@ test("every venue missing a place id is selected, and a limit trims the batch", 
   assert.equal(targetsMissingPlaceId(withId, ids, null).length, 1045);
 });
 
-test("classify keeps an exact place id and never a formatted address", function () {
-  const hit = {
-    id: "ChIJexactPlace01",
-    displayName: { text: "Hikaru" },
-    formattedAddress: "1 George St, Sydney NSW",
-    addressComponents: [{ longText: "Newtown", types: ["locality"] }]
+function place(id, name, locality) {
+  return {
+    id: id,
+    displayName: { text: name },
+    formattedAddress: "1 Example Street, " + locality,
+    addressComponents: [{ longText: locality, types: ["locality"] }]
   };
-  const other = {
-    id: "ChIJotherPlace01",
-    displayName: { text: "Hikaru" },
-    formattedAddress: "2 King St, Newtown NSW",
-    addressComponents: [{ longText: "Newtown", types: ["locality"] }]
-  };
-  const exact = classify([hit], "Hikaru", "Newtown");
-  assert.equal(exact.status, "exact");
-  assert.equal(exact.placeId, "ChIJexactPlace01");
-  assert.equal(exact.locality, "Newtown");
-  assert.equal(exact.formattedAddress, undefined);
-  const ambiguous = classify([hit, other], "Hikaru", "Newtown");
-  assert.equal(ambiguous.status, "ambiguous");
-  assert.equal(ambiguous.placeId, "");
-  const none = classify([hit], "Hikaru", "Bondi");
-  assert.equal(none.status, "none");
-  assert.equal(none.displayName, "");
+}
+
+test("the name normaliser drops accents, punctuation and extra space", function () {
+  assert.equal(normaliseName("Café & Bar..."), "cafe and bar");
+  assert.equal(normaliseName("  O'Connor-Hill,  "), "o connor hill");
+  assert.equal(normaliseName("Chinta   Ria + Buddha"), "chinta ria buddha");
+  assert.equal(normaliseName("Maydanoz"), "maydanoz");
 });
 
-test("the review file has the six columns and no formatted address", function () {
+test("exact needs one locality match whose names are equal or contained", function () {
+  const same = classify(
+    [place("ChIJchinta000001", "Chinta Ria Buddha Love", "Haymarket")],
+    "Chinta Ria Buddha Love",
+    "Haymarket"
+  );
+  assert.equal(same.status, "exact");
+  assert.equal(same.placeId, "ChIJchinta000001");
+  assert.equal(same.candidates, 1);
+  const contained = classify(
+    [place("ChIJmaydanoz0001", "Maydanoz Restaurant Bar", "Sydney")],
+    "Maydanoz",
+    "Sydney"
+  );
+  assert.equal(contained.status, "exact");
+  assert.equal(contained.placeId, "ChIJmaydanoz0001");
+  const plusUnrelated = classify(
+    [
+      place("ChIJchinta000001", "Chinta Ria Buddha Love", "Haymarket"),
+      place("ChIJother0000001", "Somewhere Else", "Haymarket")
+    ],
+    "Chinta Ria Buddha Love",
+    "Haymarket"
+  );
+  assert.equal(plusUnrelated.status, "exact");
+  assert.equal(plusUnrelated.placeId, "ChIJchinta000001");
+  assert.equal(plusUnrelated.candidates, 2);
+});
+
+test("partial names and extra hits are check, and no hit is none", function () {
+  const charles = classify(
+    [place("ChIJcharles00001", "The Charles Brasserie and Bar", "Sydney")],
+    "The Charles Grand Brasserie",
+    "Sydney"
+  );
+  assert.equal(charles.status, "check");
+  assert.equal(charles.placeId, "");
+  assert.equal(charles.displayName, "The Charles Brasserie and Bar");
+  assert.equal(charles.candidates, 1);
+  const menya = classify(
+    [place("ChIJmenya0000001", "Menya City Japanese Noodle Bar", "Sydney")],
+    "Menya Noodle Bar",
+    "Sydney"
+  );
+  assert.equal(menya.status, "check");
+  assert.equal(menya.placeId, "");
+  const two = classify(
+    [
+      place("ChIJmaydanoz0001", "Maydanoz Restaurant Bar", "Sydney"),
+      place("ChIJmaydanoz0002", "Maydanoz", "Sydney")
+    ],
+    "Maydanoz",
+    "Sydney"
+  );
+  assert.equal(two.status, "check");
+  assert.equal(two.placeId, "");
+  assert.equal(two.displayName, "Maydanoz");
+  assert.equal(two.candidates, 2);
+  const none = classify([], "Hikaru", "Newtown");
+  assert.equal(none.status, "none");
+  assert.equal(none.displayName, "");
+  assert.equal(none.candidates, 0);
+  assert.equal(none.formattedAddress, undefined);
+});
+
+test("the review file lists candidates and no formatted address", function () {
   const csv = reviewCsv([{
     venueId: "hikaru-newtown",
     name: "Hikaru",
@@ -63,10 +119,11 @@ test("the review file has the six columns and no formatted address", function ()
     googleDisplayName: "Hikaru",
     googleLocality: "Newtown",
     status: "exact",
+    candidates: 1,
     formattedAddress: "should not be written"
   }]);
-  assert.match(csv, /^venueId,name,suburb,googleDisplayName,googleLocality,status\n/);
-  assert.match(csv, /hikaru-newtown,Hikaru,Newtown,Hikaru,Newtown,exact\n/);
+  assert.match(csv, /^venueId,name,suburb,googleDisplayName,googleLocality,status,candidates\n/);
+  assert.match(csv, /hikaru-newtown,Hikaru,Newtown,Hikaru,Newtown,exact,1\n/);
   assert.equal(csv.includes("formattedAddress"), false);
   assert.equal(csv.includes("George"), false);
   const quoted = reviewCsv([{
@@ -75,7 +132,8 @@ test("the review file has the six columns and no formatted address", function ()
     suburb: "A, B",
     googleDisplayName: "",
     googleLocality: "",
-    status: "none"
+    status: "none",
+    candidates: 0
   }]);
   assert.match(quoted, /"Fish ""and"" chips","A, B"/);
 });
