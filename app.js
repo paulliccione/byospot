@@ -106,15 +106,8 @@
       '<span class="icon-spacer" aria-hidden="true"></span></header>';
   }
   function header(home) {
-    if (!home && brandScreen()) return brandHeader();
-    var back = home ? "" : '<button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>";
-    var brand = home
-      ? landingMark()
-      : '<img src="icons/icon-192.png" alt="" width="40" height="40"><span>BYO Spot</span>';
-    var right = home ? "" : '<span class="icon-spacer" aria-hidden="true"></span>';
-    return '<header class="top' + (home ? " top-home" : "") + '">' + back +
-      '<a class="brand' + (home ? " brand-landing" : "") + '" href="/" data-action="home">' + brand + "</a>" +
-      right + "</header>";
+    if (!home) return brandHeader();
+    return '<header class="top top-home"><a class="brand brand-landing" href="/" data-action="home">' + landingMark() + "</a></header>";
   }
 
   function footerHtml() {
@@ -662,6 +655,7 @@
     document.body.classList.toggle("modal-open", !!(state.detailId || state.filtersOpen));
     document.body.classList.toggle("screen-home", state.screen === "home");
     document.body.classList.toggle("screen-location", state.screen === "location");
+    document.body.classList.toggle("screen-privacy", state.screen === "privacy");
     document.body.classList.toggle("screen-brand", brandScreen());
     $("app").innerHTML = screenHtml() + detailSheet() + filtersSheet();
     bindPlaceRatings();
