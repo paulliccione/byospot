@@ -124,13 +124,17 @@
         (item.aria ? ' aria-label="' + esc(item.aria) + '"' : "") + ">" + inner + "</button>";
     }
     var extra = item.external ? ' target="_blank" rel="noopener"' : "";
-    return '<a class="' + cls + '" data-act="1" href="' + esc(item.href) + '"' + extra + ">" + inner + "</a>";
+    var aria = item.aria ? ' aria-label="' + esc(item.aria) + '"' : "";
+    var venue = item.href && String(item.href).indexOf("/venue/") === 0;
+    var venueAttrs = venue ? ' data-action="details" data-id="' + esc(item.id || "") + '"' : "";
+    return '<a class="' + cls + '" data-act="1" href="' + esc(item.href) + '"' + venueAttrs + aria + extra + ">" + inner + "</a>";
   }
 
-  function cardActions(view) {
+  function cardActions(view, mode) {
     var items = linkItems(view).slice(0, 2);
     if (view.id && !view.missing) {
-      items.push({ action: "details", id: view.id, label: "More", aria: "More details" });
+      if (mode === "results") items.push({ href: "/venue/" + view.id, id: view.id, label: "More", aria: "More details" });
+      else items.push({ action: "details", id: view.id, label: "More", aria: "More details" });
     }
     return items.slice(0, 3);
   }
@@ -157,7 +161,9 @@
     var control = controlHtml(mode, pressed);
     var body = '<span class="rcard-body">' + factsHtml(view) + "</span>";
     var open;
-    if (openAction && view.id) {
+    if (mode === "results" && view.id && !view.missing) {
+      open = '<a class="rcard-open" href="/venue/' + esc(view.id) + '" data-action="details" data-id="' + esc(view.id) + '">' + body + "</a>";
+    } else if (openAction && view.id) {
       open = '<button type="button" class="rcard-open' + (control ? " has-control" : "") + '" data-action="' + openAction + '" data-id="' + esc(view.id) + '"' +
         (mode === "results" ? "" : ' aria-pressed="' + pressed + '"') + ">" +
         control + body + "</button>";
@@ -166,7 +172,7 @@
     } else {
       open = '<div class="rcard-open">' + body + "</div>";
     }
-    var actions = cardActions(view);
+    var actions = cardActions(view, mode);
     var primary = null;
     var quiet = [];
     actions.forEach(function (item) {

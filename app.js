@@ -207,17 +207,15 @@
       narrowed.radius = 0;
       return L.filterPlaces(picked, { near: true }, narrowed, null);
     }
-    var coords = state.area && state.area.near ? state.coords : null;
+    var coords = state.coords && typeof state.coords.lat === "number" ? state.coords : null;
     return L.filterPlaces(model.places, state.area, state.filters, coords);
   }
   function resultsHeading() {
-    if (!state.area) return "BYO restaurants";
-    if (state.area.near) return "BYO restaurants near you";
-    if (state.area.knownEmpty && typeof state.area.lat === "number" && state.area.label) {
+    if (state.area && state.area.knownEmpty && typeof state.area.lat === "number" && state.area.label) {
       return "No BYO restaurants in " + state.area.label + " yet";
     }
-    if (state.area.unrecognised || state.area.knownEmpty) return "Search results";
-    return "BYO restaurants in " + state.area.label;
+    if (state.area && (state.area.unrecognised || state.area.knownEmpty)) return "Search results";
+    return "Where should we eat?";
   }
 
   function shopFacts(p) {
@@ -279,8 +277,7 @@
     if (!p) return { id: fallbackId || "", name: "Restaurant no longer listed", missing: true };
     var presented = L.presentPlace(p);
     var byo = L.byoDayStatus(p);
-    var showDist = typeof p._dist === "number" && state.area && ((state.area.near && state.coords) || typeof state.area.lat === "number");
-    var distance = showDist ? (L.distanceLabel(p) || "") : "";
+    var distance = typeof p._dist === "number" ? (L.distanceLabel(p) || "") : "";
     var days = "";
     if (p.byoDays) days = Array.isArray(p.byoDays) ? p.byoDays.join(", ") : String(p.byoDays);
     var takeaway = p.takeaway === "yes" ? "Takeaway available" : p.takeaway === "no" ? "Dine-in only" : "";
@@ -356,13 +353,56 @@
       '<span class="area-change">Change area</span></button>';
   }
 
+  function areaBanner() {
+    var locLabel = state.area && state.area.near ? "Near you" : ((state.area && state.area.label) || "Choose a location");
+    return '<button type="button" class="area-banner" data-action="choose-location">' +
+      '<svg class="area-pin" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 21s-6-5.2-6-10a6 6 0 1 1 12 0c0 4.8-6 10-6 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="11" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>' +
+      '<span class="area-name">' + esc(locLabel) + "</span>" +
+      '<span class="area-change">Change area<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>';
+  }
+
+  function sortChoices() {
+    return [{ v: "near", label: "Nearest first" }, { v: "az", label: "A–Z" }];
+  }
+  function activeSortValue() {
+    var sort = state.filters.sort === "near" || state.filters.sort === "az" ? state.filters.sort : L.defaultSort(state.area);
+    var choices = sortChoices();
+    for (var i = 0; i < choices.length; i++) if (choices[i].v === sort) return sort;
+    return choices.length ? choices[0].v : "az";
+  }
+  function sortControl() {
+    var current = activeSortValue();
+    var options = sortChoices().map(function (o) {
+      return '<option value="' + esc(o.v) + '"' + (o.v === current ? " selected" : "") + ">" + esc(o.label) + "</option>";
+    }).join("");
+    return '<label class="sort-pick"><span class="rcard-sr">Sort restaurants</span><select id="resultSort">' + options + "</select>" +
+      '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></label>';
+  }
+  function filtersButton() {
+    var n = activeFilterCount(state.filters);
+    return '<button type="button" class="filters-btn" data-action="filters">' +
+      '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>' +
+      '<circle cx="8" cy="7" r="2.15" fill="currentColor" stroke="currentColor" stroke-width="1.6"/>' +
+      '<circle cx="15" cy="12" r="2.15" fill="currentColor" stroke="currentColor" stroke-width="1.6"/>' +
+      '<circle cx="10" cy="17" r="2.15" fill="currentColor" stroke="currentColor" stroke-width="1.6"/></svg>' +
+      "<span>Filters" + (n ? " · " + n : "") + "</span></button>";
+  }
+  function resultsTitleHtml() {
+    var heading = resultsHeading();
+    if (heading === "Where should we eat?") return '<h1 class="results-title">Where should<br>we eat?</h1>';
+    return "<h1>" + esc(heading) + "</h1>";
+  }
+  function resultsHero(withArea) {
+    return '<div class="results-hero">' + resultsTitleHtml() + (withArea ? areaBanner() : "") + "</div>";
+  }
+
   function planLink() {
     return '<p class="plan-link"><button type="button" data-action="vote-start">Planning with friends? Pick together</button></p>';
   }
 
   function resultsHtml() {
     if (state.area && state.area.near && !state.coords) {
-      return header(false) + '<main id="main" class="screen"><h1>BYO restaurants near you</h1>' +
+      return header(false) + '<main id="main" class="screen screen-results">' + resultsHero(false) +
         '<div class="panel"><p>We need your location to list restaurants near you. BYOSpot only asks when you tap the button.</p>' +
         '<div class="stack"><button type="button" class="btn btn-primary" data-action="near">' + (state.geoBusy ? "Finding restaurants near you…" : "Find BYO Near Me") + "</button>" +
         '<button type="button" class="btn btn-secondary" data-action="choose-location">Choose a Location</button></div>' +
@@ -371,7 +411,6 @@
     }
     var list = currentList();
     var shown = list.slice(0, state.limit);
-    var nFilters = activeFilterCount(state.filters);
     var nearEmpty = nearestMode();
     var body;
     if (nearEmpty) body = nearestEmptyHtml();
@@ -381,13 +420,9 @@
       if (list.length > shown.length) body += '<div class="stack" style="margin-top:12px"><button type="button" class="btn btn-ghost" id="showMore" data-action="more">Show more</button></div><div id="moreSentinel"></div>';
       body += planLink();
     }
-    var toolbar = nearEmpty ? "" : '<div class="toolbar"><h2>Restaurants</h2><div class="toolbar-actions">' +
-      '<button type="button" class="btn btn-small btn-ghost" data-action="filters">Filters' + (nFilters ? " · " + nFilters : "") + "</button>" +
-      "</div></div>";
-    return header(false) + '<main id="main" class="screen"><h1>' + esc(resultsHeading()) + "</h1>" +
-      areaControl() + toolbar +
-      (!nearEmpty && list.length ? '<p class="sort-note">' + esc(L.sortLabel(state.filters.sort, state.area)) + "</p><p class=\"count-line\">" + list.length + (list.length === 1 ? " restaurant" : " restaurants") + "</p>" : "") +
-      body + footerHtml() + "</main>";
+    var tools = nearEmpty ? "" : '<div class="list-tools">' + sortControl() + filtersButton() + "</div>";
+    return header(false) + '<main id="main" class="screen screen-results">' + resultsHero(true) +
+      tools + body + footerHtml() + "</main>";
   }
 
   function activeFilterCount(f) {
@@ -397,7 +432,7 @@
     if (f.byo && f.byo !== "All") n++;
     if (f.corkage && f.corkage !== "All") n++;
     if (Number(f.radius) > 0) n++;
-    if (f.sort && f.sort !== L.defaultSort(state.area)) n++;
+    if ((f.sort === "near" || f.sort === "az") && f.sort !== L.defaultSort(state.area)) n++;
     return n;
   }
 
@@ -457,7 +492,7 @@
       var meta = p ? [p.cuisine, p.suburb].filter(Boolean).join(" · ") : "";
       return '<button type="button" class="place-row" data-action="details" data-id="' + esc(id) + '"><span><strong>' + esc(name) + "</strong><br><span class=\"fine\">" + esc(meta) + '</span></span><span class="chev" aria-hidden="true">›</span></button>';
     }).join("");
-    return header(false) + '<main id="main" class="screen">' + steps(2) +
+    return header(false) + '<main id="main" class="screen screen-share">' + steps(2) +
       '<div style="text-align:center"><div class="thumb" style="margin:8px auto">' + icon("glass") + "</div><h1>Your shortlist is ready!</h1>" +
       '<p class="sub">Share a link with your friends so they can vote on where to eat.</p></div>' +
       '<div class="link-row"><code>' + esc(url.replace(/^https?:\/\//, "")) + '</code><button type="button" class="btn btn-small btn-secondary" data-action="copy" data-url="' + esc(url) + '">Copy</button></div>' +
@@ -498,7 +533,7 @@
         }).join("") + "</div>";
       }
     }
-    return header(false) + '<main id="main" class="screen">' + steps(3) +
+    return header(false) + '<main id="main" class="screen screen-vote">' + steps(3) +
       "<h1>Where should we eat?</h1><p class=\"sub\">Pick your favourite restaurant. No account needed.</p>" +
       (state.voteError ? '<p class="loc-status" role="alert">' + esc(state.voteError) + "</p>" : "") +
       (done ? '<p class="note" role="status">Thanks — your vote’s in.</p>' : "") +
@@ -543,15 +578,15 @@
     }
     var selectedCuisines = L.cuisineSelection(d);
     var cuisines = [{ v: "All", label: "Any" }].concat((model.families || []).map(function (f) { return { v: f, label: f }; }));
-    var sorts = [{ v: "", label: "Default" }, { v: "name", label: "A–Z" }];
-    if (state.area && state.area.near && state.coords) sorts.splice(1, 0, { v: "distance", label: "Distance" });
+    var sortNow = d.sort === "near" || d.sort === "az" ? d.sort : L.defaultSort(state.area);
+    var sorts = [{ v: "near", label: "Nearest first" }, { v: "az", label: "A–Z" }];
     var radius = "";
     if (state.area && state.area.near && state.coords) {
       radius = "<h3>Search radius</h3>" + chips("radius", [
         { v: "0", label: "Any" }, { v: "5", label: "5 km" }, { v: "10", label: "10 km" }, { v: "25", label: "25 km" }, { v: "50", label: "50 km" }
       ]);
     }
-    var preview = L.filterPlaces(model.places, state.area, d, state.area && state.area.near ? state.coords : null);
+    var preview = L.filterPlaces(model.places, state.area, d, state.coords && typeof state.coords.lat === "number" ? state.coords : null);
     return '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="filterTitle"><div class="sheet-card">' +
       '<div class="sheet-head"><h2 id="filterTitle">Filters</h2><button type="button" class="icon-btn" data-action="close" aria-label="Close">' + icon("close") + "</button></div>" +
       '<label class="field"><span>Restaurant name</span><input id="filterQ" type="search" value="' + esc(d.q || "") + '" placeholder="Name or dish"></label>' +
@@ -565,7 +600,9 @@
       ]) +
       "<h3>Corkage</h3>" + chips("corkage", [{ v: "All", label: "Any" }, { v: "known", label: "Amount listed" }]) +
       radius +
-      "<h3>Sort</h3>" + chips("sort", sorts) +
+      "<h3>Sort</h3>" + '<div class="chips" role="group">' + sorts.map(function (o) {
+        return '<button type="button" class="chip" data-action="draft" data-key="sort" data-v="' + esc(o.v) + '" aria-pressed="' + (sortNow === o.v) + '">' + esc(o.label) + "</button>";
+      }).join("") + "</div>" +
       '<p class="count-line" id="filterCount">' + preview.length + (preview.length === 1 ? " restaurant" : " restaurants") + "</p>" +
       '<div class="stack"><button type="button" class="btn btn-primary" data-action="apply-filters">Show restaurants</button>' +
       '<button type="button" class="btn btn-ghost" data-action="reset-filters">Clear filters</button></div></div></div>';
@@ -671,7 +708,7 @@
       state.browseStack = browseState && L.STATES[browseState] ? [{ level: "state", state: browseState }] : [];
     }
     if (route.screen === "results" || route.screen === "select") {
-      state.area = L.areaFromParams(route.params) || state.area;
+      state.area = L.withCentre(L.areaFromParams(route.params), model.index) || state.area;
       state.filters = L.filtersFromParams(route.params);
       state.view = "list";
       if (!state.area) { state.screen = "home"; }
@@ -705,7 +742,7 @@
       if (!venuePlace) state.screen = "home";
       else {
         state.screen = "results";
-        state.area = L.venueArea(venuePlace);
+        state.area = L.withCentre(L.venueArea(venuePlace), model.index);
         state.filters = L.filtersFromParams(route.params);
         state.view = "list";
         state.detailId = venuePlace.id;
@@ -770,9 +807,8 @@
     }
     var ret = state.locReturn || "results";
     try { ret = sessionStorage.getItem("byospot-loc-return") || ret; } catch (e) {}
-    if (!area.near && state.filters.sort === "distance") state.filters.sort = "";
     if (ret === "select") {
-      var next = L.filterPlaces(model.places, area, state.filters, area.near ? state.coords : null);
+      var next = L.filterPlaces(model.places, area, state.filters, state.coords && typeof state.coords.lat === "number" ? state.coords : null);
       var keep = {};
       next.forEach(function (p) { keep[p.id] = 1; });
       var removed = state.picks.filter(function (id) { return !keep[id]; });
@@ -812,7 +848,7 @@
       state.geoError = "";
       saveCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
       state.area = { near: true, label: "Near you" };
-      state.filters.sort = "distance";
+      state.filters.sort = "near";
       state.view = "list";
       state.limit = 24;
       go("/results?" + L.writeParams(state.area, state.filters, "list"));
@@ -1007,7 +1043,7 @@
       return;
     }
     if (action === "reset-filters") {
-      var sort = state.area && state.area.near ? "distance" : "";
+      var sort = L.defaultSort(state.area);
       state.filters = L.blankFilters();
       state.filters.sort = sort;
       state.draft = Object.assign(L.blankFilters(), state.filters);
@@ -1021,7 +1057,15 @@
     if (action === "more") { state.limit += 24; state.keepScroll = true; render(); return; }
     if (action === "details") {
       var id = el.getAttribute("data-id");
-      if (id && model.byId[id]) { state.detailId = id; render(); }
+      if (id && model.byId[id]) {
+        if (el.closest(".rcard[data-mode='results']")) {
+          e.preventDefault();
+          go("/venue/" + id);
+          return;
+        }
+        state.detailId = id;
+        render();
+      }
       return;
     }
     if (action === "vote-start") {
@@ -1063,6 +1107,16 @@
     if (action === "submit-vote") { submitVote(); return; }
   });
 
+  document.addEventListener("change", function (e) {
+    if (e.target.id !== "resultSort") return;
+    var value = e.target.value;
+    if (value !== "near" && value !== "az") return;
+    state.filters.sort = value;
+    state.limit = 24;
+    if (state.screen === "results") syncUrl();
+    window.scrollTo(0, 0);
+  });
+
   document.addEventListener("input", function (e) {
     if (e.target.id === "locQ") {
       state.locQuery = e.target.value;
@@ -1077,7 +1131,7 @@
       state.draft.q = e.target.value;
       var count = $("filterCount");
       if (count) {
-        var preview = L.filterPlaces(model.places, state.area, state.draft, state.area && state.area.near ? state.coords : null);
+        var preview = L.filterPlaces(model.places, state.area, state.draft, state.coords && typeof state.coords.lat === "number" ? state.coords : null);
         count.textContent = preview.length + (preview.length === 1 ? " restaurant" : " restaurants");
       }
     }

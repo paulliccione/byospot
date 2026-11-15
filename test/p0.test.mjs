@@ -173,6 +173,25 @@ test("near me sorts by distance and a region defaults to A–Z", function () {
   const fromUrl = logic.filtersFromParams(new URLSearchParams("sort=rating&rating=4.5"));
   assert.equal(fromUrl.sort, "");
   assert.equal(fromUrl.rating, undefined);
+  const suburb = { state: "NSW", city: "Sydney", region: "Inner City", suburb: "Surry Hills", label: "Surry Hills", lat: -33.884, lng: 151.213 };
+  const rows = [
+    { name: "Far", suburb: "Surry Hills", city: "Sydney", region: "Inner City", family: "Asian", lat: -33.9, lng: 151.213, byoConfirmed: true },
+    { name: "Close", suburb: "Surry Hills", city: "Sydney", region: "Inner City", family: "Asian", lat: -33.885, lng: 151.213, byoConfirmed: true },
+    { name: "Unplaced", suburb: "Surry Hills", city: "Sydney", region: "Inner City", family: "Asian", byoConfirmed: true }
+  ];
+  const nearest = logic.filterPlaces(rows, suburb, Object.assign(logic.blankFilters(), { sort: "near" }), null);
+  assert.deepEqual(nearest.map(function (p) { return p.name; }), ["Close", "Far", "Unplaced"]);
+  assert.equal(typeof nearest[2]._dist, "undefined");
+  assert.match(logic.distanceLabel(nearest[0]), / from Surry Hills centre$/);
+  assert.equal(logic.distanceLabel(nearest[2]), "");
+  const gps = logic.filterPlaces(rows, suburb, Object.assign(logic.blankFilters(), { sort: "near" }), { lat: -33.9, lng: 151.213 });
+  assert.equal(gps[0].name, "Far");
+  assert.match(logic.distanceLabel(gps[0]), / away$/);
+  const nearParams = logic.writeParams(suburb, Object.assign(logic.blankFilters(), { sort: "near" }), "list");
+  assert.match(nearParams, /sort=near/);
+  assert.equal(logic.filtersFromParams(new URLSearchParams(nearParams)).sort, "near");
+  const again = logic.filterPlaces(rows, suburb, logic.filtersFromParams(new URLSearchParams(nearParams)), null);
+  assert.deepEqual(again.map(function (p) { return p.name; }), ["Close", "Far", "Unplaced"]);
 });
 
 test("polls require two restaurants, persist a vote once, and can tie", function () {
