@@ -24,7 +24,7 @@ test("every venue missing a place id is selected, and a limit trims the batch", 
   const prepared = logic.prepare(sandbox.window.BYO);
   const ids = prepared.places.map(function (p) { return p.id; });
   const all = targetsMissingPlaceId(sandbox.window.BYO.places, ids, null);
-  assert.equal(all.length, 129);
+  assert.equal(all.length, 12);
   assert.equal(targetsMissingPlaceId(sandbox.window.BYO.places, ids, 5).length, 5);
   const only = filterOnly(all, ["arte-bianca-double-bay", "missing-id"]);
   assert.deepEqual(only.map(function (item) { return item.id; }), ["arte-bianca-double-bay"]);

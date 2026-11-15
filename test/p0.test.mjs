@@ -275,7 +275,7 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
   assert.equal(model.byId["borrelli-s-italian-restaurant-epping"].address, "3 Bridge St, Epping NSW 2121");
   assert.equal(model.byId["la-botte-pizza-restaurant-pascoe-vale-north-north-west"], undefined);
   assert.equal(model.byId["la-botte-pizza-restaurant-pascoe-vale"].region, "Inner North");
-  assert.equal(data.places.filter(function (p) { return p.place_id; }).length, 915);
+  assert.equal(data.places.filter(function (p) { return p.place_id; }).length, 1032);
   const mon = data.places.find(function (p) { return p.name === "Mon Thai Eatery" && /timeout\.com/.test(p.addressSourceUrl || ""); });
   assert.ok(mon && mon.address);
   const rucira = data.places.find(function (p) { return p.name === "Rucira Foods"; });
