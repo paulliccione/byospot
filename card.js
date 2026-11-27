@@ -276,6 +276,7 @@
       (present(view.address) && !present(view.directions) ? '<p class="venue-aside">Directions stay hidden until this record has a full street address.</p>' : "") +
       (present(view.note) ? '<p class="venue-note">' + esc(view.note) + "</p>" : "") +
       shopHtml(view.shops) +
+      (view.id ? '<p class="venue-report-row"><button type="button" class="venue-report" data-action="report">Something wrong? Report it</button></p>' : "") +
       "</div>" + bar + "</div>";
   }
 

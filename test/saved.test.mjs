@@ -107,7 +107,7 @@ test("the heart is a button outside the venue link", function () {
   assert.match(unsavedDetail, /aria-pressed="false"/);
   assert.match(unsavedDetail, /aria-label="Save YAYOI World Square"/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28c");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28d");
   assert.match(sw, /"saved\.js"/);
   const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
   assert.ok(html.indexOf("saved.js") < html.indexOf("app.js"));

@@ -43,7 +43,15 @@
     legacyIds: [],
     toast: "",
     keepScroll: false,
-    saved: loadSaved()
+    saved: loadSaved(),
+    reportOpen: false,
+    reportBusy: false,
+    reportError: "",
+    reportThanks: false,
+    reportReason: "",
+    reportNote: "",
+    reportEmail: "",
+    reportFocus: false
   };
   var depth = 0;
 
@@ -635,6 +643,48 @@
       '<button type="button" class="btn btn-ghost" data-action="reset-filters">Clear filters</button></div></div></div>';
   }
 
+  var REPORT_REASONS = ["BYO not allowed", "Corkage changed", "Days wrong", "Closed", "Other"];
+
+  function resetReport() {
+    state.reportOpen = false;
+    state.reportBusy = false;
+    state.reportError = "";
+    state.reportThanks = false;
+    state.reportReason = "";
+    state.reportNote = "";
+    state.reportEmail = "";
+    state.reportFocus = false;
+  }
+
+  function reportSheet() {
+    if (!state.reportOpen || !state.detailId) return "";
+    var title = '<h2 id="reportTitle" tabindex="-1">Report an issue</h2>';
+    if (state.reportThanks) {
+      return '<div class="sheet report-sheet" role="dialog" aria-modal="true" aria-labelledby="reportTitle"><div class="sheet-card report-card">' +
+        title +
+        '<p class="report-thanks" tabindex="-1" role="status">' + "Thanks — we'll check it" + "</p>" +
+        '<div class="report-actions"><button type="button" class="btn btn-ghost" data-action="close-report">Cancel</button></div>' +
+        "</div></div>";
+    }
+    var radios = REPORT_REASONS.map(function (label) {
+      var checked = state.reportReason === label ? " checked" : "";
+      return '<label class="report-reason"><input type="radio" name="reason" value="' + esc(label) + '" required' + checked + "><span>" + esc(label) + "</span></label>";
+    }).join("");
+    var err = state.reportError ? '<p class="report-error" tabindex="-1" role="alert">' + esc(state.reportError) + "</p>" : "";
+    return '<div class="sheet report-sheet" role="dialog" aria-modal="true" aria-labelledby="reportTitle"><div class="sheet-card report-card">' +
+      title +
+      '<form id="reportForm">' +
+      '<fieldset class="report-reasons"><legend>Reason</legend>' + radios + "</fieldset>" +
+      '<label class="field"><span>Note (optional)</span><textarea name="note" maxlength="500" rows="3">' + esc(state.reportNote || "") + "</textarea></label>" +
+      '<label class="field"><span>Email (optional)</span><input name="email" type="email" maxlength="254" autocomplete="email" value="' + esc(state.reportEmail || "") + '"></label>' +
+      '<div class="report-hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="nope" value=""></label></div>' +
+      err +
+      '<div class="report-actions">' +
+      '<button type="submit" class="btn btn-primary"' + (state.reportBusy ? " disabled" : "") + ">" + (state.reportBusy ? "Sending…" : "Send") + "</button>" +
+      '<button type="button" class="btn btn-ghost" data-action="close-report">Cancel</button>' +
+      "</div></form></div></div>";
+  }
+
   function privacyHtml() {
     return header(false) + '<main id="main" class="screen privacy-page">' +
       "<h1>Privacy — BYOspot</h1>" +
@@ -692,7 +742,7 @@
     document.body.classList.toggle("screen-location", state.screen === "location");
     document.body.classList.toggle("screen-privacy", state.screen === "privacy");
     document.body.classList.toggle("screen-brand", brandScreen());
-    $("app").innerHTML = screenHtml() + detailSheet() + filtersSheet();
+    $("app").innerHTML = screenHtml() + detailSheet() + reportSheet() + filtersSheet();
     bindPlaceRatings();
     fitLocationViewport();
     var title = "BYOSpot";
@@ -705,7 +755,15 @@
     else if (state.screen === "privacy") title = "Privacy · BYOSpot";
     document.title = title;
     if (keep) window.scrollTo(0, y);
-    if (state.detailId) {
+    if (state.reportOpen) {
+      var thanks = document.querySelector(".report-thanks");
+      var reportAlert = document.querySelector(".report-error");
+      var reportTitle = document.getElementById("reportTitle");
+      if (thanks) thanks.focus();
+      else if (reportAlert) reportAlert.focus();
+      else if (state.reportFocus && reportTitle) reportTitle.focus();
+      state.reportFocus = false;
+    } else if (state.detailId) {
       var back = document.querySelector(".venue-back");
       if (back && document.activeElement === document.body) back.focus();
     }
@@ -732,6 +790,7 @@
     state.screen = route.screen;
     state.detailId = "";
     state.filtersOpen = false;
+    resetReport();
     if (route.screen === "location") {
       var browseState = route.params.get("state");
       state.locQuery = "";
@@ -976,6 +1035,12 @@
   }
 
   document.addEventListener("click", function (e) {
+    if (e.target.classList && e.target.classList.contains("report-sheet")) {
+      resetReport();
+      state.keepScroll = true;
+      render();
+      return;
+    }
     var el = e.target.closest("[data-action], a.logo, a[data-action='home']");
     if (!el) return;
     var action = el.getAttribute("data-action");
@@ -1014,7 +1079,24 @@
       }
       return;
     }
+    if (action === "close-report") {
+      resetReport();
+      state.keepScroll = true;
+      render();
+      return;
+    }
+    if (action === "report") {
+      if (!state.detailId) return;
+      state.reportOpen = true;
+      state.reportThanks = false;
+      state.reportError = "";
+      state.reportBusy = false;
+      state.reportFocus = true;
+      render();
+      return;
+    }
     if (action === "close") {
+      resetReport();
       state.detailId = "";
       state.filtersOpen = false;
       state.keepScroll = true;
@@ -1207,12 +1289,66 @@
     if (first && first.area) { chooseArea(first.area); return; }
     chooseArea({ unrecognised: true, query: q, label: q });
   }
+  function sendReport(form) {
+    if (state.reportBusy || !state.detailId || !state.reportOpen) return;
+    var data = new FormData(form);
+    var reason = String(data.get("reason") || "");
+    var note = String(data.get("note") || "");
+    var email = String(data.get("email") || "");
+    var website = String(data.get("website") || "");
+    var venueId = L.resolveVenueId(state.detailId);
+    var openFor = state.detailId;
+    state.reportReason = reason;
+    state.reportNote = note;
+    state.reportEmail = email;
+    if (!reason) {
+      state.reportError = "Choose a reason.";
+      render();
+      return;
+    }
+    state.reportBusy = true;
+    state.reportError = "";
+    render();
+    fetch("/.netlify/functions/report", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ venueId: venueId, reason: reason, note: note, email: email, website: website })
+    }).then(function (res) {
+      return res.json().then(function () { return { ok: res.ok }; }, function () { return { ok: res.ok }; });
+    }).then(function (r) {
+      state.reportBusy = false;
+      if (!state.reportOpen || state.detailId !== openFor) return;
+      if (r.ok) {
+        state.reportThanks = true;
+        state.reportError = "";
+      } else {
+        state.reportError = "Couldn't send that. Please try again.";
+      }
+      render();
+    }).catch(function () {
+      state.reportBusy = false;
+      if (!state.reportOpen || state.detailId !== openFor) return;
+      state.reportError = "Couldn't send that. Please try again.";
+      render();
+    });
+  }
   document.addEventListener("submit", function (e) {
+    if (e.target.id === "reportForm") {
+      e.preventDefault();
+      sendReport(e.target);
+      return;
+    }
     if (e.target.id !== "locForm") return;
     e.preventDefault();
     commitLocationQuery();
   });
   document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && state.reportOpen) {
+      resetReport();
+      state.keepScroll = true;
+      render();
+      return;
+    }
     if (e.key === "Escape" && (state.detailId || state.filtersOpen)) {
       state.detailId = ""; state.filtersOpen = false; state.keepScroll = true; render();
     }
