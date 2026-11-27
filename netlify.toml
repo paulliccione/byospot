@@ -3,6 +3,9 @@
   command = "node scripts/write-maps-config.mjs"
   functions = "netlify/functions"
 
+[build.environment]
+  CALL_TO_BOOK_ENABLED = "true"
+
 [functions]
   node_bundler = "esbuild"
 

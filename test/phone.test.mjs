@@ -263,10 +263,10 @@ test("Book a table is the primary link, and Call to book falls back to Direction
   assert.match(fallback, /href="https:\/\/www\.google\.com\/maps\/dir\/\?api=1&amp;destination=170%20King"/);
 });
 
-test("the phone function skips the service worker and the flag defaults off", function () {
+test("the phone function skips the service worker and Call to book is on", function () {
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
   assert.match(sw, /\/\.netlify\/functions\//);
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28g");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28i");
   const fn = fs.readFileSync(new URL("../netlify/functions/phone.mjs", import.meta.url), "utf8");
   const core = fs.readFileSync(new URL("../phone-core.mjs", import.meta.url), "utf8");
   assert.match(fn, /name: STORE_NAME/);
@@ -274,10 +274,13 @@ test("the phone function skips the service worker and the flag defaults off", fu
   assert.equal(fn.includes("console."), false);
   assert.equal(core.includes("console."), false);
   const cfg = fs.readFileSync(new URL("../config.js", import.meta.url), "utf8");
-  assert.match(cfg, /"callToBook":false/);
+  assert.match(cfg, /"callToBook":true/);
   const writer = fs.readFileSync(new URL("../scripts/write-maps-config.mjs", import.meta.url), "utf8");
+  const toml = fs.readFileSync(new URL("../netlify.toml", import.meta.url), "utf8");
   assert.match(writer, /CALL_TO_BOOK_ENABLED/);
+  assert.match(writer, /\?\? "true"/);
   assert.match(writer, /=== "true"/);
+  assert.match(toml, /CALL_TO_BOOK_ENABLED = "true"/);
   assert.equal(writer.includes("console.log(key)"), false);
   assert.equal(writer.includes("console.log(raw)"), false);
 });
