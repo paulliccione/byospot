@@ -42,7 +42,8 @@
     removedNote: "",
     legacyIds: [],
     toast: "",
-    keepScroll: false
+    keepScroll: false,
+    saved: loadSaved()
   };
   var depth = 0;
 
@@ -66,6 +67,20 @@
   function saveCoords(c) {
     state.coords = c;
     try { sessionStorage.setItem("byospot-coords", JSON.stringify(c)); } catch (e) {}
+  }
+  function localStore() {
+    try { return window.localStorage; }
+    catch (e) { return null; }
+  }
+  function loadSaved() {
+    if (!window.BYOSaved) return [];
+    var ids = window.BYOSaved.read(localStore(), L.resolveVenueId);
+    var known = ids.filter(function (id) { return model.byId[id]; });
+    if (known.length !== ids.length) window.BYOSaved.write(localStore(), known);
+    return known;
+  }
+  function isSaved(id) {
+    return !!(id && state.saved.indexOf(id) >= 0);
   }
   function voterToken() {
     var key = "byospot-voter";
@@ -98,16 +113,24 @@
   }
 
   function brandScreen() {
-    return state.screen === "results" || state.screen === "select" || state.screen === "vote" || state.screen === "share" || state.screen === "legacy";
+    return state.screen === "results" || state.screen === "select" || state.screen === "vote" || state.screen === "share" || state.screen === "legacy" || state.screen === "saved";
   }
   function brandHeader() {
     return '<header class="top top-brand"><button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>" +
       '<a class="brand-lockup" href="/" data-action="home"><img src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37"></a>' +
       '<span class="icon-spacer" aria-hidden="true"></span></header>';
   }
+  function savedHomeLink() {
+    var n = state.saved.length;
+    var text = n > 0 ? "Saved · " + n : "Saved";
+    var aria = n === 1 ? "Saved, 1 venue" : "Saved, " + n + " venues";
+    if (!n) aria = "Saved";
+    return '<a class="saved-entry" href="/saved" data-action="saved" aria-label="' + esc(aria) + '">' + esc(text) + "</a>";
+  }
   function header(home) {
     if (!home) return brandHeader();
-    return '<header class="top top-home"><a class="brand brand-landing" href="/" data-action="home">' + landingMark() + "</a></header>";
+    return '<header class="top top-home"><a class="brand brand-landing" href="/" data-action="home">' + landingMark() + "</a>" +
+      savedHomeLink() + "</header>";
   }
 
   function footerHtml() {
@@ -302,7 +325,7 @@
     };
   }
   function cardHtml(p) {
-    return BYOCard.render(cardView(p), { mode: "results" });
+    return BYOCard.render(cardView(p), { mode: "results", saved: isSaved(p && p.id) });
   }
   function nearestMode() {
     return !!(state.area && state.area.knownEmpty && typeof state.area.lat === "number" && typeof state.area.lng === "number");
@@ -560,7 +583,15 @@
   function detailSheet() {
     var p = model.byId[state.detailId];
     if (!p || !window.BYOCard) return "";
-    return BYOCard.renderDetail(cardView(p));
+    return BYOCard.renderDetail(cardView(p), { saved: isSaved(p.id) });
+  }
+
+  function savedHtml() {
+    var places = state.saved.map(function (id) { return model.byId[id]; }).filter(Boolean);
+    var body = places.length
+      ? '<div class="cards">' + places.map(cardHtml).join("") + "</div>"
+      : '<div class="empty-panel"><p>No saved spots yet. Tap the heart on any venue to save it.</p></div>';
+    return header(false) + '<main id="main" class="screen screen-saved"><h1>Saved</h1>' + body + footerHtml() + "</main>";
   }
 
   function filtersSheet() {
@@ -647,6 +678,7 @@
     if (state.screen === "share") return shareHtml();
     if (state.screen === "vote") return voteHtml();
     if (state.screen === "legacy") return legacyHtml();
+    if (state.screen === "saved") return savedHtml();
     if (state.screen === "privacy") return privacyHtml();
     return homeHtml();
   }
@@ -669,6 +701,7 @@
     else if (state.screen === "location") title = "Choose a location · BYOSpot";
     else if (state.screen === "select" || state.screen === "share") title = "Where Should We Eat? · BYOSpot";
     else if (state.screen === "vote") title = "Where should we eat? · BYOSpot";
+    else if (state.screen === "saved") title = "Saved · BYOSpot";
     else if (state.screen === "privacy") title = "Privacy · BYOSpot";
     document.title = title;
     if (keep) window.scrollTo(0, y);
@@ -767,6 +800,7 @@
     if (path === "/privacy") return { screen: "privacy", params: params };
     if (path === "/select") return { screen: "select", params: params };
     if (path === "/results") return { screen: "results", params: params };
+    if (path === "/saved") return { screen: "saved", params: params };
     var venue = path.match(/^\/venue\/([A-Za-z0-9_-]+)$/);
     if (venue) return { screen: "venue", id: venue[1], params: params };
     return { screen: "home", params: params };
@@ -861,7 +895,7 @@
   function uiBack() {
     if (history.state && history.state.app && depth > 0) { history.back(); return; }
     if (state.screen === "share") { go("/select?" + resultsQuery(), { replace: true }); return; }
-    if (state.screen === "select" || state.screen === "location" || state.screen === "results" || state.screen === "privacy") {
+    if (state.screen === "select" || state.screen === "location" || state.screen === "results" || state.screen === "privacy" || state.screen === "saved") {
       if (state.screen === "select" && state.area) { go("/results?" + resultsQuery(), { replace: true }); return; }
       go("/", { replace: true });
       return;
@@ -962,6 +996,24 @@
       return;
     }
     if (action === "privacy") { e.preventDefault(); go("/privacy"); return; }
+    if (action === "saved") { e.preventDefault(); go("/saved"); return; }
+    if (action === "save") {
+      e.preventDefault();
+      var sid = el.getAttribute("data-id") || "";
+      if (window.BYOSaved && /^[A-Za-z0-9_-]+$/.test(sid)) {
+        state.saved = window.BYOSaved.toggle(state.saved, sid, L.resolveVenueId).filter(function (id) {
+          return model.byId[id];
+        });
+        window.BYOSaved.write(localStore(), state.saved);
+      }
+      state.keepScroll = true;
+      render();
+      if (/^[A-Za-z0-9_-]+$/.test(sid)) {
+        var hearts = document.querySelectorAll('[data-action="save"][data-id="' + sid + '"]');
+        if (hearts.length) hearts[hearts.length - 1].focus();
+      }
+      return;
+    }
     if (action === "close") {
       state.detailId = "";
       state.filtersOpen = false;

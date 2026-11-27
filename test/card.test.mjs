@@ -216,8 +216,8 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28a");
-  assert.ok(sw.match(/VERSION = "([^"]+)"/)[1] > "byo-2026-11-15e1");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28c");
+  assert.ok(sw.match(/VERSION = "([^"]+)"/)[1] > "byo-2026-11-28a");
   assert.match(sw, /maps\.js/);
   assert.match(sw, /config\.js/);
   const resultsFn = app.slice(app.indexOf("function resultsHtml"), app.indexOf("function activeFilterCount"));
