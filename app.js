@@ -128,12 +128,19 @@
       '<a class="brand-lockup" href="/" data-action="home"><img src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37"></a>' +
       '<span class="icon-spacer" aria-hidden="true"></span></header>';
   }
+  function savedHeart(on) {
+    var path = "M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z";
+    var fill = on ? "#FF795A" : "none";
+    var stroke = on ? "#FF795A" : "#064E50";
+    return '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="' + path + '" fill="' + fill + '" stroke="' + stroke + '" stroke-width="2" stroke-linejoin="round"/></svg>';
+  }
   function savedHomeLink() {
     var n = state.saved.length;
-    var text = n > 0 ? "Saved · " + n : "Saved";
     var aria = n === 1 ? "Saved, 1 venue" : "Saved, " + n + " venues";
     if (!n) aria = "Saved";
-    return '<a class="saved-entry" href="/saved" data-action="saved" aria-label="' + esc(aria) + '">' + esc(text) + "</a>";
+    var badge = n > 0 ? '<span class="cnt">' + n + "</span>" : "";
+    return '<a class="saved-pill' + (n ? "" : " empty") + '" href="/saved" data-action="saved" aria-label="' + esc(aria) + '">' +
+      savedHeart(n > 0) + "Saved" + badge + "</a>";
   }
   function header(home) {
     if (!home) return brandHeader();

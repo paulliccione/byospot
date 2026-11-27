@@ -78,21 +78,42 @@ body.screen-home .top-home {
   justify-content: space-between;
   padding: 40px 20px 0;
 }
-.saved-entry {
-  display: inline-flex;
+.top-home .brand-landing { min-width: 0; }
+.saved-pill {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  padding: 0 4px;
-  border-radius: 12px;
+  gap: 7px;
+  flex: none;
+  background: #fff;
+  border: 1.5px solid #D6E3DF;
+  border-radius: 999px;
+  padding: 8px 8px 8px 14px;
   color: #064E50;
-  font-size: 16px;
   font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
   text-decoration: none;
   white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(6, 78, 80, .10);
 }
-.saved-entry:hover { background: rgba(6, 78, 80, .06); }
+.saved-pill svg { display: block; flex: none; width: 18px; height: 18px; }
+.saved-pill .cnt {
+  background: #FF795A;
+  color: #003638;
+  border-radius: 999px;
+  min-width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 7px;
+}
+.saved-pill.empty {
+  padding-right: 16px;
+  box-shadow: none;
+  color: #426768;
+}
 .brand {
   display: flex; align-items: center; gap: 8px; min-width: 0;
   text-decoration: none; color: var(--byo-teal);
@@ -103,7 +124,7 @@ body.screen-home .top-home {
   display: block;
   width: 155px;
   height: auto;
-  max-width: none;
+  max-width: 100%;
   border-radius: 0;
 }
 .mark-glass { display: block; flex: none; }
