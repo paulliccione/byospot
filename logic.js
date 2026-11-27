@@ -584,7 +584,8 @@
 
   function corkageText(p) {
     var c = String((p && p.corkage) || "").trim();
-    if (!c || /^unknown$/i.test(c) || c === "?" || /^corkage:\s*ask$/i.test(c)) return "";
+    if (!c || c === "?" || /^corkage:\s*ask$/i.test(c)) return "";
+    if (/^(unknown|varies)\b/i.test(c)) return "Corkage: ask the venue";
     return c;
   }
   function priceText(p) {
@@ -679,6 +680,14 @@
     var R = 6371000, t = Math.PI / 180, p1 = a * t, p2 = c * t, dp = (c - a) * t, dl = (d - b) * t;
     var h = Math.sin(dp / 2) * Math.sin(dp / 2) + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) * Math.sin(dl / 2);
     return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  function walkMinutes(lat1, lng1, lat2, lng2) {
+    if (typeof lat1 !== "number" || typeof lng1 !== "number" || typeof lat2 !== "number" || typeof lng2 !== "number") return null;
+    if (lat1 !== lat1 || lng1 !== lng1 || lat2 !== lat2 || lng2 !== lng2) return null;
+    var metres = haversine(lat1, lng1, lat2, lng2);
+    if (metres !== metres) return null;
+    var mins = Math.round(metres / 80);
+    return mins < 1 ? 1 : mins;
   }
 
   var WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -829,7 +838,8 @@
       if (cuisines.length && cuisines.indexOf(p.family) < 0) continue;
       if (filters.byo === "confirmed" && p.byoConfirmed !== true) continue;
       if (filters.byo === "listed" && p.byoConfirmed !== false) continue;
-      if (filters.corkage === "known" && !corkageText(p)) continue;
+      var cork = corkageText(p);
+      if (filters.corkage === "known" && (!cork || cork === "Corkage: ask the venue")) continue;
       if (terms.length && !terms.every(function (t) { return p._search.indexOf(t) >= 0; })) continue;
       var dist = null;
       if (origin && typeof p.lat === "number" && typeof p.lng === "number") dist = haversine(origin.lat, origin.lng, p.lat, p.lng);
@@ -1055,6 +1065,7 @@
     verifiedAddress: verifiedAddress,
     placeIdOf: placeIdOf,
     haversine: haversine,
+    walkMinutes: walkMinutes,
     byoTonightStatus: byoTonightStatus,
     byoDayStatus: byoDayStatus,
     cuisineSelection: cuisineSelection,

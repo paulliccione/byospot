@@ -224,7 +224,10 @@
       if (typeof b.distanceM === "number") {
         distance = b.distanceM < 1000 ? Math.round(b.distanceM) + " m" : (b.distanceM / 1000).toFixed(1) + " km";
       }
-      return { label: label, name: String(b.name), distance: distance, url: url };
+      var walk = "";
+      var mins = L.walkMinutes(p.lat, p.lng, b.lat, b.lng);
+      if (mins != null) walk = "~" + mins + " min walk (approx.)";
+      return { label: label, name: String(b.name), distance: distance, url: url, walk: walk };
     }
     return [one(s.chain, "Nearest chain"), one(s.independent, "Nearest indie")].filter(Boolean);
   }

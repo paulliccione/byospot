@@ -199,7 +199,10 @@
     if (!shops || !shops.length) return "";
     var rows = shops.map(function (shop) {
       if (!shop || !present(shop.name)) return "";
-      var text = (shop.label ? shop.label + ": " : "") + shop.name + (present(shop.distance) ? " · ~" + shop.distance : "");
+      var extra = [];
+      if (present(shop.distance)) extra.push("~" + shop.distance);
+      if (present(shop.walk)) extra.push(shop.walk);
+      var text = (shop.label ? shop.label + ": " : "") + shop.name + (extra.length ? " · " + extra.join(" · ") : "");
       if (present(shop.url)) {
         return '<a class="venue-shop" href="' + esc(shop.url) + '" target="_blank" rel="noopener">' + esc(text) + "</a>";
       }
