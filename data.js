@@ -520,6 +520,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Open daily",
       "website": "https://www.hojiak.com.au/haymarket/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/hojiakhaymarket/reservations/create/search?lang=en&tracking=website",
+      "bookingUrlSource": "https://www.hojiak.com.au/haymarket/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1882,6 +1885,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine at weekend lunch only, $35/bottle corkage",
       "website": "https://www.arthurrestaurant.com/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/arthur/reservations/create/search/landing",
+      "bookingUrlSource": "https://www.arthurrestaurant.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2402,6 +2408,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Closed Mon and Tue",
       "website": "https://www.attenzionefoodandwine.com",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/attenzionefoodandwineredfern",
+      "bookingUrlSource": "https://www.attenzionefoodandwine.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3263,6 +3272,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine and beer — $4 per person corkage (confirmed by phone with the venue, 25 Sept 2026)",
       "website": "http://www.billandtonis.com.au/",
+      "bookingUrl": "https://www.opentable.com.au/r/bill-and-toni-italian-restaurant-reservations-darlinghurst?restref=125393&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://www.billandtonis.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3901,6 +3913,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "http://www.lilfranky.com.au",
+      "bookingUrl": "https://bookings.wowapps.com/make-booking/lilfrankypizzeria?src=web",
+      "bookingUrlSource": "https://www.lilfranky.com.au/reservations",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8991,6 +9006,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.louiecoogee.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/louiecoogee",
+      "bookingUrlSource": "https://louiecoogee.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9561,6 +9579,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Mon to Thu dinner and Fri lunch",
       "website": "https://cipriitalian.com.au",
+      "bookingUrl": "https://cipriitalian.com.au/book",
+      "bookingUrlSource": "https://cipriitalian.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12317,6 +12338,9 @@ window.BYO = {
       "takeaway": "yes",
       "note": "Halal meat, vegan menu",
       "website": "https://ilovepho.com.au/",
+      "bookingUrl": "https://booking.resdiary.com/widget/Standard/ILOVEPHORestaurant/8241",
+      "bookingUrlSource": "https://ilovepho.com.au/reservation/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13203,6 +13227,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Tue all day and Sat lunch only",
       "website": "https://garfish.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/garfishcrowsnestvenue/reservations/create/search/",
+      "bookingUrlSource": "https://garfish.com.au/reservations-crows-nest",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16646,6 +16673,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Wednesday nights only; belly dancers",
       "website": "https://www.tetas.net.au/",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/tetasroseville",
+      "bookingUrlSource": "https://www.tetas.net.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21411,6 +21441,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Tue–Sat 6:30–10:30pm. Older review mentions $8 corkage (unverified)",
       "website": "https://chezpascal.com.au",
+      "bookingUrl": "https://booking.resdiary.com/widget/Standard/ChezPascalFrenchRestaurant/11121?includeJquery=false",
+      "bookingUrlSource": "https://www.chezpascal.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -22637,6 +22670,9 @@ window.BYO = {
       "takeawayDetail": "Online ordering available",
       "note": "No BYO Fri/Sat nights",
       "website": "https://natalegrouprestaurants.com/alphabet-st-cronulla",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=f79eef14-4957-48ee-b6f6-f1e158e810b4&colors=hex%2Cfce4ec%2Cf8bbd0&font=Nanum%20Gothic&theme=dark&venueid=1967",
+      "bookingUrlSource": "https://natalegrouprestaurants.com/alphabet-st-cronulla",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24645,6 +24681,9 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "Pickup & delivery",
       "website": "https://pikkio.com.au",
+      "bookingUrl": "https://pikkio.com.au/bookings/",
+      "bookingUrlSource": "https://pikkio.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -30432,6 +30471,9 @@ window.BYO = {
       "takeawayDetail": "Takeaway",
       "note": "Family-friendly",
       "website": "https://www.tasteoftuscany.com.au/",
+      "bookingUrl": "https://www.tasteoftuscany.com.au/booknow",
+      "bookingUrlSource": "https://www.tasteoftuscany.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {

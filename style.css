@@ -809,6 +809,20 @@ gmp-place-details-compact.google-rating {
 .venue-bar-inner { width: min(100%, 480px); margin: 0 auto; display: grid; gap: 8px; }
 .venue-act-primary, a.venue-act-primary { min-height: 52px; width: 100%; font-size: 18px; }
 .venue-secondary .venue-act { flex: 1 0 auto; background: transparent; }
+.venue-page.has-bar.has-google-call { padding-bottom: calc(260px + env(safe-area-inset-bottom)); }
+.venue-call-to-book { width: 100%; background: #fff; }
+.venue-google-call { display: grid; gap: 4px; }
+.venue-google-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  min-height: 44px;
+}
+.venue-google-line a { color: var(--card-teal); font-weight: 600; font-size: 18px; }
+.venue-google-attr { color: var(--card-muted); font-size: 14px; font-weight: 600; }
+.venue-google-note { margin: 0; color: var(--card-muted); font-size: 14px; line-height: 1.4; }
 .rcard-name { flex: 0 0 auto; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
 
 body.screen-brand {

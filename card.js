@@ -212,6 +212,28 @@
     return '<h2 class="venue-subhead">Bottle shops within 2 km</h2><div class="venue-shops">' + rows + "</div>";
   }
 
+  function detailLinks(view) {
+    return linkItems(view).map(function (item) {
+      if (item.label === "Call") return Object.assign({}, item, { label: "Call · from the venue" });
+      return item;
+    });
+  }
+
+  function googleCallHtml(view) {
+    if (present(view.googlePhoneHref)) {
+      var text = present(view.googlePhone) ? view.googlePhone : String(view.googlePhoneHref).replace(/^tel:/i, "");
+      return '<div class="venue-google-call" data-row="google-call">' +
+        '<p class="venue-google-line"><a href="' + esc(view.googlePhoneHref) + '">' + esc(text) + "</a>" +
+        '<span class="venue-google-attr">Google Maps</span></p>' +
+        '<p class="venue-google-note">Check BYO and corkage with the venue.</p></div>';
+    }
+    if (view.callToBook && present(view.callPlaceId)) {
+      return '<div data-row="call-to-book"><button type="button" class="venue-act venue-call-to-book" data-act="1" data-action="call-to-book" data-place-id="' +
+        esc(view.callPlaceId) + '">Call to book</button></div>';
+    }
+    return "";
+  }
+
   function renderDetail(view) {
     view = view || {};
     var meta = metaLine(view);
@@ -220,7 +242,7 @@
     var price = present(view.price) ? "Price " + view.price : "";
     var takeaway = present(view.takeaway) ? view.takeaway + (present(view.takeawayDetail) ? " · " + view.takeawayDetail : "") : "";
     var address = addressHtml(view, "venue-address");
-    var links = linkItems(view);
+    var links = detailLinks(view);
     var primary = null;
     var secondary = [];
     links.forEach(function (item) {
@@ -228,15 +250,17 @@
       else secondary.push(item);
     });
     secondary = secondary.slice(0, 3);
+    var callRow = googleCallHtml(view);
     var bar = "";
-    if (primary || secondary.length) {
+    if (primary || secondary.length || callRow) {
       bar = '<div class="venue-bar"><div class="venue-bar-inner">' +
         (secondary.length ? '<div class="venue-secondary" data-row="secondary">' + secondary.map(function (item) { return actionTag(item, "venue-act"); }).join("") + "</div>" : "") +
+        callRow +
         (primary ? '<div data-row="primary">' + actionTag(primary, "venue-act") + "</div>" : "") +
         "</div></div>";
     }
     return '<div class="venue" role="dialog" aria-modal="true" aria-labelledby="detailTitle">' +
-      '<div class="venue-page' + (bar ? " has-bar" : "") + '">' +
+      '<div class="venue-page' + (bar ? " has-bar" : "") + (callRow ? " has-google-call" : "") + '">' +
       '<header class="venue-top"><button type="button" class="venue-back" data-action="close" aria-label="Back">' + backSvg() + "</button>" +
       '<img class="venue-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37">' +
       '<span class="venue-top-gap" aria-hidden="true"></span></header>' +
