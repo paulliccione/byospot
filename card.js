@@ -1,7 +1,9 @@
 /* Swappable restaurant card. Replace this file to restyle the list, the vote
    picker and the vote page without changing app.js.
    BYOCard.render(view, options) — options.mode is "results", "pick" or "vote".
-   BYOCard.renderDetail(view) — the restaurant screen.
+   options.saved draws a heart on results cards. The heart is a separate button.
+   BYOCard.renderDetail(view, options) — the restaurant screen. options.saved
+   draws the same heart in the header.
    Pass only facts the record actually has. Empty strings and nulls are omitted.
    A placeId on the detail screen renders Google's place rating element.
    List cards never show a rating. Do not invent a number, and do not
@@ -59,6 +61,22 @@
 
   function backSvg() {
     return '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5L8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+
+  function heartSvg(on) {
+    var path = "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z";
+    if (on) {
+      return '<svg class="save-heart" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="' + path + '"/></svg>';
+    }
+    return '<svg class="save-heart" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="' + path + '" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  }
+
+  function saveButton(view, saved) {
+    if (!view.id || view.missing) return "";
+    var name = view.name || "venue";
+    var on = !!saved;
+    var label = on ? "Remove " + name + " from saved" : "Save " + name;
+    return '<button type="button" class="save-btn' + (on ? " is-on" : "") + '" data-action="save" data-id="' + esc(view.id) + '" aria-pressed="' + (on ? "true" : "false") + '" aria-label="' + esc(label) + '">' + heartSvg(on) + "</button>";
   }
 
   function corkageLine(text) {
@@ -172,6 +190,7 @@
     } else {
       open = '<div class="rcard-open">' + body + "</div>";
     }
+    var save = mode === "results" ? saveButton(view, options.saved) : "";
     var actions = cardActions(view, mode);
     var primary = null;
     var quiet = [];
@@ -187,7 +206,7 @@
         "</div>";
     }
     return '<article class="rcard' + (pressed ? " is-on" : "") + '" data-mode="' + mode + '">' +
-      open + addressHtml(view) + actionRow + "</article>";
+      save + open + addressHtml(view) + actionRow + "</article>";
   }
 
   function factRow(icon, text) {
@@ -212,8 +231,9 @@
     return '<h2 class="venue-subhead">Bottle shops within 2 km</h2><div class="venue-shops">' + rows + "</div>";
   }
 
-  function renderDetail(view) {
+  function renderDetail(view, options) {
     view = view || {};
+    options = options || {};
     var meta = metaLine(view);
     var rating = googleRatingHtml(view.placeId);
     var days = present(view.byoDays) ? "BYO days · " + view.byoDays : "";
@@ -239,7 +259,7 @@
       '<div class="venue-page' + (bar ? " has-bar" : "") + '">' +
       '<header class="venue-top"><button type="button" class="venue-back" data-action="close" aria-label="Back">' + backSvg() + "</button>" +
       '<img class="venue-logo" src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37">' +
-      '<span class="venue-top-gap" aria-hidden="true"></span></header>' +
+      (view.id && !view.missing ? saveButton(view, options.saved) : '<span class="venue-top-gap" aria-hidden="true"></span>') + "</header>" +
       '<div class="venue-hero" aria-hidden="true">' + forkSvg() +
       (present(view.cuisine) ? "<span>" + esc(view.cuisine) + "</span>" : "") + "</div>" +
       '<h1 id="detailTitle" class="venue-name">' + esc(view.name || "Restaurant") + "</h1>" +
