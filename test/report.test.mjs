@@ -223,7 +223,7 @@ test("the venue page links to the report sheet and the worker skips function res
   assert.match(css, /\.venue-report \{[^}]*color:\s*var\(--byo-teal\)/);
 
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28i");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28j");
   const fetchFn = sw.slice(sw.indexOf('addEventListener("fetch"'));
   const guard = fetchFn.indexOf("/.netlify/functions/");
   const put = fetchFn.indexOf("c.put");

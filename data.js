@@ -203,6 +203,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Book via SevenRooms",
       "website": "https://www.maydanoz.com.au",
+      "bookingUrl": "https://www.sevenrooms.com/explore/maydanoz/reservations/create/search/",
+      "bookingUrlSource": "https://www.maydanoz.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -250,6 +253,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Thursdays only, with a set-menu booking",
       "website": "https://www.thesanderson.com.au",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/thesanderson/tss-widget?venues=eaudeviesydney,mjolnersydney,nicknorasparramatta,thesanderson",
+      "bookingUrlSource": "https://www.thesanderson.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -388,6 +394,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Mondays only, in the brasserie; closed Sun",
       "website": "https://thecharles.sydney",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/thecharlesgrandbrasserie/thecharles-widget?venues=louloubistro,thecharlesgrandbrasserie,tiva,poetica",
+      "bookingUrlSource": "https://thecharles.sydney/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -432,6 +441,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Closed Mon and Tue; book ahead, 1.5-hour sittings",
       "website": "https://www.porkfat.com.au",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=7122755d-172d-4148-9275-86f60ac6b902&venueid=7331&theme=light&colors=hex,15133c",
+      "bookingUrlSource": "https://www.porkfat.com.au/reservations",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -477,6 +489,9 @@ window.BYO = {
       "takeawayDetail": "",
       "note": "Licensed and BYO wine",
       "website": "https://www.soi25xpress.com.au",
+      "bookingUrl": "https://www.soi25xpress.com.au/bookings",
+      "bookingUrlSource": "https://www.soi25xpress.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1119,6 +1134,9 @@ window.BYO = {
       "takeawayDetail": "",
       "note": "Enter from Campbell St; open late",
       "website": "https://www.yokyor.com.au",
+      "bookingUrl": "https://www.yokyor.com.au/reservations",
+      "bookingUrlSource": "https://www.yokyor.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1586,6 +1604,9 @@ window.BYO = {
       "takeawayDetail": "Pickup, own delivery within 5 km",
       "note": "Closed Mon; popular, book ahead",
       "website": "https://alchemy-restaurant.com",
+      "bookingUrl": "https://www.opentable.com.au/r/alchemy-polish-cafe-restaurant-reservations-surry-hills?restref=59933&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://www.alchemy-restaurant.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1669,6 +1690,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Courtyard dining; book ahead",
       "website": "https://ezrarestaurant.com.au",
+      "bookingUrl": "https://ezrarestaurant.com.au/book/",
+      "bookingUrlSource": "https://ezrarestaurant.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1760,6 +1784,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO midweek only",
       "website": "https://www.bistrorex.com.au",
+      "bookingUrl": "https://www.bistrorex.com.au/book-a-table",
+      "bookingUrlSource": "https://www.bistrorex.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1932,6 +1959,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.restaurantmoon.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=467bf22b-310a-42c4-a33e-996343be5b74&venueid=1212&theme=dark&colors=hex,987a4e&bg=transparent&banner=hidden",
+      "bookingUrlSource": "https://restaurantmoon.com.au/reservations",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -1978,6 +2008,9 @@ window.BYO = {
       "takeawayDetail": "",
       "note": "Closed Mon; Tue to Thu 5 to 9pm, Fri to Sun noon to 9pm (khois.com.au)",
       "website": "https://khois.com.au",
+      "bookingUrl": "https://www.opentable.com.au/r/khois-surry-hills",
+      "bookingUrlSource": "https://khois.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2064,6 +2097,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO",
       "website": "https://viand.club/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=71703d38-784f-4364-994c-3d9ca7605f36&venueid=3964&theme=outlined-light&colors=hex,785049&banner=hidden&bg=transparent",
+      "bookingUrlSource": "https://www.viand.club/bookings",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2364,6 +2400,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Open Thu to Sun only; small, book ahead",
       "website": "http://www.sangbymabasa.com.au",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=9257bcb9-58a7-449f-be23-2913048d650f&venueid=4619&theme=outlined-light&colors=hex,000000",
+      "bookingUrlSource": "https://www.sangbymabasa.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2585,6 +2624,9 @@ window.BYO = {
       "takeawayDetail": "Takeaway and delivery",
       "note": "Closed Sun; frantic, quick turnover",
       "website": "https://barreggio.com.au",
+      "bookingUrl": "https://bookings.wowapps.com/make-booking/barreggio?src=web",
+      "bookingUrlSource": "https://barreggio.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2672,6 +2714,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Open daily noon to 10pm",
       "website": "https://friggitoria.com.au",
+      "bookingUrl": "https://friggitoria.resos.com/booking",
+      "bookingUrlSource": "https://friggitoria.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2800,6 +2845,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.santorinionoxford.com/",
+      "bookingUrl": "https://www.santorinionoxford.com/reservations",
+      "bookingUrlSource": "https://www.santorinionoxford.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -2883,6 +2931,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Closed Mon for lunch; dinner daily",
       "website": "https://macleaystbistro.com.au",
+      "bookingUrl": "https://booking.resdiary.com/widget/Standard/MacleayStBistro_1/11850",
+      "bookingUrlSource": "https://macleaystbistro.com.au/reservations/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3143,6 +3194,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO",
       "website": "https://malabarcuisine.com.au/darlinghurst/",
+      "bookingUrl": "https://eu.sevenrooms.com/explore/malabar/reservations/create/search",
+      "bookingUrlSource": "https://malabarcuisine.com.au/darlinghurst/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3228,6 +3282,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.madamenhu.com/",
+      "bookingUrl": "https://www.madamenhu.com/reservations",
+      "bookingUrlSource": "https://www.madamenhu.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3319,6 +3376,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine & champagne $25/bottle, max one 750ml per person",
       "website": "https://ottoristorante.com.au/sydney/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/ottosydney/reservations/create/search/",
+      "bookingUrlSource": "https://www.sydney.ottoristorante.com.au/reservations",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3448,6 +3508,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine, $20 per bottle. Modern Indian, seven days",
       "website": "https://donttellaunty.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/donttellaunty/reservations/create/search",
+      "bookingUrlSource": "https://donttellaunty.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -3789,6 +3852,9 @@ window.BYO = {
       "takeawayDetail": "Takeaway bar",
       "note": "Belly dancers on weekends",
       "website": "https://fatimas.com.au",
+      "bookingUrl": "https://bookings.wowapps.com/make-booking/fatimaslebaneseresta?src=web",
+      "bookingUrlSource": "https://fatimas.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4674,6 +4740,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine, ~$10-15 corkage; BYO listed but not confirmed, so call first",
       "website": "https://www.threeonenine.com.au/",
+      "bookingUrl": "https://www.threeonenine.com.au/bookings",
+      "bookingUrlSource": "https://www.threeonenine.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -4986,6 +5055,9 @@ window.BYO = {
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.littlesicily.org/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=38136288-4b44-409f-bcd4-7a0089d36b4d&venueid=10917&theme=dark&colors=hex,8d6e63,e8eaf6",
+      "bookingUrlSource": "https://littlesicily.org/book-now/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5073,6 +5145,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO. Corkage: corkage applies (amount not stated on site)",
       "website": "https://filicudi.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=a6faafdf-4b01-4e0c-88bf-a1405375f063&venueid=12991&theme=light&colors=hex,000000,b0120a&bg=transparent",
+      "bookingUrlSource": "https://filicudi.com.au/reservations",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5497,6 +5572,9 @@ window.BYO = {
       "byoConfirmed": true,
       "takeaway": "unknown",
       "website": "http://www.delhiodelhi.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/delhiodelhi/reservations/create/search/",
+      "bookingUrlSource": "https://www.delhiodelhi.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5548,6 +5626,9 @@ window.BYO = {
       "takeawayDetail": "Takeaway",
       "note": "BYO Tue to Thu only; closed Mon",
       "website": "https://ladisfida.com.au",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=7c62560e-4852-499b-91e7-cf7aa001ec94&venueid=11944&theme=light&colors=hex,F55738=transparent",
+      "bookingUrlSource": "https://ladisfida.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5590,6 +5671,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.littleturtlerestaurant.com/",
+      "bookingUrl": "https://littleturtlerestaurant.com/reservations",
+      "bookingUrlSource": "https://littleturtlerestaurant.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -5634,6 +5718,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed pizza bar that has allowed BYO wine (corkage $5.50 per bottle) — a diner reported that might have changed, so p; BYO listed but not confirmed, so call first",
       "website": "http://rossoanticopizzabar.com.au/",
+      "bookingUrl": "https://www.opentable.com.au/r/rosso-antico-pizza-bar-reservations-newtown?restref=54917&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://rossoanticopizzabar.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6138,6 +6225,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.tasteofturkey.com.au/",
+      "bookingUrl": "https://www.tasteofturkey.com.au/reservations/",
+      "bookingUrlSource": "https://www.tasteofturkey.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6230,6 +6320,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine and beer, $10 per bottle. Friday and Saturday evenings only",
       "website": "https://twochaps.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=cb825e00-5a9d-4853-9343-5bc727502d35&colors=hex%2C607d8b&theme=outlined-light&venueid=1995",
+      "bookingUrlSource": "https://www.twochaps.com.au/reservations",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6444,6 +6537,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Formerly Rosso Pomodoro",
       "website": "https://www.rossobalmain.com.au",
+      "bookingUrl": "https://rossobalmain.mobi-booking.com/",
+      "bookingUrlSource": "https://www.rossobalmain.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6702,6 +6798,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://stekitaverna.com/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=082945e0-0b9f-4fd8-bbff-8d8a4702011c&venueid=12666&theme=outlined-light&colors=hex,000000&bg=transparent",
+      "bookingUrlSource": "https://www.stekitaverna.com/bookings",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -6832,6 +6931,9 @@ window.BYO = {
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.maranellosveloce.com.au/",
+      "bookingUrl": "https://maranellosveloce.com.au/reservation-request/",
+      "bookingUrlSource": "https://maranellosveloce.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -7480,6 +7582,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Tue to Sat",
       "website": "https://emmassnackbar.com.au",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=3473c0cf-3b9f-4e77-b2be-b9ca5fb46b4b&venueid=2470&theme=light&colors=hex,dd191d",
+      "bookingUrlSource": "https://www.emmassnackbar.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8015,6 +8120,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine, approx $7/bottle corkage; neighbourhood Italian trattoria in Summer Hill",
       "website": "https://www.andiamotrattoria.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/andiamotrattoriasummerhill/reservations/create/search/",
+      "bookingUrlSource": "https://www.andiamotrattoria.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8059,6 +8167,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine only with $4 per person corkage. Long-running fine Indian restaurant from chef Kumar Mahadevan",
       "website": "http://www.abhisindian.com.au/",
+      "bookingUrl": "https://www.abhisindian.com.au/reservations",
+      "bookingUrlSource": "https://www.abhisindian.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -8511,6 +8622,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Free BYO wine and beer. Turkish",
       "website": "https://thesultanstable.com.au/",
+      "bookingUrl": "https://www.thesultanstable.com.au/reservations/",
+      "bookingUrlSource": "https://www.thesultanstable.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9138,6 +9252,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine at Saturday lunch only, $35 per bottle corkage (Vino Cammino 2025 guide)",
       "website": "https://bibowinebar.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=1afb7b72-b3d3-42d1-b3c7-11cbf13332ea&venueid=1459&theme=light&colors=hex,c59d5f&bg=transparent",
+      "bookingUrlSource": "http://bibowinebar.com.au/reservations/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9271,6 +9388,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Call to confirm BYO",
       "website": "https://mandsindianrestaurant.com.au",
+      "bookingUrl": "https://bookings.wowapps.com/make-booking/mandsindianrestauran?src=web",
+      "bookingUrlSource": "https://www.mandsindianrestaurant.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9444,6 +9564,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Mon and Tue only (offer runs to 30 Mar 2027)",
       "website": "https://chiswickwoollahra.com.au",
+      "bookingUrl": "https://itsyourtable.com/chiswick",
+      "bookingUrlSource": "https://chiswickwoollahra.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9529,6 +9652,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Dinner Wed to Sun; lunch Sat and Sun",
       "website": "https://brownsugarbondi.com.au",
+      "bookingUrl": "https://www.sevenrooms.com/explore/brownsugar/reservations/create/search/",
+      "bookingUrlSource": "https://brownsugarbondi.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9922,6 +10048,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Wed and Thu only",
       "website": "https://www.sefakitchen.com.au",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=be31f5b8-6708-44cf-b1b3-f5945bb43ed6&venueid=918&theme=light&colors=hex,76342D&bg=transparent",
+      "bookingUrlSource": "https://www.sefakitchen.com.au/booking",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -9965,6 +10094,9 @@ window.BYO = {
       "dish": "Pizza, burrata",
       "takeaway": "unknown",
       "website": "https://vacanza.com.au",
+      "bookingUrl": "https://booking.resdiary.com/widget/Standard/VacanzaBronte/11739?includeJquery=false",
+      "bookingUrlSource": "https://www.vacanza.com.au/book",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10008,6 +10140,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.bonditrattoria.com.au/",
+      "bookingUrl": "https://www.opentable.com.au/r/bondi-trattoria-reservations-bondi-beach?restref=60548&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://bonditrattoria.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10590,6 +10725,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://lasenrestaurant.com.au/",
+      "bookingUrl": "https://booking.resdiary.com/widget/Standard/LASENVIETNAMESERESTAURANT/8429",
+      "bookingUrlSource": "https://lasenrestaurant.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -10879,6 +11017,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO. Corkage $20 per bottle",
       "website": "https://osteriariva.com.au/",
+      "bookingUrl": "https://osteriariva.mobi-booking.com/",
+      "bookingUrlSource": "https://osteriariva.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11551,6 +11692,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine, $35 per standard bottle and $60 per magnum (confirmed by phone, 6 Oct 2026). Licensed as well. Known as Sean's",
       "website": "https://seansbondi.com/",
+      "bookingUrl": "https://www.opentable.com.au/r/seans-reservations-bondi-beach?restref=60569&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://seansbondi.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11753,6 +11897,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Family-run since 1990; also fully licensed. BYO from listings, own site doesn't state it",
       "website": "https://graceofindia.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=bd3d95fc-d75e-438d-a7c0-6956ee8bbf0b&venueid=3362&theme=light&colors=hex,d01716",
+      "bookingUrlSource": "https://graceofindia.com.au/booking/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11915,6 +12062,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://erins.com.au/",
+      "bookingUrl": "https://www.erins.com.au/reservations",
+      "bookingUrlSource": "https://www.erins.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -11956,6 +12106,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine only. Corkage per bottle: $14 Wednesday, Thursday and Sunday; $19 Friday and Saturday (per the venue's website)",
       "website": "http://bistrokholl.com/",
+      "bookingUrl": "https://www.opentable.com.au/r/kholl-reservations-cremorne?restref=322415&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://www.bistrokholl.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12083,6 +12236,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Mon–Tue only (per IWFS guide; own site doesn't state it)",
       "website": "https://poetica.sydney/",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/poetica/poetica-widget?venues=louloubistro,thecharlesgrandbrasserie,tiva,poetica",
+      "bookingUrlSource": "https://poetica.sydney/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12293,6 +12449,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://newgreenschatswood.com.au/dodici-italian-restaurant/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=054d67be-77d3-4652-88bf-31e2f20603f5&venueid=13861&theme=light&colors=hex,004745&bg=transparent&banner=hidden",
+      "bookingUrlSource": "https://newgreenschatswood.com.au/dodici-italian-restaurant/reservations/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12425,6 +12584,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO; BYO listed but not confirmed, so call first",
       "website": "https://www.cucinetta.com.au/",
+      "bookingUrl": "https://booking.nowbookit.com/booking?accent=157,157,157&accountid=423d00bd-e83d-4e75-9ef5-1c2b3857a4ec&theme=light&venueid=5406",
+      "bookingUrlSource": "https://cucinetta.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -12465,6 +12627,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Wed dinner, Fri & Sat lunch only; wine bar",
       "website": "https://www.annatasydney.com/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=74a808a2-0f48-4d62-a501-1dbfc3eeb846&venueid=4622&colors=hex,880e4f",
+      "bookingUrlSource": "https://www.annatasydney.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -12719,6 +12884,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "On the marina at The Spit",
       "website": "https://www.chiosco.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/chioscobyormeggio/reservations/create/search/",
+      "bookingUrlSource": "https://www.chiosco.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13051,6 +13219,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Wednesdays only, all day; corkage per IWFS",
       "website": "https://www.publicdiningroom.com.au/",
+      "bookingUrl": "https://eu.sevenrooms.com/reservations/publicdiningroom",
+      "bookingUrlSource": "https://www.publicdiningroom.com.au/reservations",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13136,6 +13307,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Sun–Thu; heated outdoor seating",
       "website": "https://www.bacari.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=4bf65e4f-9c6c-405a-8231-c138e660cdd9&colors=hex%2C006064&font=Noto%20Sans%20TC&theme=outlined-light&venueid=7589",
+      "bookingUrlSource": "https://www.bacari.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13485,6 +13659,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO for parties up to 8; pet-friendly",
       "website": "https://www.pastureofkirribilli.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=f5d4aa37-2186-49db-a584-87289366a23e&venueid=10873&theme=light&colors=hex,305434&bg=transparent",
+      "bookingUrlSource": "https://www.pastureofkirribilli.com.au/reservation",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13696,6 +13873,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Bottled wine only; no BYO Fri/Sat",
       "website": "http://www.ainoya.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=3721ab8a-d937-4bec-91e5-0a9eb148dd9c&venueid=1599&theme=dark&colors=hex,fff59d",
+      "bookingUrlSource": "https://ainoya.com.au/reservations",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13828,6 +14008,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Tue–Thu; corkage waived with degustation (per IWFS)",
       "website": "https://www.coyasydney.com.au/",
+      "bookingUrl": "https://www.opentable.com.au/restref/client/?restref=54149&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://www.coyasydney.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -13868,6 +14051,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO",
       "website": "https://www.wafiregrill.com.au/",
+      "bookingUrl": "https://www.opentable.com.au/r/wafire-grill-reservations-neutral-bay?restref=275861&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://wafiregrill.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14077,6 +14263,9 @@ window.BYO = {
       "takeawayDetail": "Google lists takeaway",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://vianapoli.com.au/lane-cove/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=b00f185c-8bfe-4a9f-a81d-c1a22c68b70f&venueid=7450&theme=light&colors=hex,ff1233&banner=hidden&bg=ffffff",
+      "bookingUrlSource": "https://vianapoli.com.au/book/lane-cove/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14716,6 +14905,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Tue–Wed only; corkage $20–25 a bottle depending on source",
       "website": "https://loulou.sydney/",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/louloubistro/loulou-widget?venues=louloubistro,thecharlesgrandbrasserie,tiva,poetica",
+      "bookingUrlSource": "https://loulou.sydney/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14843,6 +15035,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO",
       "website": "https://ajsindian.com.au/",
+      "bookingUrl": "https://ajsindian.com.au/reservations/",
+      "bookingUrlSource": "https://ajsindian.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -14887,6 +15082,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO",
       "website": "https://jugemushimbashi.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=00fc128c-75e1-4124-852a-3ef8544e94a7&venueid=4107&theme=light&colors=hex,e51c23,000000",
+      "bookingUrlSource": "https://www.jugemushimbashi.com.au/book",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -15300,6 +15498,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.veracepizzeria.com.au/",
+      "bookingUrl": "https://www.opentable.com.au/r/verace-pizzeria-reservations-macquarie-park?restref=44363&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://www.veracepizzeria.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16226,6 +16427,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "No BYO Fri/Sat dinner or groups of 8+",
       "website": "https://www.saveur.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=cf07e99a-5aaf-4966-aa17-c9ec33162a24&venueid=3222&theme=light&colors=hex,000000&banner=hidden",
+      "bookingUrlSource": "https://saveur.com.au/reservations/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -16720,6 +16924,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Dinner Tue–Sun 5–9:30pm; weekend lunch",
       "website": "https://mehmaan.com.au/",
+      "bookingUrl": "https://onecorner.app/reservation/mehmaan_indian_hornsby",
+      "bookingUrlSource": "https://mehmaan.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -16829,6 +17036,9 @@ window.BYO = {
       "dish": "Unknown – check menu",
       "takeaway": "unknown",
       "website": "https://www.jaamejam.com.au/",
+      "bookingUrl": "https://bookings.wowapps.com/make-booking/jaamejam?src=link",
+      "bookingUrlSource": "https://jaamejam.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -17246,6 +17456,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO",
       "website": "http://www.blueatery.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/blueatery",
+      "bookingUrlSource": "https://blueatery.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17396,6 +17609,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO",
       "website": "https://www.lazana.com.au/",
+      "bookingUrl": "https://lazana.resos.com/booking",
+      "bookingUrlSource": "https://lazana.com.au/reservation/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -17971,6 +18187,9 @@ window.BYO = {
       "takeawayDetail": "Takeaway",
       "note": "BYO wine only; $25 pp minimum spend",
       "website": "https://gurtajindianrestaurant.com.au/",
+      "bookingUrl": "https://bookings.wowapps.com/make-booking/gurtajindian?src=Web",
+      "bookingUrlSource": "https://gurtajindianrestaurant.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18140,6 +18359,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO Sundays only; open Wed–Sun",
       "website": "https://bazaarandbar.com/",
+      "bookingUrl": "https://www.opentable.com.au/r/bazaar-and-bar-reservations-brookvale?restref=294860&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://www.bazaarandbar.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18334,6 +18556,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO groups up to 7; closed Sun–Mon (per IWFS)",
       "website": "https://theherringroom.com.au/",
+      "bookingUrl": "https://theherringroom.com.au/reservation",
+      "bookingUrlSource": "https://theherringroom.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18537,6 +18762,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Corkage figure from Tripadvisor",
       "website": "http://www.chezmauriceetlinda.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=44d30fef-5d02-4fdc-992e-0eb12337c7cb&venueid=9764&theme=outlined-light&colors=hex,d01716,1a237e",
+      "bookingUrlSource": "https://chezmauriceetlinda.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -18655,6 +18883,9 @@ window.BYO = {
       "dish": "Unknown – check menu (seafood)",
       "takeaway": "unknown",
       "website": "https://garfish.com.au/",
+      "bookingUrl": "https://www.opentable.com.au/r/garfish-manly",
+      "bookingUrlSource": "https://garfish.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19020,6 +19251,9 @@ window.BYO = {
       "byoConfirmed": true,
       "takeaway": "unknown",
       "website": "https://vietnamwhynot.com.au",
+      "bookingUrl": "https://www.opentable.com.au/r/vietnam-why-not-restaurant-manly",
+      "bookingUrlSource": "https://vietnamwhynot.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19225,6 +19459,9 @@ window.BYO = {
       "takeawayDetail": "Takeaway",
       "note": "Bottled wine only",
       "website": "https://www.pizzariccardo.com/",
+      "bookingUrl": "https://www.opentable.com.au/r/pizza-riccardo-reservations-narrabeen?lang=en-AU&ot_source=Restaurant+website&restref=56906",
+      "bookingUrlSource": "https://www.pizzariccardo.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19461,6 +19698,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine only; closed Mon",
       "website": "https://sankakuizakaya.wixsite.com/mysite",
+      "bookingUrl": "https://sankaku-izakaya-newport.resos.com/booking",
+      "bookingUrlSource": "https://sankakuizakaya.wixsite.com/mysite",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -19819,6 +20059,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO",
       "website": "https://www.ashianaindianmanly.com/",
+      "bookingUrl": "https://www.ashianaindianmanly.com/reservations",
+      "bookingUrlSource": "https://www.ashianaindianmanly.com/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20130,6 +20373,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed venue that also allows BYO. Corkage: free (Wednesday lunch only)",
       "website": "https://bistromanly.com.au",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/bistromanly",
+      "bookingUrlSource": "https://www.elysiumhotels.com/manly/restaurants-bars/bistro-manly",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -20214,6 +20460,9 @@ window.BYO = {
       "byoConfirmed": true,
       "takeaway": "unknown",
       "website": "https://bluewatercafe.com.au/?utm_source=google&utm_medium=organic&utm_campaign=mybusiness",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=2100cce5-5bd6-42ab-98ca-aba0e6d64816&venueid=4817&theme=outlined-light&colors=hex,03a9f4",
+      "bookingUrlSource": "https://bluewatercafe.com.au/reservation/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -21233,6 +21482,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://pinocchios.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/pinocchiosallawah",
+      "bookingUrlSource": "https://pinocchios.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22266,6 +22518,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://depalmkitchen.com.au/",
+      "bookingUrl": "https://bookings.wowapps.com/make-booking/depalmkitchen?src=web",
+      "bookingUrlSource": "https://depalmkitchen.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22392,6 +22647,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.littleparrot.com.au/",
+      "bookingUrl": "https://www.littleparrot.com.au/reservations",
+      "bookingUrlSource": "https://www.littleparrot.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22433,6 +22691,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://goodtimeindian.com.au/",
+      "bookingUrl": "https://goodtimeindian.com.au/booking/",
+      "bookingUrlSource": "https://goodtimeindian.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22629,6 +22890,9 @@ window.BYO = {
       "takeawayDetail": "Pickup (rocksaltrestaurant.com.au/takeaway)",
       "note": "BYO Tue–Sun",
       "website": "https://rocksaltrestaurant.com.au",
+      "bookingUrl": "https://book.nowbookit.com/?accountid=987fc399-6c75-41c2-b971-bbe9445c8d8e&venueid=1407&colors=hex,dcedc8&theme=light&banner=https://static.wixstatic.com/media/82adcb_8aff37b0dc0e4304b21f5394dfcbdc22~mv2.jpg",
+      "bookingUrlSource": "https://www.rocksaltrestaurant.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22792,6 +23056,9 @@ window.BYO = {
       "takeawayDetail": "",
       "note": "BYO every day",
       "website": "https://sevenlanterns.com.au",
+      "bookingUrl": "https://inline.app/booking/-MTrxDnMb847A3gNKcVO:inline-live-2/-MTrxDxE5JTI0oJecZkD",
+      "bookingUrlSource": "https://sevenlanterns.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22868,6 +23135,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine 7 days",
       "website": "https://sealevel.com.au",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/sealevelrestaurant?venues=kinburraneer,nextdoorcronulla,sealevelrestaurant",
+      "bookingUrlSource": "https://sealevel.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -22918,6 +23188,9 @@ window.BYO = {
       "takeawayDetail": "Pickup (jensensrestaurant.com.au/takeaway)",
       "note": "BYO lunch Wed–Sun, dinner Wed/Thu/Sun only (findbyo says $10)",
       "website": "https://jensensrestaurant.com.au",
+      "bookingUrl": "https://www.dimmi.com.au/make-booking/jensens-restaurant-and-bar?mode=Widget&showHeader=false",
+      "bookingUrlSource": "https://jensensrestaurant.com.au/bookings/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23281,6 +23554,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO lunches & Sunday night only, wine/sparkling",
       "website": "https://fiorrestaurant.com.au",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/fior",
+      "bookingUrlSource": "https://www.fiorrestaurant.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23766,6 +24042,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Corkage $18 per bottle",
       "website": "https://srghospitality.com.au/venue/summer-salt/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/summersaltrestaurant/reservations/create/search?venues=summersaltrestaurant",
+      "bookingUrlSource": "https://srghospitality.com.au/venue/summer-salt/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -23972,6 +24251,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.pippiscronulla.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/explore/pippiscronulla/reservations/create/search/",
+      "bookingUrlSource": "https://pippisgroup.com.au/cronulla.html",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24166,6 +24448,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://bennyscronulla.com.au/",
+      "bookingUrl": "https://www.sevenrooms.com/reservations/bennysaustralia",
+      "bookingUrlSource": "https://www.bennyscronulla.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -24779,6 +25064,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "http://www.acesoceanfoods.com.au/",
+      "bookingUrl": "https://www.opentable.com.au/r/aces-ocen-foods-padstow-reservations-padstow?restref=262970&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://www.acesoceanfoods.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26642,6 +26930,9 @@ window.BYO = {
       "takeawayDetail": "",
       "note": "BYO wine only",
       "website": "https://kouzinagreco.com.au",
+      "bookingUrl": "https://au1-widget.resbutler.com/booking/wizard?clientId=92d6da69-5cfe-4aac-8430-7ab0b5b01f88&restaurantId=-OBwEKmoC14_7V8b43Q9&theme=default&widgetId=-OBwEbtWkuDUQjN-jl2I",
+      "bookingUrlSource": "https://www.kouzinagreco.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -26684,6 +26975,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://www.poppitino.com.au/?utm_source=GMB&utm_medium=GMB&utm_campaign=GMBProfile",
+      "bookingUrl": "https://www.sevenrooms.com/explore/poppitino/reservations/create/search/",
+      "bookingUrlSource": "https://poppitino.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -27126,6 +27420,9 @@ window.BYO = {
       "takeaway": "yes",
       "takeawayDetail": "",
       "website": "https://www.twelvespices.com.au",
+      "bookingUrl": "https://www.opentable.com.au/r/twelve-spices-reservations-canley-heights?restref=130421&lang=en-AU&ot_source=Restaurant%20website",
+      "bookingUrlSource": "https://www.twelvespices.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": null,
@@ -28230,6 +28527,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine only",
       "website": "https://cucina105.com.au",
+      "bookingUrl": "https://booking.resdiary.com/widget/Standard/Cucina1051/8648",
+      "bookingUrlSource": "https://cucina105.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -28820,6 +29120,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Licensed and BYO wine; corkage fee not stated. North Indian restaurant on the Wigram St strip; BYO listed but not confirmed, so call first",
       "website": "https://www.gingerindian.com.au",
+      "bookingUrl": "https://gingerindian.com.au/book-a-table/",
+      "bookingUrlSource": "https://gingerindian.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -29053,6 +29356,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO listed but not confirmed, so call first",
       "website": "https://tinsandwood.com.au/",
+      "bookingUrl": "https://tinsandwood.mobi-booking.com/",
+      "bookingUrlSource": "https://tinsandwood.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -30142,6 +30448,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "BYO wine only; corkage from a Dec 2024 review",
       "website": "http://www.trevirestaurant.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=46dd7485-2bc5-4689-ac5c-73b02901d9cf&venueid=9845&theme=outlined-light&colors=hex,9e9e9e&bg=transparent",
+      "bookingUrlSource": "https://trevirestaurant.com.au/reservations/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -30273,6 +30582,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Wine & champagne only",
       "website": "http://www.lazeezkitchen.com.au/",
+      "bookingUrl": "https://www.quandoo.com.au/place/lazeez-kitchen-indian-restaurant-33354",
+      "bookingUrlSource": "https://lazeezkitchen.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -30310,6 +30622,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Lakeside views; BYO wine only",
       "website": "http://www.illago.com.au/",
+      "bookingUrl": "https://bookings.nowbookit.com/?accountid=212995ac-7ffc-4313-b401-ddf3bf784fac&venueid=6639&theme=light&colors=hex,000000",
+      "bookingUrlSource": "https://www.illago.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -30381,6 +30696,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Corkage figure from the venue-hire menu",
       "website": "https://ilnidothenest.com.au/",
+      "bookingUrl": "https://bookings.wowapps.com/make-booking/ilnidothenest?src=web",
+      "bookingUrlSource": "https://ilnidothenest.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
@@ -30510,6 +30828,9 @@ window.BYO = {
       "takeaway": "unknown",
       "note": "Bottled wine only; family-run",
       "website": "http://www.borrellis.com.au/",
+      "bookingUrl": "https://borrellis.com.au/reservations/",
+      "bookingUrlSource": "https://borrellis.com.au/",
+      "bookingUrlCheckedAt": "2026-11-28",
       "city": "Sydney",
       "bottleShops": {
         "chain": {
