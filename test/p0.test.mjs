@@ -295,11 +295,11 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
     }
   });
   assert.equal(counts.osm, 185);
-  assert.equal(counts.venue, 197);
+  assert.equal(counts.venue, 196);
   assert.equal(counts["suburb-only"], 662);
   const links = data.places.map(function (p) { return logic.directionsUrl(p); });
-  assert.equal(links.filter(Boolean).length, 1044);
-  assert.equal(links.filter(function (u) { return u.indexOf("/maps/dir/") >= 0; }).length, 382);
+  assert.equal(links.filter(Boolean).length, 1043);
+  assert.equal(links.filter(function (u) { return u.indexOf("/maps/dir/") >= 0; }).length, 381);
   assert.equal(links.filter(function (u) { return u.indexOf("/maps/search/") >= 0; }).length, 662);
   assert.equal(logic.resolveVenueId("borrelli-s-epping"), "borrelli-s-italian-restaurant-epping");
   assert.equal(logic.resolveVenueId("la-botte-pizza-restaurant-pascoe-vale-north-north-west"), "la-botte-pizza-restaurant-pascoe-vale");
@@ -307,7 +307,11 @@ test("stored ratings are gone and only non-Google addresses remain", function ()
   assert.equal(model.byId["borrelli-s-italian-restaurant-epping"].address, "3 Bridge St, Epping NSW 2121");
   assert.equal(model.byId["la-botte-pizza-restaurant-pascoe-vale-north-north-west"], undefined);
   assert.equal(model.byId["la-botte-pizza-restaurant-pascoe-vale"].region, "Inner North");
-  assert.equal(data.places.filter(function (p) { return p.place_id; }).length, 1032);
+  assert.equal(data.places.filter(function (p) { return p.place_id; }).length, 1031);
+  assert.equal(model.byId["bibo-wine-bar-double-bay"], undefined);
+  assert.equal(data.places.some(function (p) { return p.name === "Bibo Wine Bar"; }), false);
+  const savedIds = ["bibo-wine-bar-double-bay", "maydanoz-sydney"].filter(function (id) { return model.byId[id]; });
+  assert.deepEqual(savedIds, ["maydanoz-sydney"]);
   const mon = data.places.find(function (p) { return p.name === "Mon Thai Eatery" && /timeout\.com/.test(p.addressSourceUrl || ""); });
   assert.ok(mon && mon.address);
   const rucira = data.places.find(function (p) { return p.name === "Rucira Foods"; });
