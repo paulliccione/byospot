@@ -43,6 +43,8 @@
     legacyIds: [],
     toast: "",
     keepScroll: false,
+    googleCall: null,
+    callBusy: "",
     saved: loadSaved(),
     reportOpen: false,
     reportBusy: false,
@@ -307,6 +309,9 @@
     }
     ensurePlacesKit();
   }
+  function callToBookEnabled() {
+    return !!(window.BYO_CONFIG && window.BYO_CONFIG.callToBook === true);
+  }
   function cardView(p, fallbackId) {
     if (!p) return { id: fallbackId || "", name: "Restaurant no longer listed", missing: true };
     var presented = L.presentPlace(p);
@@ -317,6 +322,9 @@
     var takeaway = p.takeaway === "yes" ? "Takeaway available" : p.takeaway === "no" ? "Dine-in only" : "";
     var booking = "";
     if (p.bookingUrl && /^https?:\/\//i.test(String(p.bookingUrl).trim())) booking = String(p.bookingUrl).trim();
+    var callPlaceId = L.placeIdOf(p);
+    var google = state.googleCall && state.googleCall.placeId === callPlaceId ? state.googleCall : null;
+    var googleHref = google && google.href ? google.href : "";
     return {
       id: p.id,
       name: p.name,
@@ -336,7 +344,12 @@
       byoDays: days,
       note: p.note ? String(p.note) : "",
       bookingUrl: booking,
-      shops: shopFacts(p)
+      shops: shopFacts(p),
+      callToBook: callToBookEnabled() && !!callPlaceId && !googleHref && !(google && google.fallback),
+      callPlaceId: callPlaceId,
+      googlePhone: google && google.phone ? google.phone : "",
+      googlePhoneHref: googleHref,
+      callBookFallback: !!(google && google.fallback)
     };
   }
   function cardHtml(p) {
@@ -797,6 +810,8 @@
     state.screen = route.screen;
     state.detailId = "";
     state.filtersOpen = false;
+    state.googleCall = null;
+    state.callBusy = "";
     resetReport();
     if (route.screen === "location") {
       var browseState = route.params.get("state");
@@ -1106,6 +1121,8 @@
       resetReport();
       state.detailId = "";
       state.filtersOpen = false;
+      state.googleCall = null;
+      state.callBusy = "";
       state.keepScroll = true;
       if (/^\/venue\//.test(location.pathname) && state.area) {
         history.replaceState({ app: 1, depth: depth }, "", "/results?" + L.writeParams(state.area, state.filters, "list"));
@@ -1193,6 +1210,30 @@
       return;
     }
     if (action === "more") { state.limit += 24; state.keepScroll = true; render(); return; }
+    if (action === "call-to-book") {
+      var placeId = el.getAttribute("data-place-id") || "";
+      if (!placeId || state.callBusy) return;
+      state.callBusy = placeId;
+      el.setAttribute("disabled", "disabled");
+      el.textContent = "Looking up…";
+      fetch("/.netlify/functions/phone?id=" + encodeURIComponent(placeId), { cache: "no-store" }).then(function (res) {
+        return res.json().then(function (body) { return body || {}; }, function () { return {}; });
+      }).then(function (body) {
+        if (state.callBusy !== placeId) return;
+        state.callBusy = "";
+        var phone = body && body.ok === true && typeof body.nationalPhoneNumber === "string" ? body.nationalPhoneNumber.trim() : "";
+        var href = phone ? L.phoneHref({ phone: phone }) : "";
+        if (href) state.googleCall = { placeId: placeId, phone: phone, href: href };
+        else state.googleCall = { placeId: placeId, fallback: true };
+        render();
+      }).catch(function () {
+        if (state.callBusy !== placeId) return;
+        state.callBusy = "";
+        state.googleCall = { placeId: placeId, fallback: true };
+        render();
+      });
+      return;
+    }
     if (action === "details") {
       var id = el.getAttribute("data-id");
       if (id && model.byId[id]) {
@@ -1357,7 +1398,7 @@
       return;
     }
     if (e.key === "Escape" && (state.detailId || state.filtersOpen)) {
-      state.detailId = ""; state.filtersOpen = false; state.keepScroll = true; render();
+      state.detailId = ""; state.filtersOpen = false; state.googleCall = null; state.callBusy = ""; state.keepScroll = true; render();
     }
   });
   window.addEventListener("popstate", function () {
