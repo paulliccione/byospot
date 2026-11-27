@@ -44,7 +44,16 @@
     toast: "",
     keepScroll: false,
     googleCall: null,
-    callBusy: ""
+    callBusy: "",
+    saved: loadSaved(),
+    reportOpen: false,
+    reportBusy: false,
+    reportError: "",
+    reportThanks: false,
+    reportReason: "",
+    reportNote: "",
+    reportEmail: "",
+    reportFocus: false
   };
   var depth = 0;
 
@@ -68,6 +77,20 @@
   function saveCoords(c) {
     state.coords = c;
     try { sessionStorage.setItem("byospot-coords", JSON.stringify(c)); } catch (e) {}
+  }
+  function localStore() {
+    try { return window.localStorage; }
+    catch (e) { return null; }
+  }
+  function loadSaved() {
+    if (!window.BYOSaved) return [];
+    var ids = window.BYOSaved.read(localStore(), L.resolveVenueId);
+    var known = ids.filter(function (id) { return model.byId[id]; });
+    if (known.length !== ids.length) window.BYOSaved.write(localStore(), known);
+    return known;
+  }
+  function isSaved(id) {
+    return !!(id && state.saved.indexOf(id) >= 0);
   }
   function voterToken() {
     var key = "byospot-voter";
@@ -100,16 +123,31 @@
   }
 
   function brandScreen() {
-    return state.screen === "results" || state.screen === "select" || state.screen === "vote" || state.screen === "share" || state.screen === "legacy";
+    return state.screen === "results" || state.screen === "select" || state.screen === "vote" || state.screen === "share" || state.screen === "legacy" || state.screen === "saved";
   }
   function brandHeader() {
     return '<header class="top top-brand"><button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>" +
       '<a class="brand-lockup" href="/" data-action="home"><img src="logos/byospot-logo-teal.svg" alt="byo spot" width="150" height="37"></a>' +
       '<span class="icon-spacer" aria-hidden="true"></span></header>';
   }
+  function savedHeart(on) {
+    var path = "M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z";
+    var fill = on ? "#FF795A" : "none";
+    var stroke = on ? "#FF795A" : "#064E50";
+    return '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="' + path + '" fill="' + fill + '" stroke="' + stroke + '" stroke-width="2" stroke-linejoin="round"/></svg>';
+  }
+  function savedHomeLink() {
+    var n = state.saved.length;
+    var aria = n === 1 ? "Saved, 1 venue" : "Saved, " + n + " venues";
+    if (!n) aria = "Saved";
+    var badge = n > 0 ? '<span class="cnt">' + n + "</span>" : "";
+    return '<a class="saved-pill' + (n ? "" : " empty") + '" href="/saved" data-action="saved" aria-label="' + esc(aria) + '">' +
+      savedHeart(n > 0) + "Saved" + badge + "</a>";
+  }
   function header(home) {
     if (!home) return brandHeader();
-    return '<header class="top top-home"><a class="brand brand-landing" href="/" data-action="home">' + landingMark() + "</a></header>";
+    return '<header class="top top-home"><a class="brand brand-landing" href="/" data-action="home">' + landingMark() + "</a>" +
+      savedHomeLink() + "</header>";
   }
 
   function footerHtml() {
@@ -315,7 +353,7 @@
     };
   }
   function cardHtml(p) {
-    return BYOCard.render(cardView(p), { mode: "results" });
+    return BYOCard.render(cardView(p), { mode: "results", saved: isSaved(p && p.id) });
   }
   function nearestMode() {
     return !!(state.area && state.area.knownEmpty && typeof state.area.lat === "number" && typeof state.area.lng === "number");
@@ -573,7 +611,15 @@
   function detailSheet() {
     var p = model.byId[state.detailId];
     if (!p || !window.BYOCard) return "";
-    return BYOCard.renderDetail(cardView(p));
+    return BYOCard.renderDetail(cardView(p), { saved: isSaved(p.id) });
+  }
+
+  function savedHtml() {
+    var places = state.saved.map(function (id) { return model.byId[id]; }).filter(Boolean);
+    var body = places.length
+      ? '<div class="cards">' + places.map(cardHtml).join("") + "</div>"
+      : '<div class="empty-panel"><p>No saved spots yet. Tap the heart on any venue to save it.</p></div>';
+    return header(false) + '<main id="main" class="screen screen-saved"><h1>Saved</h1>' + body + footerHtml() + "</main>";
   }
 
   function filtersSheet() {
@@ -615,6 +661,48 @@
       '<p class="count-line" id="filterCount">' + preview.length + (preview.length === 1 ? " restaurant" : " restaurants") + "</p>" +
       '<div class="stack"><button type="button" class="btn btn-primary" data-action="apply-filters">Show restaurants</button>' +
       '<button type="button" class="btn btn-ghost" data-action="reset-filters">Clear filters</button></div></div></div>';
+  }
+
+  var REPORT_REASONS = ["BYO not allowed", "Corkage changed", "Days wrong", "Closed", "Other"];
+
+  function resetReport() {
+    state.reportOpen = false;
+    state.reportBusy = false;
+    state.reportError = "";
+    state.reportThanks = false;
+    state.reportReason = "";
+    state.reportNote = "";
+    state.reportEmail = "";
+    state.reportFocus = false;
+  }
+
+  function reportSheet() {
+    if (!state.reportOpen || !state.detailId) return "";
+    var title = '<h2 id="reportTitle" tabindex="-1">Report an issue</h2>';
+    if (state.reportThanks) {
+      return '<div class="sheet report-sheet" role="dialog" aria-modal="true" aria-labelledby="reportTitle"><div class="sheet-card report-card">' +
+        title +
+        '<p class="report-thanks" tabindex="-1" role="status">' + "Thanks — we'll check it" + "</p>" +
+        '<div class="report-actions"><button type="button" class="btn btn-ghost" data-action="close-report">Cancel</button></div>' +
+        "</div></div>";
+    }
+    var radios = REPORT_REASONS.map(function (label) {
+      var checked = state.reportReason === label ? " checked" : "";
+      return '<label class="report-reason"><input type="radio" name="reason" value="' + esc(label) + '" required' + checked + "><span>" + esc(label) + "</span></label>";
+    }).join("");
+    var err = state.reportError ? '<p class="report-error" tabindex="-1" role="alert">' + esc(state.reportError) + "</p>" : "";
+    return '<div class="sheet report-sheet" role="dialog" aria-modal="true" aria-labelledby="reportTitle"><div class="sheet-card report-card">' +
+      title +
+      '<form id="reportForm">' +
+      '<fieldset class="report-reasons"><legend>Reason</legend>' + radios + "</fieldset>" +
+      '<label class="field"><span>Note (optional)</span><textarea name="note" maxlength="500" rows="3">' + esc(state.reportNote || "") + "</textarea></label>" +
+      '<label class="field"><span>Email (optional)</span><input name="email" type="email" maxlength="254" autocomplete="email" value="' + esc(state.reportEmail || "") + '"></label>' +
+      '<div class="report-hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="nope" value=""></label></div>' +
+      err +
+      '<div class="report-actions">' +
+      '<button type="submit" class="btn btn-primary"' + (state.reportBusy ? " disabled" : "") + ">" + (state.reportBusy ? "Sending…" : "Send") + "</button>" +
+      '<button type="button" class="btn btn-ghost" data-action="close-report">Cancel</button>' +
+      "</div></form></div></div>";
   }
 
   function privacyHtml() {
@@ -660,6 +748,7 @@
     if (state.screen === "share") return shareHtml();
     if (state.screen === "vote") return voteHtml();
     if (state.screen === "legacy") return legacyHtml();
+    if (state.screen === "saved") return savedHtml();
     if (state.screen === "privacy") return privacyHtml();
     return homeHtml();
   }
@@ -673,7 +762,7 @@
     document.body.classList.toggle("screen-location", state.screen === "location");
     document.body.classList.toggle("screen-privacy", state.screen === "privacy");
     document.body.classList.toggle("screen-brand", brandScreen());
-    $("app").innerHTML = screenHtml() + detailSheet() + filtersSheet();
+    $("app").innerHTML = screenHtml() + detailSheet() + reportSheet() + filtersSheet();
     bindPlaceRatings();
     fitLocationViewport();
     var title = "BYOSpot";
@@ -682,10 +771,19 @@
     else if (state.screen === "location") title = "Choose a location · BYOSpot";
     else if (state.screen === "select" || state.screen === "share") title = "Where Should We Eat? · BYOSpot";
     else if (state.screen === "vote") title = "Where should we eat? · BYOSpot";
+    else if (state.screen === "saved") title = "Saved · BYOSpot";
     else if (state.screen === "privacy") title = "Privacy · BYOSpot";
     document.title = title;
     if (keep) window.scrollTo(0, y);
-    if (state.detailId) {
+    if (state.reportOpen) {
+      var thanks = document.querySelector(".report-thanks");
+      var reportAlert = document.querySelector(".report-error");
+      var reportTitle = document.getElementById("reportTitle");
+      if (thanks) thanks.focus();
+      else if (reportAlert) reportAlert.focus();
+      else if (state.reportFocus && reportTitle) reportTitle.focus();
+      state.reportFocus = false;
+    } else if (state.detailId) {
       var back = document.querySelector(".venue-back");
       if (back && document.activeElement === document.body) back.focus();
     }
@@ -714,6 +812,7 @@
     state.filtersOpen = false;
     state.googleCall = null;
     state.callBusy = "";
+    resetReport();
     if (route.screen === "location") {
       var browseState = route.params.get("state");
       state.locQuery = "";
@@ -782,6 +881,7 @@
     if (path === "/privacy") return { screen: "privacy", params: params };
     if (path === "/select") return { screen: "select", params: params };
     if (path === "/results") return { screen: "results", params: params };
+    if (path === "/saved") return { screen: "saved", params: params };
     var venue = path.match(/^\/venue\/([A-Za-z0-9_-]+)$/);
     if (venue) return { screen: "venue", id: venue[1], params: params };
     return { screen: "home", params: params };
@@ -876,7 +976,7 @@
   function uiBack() {
     if (history.state && history.state.app && depth > 0) { history.back(); return; }
     if (state.screen === "share") { go("/select?" + resultsQuery(), { replace: true }); return; }
-    if (state.screen === "select" || state.screen === "location" || state.screen === "results" || state.screen === "privacy") {
+    if (state.screen === "select" || state.screen === "location" || state.screen === "results" || state.screen === "privacy" || state.screen === "saved") {
       if (state.screen === "select" && state.area) { go("/results?" + resultsQuery(), { replace: true }); return; }
       go("/", { replace: true });
       return;
@@ -957,6 +1057,12 @@
   }
 
   document.addEventListener("click", function (e) {
+    if (e.target.classList && e.target.classList.contains("report-sheet")) {
+      resetReport();
+      state.keepScroll = true;
+      render();
+      return;
+    }
     var el = e.target.closest("[data-action], a.logo, a[data-action='home']");
     if (!el) return;
     var action = el.getAttribute("data-action");
@@ -977,7 +1083,42 @@
       return;
     }
     if (action === "privacy") { e.preventDefault(); go("/privacy"); return; }
+    if (action === "saved") { e.preventDefault(); go("/saved"); return; }
+    if (action === "save") {
+      e.preventDefault();
+      var sid = el.getAttribute("data-id") || "";
+      if (window.BYOSaved && /^[A-Za-z0-9_-]+$/.test(sid)) {
+        state.saved = window.BYOSaved.toggle(state.saved, sid, L.resolveVenueId).filter(function (id) {
+          return model.byId[id];
+        });
+        window.BYOSaved.write(localStore(), state.saved);
+      }
+      state.keepScroll = true;
+      render();
+      if (/^[A-Za-z0-9_-]+$/.test(sid)) {
+        var hearts = document.querySelectorAll('[data-action="save"][data-id="' + sid + '"]');
+        if (hearts.length) hearts[hearts.length - 1].focus();
+      }
+      return;
+    }
+    if (action === "close-report") {
+      resetReport();
+      state.keepScroll = true;
+      render();
+      return;
+    }
+    if (action === "report") {
+      if (!state.detailId) return;
+      state.reportOpen = true;
+      state.reportThanks = false;
+      state.reportError = "";
+      state.reportBusy = false;
+      state.reportFocus = true;
+      render();
+      return;
+    }
     if (action === "close") {
+      resetReport();
       state.detailId = "";
       state.filtersOpen = false;
       state.googleCall = null;
@@ -1196,12 +1337,66 @@
     if (first && first.area) { chooseArea(first.area); return; }
     chooseArea({ unrecognised: true, query: q, label: q });
   }
+  function sendReport(form) {
+    if (state.reportBusy || !state.detailId || !state.reportOpen) return;
+    var data = new FormData(form);
+    var reason = String(data.get("reason") || "");
+    var note = String(data.get("note") || "");
+    var email = String(data.get("email") || "");
+    var website = String(data.get("website") || "");
+    var venueId = L.resolveVenueId(state.detailId);
+    var openFor = state.detailId;
+    state.reportReason = reason;
+    state.reportNote = note;
+    state.reportEmail = email;
+    if (!reason) {
+      state.reportError = "Choose a reason.";
+      render();
+      return;
+    }
+    state.reportBusy = true;
+    state.reportError = "";
+    render();
+    fetch("/.netlify/functions/report", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ venueId: venueId, reason: reason, note: note, email: email, website: website })
+    }).then(function (res) {
+      return res.json().then(function () { return { ok: res.ok }; }, function () { return { ok: res.ok }; });
+    }).then(function (r) {
+      state.reportBusy = false;
+      if (!state.reportOpen || state.detailId !== openFor) return;
+      if (r.ok) {
+        state.reportThanks = true;
+        state.reportError = "";
+      } else {
+        state.reportError = "Couldn't send that. Please try again.";
+      }
+      render();
+    }).catch(function () {
+      state.reportBusy = false;
+      if (!state.reportOpen || state.detailId !== openFor) return;
+      state.reportError = "Couldn't send that. Please try again.";
+      render();
+    });
+  }
   document.addEventListener("submit", function (e) {
+    if (e.target.id === "reportForm") {
+      e.preventDefault();
+      sendReport(e.target);
+      return;
+    }
     if (e.target.id !== "locForm") return;
     e.preventDefault();
     commitLocationQuery();
   });
   document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && state.reportOpen) {
+      resetReport();
+      state.keepScroll = true;
+      render();
+      return;
+    }
     if (e.key === "Escape" && (state.detailId || state.filtersOpen)) {
       state.detailId = ""; state.filtersOpen = false; state.googleCall = null; state.callBusy = ""; state.keepScroll = true; render();
     }

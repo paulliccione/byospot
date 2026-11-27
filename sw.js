@@ -1,6 +1,6 @@
 // Bump VERSION whenever you publish an update so phones fetch the new files.
-var VERSION = "byo-2026-11-28f";
-var FILES = ["./", "index.html", "style.css", "app.js", "logic.js", "card.js", "maps.js", "config.js", "data.js", "manifest.webmanifest",
+var VERSION = "byo-2026-11-28g";
+var FILES = ["./", "index.html", "style.css", "app.js", "logic.js", "card.js", "saved.js", "maps.js", "config.js", "data.js", "manifest.webmanifest",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png",
   "icons/icon-maskable-512.png",
   "icons/icon-v2-192.png", "icons/icon-v2-512.png", "icons/icon-v2-maskable-512.png",
@@ -17,7 +17,7 @@ self.addEventListener("activate", function (e) {
     return Promise.all(keys.filter(function (k) { return k !== VERSION; }).map(function (k) { return caches.delete(k); }));
   }).then(function () { return self.clients.claim(); }));
 });
-// Network first so updates show up straight away. Never cache poll API responses.
+// Network first so updates show up straight away. Never cache poll API or function responses.
 self.addEventListener("fetch", function (e) {
   if (e.request.method !== "GET") return;
   var url = new URL(e.request.url);
