@@ -1,1 +1,1 @@
-window.BYO_CONFIG = {"googleMapsApiKey":"","callToBook":false};
+window.BYO_CONFIG = {"googleMapsApiKey":"","callToBook":true};

@@ -10,7 +10,8 @@ const key = /^[A-Za-z0-9_-]{20,}$/.test(raw) ? raw : "";
 if (raw && !key) {
   console.error("GOOGLE_MAPS_API_KEY is set but does not look like a browser key. Writing an empty config.");
 }
-const callToBook = String(process.env.CALL_TO_BOOK_ENABLED || "").trim() === "true";
+// On unless a build sets CALL_TO_BOOK_ENABLED to something other than "true".
+const callToBook = String(process.env.CALL_TO_BOOK_ENABLED ?? "true").trim() === "true";
 const file = new URL("../config.js", import.meta.url);
 fs.writeFileSync(file, "window.BYO_CONFIG = " + JSON.stringify({ googleMapsApiKey: key, callToBook: callToBook }) + ";\n");
 if (key) console.log("Wrote config.js from GOOGLE_MAPS_API_KEY.");
