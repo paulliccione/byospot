@@ -266,7 +266,7 @@ test("Book a table is the primary link, and Call to book falls back to Direction
 test("the phone function skips the service worker and the flag defaults off", function () {
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
   assert.match(sw, /\/\.netlify\/functions\//);
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28g");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28h");
   const fn = fs.readFileSync(new URL("../netlify/functions/phone.mjs", import.meta.url), "utf8");
   const core = fs.readFileSync(new URL("../phone-core.mjs", import.meta.url), "utf8");
   assert.match(fn, /name: STORE_NAME/);
