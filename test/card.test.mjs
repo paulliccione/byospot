@@ -101,6 +101,28 @@ test("status pills stay distinct and confirmed styling needs that label", functi
   assert.equal(call.includes("is-confirmed"), false);
 });
 
+test("ask-the-venue corkage and shop walk times render only when supplied", function () {
+  const cardHtml = card.render({ id: "a", name: "A", corkage: "Corkage: ask the venue" }, { mode: "results" });
+  assert.match(cardHtml, /Corkage: ask the venue/);
+  assert.equal(cardHtml.includes("Corkage ·"), false);
+  const known = card.render({ id: "b", name: "B", corkage: "$8 a bottle (wine only)" }, { mode: "results" });
+  assert.match(known, /Corkage · \$8 a bottle \(wine only\)/);
+  const detail = card.renderDetail({
+    id: "a",
+    name: "A",
+    corkage: "Corkage: ask the venue",
+    shops: [
+      { label: "Nearest chain", name: "Liquorland", distance: "190 m", walk: "~2 min walk (approx.)", url: "https://www.google.com/maps/dir/?api=1&destination=1,2" },
+      { label: "Nearest indie", name: "Cellars", distance: "400 m" }
+    ]
+  });
+  assert.match(detail, /Corkage: ask the venue/);
+  assert.match(detail, /Nearest chain: Liquorland · ~190 m · ~2 min walk \(approx\.\)/);
+  const indie = detail.split("Nearest indie:")[1];
+  assert.match(indie, /Cellars · ~400 m/);
+  assert.equal(indie.includes("min walk"), false);
+});
+
 test("detail collapses empty rows and shows booking only when a url exists", function () {
   const bare = card.renderDetail({ id: "x", name: "Plain", byoLabel: "Call to confirm" });
   assert.match(bare, /Plain/);
@@ -194,8 +216,8 @@ test("app wires every surface through the same component and bumps the cache", f
   assert.match(app, /No BYO restaurants in /);
   assert.match(app, /Here are the closest BYO spots/);
   const sw = fs.readFileSync(new URL("../sw.js", import.meta.url), "utf8");
-  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-15e1");
-  assert.ok(sw.match(/VERSION = "([^"]+)"/)[1] > "byo-2026-11-15d4");
+  assert.equal(sw.match(/VERSION = "([^"]+)"/)[1], "byo-2026-11-28a");
+  assert.ok(sw.match(/VERSION = "([^"]+)"/)[1] > "byo-2026-11-15e1");
   assert.match(sw, /maps\.js/);
   assert.match(sw, /config\.js/);
   const resultsFn = app.slice(app.indexOf("function resultsHtml"), app.indexOf("function activeFilterCount"));

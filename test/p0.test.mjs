@@ -21,19 +21,26 @@ test("stable ids match the previous shortlist scheme", function () {
   assert.equal(model.places.length, data.places.length);
 });
 
-test("unknown price and corkage are omitted and confirmation is not invented", function () {
+test("unknown price is omitted, varies or unknown corkage asks the venue, and confirmation is not invented", function () {
   const unknown = model.places.find(function (p) { return p.price === "?" && /^unknown$/i.test(p.corkage) && p.byoConfirmed === false; });
   const view = logic.presentPlace(unknown);
   assert.equal(view.price, "");
-  assert.equal(view.corkage, "");
+  assert.equal(view.corkage, "Corkage: ask the venue");
   assert.equal(view.byo.label, "BYO listed — call to confirm");
   assert.equal(view.byo.tone, "listed");
-  const confirmed = model.places.find(function (p) { return p.byoConfirmed === true && logic.corkageText(p); });
+  const varies = model.places.find(function (p) { return /^varies\b/i.test(p.corkage); });
+  assert.equal(logic.presentPlace(varies).corkage, "Corkage: ask the venue");
+  const known = model.places.find(function (p) { return p.corkage === "$8 a bottle (wine only)"; });
+  assert.equal(logic.corkageText(known), "$8 a bottle (wine only)");
+  const confirmed = model.places.find(function (p) { return p.byoConfirmed === true && logic.corkageText(p) && logic.corkageText(p) !== "Corkage: ask the venue"; });
   const confirmedView = logic.presentPlace(confirmed);
   assert.equal(confirmedView.byo.label, "BYO confirmed");
   assert.equal(confirmedView.byo.tone, "confirmed");
-  assert.ok(confirmedView.corkage);
+  assert.equal(confirmedView.corkage, logic.corkageText(confirmed));
+  assert.notEqual(confirmedView.corkage, "Corkage: ask the venue");
   assert.equal(confirmedView.rank, undefined);
+  const listed = logic.filterPlaces(model.places, { state: "NSW", city: "Sydney" }, { corkage: "known" }, null);
+  assert.equal(listed.some(function (p) { return /^(unknown|varies)\b/i.test(p.corkage); }), false);
 });
 
 test("directions use a verified street, or a name and suburb search when there is none", function () {
@@ -215,6 +222,22 @@ test("polls require two restaurants, persist a vote once, and can tie", function
   assert.equal(view.summary.kind, "tie");
   assert.equal(JSON.stringify(view).indexOf("voter-token"), -1);
   assert.equal(summarizeTallies({ a: 2, b: 2 }, ["a", "b"]).kind, "tie");
+});
+
+test("walk minutes are straight-line at 80 m per minute and stay blank without coordinates", function () {
+  function north(lat, metres) { return lat + (metres / 6371000) * (180 / Math.PI); }
+  const lat = -33.88;
+  const lng = 151.2;
+  assert.equal(logic.walkMinutes(lat, lng, lat, lng), 1);
+  assert.equal(logic.walkMinutes(lat, lng, north(lat, 10), lng), 1);
+  assert.equal(logic.walkMinutes(lat, lng, north(lat, 80), lng), 1);
+  assert.equal(logic.walkMinutes(lat, lng, north(lat, 160), lng), 2);
+  assert.equal(logic.walkMinutes(lat, lng, north(lat, 240), lng), 3);
+  assert.equal(logic.walkMinutes(lat, null, lat, lng), null);
+  assert.equal(logic.walkMinutes(lat, lng, lat, undefined), null);
+  const shop = model.byId["kafe-kooks-the-house-of-roti-ultimo"].bottleShops.chain;
+  const venue = model.byId["kafe-kooks-the-house-of-roti-ultimo"];
+  assert.equal(logic.walkMinutes(venue.lat, venue.lng, shop.lat, shop.lng), Math.max(1, Math.round(logic.haversine(venue.lat, venue.lng, shop.lat, shop.lng) / 80)));
 });
 
 test("distances stay available and the old compliance switch is gone", function () {
