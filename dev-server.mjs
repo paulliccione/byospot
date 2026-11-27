@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createPoll, castVote, publicView, validShareToken } from "./poll-core.mjs";
+import { handleReport } from "./netlify/functions/report.mjs";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const storePath = process.env.POLL_FILE || "/tmp/byospot-polls.json";
@@ -95,10 +96,50 @@ async function handleApi(req, res, pathname) {
   }
 }
 
+function memoryStore() {
+  const data = new Map();
+  return {
+    get(key) {
+      if (!data.has(key)) return Promise.resolve(null);
+      return Promise.resolve(JSON.parse(JSON.stringify(data.get(key))));
+    },
+    setJSON(key, value) {
+      data.set(key, JSON.parse(JSON.stringify(value)));
+      return Promise.resolve({ modified: true });
+    }
+  };
+}
+const reports = memoryStore();
+
+function handleReportHttp(req, res) {
+  const chunks = [];
+  req.on("data", function (c) { chunks.push(c); });
+  req.on("end", function () {
+    const body = Buffer.concat(chunks);
+    const request = new Request("http://127.0.0.1/.netlify/functions/report", {
+      method: req.method,
+      headers: req.headers,
+      body: req.method === "GET" || req.method === "HEAD" ? undefined : body
+    });
+    handleReport(request, { ip: "127.0.0.1" }, reports).then(function (response) {
+      return response.text().then(function (text) {
+        const headers = { "cache-control": "no-store" };
+        const type = response.headers.get("content-type");
+        if (type) headers["content-type"] = type;
+        res.writeHead(response.status, headers);
+        res.end(text);
+      });
+    }).catch(function () {
+      send(res, 503, { error: "We couldn't save that report. Try again." });
+    });
+  });
+}
+
 function start(port) {
   const server = http.createServer(function (req, res) {
     const url = new URL(req.url, "http://localhost");
     const pathname = decodeURIComponent(url.pathname);
+    if (pathname === "/.netlify/functions/report") return handleReportHttp(req, res);
     if (pathname.startsWith("/api/")) return handleApi(req, res, pathname);
     var file = path.normalize(path.join(root, pathname));
     if (!file.startsWith(root)) return send(res, 403, "no");
