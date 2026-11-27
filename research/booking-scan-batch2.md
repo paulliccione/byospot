@@ -10,7 +10,7 @@ A booking URL was stored only when the fetched page showed a table-booking link 
 
 ## Hit rate
 
-**107 of 274** venues had a booking link stored in `bookingUrl`. Of the other 167, 134 homepages loaded with nothing stored, 13 fetches were blocked, and 20 failed.
+**106 of 274** venues checked here still have a booking link in `bookingUrl` (one stored link was removed with its venue). Of the other 167, 134 homepages loaded with nothing stored, 13 fetches were blocked, and 20 failed.
 
 | Platform | Venues |
 | --- | --- |
@@ -18,7 +18,7 @@ A booking URL was stored only when the fetched page showed a table-booking link 
 | Inline | 1 |
 | ItsYourTable | 1 |
 | Mobi Booking | 3 |
-| NowBookIt | 27 |
+| NowBookIt | 26 |
 | OneCorner | 1 |
 | OpenTable | 15 |
 | Quandoo | 1 |
@@ -71,7 +71,6 @@ A booking URL was stored only when the fetched page showed a table-booking link 
 | Andiamo Trattoria, Summer Hill | Inner West | SevenRooms | https://www.sevenrooms.com/explore/andiamotrattoriasummerhill/reservations/create/search/ | https://www.andiamotrattoria.com.au/ |
 | Abhi's Indian Restaurant, North Strathfield | Inner West | Venue booking page | https://www.abhisindian.com.au/reservations | https://www.abhisindian.com.au/ |
 | The Sultan's Table, Enmore | Inner West | Venue booking page | https://www.thesultanstable.com.au/reservations/ | https://www.thesultanstable.com.au/ |
-| Bibo Wine Bar, Double Bay | Eastern Suburbs | NowBookIt | https://bookings.nowbookit.com/?accountid=1afb7b72-b3d3-42d1-b3c7-11cbf13332ea&venueid=1459&theme=light&colors=hex,c59d5f&bg=transparent | http://bibowinebar.com.au/reservations/ |
 | Mand's Indian Restaurant, Randwick | Eastern Suburbs | WowApps | https://bookings.wowapps.com/make-booking/mandsindianrestauran?src=web | https://www.mandsindianrestaurant.com.au/ |
 | Chiswick, Woollahra | Eastern Suburbs | ItsYourTable | https://itsyourtable.com/chiswick | https://chiswickwoollahra.com.au/ |
 | Brown Sugar, Bondi Beach | Eastern Suburbs | SevenRooms | https://www.sevenrooms.com/explore/brownsugar/reservations/create/search/ | https://brownsugarbondi.com.au/ |

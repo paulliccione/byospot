@@ -9233,53 +9233,6 @@ window.BYO = {
       "place_id": "ChIJsfsBa_GvEmsRUuDgJMlP9e4"
     },
     {
-      "name": "Bibo Wine Bar",
-      "region": "Eastern Suburbs",
-      "suburb": "Double Bay",
-      "address": "7 Bay Street, Double Bay NSW 2028",
-      "addressSource": "venue",
-      "addressSourceUrl": "https://bibowinebar.com.au/",
-      "addressCheckedAt": "2026-11-12",
-      "lat": -33.878201,
-      "lng": 151.241601,
-      "cuisine": "Portuguese",
-      "family": "European",
-      "price": "?",
-      "priceBasis": "Not priced in our sources yet",
-      "priceEstimate": false,
-      "corkage": "$35 (wine)",
-      "byoConfirmed": true,
-      "takeaway": "unknown",
-      "note": "BYO wine at Saturday lunch only, $35 per bottle corkage (Vino Cammino 2025 guide)",
-      "website": "https://bibowinebar.com.au/",
-      "bookingUrl": "https://bookings.nowbookit.com/?accountid=1afb7b72-b3d3-42d1-b3c7-11cbf13332ea&venueid=1459&theme=light&colors=hex,c59d5f&bg=transparent",
-      "bookingUrlSource": "http://bibowinebar.com.au/reservations/",
-      "bookingUrlCheckedAt": "2026-11-28",
-      "city": "Sydney",
-      "bottleShops": {
-        "chain": {
-          "name": "Dan Murphy's",
-          "brand": "Dan Murphy's",
-          "address": "1 Kiaora Road, Double Bay",
-          "lat": -33.878559,
-          "lng": 151.243329,
-          "osm": "node/3938622451",
-          "distanceM": 160
-        },
-        "independent": {
-          "name": "World of Whisky",
-          "address": "",
-          "lat": -33.877192,
-          "lng": 151.242229,
-          "osm": "node/7811338131",
-          "distanceM": 130
-        }
-      },
-      "dish": "",
-      "takeawayDetail": "",
-      "place_id": "ChIJdaTvcuetEmsRWptnNfK1EhQ"
-    },
-    {
       "name": "Catalina Restaurant",
       "region": "Eastern Suburbs",
       "suburb": "Rose Bay",
