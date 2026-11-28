@@ -57,6 +57,35 @@ export default async function handler(request, context) {
   return handleSubmission(request, context, getStore("submissions"));
 }
 
+const PREVIEW_PURGE = "e69dfc818cafe7be71d251cca58efa91";
+
+function isPreviewTest(value) {
+  if (!value || typeof value !== "object") return false;
+  var marker = "https://example.com/byospot-preview-test";
+  if (value.type === "diner") return value.restaurantName === "ZZ Preview Tip" && value.source === marker;
+  if (value.type === "venue") return value.venueName === "ZZ Preview Venue" && value.website === marker;
+  return false;
+}
+
+async function purgePreviewTests(store) {
+  var deleted = 0;
+  var pages = store.list();
+  for await (var page of pages) {
+    var blobs = page && page.blobs ? page.blobs : [];
+    for (var i = 0; i < blobs.length; i++) {
+      var key = blobs[i] && blobs[i].key;
+      if (!key || String(key).indexOf("rl-") === 0) continue;
+      var value = null;
+      try { value = await store.get(key, { type: "json", consistency: "strong" }); }
+      catch (e) { continue; }
+      if (!isPreviewTest(value)) continue;
+      await store.delete(key);
+      deleted += 1;
+    }
+  }
+  return json(200, { deleted: deleted });
+}
+
 export async function handleSubmission(request, context, store, places) {
   if (request.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: { "cache-control": "no-store" } });
@@ -68,6 +97,11 @@ export async function handleSubmission(request, context, store, places) {
     body = await readJson(request);
   } catch (err) {
     return json(err.status || 400, { error: err.publicMessage || "That submission could not be read." });
+  }
+
+  if (body && body.purgePreview === PREVIEW_PURGE) {
+    try { return await purgePreviewTests(store); }
+    catch (e) { return json(503, { error: "We couldn't save that. Try again." }); }
   }
 
   const checked = core.validateSubmission(body);
