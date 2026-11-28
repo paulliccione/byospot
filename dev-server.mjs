@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createPoll, castVote, publicView, validShareToken } from "./poll-core.mjs";
 import { handleReport } from "./netlify/functions/report.mjs";
+import { handleSubmission } from "./netlify/functions/submit.mjs";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const storePath = process.env.POLL_FILE || "/tmp/byospot-polls.json";
@@ -110,6 +111,7 @@ function memoryStore() {
   };
 }
 const reports = memoryStore();
+const submissions = memoryStore();
 
 function handleReportHttp(req, res) {
   const chunks = [];
@@ -135,11 +137,36 @@ function handleReportHttp(req, res) {
   });
 }
 
+function handleSubmitHttp(req, res) {
+  const chunks = [];
+  req.on("data", function (c) { chunks.push(c); });
+  req.on("end", function () {
+    const body = Buffer.concat(chunks);
+    const request = new Request("http://127.0.0.1/.netlify/functions/submit", {
+      method: req.method,
+      headers: req.headers,
+      body: req.method === "GET" || req.method === "HEAD" ? undefined : body
+    });
+    handleSubmission(request, { ip: "127.0.0.1" }, submissions).then(function (response) {
+      return response.text().then(function (text) {
+        const headers = { "cache-control": "no-store" };
+        const type = response.headers.get("content-type");
+        if (type) headers["content-type"] = type;
+        res.writeHead(response.status, headers);
+        res.end(text);
+      });
+    }).catch(function () {
+      send(res, 503, { error: "We couldn't save that. Try again." });
+    });
+  });
+}
+
 function start(port) {
   const server = http.createServer(function (req, res) {
     const url = new URL(req.url, "http://localhost");
     const pathname = decodeURIComponent(url.pathname);
     if (pathname === "/.netlify/functions/report") return handleReportHttp(req, res);
+    if (pathname === "/.netlify/functions/submit") return handleSubmitHttp(req, res);
     if (pathname.startsWith("/api/")) return handleApi(req, res, pathname);
     var file = path.normalize(path.join(root, pathname));
     if (!file.startsWith(root)) return send(res, 403, "no");

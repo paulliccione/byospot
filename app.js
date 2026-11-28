@@ -53,7 +53,9 @@
     reportReason: "",
     reportNote: "",
     reportEmail: "",
-    reportFocus: false
+    reportFocus: false,
+    addKey: "",
+    add: blankAdd()
   };
   var depth = 0;
 
@@ -123,7 +125,7 @@
   }
 
   function brandScreen() {
-    return state.screen === "results" || state.screen === "select" || state.screen === "vote" || state.screen === "share" || state.screen === "legacy" || state.screen === "saved";
+    return state.screen === "results" || state.screen === "select" || state.screen === "vote" || state.screen === "share" || state.screen === "legacy" || state.screen === "saved" || state.screen === "add";
   }
   function brandHeader() {
     return '<header class="top top-brand"><button type="button" class="icon-btn" data-action="back" aria-label="Back">' + icon("back") + "</button>" +
@@ -366,7 +368,7 @@
       browse = '<div class="stack"><button type="button" class="btn btn-primary" data-action="browse-region">Browse ' +
         esc(area.regionArea.label) + "</button></div>";
     }
-    return '<p class="closest-lead">Here are the closest BYO spots</p>' +
+    return addPrompt("empty") + '<p class="closest-lead">Here are the closest BYO spots</p>' +
       '<div class="cards">' + nearest.map(cardHtml).join("") + "</div>" + browse;
   }
 
@@ -447,6 +449,25 @@
     return '<p class="plan-link"><button type="button" data-action="vote-start">Planning with friends? Pick together</button></p>';
   }
 
+  function promptSuburb() {
+    var area = state.area;
+    if (!area || area.near || area.shortlist || area.unrecognised) return "";
+    if (area.suburb) return String(area.suburb);
+    if (area.label && area.label !== "Near you") return String(area.label);
+    return "";
+  }
+  function addPrompt(kind) {
+    var suburb = promptSuburb();
+    if (!suburb) return "";
+    var href = "/add?suburb=" + encodeURIComponent(suburb);
+    var text = kind === "empty"
+      ? "+ Know a BYO spot in " + suburb + "? Add it and we'll check it with the venue"
+      : "+ Missing a BYO spot in " + suburb + "? Tell us, or add your own venue";
+    return '<a class="add-prompt" href="' + esc(href) + '" data-action="add-open">' +
+      '<span class="add-prompt-copy">' + esc(text) + '</span>' +
+      '<span class="chev" aria-hidden="true">›</span></a>';
+  }
+
   function resultsHtml() {
     if (state.area && state.area.near && !state.coords) {
       return header(false) + '<main id="main" class="screen screen-results">' + resultsHero(false) +
@@ -465,6 +486,7 @@
     else {
       body = '<div class="cards">' + shown.map(cardHtml).join("") + "</div>";
       if (list.length > shown.length) body += '<div class="stack" style="margin-top:12px"><button type="button" class="btn btn-ghost" id="showMore" data-action="more">Show more</button></div><div id="moreSentinel"></div>';
+      body += addPrompt("list");
       body += planLink();
     }
     var tools = nearEmpty ? "" : '<div class="list-tools">' + sortControl() + filtersButton() + "</div>";
@@ -740,6 +762,516 @@
       "</main>";
   }
 
+  function blankAdd() {
+    return {
+      step: 1,
+      role: "",
+      busy: false,
+      error: "",
+      thanks: false,
+      focusHeading: false,
+      sentEmail: "",
+      sentName: "",
+      sentSuburb: "",
+      sentVenueSlug: "",
+      sentVenueName: "",
+      diner: {
+        restaurantName: "",
+        suburb: "",
+        bring: "",
+        byoDays: "",
+        corkageKind: "",
+        corkageAmount: "",
+        source: "",
+        email: ""
+      },
+      venue: {
+        venueName: "",
+        venueSlug: "",
+        contactName: "",
+        role: "",
+        email: "",
+        phone: "",
+        website: "",
+        bring: [],
+        corkageAmount: "",
+        corkageUnit: "",
+        byoDays: [],
+        byoTimes: "",
+        notes: "",
+        removalRequest: false,
+        confirm: false
+      }
+    };
+  }
+
+  function addRouteKey(params) {
+    function get(name) { return params && params.get ? String(params.get(name) || "").trim() : ""; }
+    var venue = get("venue");
+    var suburb = get("suburb");
+    var who = get("who");
+    if (who !== "diner" && who !== "venue") who = venue ? "venue" : "";
+    return [who, venue, suburb].join("|");
+  }
+
+  function initAddFromParams(params) {
+    var add = blankAdd();
+    var suburb = (params && params.get ? String(params.get("suburb") || "") : "").trim().slice(0, 80);
+    var venueParam = (params && params.get ? String(params.get("venue") || "") : "").trim();
+    var who = (params && params.get ? String(params.get("who") || "") : "").trim();
+    var venueId = venueParam ? L.resolveVenueId(venueParam) : "";
+    var place = venueId && model.byId[venueId] ? model.byId[venueId] : null;
+    add.diner.suburb = suburb;
+    if (who === "diner") {
+      add.step = 2;
+      add.role = "diner";
+    } else if (who === "venue" || venueParam) {
+      add.step = 2;
+      add.role = "venue";
+      if (place) {
+        add.venue.venueName = place.name || "";
+        add.venue.venueSlug = place.id;
+      }
+    }
+    return add;
+  }
+
+  function openAddRoute(params) {
+    var key = addRouteKey(params);
+    if (key === state.addKey && state.add) return;
+    state.add = initAddFromParams(params);
+    state.addKey = key;
+    state.add.focusHeading = true;
+  }
+
+  function addPathForState() {
+    var add = state.add;
+    var q = [];
+    if (add.role === "venue") {
+      q.push("who=venue");
+      if (add.venue.venueSlug) q.push("venue=" + encodeURIComponent(add.venue.venueSlug));
+    } else if (add.role === "diner") {
+      q.push("who=diner");
+      var suburb = (add.diner.suburb || "").trim();
+      if (suburb) q.push("suburb=" + encodeURIComponent(suburb));
+    }
+    return "/add" + (q.length ? "?" + q.join("&") : "");
+  }
+
+  function goAdd(path) {
+    var query = path.indexOf("?") >= 0 ? path.slice(path.indexOf("?") + 1) : "";
+    state.addKey = addRouteKey(new URLSearchParams(query));
+    go(path);
+  }
+
+  function venueCatalog() {
+    return model.places.map(function (p) {
+      return { id: p.id, name: p.name || "", suburb: p.suburb || "", region: p.region || "" };
+    });
+  }
+
+  function captureAddFields() {
+    if (!state.add || state.add.thanks) return;
+    var form = document.getElementById("addForm") || document.getElementById("addWhoForm");
+    if (!form) return;
+    var diner = state.add.diner;
+    var venue = state.add.venue;
+    function take(bag, name) {
+      var el = form.elements[name];
+      if (!el || el.type === "checkbox" || !("value" in el)) return;
+      if (!Object.prototype.hasOwnProperty.call(bag, name)) return;
+      bag[name] = el.value;
+    }
+    if (state.add.role === "venue") {
+      take(venue, "venueName");
+      take(venue, "contactName");
+      take(venue, "email");
+      take(venue, "phone");
+      take(venue, "website");
+      take(venue, "notes");
+      take(venue, "corkageAmount");
+      if (form.elements.corkageUnit) venue.corkageUnit = form.elements.corkageUnit.value;
+    } else {
+      take(diner, "restaurantName");
+      take(diner, "suburb");
+      take(diner, "corkageAmount");
+      take(diner, "source");
+      take(diner, "email");
+    }
+    if (form.elements.removalRequest) venue.removalRequest = !!form.elements.removalRequest.checked;
+    if (form.elements.confirm) venue.confirm = !!form.elements.confirm.checked;
+    var who = form.querySelector('input[name="who"]:checked');
+    if (who) state.add.role = who.value;
+  }
+
+  function syncVenueSlug() {
+    var S = window.BYOSubmit;
+    var v = state.add.venue;
+    if (!S) { v.venueSlug = ""; return; }
+    var current = v.venueSlug && model.byId[v.venueSlug];
+    var keep = current && S.fold(current.name) === S.fold(v.venueName) ? v.venueSlug : "";
+    v.venueSlug = S.resolveVenueSlug({ name: v.venueName, suburb: "", venueSlug: keep }, venueCatalog()) || "";
+  }
+
+  function addMatchHtml() {
+    var S = window.BYOSubmit;
+    if (!S || !state.add) return "";
+    var venueMode = state.add.role === "venue";
+    var name = venueMode ? state.add.venue.venueName : state.add.diner.restaurantName;
+    var hits = S.matchVenues(name, venueCatalog(), 4);
+    var note = "";
+    if (venueMode && state.add.venue.venueSlug && model.byId[state.add.venue.venueSlug]) {
+      var picked = model.byId[state.add.venue.venueSlug];
+      if (S.fold(picked.name) === S.fold(name)) {
+        note = "<p class=\"add-listed\">already listed; you're updating it</p>";
+        hits = hits.filter(function (hit) { return hit.id !== picked.id; });
+      }
+    }
+    if (!hits.length) return note;
+    var items = hits.map(function (hit) {
+      var label = hit.name + " - " + hit.suburb;
+      var view = '<a href="/venue/' + esc(hit.id) + '" data-action="add-open">View it →</a>';
+      if (venueMode) {
+        return '<li><button type="button" data-action="add-pick" data-id="' + esc(hit.id) + '">' + esc(label) + '</button><span>, Already listed, </span>' + view + "</li>";
+      }
+      return "<li><span>" + esc(label) + ", Already listed, </span>" + view + "</li>";
+    }).join("");
+    var keep = venueMode ? "" : '<p class="add-keep">Not this one? Keep typing to add a new spot</p>';
+    return note + '<ul class="add-matches">' + items + "</ul>" + keep;
+  }
+
+  function paintMatches() {
+    var slot = document.getElementById("addMatchSlot");
+    if (slot) slot.innerHTML = addMatchHtml();
+  }
+
+  function addChip(field, value, label, pressed, mode) {
+    return '<button type="button" class="chip" data-action="add-chip" data-field="' + esc(field) + '" data-value="' + esc(value) + '" data-mode="' + mode + '" aria-pressed="' + (pressed ? "true" : "false") + '">' + esc(label) + "</button>";
+  }
+  function addChips(label, chips) {
+    return '<fieldset class="add-chips"><legend>' + label + '</legend><div class="chips">' + chips + "</div></fieldset>";
+  }
+  function addInput(name, value, opts) {
+    opts = opts || {};
+    var extra = "";
+    if (opts.required) extra += " required";
+    if (opts.max) extra += ' maxlength="' + opts.max + '"';
+    if (opts.placeholder) extra += ' placeholder="' + esc(opts.placeholder) + '"';
+    if (opts.autocomplete) extra += ' autocomplete="' + esc(opts.autocomplete) + '"';
+    if (opts.inputmode) extra += ' inputmode="' + esc(opts.inputmode) + '"';
+    return '<input name="' + esc(name) + '" type="' + (opts.type || "text") + '" value="' + esc(value || "") + '"' + extra + ">";
+  }
+  function addField(label, inner) {
+    return '<label class="field"><span>' + label + "</span>" + inner + "</label>";
+  }
+  function addHoneypot() {
+    return '<div class="add-hp" aria-hidden="true"><label>Company<input name="company" tabindex="-1" autocomplete="off" value=""></label></div>';
+  }
+  function addError() {
+    if (!state.add.error) return "";
+    return '<p class="add-error" tabindex="-1" role="alert">' + esc(state.add.error) + "</p>";
+  }
+
+  function addStep1Html() {
+    var add = state.add;
+    function choice(value, title, detail) {
+      var checked = add.role === value ? " checked" : "";
+      return '<label class="add-choice"><input type="radio" name="who" value="' + value + '" required' + checked + ">" +
+        "<span><strong>" + title + "</strong><span>" + detail + "</span></span></label>";
+    }
+    return '<p class="add-kicker">Add a BYO restaurant</p>' +
+      '<p class="add-step">Step 1 of 2</p>' +
+      '<h1 id="addTitle" tabindex="-1">Who are you?</h1>' +
+      '<p class="sub">Diners and venues both welcome. We only list places that the venue itself says are BYO.</p>' +
+      '<form id="addWhoForm"><div class="add-choices" role="radiogroup" aria-labelledby="addTitle">' +
+      choice("diner", "I'm a diner", "I know a BYO spot that's missing") +
+      choice("venue", "I own or work here", "Add or update my venue's BYO details") +
+      "</div>" +
+      '<p class="add-note">How we check: diner tips are checked against the venue\'s own website, menu or socials. Venue details are checked by confirming your work email or official page.</p>' +
+      addError() +
+      '<button type="submit" class="btn btn-primary">Next</button></form>';
+  }
+
+  function addSeg() {
+    function btn(role, label) {
+      var on = state.add.role === role;
+      return '<button type="button" data-action="add-role" data-role="' + role + '" aria-pressed="' + (on ? "true" : "false") + '">' + label + "</button>";
+    }
+    return '<div class="seg add-seg" role="group" aria-label="Who are you?">' +
+      btn("diner", "I'm a diner") + btn("venue", "I own or work here") + "</div>";
+  }
+
+  function addDinerHtml() {
+    var d = state.add.diner;
+    var bring = ["Wine", "Beer", "Not sure"].map(function (label) {
+      return addChip("bring", label, label, d.bring === label, "single");
+    }).join("");
+    var days = ["Every day", "Some days", "Not sure"].map(function (label) {
+      return addChip("byoDays", label, label, d.byoDays === label, "single");
+    }).join("");
+    var corks = [["free", "Free"], ["amount", "$ amount"], ["unsure", "Not sure"]].map(function (pair) {
+      return addChip("corkageKind", pair[0], pair[1], d.corkageKind === pair[0], "single");
+    }).join("");
+    var amount = d.corkageKind === "amount"
+      ? addField("Corkage amount", addInput("corkageAmount", d.corkageAmount, { inputmode: "decimal", placeholder: "15", max: 20, autocomplete: "off" }))
+      : "";
+    var busy = state.add.busy;
+    return '<form id="addForm">' +
+      "<p class=\"add-note\">We check every tip against the venue's own website, menu or socials before it goes live.</p>" +
+      addField("Restaurant name*", addInput("restaurantName", d.restaurantName, { required: true, max: 120, autocomplete: "off" })) +
+      '<div id="addMatchSlot">' + addMatchHtml() + "</div>" +
+      addField("Suburb*", addInput("suburb", d.suburb, { required: true, max: 80, autocomplete: "address-level2" })) +
+      addChips("What can you bring?", bring) +
+      addChips("BYO days", days) +
+      addChips("Corkage if known", corks) +
+      amount +
+      addField("Where did you see it's BYO?*", addInput("source", d.source, { required: true, max: 500, placeholder: "Venue's website or menu link (best)", autocomplete: "off" })) +
+      addField('Email <span class="add-hint">optional, so we can tell you when it\'s live</span>', addInput("email", d.email, { type: "email", max: 254, autocomplete: "email" })) +
+      addHoneypot() +
+      addError() +
+      '<button type="submit" class="btn btn-primary"' + (busy ? " disabled" : "") + ">" + (busy ? "Sending…" : "Send tip") + "</button></form>";
+  }
+
+  function addVenueHtml() {
+    var v = state.add.venue;
+    var roles = ["Owner", "Manager", "Staff"].map(function (label) {
+      return addChip("role", label, label, v.role === label, "single");
+    }).join("");
+    var bring = ["Wine", "Beer", "Spirits"].map(function (label) {
+      return addChip("bring", label, label, v.bring.indexOf(label) >= 0, "multi");
+    }).join("");
+    var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(function (day) {
+      return addChip("byoDays", day, day, v.byoDays.indexOf(day) >= 0, "multi");
+    }).join("");
+    var times = ["Lunch", "Dinner", "All service"].map(function (label) {
+      return addChip("byoTimes", label, label, v.byoTimes === label, "single");
+    }).join("");
+    var units = [["free", "Free"], ["per bottle", "Per bottle"], ["per person", "Per person"]].map(function (pair) {
+      return addChip("corkageUnit", pair[0], pair[1], v.corkageUnit === pair[0], "single");
+    }).join("");
+    var unitSelect = '<select name="corkageUnit"><option value="">Select</option>' +
+      '<option value="per bottle"' + (v.corkageUnit === "per bottle" ? " selected" : "") + ">per bottle</option>" +
+      '<option value="per person"' + (v.corkageUnit === "per person" ? " selected" : "") + ">per person</option></select>";
+    var busy = state.add.busy;
+    return '<form id="addForm">' +
+      addField("Venue*", addInput("venueName", v.venueName, { required: true, max: 120, autocomplete: "organization" })) +
+      '<div id="addMatchSlot">' + addMatchHtml() + "</div>" +
+      '<fieldset class="add-chips"><legend>Your name and role*</legend>' +
+      addInput("contactName", v.contactName, { required: true, max: 80, autocomplete: "name" }) +
+      '<div class="chips">' + roles + "</div></fieldset>" +
+      addField("Work email*", addInput("email", v.email, { type: "email", required: true, max: 254, autocomplete: "email" })) +
+      "<p class=\"add-hint\">An email at your venue's own domain gets verified fastest. Gmail etc. works, but takes longer.</p>" +
+      addField("Phone", addInput("phone", v.phone, { type: "tel", max: 40, autocomplete: "tel" })) +
+      addField("Website or official social page*", addInput("website", v.website, { required: true, max: 500, autocomplete: "url", placeholder: "https://" })) +
+      addChips("What can guests bring?", bring) +
+      '<fieldset class="add-chips"><legend>Corkage</legend>' +
+      addField("Amount ($)", addInput("corkageAmount", v.corkageAmount, { inputmode: "decimal", max: 20, autocomplete: "off", placeholder: "e.g. 35" })) +
+      addField("Unit", unitSelect) +
+      '<div class="chips">' + units + "</div></fieldset>" +
+      addChips("BYO days", days) +
+      addChips("BYO times", times) +
+      '<label class="field"><span>Anything else?</span><textarea name="notes" maxlength="500" rows="3" placeholder="e.g. wine only, max 1 bottle per 2 people">' + esc(v.notes || "") + "</textarea></label>" +
+      '<label class="add-check"><input type="checkbox" name="removalRequest"' + (v.removalRequest ? " checked" : "") + "> We're no longer BYO</label>" +
+      '<p class="add-hint">This sends a removal request. It does not take the venue off BYOspot by itself.</p>' +
+      '<label class="add-check"><input type="checkbox" name="confirm" required' + (v.confirm ? " checked" : "") + "> I confirm these details are accurate and I'm allowed to share them for this venue.</label>" +
+      '<div class="add-note"><p><strong>How verification works</strong></p><ol class="add-steps">' +
+      "<li>We check your email domain or social page matches the venue.</li>" +
+      "<li>We contact you to confirm.</li>" +
+      "<li>Your details go live marked 'Confirmed by venue' with today's date; we'll ask you to re-confirm every 6 months.</li>" +
+      "</ol></div>" +
+      addHoneypot() +
+      addError() +
+      '<button type="submit" class="btn btn-primary"' + (busy ? " disabled" : "") + ">" + (busy ? "Sending…" : "Send for verification") + "</button></form>";
+  }
+
+  function addHeartHtml() {
+    return '<div class="add-heart" aria-hidden="true"><svg viewBox="0 0 24 24" width="36" height="36"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z" fill="#FF795A" stroke="#FF795A" stroke-width="1.2" stroke-linejoin="round"/></svg></div>';
+  }
+
+  function addThanksHtml() {
+    var add = state.add;
+    if (add.role === "venue") {
+      var view = "";
+      if (add.sentVenueSlug && model.byId[add.sentVenueSlug]) {
+        view = '<a class="btn btn-secondary" href="/venue/' + esc(add.sentVenueSlug) + '" data-action="add-open">View ' + esc(add.sentVenueName || "this venue") + " on BYOspot</a>";
+      }
+      return addHeartHtml() +
+        "<h1 id=\"addTitle\" tabindex=\"-1\">Thanks, we've got it</h1>" +
+        '<div class="add-note"><p><strong>How verification works</strong></p><ol class="add-steps">' +
+        "<li>We check your email domain or social page matches the venue.</li>" +
+        "<li>We contact you to confirm.</li>" +
+        "<li>Your details go live marked 'Confirmed by venue' with today's date; we'll ask you to re-confirm every 6 months.</li>" +
+        "</ol></div>" +
+        "<p>We'll contact you at " + esc(add.sentEmail) + " to confirm it's you, usually within 2 business days.</p>" +
+        '<div class="stack"><button type="button" class="btn btn-primary" data-action="add-done">Done</button>' + view + "</div>";
+    }
+    var emailLine = add.sentEmail ? "<p>We'll email you when it's live</p>" : "";
+    return addHeartHtml() +
+      '<h1 id="addTitle" tabindex="-1">Thanks for the tip!</h1>' +
+      "<p>We'll check " + esc(add.sentName) + ", " + esc(add.sentSuburb) + " against the venue's own website, menu or socials.</p>" +
+      emailLine +
+      '<ol class="add-steps">' +
+      "<li>We look for BYO on their own site, menu or official socials</li>" +
+      "<li>If the venue confirms it, it goes live on BYOspot</li>" +
+      "<li>If we can't confirm it, it stays off. We'd rather miss a spot than list a wrong one.</li>" +
+      "</ol>" +
+      '<div class="stack"><button type="button" class="btn btn-primary" data-action="near">Find BYO Near Me</button>' +
+      '<button type="button" class="btn btn-secondary" data-action="add-another">Add another spot</button></div>';
+  }
+
+  function addHtml() {
+    if (!state.add) state.add = blankAdd();
+    var body;
+    if (state.add.thanks) body = addThanksHtml();
+    else if (state.add.step === 1 || !state.add.role) body = addStep1Html();
+    else {
+      body = '<p class="add-kicker">Add a BYO restaurant</p><p class="add-step">Step 2 of 2</p>' + addSeg() +
+        (state.add.role === "venue" ? addVenueHtml() : addDinerHtml());
+    }
+    return header(false) + '<main id="main" class="screen screen-add">' + body + footerHtml() + "</main>";
+  }
+
+  function toggleAddChip(field, value, mode) {
+    if (!state.add || !field || !value) return;
+    captureAddFields();
+    var bag = state.add.role === "venue" ? state.add.venue : state.add.diner;
+    if (mode === "multi") {
+      var arr = Array.isArray(bag[field]) ? bag[field].slice() : [];
+      var at = arr.indexOf(value);
+      if (at >= 0) arr.splice(at, 1);
+      else arr.push(value);
+      bag[field] = arr;
+    } else if (bag[field] === value) bag[field] = "";
+    else bag[field] = value;
+    if (state.add.role === "venue" && field === "corkageUnit" && value === "free") bag.corkageAmount = "";
+    state.add.error = "";
+    state.keepScroll = true;
+    render();
+  }
+
+  function switchAddRole(role) {
+    captureAddFields();
+    state.add.role = role;
+    state.add.step = 2;
+    state.add.error = "";
+    state.add.thanks = false;
+    var path = addPathForState();
+    state.addKey = addRouteKey(new URLSearchParams(path.indexOf("?") >= 0 ? path.slice(path.indexOf("?") + 1) : ""));
+    history.replaceState({ app: 1, depth: depth }, "", path);
+    state.keepScroll = true;
+    render();
+  }
+
+  function continueAdd(role) {
+    captureAddFields();
+    state.add.role = role;
+    state.add.step = 2;
+    state.add.error = "";
+    state.add.thanks = false;
+    state.add.focusHeading = true;
+    goAdd(addPathForState());
+  }
+
+  function dinerPayload(company) {
+    var S = window.BYOSubmit;
+    var d = state.add.diner;
+    var slug = S ? S.resolveVenueSlug({ name: d.restaurantName, suburb: d.suburb, venueSlug: "" }, venueCatalog()) : "";
+    return {
+      type: "diner",
+      restaurantName: d.restaurantName,
+      suburb: d.suburb,
+      bring: d.bring || null,
+      byoDays: d.byoDays || null,
+      corkageKind: d.corkageKind || null,
+      corkageAmount: d.corkageKind === "amount" ? d.corkageAmount : null,
+      source: d.source,
+      email: d.email,
+      venueSlug: slug || null,
+      company: company || ""
+    };
+  }
+
+  function venuePayload(company) {
+    syncVenueSlug();
+    var v = state.add.venue;
+    return {
+      type: "venue",
+      venueName: v.venueName,
+      venueSlug: v.venueSlug || null,
+      contactName: v.contactName,
+      role: v.role || null,
+      email: v.email,
+      phone: v.phone,
+      website: v.website,
+      bring: v.bring || [],
+      corkageAmount: v.corkageUnit === "free" ? null : v.corkageAmount,
+      corkageUnit: v.corkageUnit || null,
+      byoDays: v.byoDays || [],
+      byoTimes: v.byoTimes || null,
+      notes: v.notes,
+      removalRequest: !!v.removalRequest,
+      accuracyConfirmed: !!v.confirm,
+      company: company || ""
+    };
+  }
+
+  function sendAdd(form) {
+    if (!state.add || state.add.busy) return;
+    captureAddFields();
+    var company = "";
+    try { company = String(new FormData(form).get("company") || ""); } catch (e) { company = ""; }
+    var payload = state.add.role === "venue" ? venuePayload(company) : dinerPayload(company);
+    var S = window.BYOSubmit;
+    if (S) {
+      var checked = S.validateSubmission(payload);
+      if (!checked.ok) {
+        state.add.error = checked.error || "Check the form and try again.";
+        render();
+        return;
+      }
+      if (!checked.drop) payload = Object.assign({}, checked.submission);
+      if (company) payload.company = company;
+    }
+    var sentEmail = payload.email || "";
+    var sentName = payload.type === "diner" ? payload.restaurantName : payload.venueName;
+    var sentSuburb = payload.type === "diner" ? payload.suburb : "";
+    var sentSlug = payload.venueSlug || "";
+    state.add.busy = true;
+    state.add.error = "";
+    render();
+    fetch("/.netlify/functions/submit", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      return res.json().then(function (body) {
+        return { ok: res.ok, body: body || {} };
+      }, function () { return { ok: res.ok, body: {} }; });
+    }).then(function (r) {
+      if (!state.add) return;
+      state.add.busy = false;
+      if (r.ok) {
+        state.add.thanks = true;
+        state.add.sentEmail = sentEmail;
+        state.add.sentName = sentName;
+        state.add.sentSuburb = sentSuburb;
+        state.add.sentVenueSlug = sentSlug;
+        var place = sentSlug && model.byId[sentSlug];
+        state.add.sentVenueName = place ? place.name : sentName;
+        state.add.error = "";
+        state.add.focusHeading = true;
+      } else {
+        state.add.error = (r.body && r.body.error) || "Couldn't send that. Please try again.";
+      }
+      render();
+    }).catch(function () {
+      if (!state.add) return;
+      state.add.busy = false;
+      state.add.error = "Couldn't send that. Please try again.";
+      render();
+    });
+  }
+
   function screenHtml() {
     if (state.screen === "home") return homeHtml();
     if (state.screen === "location") return locationHtml();
@@ -750,6 +1282,7 @@
     if (state.screen === "legacy") return legacyHtml();
     if (state.screen === "saved") return savedHtml();
     if (state.screen === "privacy") return privacyHtml();
+    if (state.screen === "add") return addHtml();
     return homeHtml();
   }
 
@@ -761,6 +1294,7 @@
     document.body.classList.toggle("screen-home", state.screen === "home");
     document.body.classList.toggle("screen-location", state.screen === "location");
     document.body.classList.toggle("screen-privacy", state.screen === "privacy");
+    document.body.classList.toggle("screen-add", state.screen === "add");
     document.body.classList.toggle("screen-brand", brandScreen());
     $("app").innerHTML = screenHtml() + detailSheet() + reportSheet() + filtersSheet();
     bindPlaceRatings();
@@ -773,6 +1307,7 @@
     else if (state.screen === "vote") title = "Where should we eat? · BYOSpot";
     else if (state.screen === "saved") title = "Saved · BYOSpot";
     else if (state.screen === "privacy") title = "Privacy · BYOSpot";
+    else if (state.screen === "add") title = "Add a BYO restaurant · BYOSpot";
     document.title = title;
     if (keep) window.scrollTo(0, y);
     if (state.reportOpen) {
@@ -783,6 +1318,12 @@
       else if (reportAlert) reportAlert.focus();
       else if (state.reportFocus && reportTitle) reportTitle.focus();
       state.reportFocus = false;
+    } else if (state.screen === "add" && state.add) {
+      var addAlert = document.querySelector(".add-error");
+      var addTitle = document.getElementById("addTitle");
+      if (addAlert) addAlert.focus();
+      else if (state.add.focusHeading && addTitle) addTitle.focus();
+      state.add.focusHeading = false;
     } else if (state.detailId) {
       var back = document.querySelector(".venue-back");
       if (back && document.activeElement === document.body) back.focus();
@@ -843,6 +1384,11 @@
       if (!state.poll) loadPoll(route.token, route.screen);
     }
     if (route.screen === "legacy") state.legacyIds = route.ids;
+    if (route.screen === "add") openAddRoute(route.params);
+    else if (state.addKey) {
+      state.addKey = "";
+      state.add = blankAdd();
+    }
     if (route.screen === "venue") {
       var requestedId = route.id;
       var canonicalId = L.resolveVenueId(requestedId);
@@ -882,6 +1428,7 @@
     if (path === "/select") return { screen: "select", params: params };
     if (path === "/results") return { screen: "results", params: params };
     if (path === "/saved") return { screen: "saved", params: params };
+    if (path === "/add") return { screen: "add", params: params };
     var venue = path.match(/^\/venue\/([A-Za-z0-9_-]+)$/);
     if (venue) return { screen: "venue", id: venue[1], params: params };
     return { screen: "home", params: params };
@@ -968,6 +1515,7 @@
       state.geoBusy = false;
       if (err && err.code === 1) state.geoError = "Location is off for this site, so we can’t sort by distance. Choose a location instead.";
       else state.geoError = "We couldn’t find your location just now. Choose a location instead.";
+      if (state.screen === "add") { go("/", { replace: true }); return; }
       if (state.screen !== "home" && state.screen !== "results") state.screen = "home";
       render();
     }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 120000 });
@@ -1067,6 +1615,39 @@
     if (!el) return;
     var action = el.getAttribute("data-action");
     if (el.tagName === "A" && el.getAttribute("href") === "/" && !action) action = "home";
+    if (action === "add-open") {
+      var addHref = el.getAttribute("href");
+      if (addHref) { e.preventDefault(); go(addHref); }
+      return;
+    }
+    if (action === "add-role") {
+      var nextRole = el.getAttribute("data-role");
+      if (nextRole === "diner" || nextRole === "venue") switchAddRole(nextRole);
+      return;
+    }
+    if (action === "add-chip") {
+      toggleAddChip(el.getAttribute("data-field"), el.getAttribute("data-value"), el.getAttribute("data-mode") || "single");
+      return;
+    }
+    if (action === "add-pick") {
+      captureAddFields();
+      var pickedId = el.getAttribute("data-id");
+      var pickedPlace = pickedId && model.byId[pickedId];
+      if (pickedPlace && state.add && state.add.role === "venue") {
+        state.add.venue.venueName = pickedPlace.name;
+        state.add.venue.venueSlug = pickedPlace.id;
+        state.keepScroll = true;
+        render();
+      }
+      return;
+    }
+    if (action === "add-done") { go("/"); return; }
+    if (action === "add-another") {
+      state.add = blankAdd();
+      state.addKey = "||";
+      go("/add");
+      return;
+    }
     if (action === "home") { e.preventDefault(); go("/"); return; }
     if (action === "back") {
       if (state.screen === "location" && state.locQuery) { state.locQuery = ""; render(); return; }
@@ -1381,6 +1962,23 @@
     });
   }
   document.addEventListener("submit", function (e) {
+    if (e.target.id === "addWhoForm") {
+      e.preventDefault();
+      var pickedWho = e.target.querySelector('input[name="who"]:checked');
+      if (!state.add) return;
+      if (!pickedWho) {
+        state.add.error = "Choose who you are.";
+        render();
+        return;
+      }
+      continueAdd(pickedWho.value);
+      return;
+    }
+    if (e.target.id === "addForm") {
+      e.preventDefault();
+      sendAdd(e.target);
+      return;
+    }
     if (e.target.id === "reportForm") {
       e.preventDefault();
       sendReport(e.target);
@@ -1389,6 +1987,26 @@
     if (e.target.id !== "locForm") return;
     e.preventDefault();
     commitLocationQuery();
+  });
+  document.addEventListener("input", function (e) {
+    if (state.screen !== "add" || !state.add || state.add.thanks) return;
+    var field = e.target;
+    if (!field || !field.name) return;
+    var bag = state.add.role === "venue" ? state.add.venue : state.add.diner;
+    if (field.type === "checkbox") {
+      if (Object.prototype.hasOwnProperty.call(bag, field.name)) bag[field.name] = !!field.checked;
+      return;
+    }
+    if (Object.prototype.hasOwnProperty.call(bag, field.name)) bag[field.name] = field.value;
+    if (field.name === "venueName") syncVenueSlug();
+    if (field.name === "restaurantName" || field.name === "venueName") paintMatches();
+  });
+  document.addEventListener("change", function (e) {
+    if (state.screen !== "add" || !state.add || state.add.thanks) return;
+    if (!e.target || e.target.name !== "corkageUnit") return;
+    captureAddFields();
+    state.keepScroll = true;
+    render();
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && state.reportOpen) {
