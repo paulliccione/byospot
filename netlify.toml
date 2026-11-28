@@ -9,6 +9,9 @@
 [functions]
   node_bundler = "esbuild"
 
+[functions.submit]
+  included_files = ["data.js"]
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
